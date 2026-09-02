@@ -1,11 +1,11 @@
-import Version from '../features/changelog/Version';
+import Changelog from '../features/changelog/Changelog';
 import { RouteComponent } from '../routes/Route';
 import PageTemplate from '../shared/components/layout/PageTemplate';
 
-const VersionPage: RouteComponent = () => (
+const ChangelogPage: RouteComponent = () => (
     <PageTemplate id={'version'} keyPrefix={'pages.version'}>
-        <Version />
+        <Changelog />
     </PageTemplate>
 );
 
-export default VersionPage;
+export default ChangelogPage;

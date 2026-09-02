@@ -7,7 +7,7 @@ const Forbidden = lazy(() => import('../pages/./ForbiddenPage'));
 const IntegrationForm = lazy(() => import('../pages/IntegrationFormPage'));
 const Configuration = lazy(() => import('../pages/ConfigurationPage'));
 const UserGuide = lazy(() => import('../pages/UserGuidePage'));
-const Version = lazy(() => import('../pages/VersionPage'));
+const Changelog = lazy(() => import('../pages/./ChangelogPage'));
 const ValueConverting = lazy(() => import('../pages/ValueConvertingPage'));
 const Instances = lazy(() => import('../pages/InstancesPage'));
 const Integrations = lazy(() => import('../pages/IntegrationsPage'));
@@ -81,7 +81,7 @@ const routes: IRoute[] = [
     {
         path: '/changelog',
         name: 'version',
-        component: Version,
+        component: Changelog,
         exact: true,
         inNavigationMenu: true,
     },

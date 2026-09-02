@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
+        heading: 'September 2026',
+        updates: [
+            {
+                title: 'Sortering av verdikonverteringar:',
+                text: 'Tabellen for verdikonvertering kan no sorterast ved å klikka på kolonneoverskrifter (ID, visningsnamn, frå-type, til-type og kjeldeapplikasjon).',
+            },
+        ],
+    },
+    {
         heading: 'August 2026',
         updates: [
             {

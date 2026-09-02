@@ -7,6 +7,15 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: 'September 2026',
+        updates: [
+            {
+                title: 'Sortering av verdikonverteringer:',
+                text: 'Tabellen for verdikonvertering kan nå sorteres ved å klikke på kolonneoverskrifter (ID, visningsnavn, fra-type, til-type og kildeapplikasjon).',
+            },
+        ],
+    },
+    {
         heading: 'August 2026',
         updates: [
             {
