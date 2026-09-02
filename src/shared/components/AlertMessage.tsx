@@ -22,7 +22,7 @@ const AlertMessage: React.FunctionComponent<SnackbarProps> = ({
     title,
     content,
 }: SnackbarProps) => {
-    const timeoutRef = useRef<NodeJS.Timeout | string | number | undefined>();
+    const timeoutRef = useRef<NodeJS.Timeout | string | number | undefined>(undefined);
     useEffect(() => {
         if (open && status !== 'error') {
             timeoutRef.current = setTimeout(() => {

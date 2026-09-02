@@ -1,7 +1,8 @@
 import { Box } from '@navikt/ds-react';
+import { ReactElement } from 'react';
 
 type FormWrapperProps = {
-    children: JSX.Element;
+    children: ReactElement;
     id?: string;
 };
 

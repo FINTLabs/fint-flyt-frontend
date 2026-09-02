@@ -68,12 +68,11 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
 
 
     return (
-        <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey}>
+        <div id={"dnd-value-component-" + absoluteKey} key={absoluteKey} ref={dropRef as unknown as React.Ref<HTMLDivElement>}>
             <Autocomplete
                 multiple
                 disabled={props.disabled}
                 value={values}
-                ref={dropRef}
                 id="tags-filled"
                 options={[]}
                 isOptionEqualToValue={() => false} // to allow multiple of same value, i.e. spaces
