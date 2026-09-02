@@ -1,4 +1,8 @@
-export function formatTimestampToReadableText(timestamp?: string, locale: string = 'no-NO', showTime: boolean = true): string {
+export function formatTimestampToReadableText(
+    timestamp?: string,
+    locale: string = 'no-NO',
+    showTime: boolean = true
+): string {
     if (!timestamp) return '';
 
     const date = new Date(timestamp);
