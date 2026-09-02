@@ -23,17 +23,17 @@ describe('Testing value converting page', () => {
     it('should expand panel and show correct content', () => {
         prep();
         cy.get(
-            '#table-row-1 > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
+            '#table-row-0 > .navds-table__toggle-expand-cell > .navds-table__toggle-expand-button'
         ).click();
-        cy.get('#value-converting-panel-1 h1').should('have.text', 'Konvertering(er)');
-        cy.get('#value-converting-panel-1 table tbody tr').should('have.length', 3);
+        cy.get('#value-converting-panel-0 h1').should('have.text', 'Konvertering(er)');
+        cy.get('#value-converting-panel-0 table tbody tr').should('have.length', 3);
     });
 
     it('should navigate to page 2 on more than 8 value convertings', () => {
         prep();
-        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'test t2t');
+        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'dokumenttype til dokumenttype v1');
         cy.get(':nth-child(3) > .navds-pagination__item').click();
-        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'test9 next page');
+        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'journalposttype til dokumenttype v1');
     });
 
     it('should open and fill new converting form', () => {
@@ -87,7 +87,8 @@ describe('Testing value converting page', () => {
 
     it('should open and fill converting form based on existing', () => {
         prep();
-        cy.get('#table-row-0 #value-convertings-action-toggle > button').click();
+        cy.get('#table-row-0')
+        cy.get('#table-row-0 #value-converting-1-action-toggle > button').click();
         cy.get('[data-testid="action-menu-content"]')
             .contains('Lag ny basert på denne')
             .click();
@@ -108,7 +109,7 @@ describe('Testing value converting page', () => {
                     test: 'kodeverk/format/systemid/M2V',
                     test2: 'html',
                 },
-                displayName: 'test t2t ny versjon',
+                displayName: 'dokumenttype til dokumenttype v1 ny versjon',
                 id: 1,
                 fromApplicationId: 2,
                 fromTypeId: 'text',
