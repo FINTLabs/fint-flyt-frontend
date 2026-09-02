@@ -548,11 +548,16 @@
             "uniqueField": "Navn må være unikt",
             "column": {
                 "id": "Id",
+                "noValueConvertings": "Ingen verdikonverteringer funnet",
                 "displayName": "Navn",
                 "toType": "Til type",
                 "fromType": "Fra type",
                 "toApplication": "Til",
-                "fromApplication": "Fra"
+                "fromApplication": "Fra",
+                "createdAt": "Opprettet",
+                "modifiedAt": "Sist endret",
+                "createdBy": "Opprettet av",
+                "modifiedBy": "Sist endret av"
             },
             "help": {
                 "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",

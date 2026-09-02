@@ -521,11 +521,16 @@
             "uniqueField": "Name must be unique",
             "column": {
                 "id": "Id",
+                "noValueConvertings": "No value conversions found",
                 "displayName": "Name",
                 "toType": "To type",
                 "fromType": "From type",
                 "toApplication": "To",
-                "fromApplication": "From"
+                "fromApplication": "From",
+                "createdAt": "Created",
+                "modifiedAt": "Modified",
+                "createdBy": "Created by",
+                "modifiedBy": "Modified by"
             },
             "help": {
                 "toggle": "We are working on more ways to use value conversions in Flyt. For now it is as before and only custom value conversions are used",

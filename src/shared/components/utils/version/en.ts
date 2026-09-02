@@ -9,7 +9,11 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         updates: [
             {
                 title: 'Sorting of value conversions:',
-                text: 'The value converting table now supports sorting by clicking column headers (ID, display name, from type, to type, and source application).',
+                text: 'The value converting table now supports sorting by clicking column headers (ID, display name, from type, to type, source application, created, and last modified).',
+            },
+            {
+                title: 'Created and last modified for value conversions:',
+                text: 'The value converting table now shows when each value conversion was created and last modified.',
             },
         ],
     },

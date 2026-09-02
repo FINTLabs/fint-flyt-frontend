@@ -11,7 +11,11 @@ export const VERSION_DATA: VersionEntry[] = [
         updates: [
             {
                 title: 'Sortering av verdikonverteringer:',
-                text: 'Tabellen for verdikonvertering kan nå sorteres ved å klikke på kolonneoverskrifter (ID, visningsnavn, fra-type, til-type og kildeapplikasjon).',
+                text: 'Tabellen for verdikonvertering kan nå sorteres ved å klikke på kolonneoverskrifter (ID, visningsnavn, fra-type, til-type, kildeapplikasjon, opprettet og sist endret).',
+            },
+            {
+                title: 'Opprettet og sist endret for verdikonverteringer:',
+                text: 'Tabellen for verdikonvertering viser nå når hver verdikonvertering ble opprettet og sist endret.',
             },
         ],
     },

@@ -6,4 +6,8 @@ export interface IValueConverting {
     toApplicationId: string,
     toTypeId: string,
     convertingMap: Record<string, string>
+    createdAt: string | null
+    lastModifiedAt: string | null
+    lastModifiedBy: string | null
+    createdBy: string | null
 }
