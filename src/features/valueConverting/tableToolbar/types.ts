@@ -1,10 +1,10 @@
 // Legg til de utkommenterte feltene når backend støtter det:
 export const sortOptions = [
     "id",
-    // "displayName",
+    "displayName",
     "fromTypeId",
     "toTypeId",
-    "sourceApplicationIds",
+    // "sourceApplicationIds",
     "fromApplicationId",
     "toApplicationId",
     "createdAt",
@@ -13,11 +13,20 @@ export const sortOptions = [
     // "modifiedBy",
 ];
 
+export type SortState = {
+    orderBy: string | undefined;
+    direction: 'ASC' | 'DESC' | undefined;
+};
+
 export type ValueConvertingFilters = {
+    displayName: string | null;
     sourceApplicationIds: string[];
+    toApplicationId: string | null;
+    toTypeId: string | null;
+    fromTypeId: string | null;
     createdFrom: Date | null;
     createdTo: Date | null;
     modifiedFrom: Date | null;
     modifiedTo: Date | null;
-    sort: string | null;
+    sort: SortState;
 };

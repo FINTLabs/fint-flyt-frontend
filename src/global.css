@@ -83,6 +83,10 @@ iframe#webpack-dev-server-client-overlay {
     --ac-help-text-button-active-color: var(--novari-theme-purple-dark) !important;
 }
 
+.subtle-text {
+    color: var(--a-text-subtle);
+}
+
 .dashboard-card-link {
     background-color: rgba(127, 120, 232, 0.1);
     width: 100%;
@@ -193,6 +197,10 @@ iframe#webpack-dev-server-client-overlay {
     }
 
     .filter-menu-filters {
+        --ac-chip-removable-action-bg: var(--novari-theme-purple-dark);
+        --a-border-focus: var(--novari-theme-purple-dark);
+        --a-surface-action-subtle-hover: var(--novari-theme-purple-subtle);
+        --a-surface-selected: var(--novari-theme-purple-subtle);
         min-width: 0;
 
         .navds-form-field {

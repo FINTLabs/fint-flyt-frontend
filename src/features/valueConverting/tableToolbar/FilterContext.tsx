@@ -1,13 +1,21 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
-import { ValueConvertingFilters } from './types';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+
+import { SortState, ValueConvertingFilters } from './types';
 
 const EMPTY_FILTERS: ValueConvertingFilters = {
+    displayName: null,
     sourceApplicationIds: [],
+    toApplicationId: null,
+    toTypeId: null,
+    fromTypeId: null,
     createdFrom: null,
     createdTo: null,
     modifiedFrom: null,
     modifiedTo: null,
-    sort: null,
+    sort: {
+        orderBy: undefined,
+        direction: undefined
+    }
 };
 
 type FilterContextProps = {
@@ -22,7 +30,7 @@ type FilterContextProps = {
     numberOfActiveFilters: number;
     refreshKey: number;
     isSaved: boolean;
-    updateSort: (sort: string) => void;
+    updateSort: (sort: SortState) => void;
 };
 
 const FilterContext = createContext<FilterContextProps | null>(null);
@@ -39,7 +47,11 @@ export const useValueConvertingFilters = () => {
 
 function countActiveFilters(filters: ValueConvertingFilters): number {
     let count = 0;
+    if (filters.displayName) count += 1;
     if (filters.sourceApplicationIds.length > 0) count += 1;
+    if (filters.toApplicationId) count += 1;
+    if (filters.toTypeId) count += 1;
+    if (filters.fromTypeId) count += 1;
     if (filters.createdFrom || filters.createdTo) count += 1;
     if (filters.modifiedFrom || filters.modifiedTo) count += 1;
     return count;
@@ -49,6 +61,10 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
     const [filters, setFilters] = useState<ValueConvertingFilters>({ ...EMPTY_FILTERS });
     const [refreshKey, setRefreshKey] = useState(0);
     const [isSaved, setIsSaved] = useState(true);
+
+    useEffect(() => {
+        console.log('filters', filters);
+    }, [filters]);
 
     const numberOfActiveFilters = countActiveFilters(filters);
 
@@ -60,7 +76,7 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
         setIsSaved(false);
     };
 
-    const updateSort = (sort: string) => {
+    const updateSort = (sort: SortState) => {
         setFilters((prev) => ({ ...prev, sort }));
         setRefreshKey((prev) => prev + 1);
         setIsSaved(true);

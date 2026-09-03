@@ -504,11 +504,20 @@
             },
             "toolbar": {
                 "filterMenuButtonText": "Filters",
-                "sourceApplication": "Source application",
                 "sourceApplicationCard": {
-                    "title": "Source application"
+                    "title": "Application",
+                    "sourceApplication": "Source application",
+                    "toApplication": "Destination",
+                    "toApplicationPlaceholder": "Select destination"
                 },
-                "timeCard": {
+                "typeCard": {
+                    "title": "Type",
+                    "fromType": "From type",
+                    "toType": "To type",
+                    "fromTypePlaceholder": "Select from type",
+                    "toTypePlaceholder": "Select to type"
+                },
+                    "timeCard": {
                     "title": "Time period",
                     "tabs": {
                         "created": "Created",
@@ -519,6 +528,10 @@
                     "toDate": "To date",
                     "toTime": "To time"
                 },
+                "nameCard": {
+                    "title": "Name",
+                    "name": "Name"
+                },
                 "activeFilters": {
                     "noFilters": "No active filters",
                     "removeAll": "Remove all",
@@ -527,10 +540,16 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: from {{from}}",
                     "to": "{{prefix}}: to {{to}}",
-                    "sortedBy": "Sorted by: {{field}}"
+                    "sortedBy": "Sorted by: {{field}}",
+                    "fromType": "From type: {{type}}",
+                    "toType": "To type: {{type}}",
+                    "displayName": "Name: {{name}}"
                 },
                 "sort": {
                     "sortMenuButtonText": "Sort",
+                    "sortDirectionMenuButtonText": "Sort direction",
+                    "sortDirectionMenuButtonTextASC": "Ascending",
+                    "sortDirectionMenuButtonTextDESC": "Descending",
                     "options": {
                         "id": "Id",
                         "displayName": "Name",
@@ -571,6 +590,7 @@
                 "displayName": "Name",
                 "toType": "To type",
                 "fromType": "From type",
+                "type": "Type",
                 "toApplication": "To",
                 "fromApplication": "From",
                 "createdAt": "Created",

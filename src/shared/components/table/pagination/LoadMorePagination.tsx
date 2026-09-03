@@ -3,7 +3,7 @@ import { FunctionComponent, useCallback, useEffect, useMemo, useState } from 're
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
 
-import { IPaginationSelect } from '../../types/TableTypes';
+import { IPaginationSelect } from '../../../types/TableTypes';
 import { CustomSelect } from './CustomSelect';
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50, 100, 1000] as const;

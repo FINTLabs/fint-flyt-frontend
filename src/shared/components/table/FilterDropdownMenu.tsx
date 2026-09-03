@@ -57,44 +57,48 @@ export function FilterDropdownMenu({
                 </Button>
             </ActionMenu.Trigger>
             <ActionMenu.Content className="filter-toolbar-menu-content" data-testid="filters-form">
-                <VStack>
-                    <HGrid columns={2}>
-                        <VStack className="filter-menu-options" paddingBlock="0 4">
-                            {sections.map((section) => (
-                                <FilterMenuButton
-                                    key={section.id}
-                                    id={section.id}
-                                    label={section.label}
-                                    onOpen={changeActiveItem}
-                                    activeItem={activeItem}
-                                />
-                            ))}
-                        </VStack>
-                        <VStack padding="4" className="filter-menu-filters">
-                            {activeSection?.content}
-                        </VStack>
-                    </HGrid>
-                    <HStack className="filter-menu-actions" gap="4" justify="end" padding="2">
-                        <Button
-                            variant="secondary"
-                            type="button"
-                            size="small"
-                            onClick={onClear}
-                        >
-                            {clearLabel}
-                        </Button>
-                        <Button
-                            size="small"
-                            data-testid="filters-submit"
-                            onClick={() => {
-                                onSave();
-                                setIsOpen(false);
-                            }}
-                        >
-                            {searchLabel}
-                        </Button>
-                    </HStack>
-                </VStack>
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault();
+                        onSave();
+                        setIsOpen(false);
+                    }}
+                >
+                    <VStack>
+                        <HGrid columns={2}>
+                            <VStack className="filter-menu-options" paddingBlock="0 4">
+                                {sections.map((section) => (
+                                    <FilterMenuButton
+                                        key={section.id}
+                                        id={section.id}
+                                        label={section.label}
+                                        onOpen={changeActiveItem}
+                                        activeItem={activeItem}
+                                    />
+                                ))}
+                            </VStack>
+                            <VStack padding="4" className="filter-menu-filters">
+                                {activeSection?.content}
+                            </VStack>
+                        </HGrid>
+                        <HStack className="filter-menu-actions" gap="4" justify="end" padding="2">
+                            <Button
+                                variant="secondary"
+                                type="button"
+                                size="small"
+                                onClick={() => {
+                                    onClear();
+                                    setIsOpen(false);
+                                }}
+                            >
+                                {clearLabel}
+                            </Button>
+                            <Button size="small" data-testid="filters-submit" type="submit">
+                                {searchLabel}
+                            </Button>
+                        </HStack>
+                    </VStack>
+                </form>
             </ActionMenu.Content>
         </ActionMenu>
     );
@@ -110,6 +114,7 @@ type FilterMenuButtonProps = {
 function FilterMenuButton({ id, label, onOpen, activeItem }: FilterMenuButtonProps) {
     return (
         <Button
+            type="button"
             variant="tertiary-neutral"
             iconPosition="right"
             onClick={() => onOpen(id)}

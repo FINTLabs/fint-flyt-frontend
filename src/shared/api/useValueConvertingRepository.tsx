@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { IValueConverting } from '../../features/valueConverting/types/ValueConverting';
-import { Page } from '../components/types/TableTypes';
+import { Page } from '../types/TableTypes';
 import { ApiAdapterContext } from './ApiAdapterContext';
 
 const API_URL = import.meta.env.VITE_API_VALUE_CONV || '';
@@ -13,8 +13,8 @@ export type GetValueConvertingsParams = {
     sortDirection?: 'ASC' | 'DESC';
     excludeConvertingMap?: boolean;
     sourceApplicationIds?: number[];
-    fromTypeId?: number;
-    toTypeId?: number;
+    fromTypeId?: string;
+    toTypeId?: string;
     toApplicationId?: number;
     displayName?: string;
     createdBy?: string;
@@ -54,8 +54,8 @@ export default function useValueConvertingRepository() {
                 sortDirection,
                 excludeConvertingMap,
                 sourceApplicationIds: sourceApplicationIds?.join(','),
-                fromTypeId: fromTypeId?.toString(),
-                toTypeId: toTypeId?.toString(),
+                fromTypeId: fromTypeId,
+                toTypeId: toTypeId,
                 toApplicationId: toApplicationId?.toString(),
                 displayName,
                 createdBy,

@@ -7,10 +7,11 @@ import {
 } from '../../../shared/components/table/ActiveFilters';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
-import { ISelect } from '../../configuration/types/Select';
+import { ISelect } from '../../../shared/types/Select';
 import { useValueConvertingFilters } from './FilterContext';
 import { clearTimeRange } from './TimeFilter';
 import { ValueConvertingFilters } from './types';
+import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
 
 export default function ActiveFilters() {
     const { t } = useTranslation('translations', {
@@ -52,6 +53,30 @@ export default function ActiveFilters() {
                 });
             });
 
+        if (savedFilters.toApplicationId) {
+            next.push({
+                key: 'toApplication',
+                label: getDestinationDisplayName(savedFilters.toApplicationId),
+                onRemove: () => updateFiltersAndSave({ ...savedFilters, toApplicationId: null }),
+            });
+        }
+
+        if (savedFilters.toTypeId) {
+            next.push({
+                key: 'toTypeId',
+                label: t('activeFilters.toType', { type: savedFilters.toTypeId }),
+                onRemove: () => updateFiltersAndSave({ ...savedFilters, toTypeId: null }),
+            });
+        }
+
+        if (savedFilters.fromTypeId) {
+            next.push({
+                key: 'fromTypeId',
+                label: t('activeFilters.fromType', { type: savedFilters.fromTypeId }),
+                onRemove: () => updateFiltersAndSave({ ...savedFilters, fromTypeId: null }),
+            });
+        }
+
         const createdLabel = getTimeRangeLabel(
             savedFilters.createdFrom,
             savedFilters.createdTo,
@@ -80,11 +105,25 @@ export default function ActiveFilters() {
             });
         }
 
-        if (savedFilters.sort) {
+        if (savedFilters.sort.orderBy) {
             next.push({
                 key: 'sort',
-                label: t('activeFilters.sortedBy', { field: t(`sort.options.${savedFilters.sort}`) }),
-                onRemove: () => updateFiltersAndSave({ ...savedFilters, sort: null }),
+                label: t('activeFilters.sortedBy', {
+                    field: t(`sort.options.${savedFilters.sort.orderBy}`),
+                }),
+                onRemove: () =>
+                    updateFiltersAndSave({
+                        ...savedFilters,
+                        sort: { orderBy: undefined, direction: undefined },
+                    }),
+            });
+        }
+
+        if (savedFilters.displayName) {
+            next.push({
+                key: 'displayName',
+                label: t('activeFilters.displayName', { name: savedFilters.displayName }),
+                onRemove: () => updateFiltersAndSave({ ...savedFilters, displayName: null }),
             });
         }
 
@@ -111,17 +150,17 @@ function getTimeRangeLabel(
     const safeTo = to ? new Date(to) : null;
 
     if (safeFrom && safeTo) {
-        return t('range', {
+        return t('activeFilters.range', {
             prefix,
             from: safeFrom.toLocaleDateString(),
             to: safeTo.toLocaleDateString(),
         });
     }
     if (safeFrom) {
-        return t('from', { prefix, from: safeFrom.toLocaleDateString() });
+        return t('activeFilters.from', { prefix, from: safeFrom.toLocaleDateString() });
     }
     if (safeTo) {
-        return t('to', { prefix, to: safeTo.toLocaleDateString() });
+        return t('activeFilters.to', { prefix, to: safeTo.toLocaleDateString() });
     }
     return null;
 }

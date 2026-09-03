@@ -531,9 +531,18 @@
             },
             "toolbar": {
                 "filterMenuButtonText": "Filtrer tabellen",
-                "sourceApplication": "Kildeapplikasjon",
                 "sourceApplicationCard": {
-                    "title": "Kildeapplikasjon"
+                    "title": "Applikasjon",
+                    "sourceApplication": "Kildeapplikasjon",
+                    "toApplication": "Destinasjon",
+                    "toApplicationPlaceholder": "Velg destinasjon"
+                },
+                "typeCard": {
+                    "title": "Type",
+                    "fromType": "Fra type",
+                    "toType": "Til type",
+                    "fromTypePlaceholder": "Velg fra type",
+                    "toTypePlaceholder": "Velg til type"
                 },
                 "timeCard": {
                     "title": "Tidsperiode",
@@ -546,6 +555,10 @@
                     "toDate": "Til dato",
                     "toTime": "Til klokkeslett"
                 },
+                "nameCard": {
+                    "title": "Navn",
+                    "name": "Navn"
+                },
                 "activeFilters": {
                     "noFilters": "Ingen aktive filtre",
                     "removeAll": "Fjern alle",
@@ -554,10 +567,16 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: fra {{from}}",
                     "to": "{{prefix}}: til {{to}}",
-                    "sortedBy": "Sortert etter: {{field}}"
+                    "sortedBy": "Sortert etter: {{field}}",
+                    "fromType": "Fra type: {{type}}",
+                    "toType": "Til type: {{type}}",
+                    "displayName": "Navn: {{name}}"
                 },
                 "sort": {
                     "sortMenuButtonText": "Sorter",
+                    "sortDirectionMenuButtonText": "Sorteringsretning",
+                    "sortDirectionMenuButtonTextASC": "Stigende",
+                    "sortDirectionMenuButtonTextDESC": "Synkende",
                     "options": {
                         "id": "Id",
                         "displayName": "Navn",
@@ -598,6 +617,7 @@
                 "displayName": "Navn",
                 "toType": "Til type",
                 "fromType": "Fra type",
+                "type": "Type",
                 "toApplication": "Til",
                 "fromApplication": "Fra",
                 "createdAt": "Opprettet",

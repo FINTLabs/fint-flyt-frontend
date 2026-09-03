@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { Page } from '../components/types/TableTypes';
+import { Page } from '../types/TableTypes';
 import { ApiAdapterContext } from './ApiAdapterContext';
 import { Filters } from '../../features/instances/filter/types';
 import {

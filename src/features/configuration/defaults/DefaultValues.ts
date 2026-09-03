@@ -1,4 +1,4 @@
-import {ISelect} from "../types/Select";
+import {ISelect} from "../../../shared/types/Select";
 import {IAlertContent} from "../types/AlertContent";
 
 export const defaultAlert: IAlertContent = { severity: 'announcement', message: '' };
@@ -33,20 +33,6 @@ export function getSelectableDefaultByLanguage(lang: string): string {
         return "- Velg kjeldeapplikasjon";
     }
 }
-
-export const fromTypeIds: ISelect[] = [
-    {label: "Mediatype", value: "mediatype"},
-    {label: "Tekst", value: "text"},
-];
-
-export const toTypeIds: ISelect[] = [
-    {label: "Filformat", value: "filformat"},
-    {label: "Tekst", value: "text"},
-];
-
-export const destinations: ISelect[] = [
-    {label: "Arkivsystem", value: "fylkesrad"},
-];
 
 export function selectableDestinations(lang: string): ISelect[] {
     return [

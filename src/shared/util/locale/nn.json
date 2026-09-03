@@ -498,9 +498,18 @@
             },
             "toolbar": {
                 "filterMenuButtonText": "Filtrer tabellen",
-                "sourceApplication": "Kjeldeapplikasjon",
                 "sourceApplicationCard": {
-                    "title": "Kjeldeapplikasjon"
+                    "title": "Applikasjon",
+                    "sourceApplication": "Kjeldeapplikasjon",   
+                    "toApplication": "Destinasjon",
+                    "toApplicationPlaceholder": "Velg destinasjon"
+                },
+                "typeCard": {
+                    "title": "Type",
+                    "fromType": "Frå type",
+                    "toType": "Til type",
+                    "fromTypePlaceholder": "Velg fra type",
+                    "toTypePlaceholder": "Velg til type"
                 },
                 "timeCard": {
                     "title": "Tidsperiode",
@@ -513,6 +522,10 @@
                     "toDate": "Til dato",
                     "toTime": "Til klokkeslett"
                 },
+                "nameCard": {
+                    "title": "Namn",
+                    "name": "Namn"
+                },
                 "activeFilters": {
                     "noFilters": "Ingen aktive filter",
                     "removeAll": "Fjern alle",
@@ -521,10 +534,16 @@
                     "range": "{{prefix}}: {{from}} – {{to}}",
                     "from": "{{prefix}}: frå {{from}}",
                     "to": "{{prefix}}: til {{to}}",
-                    "sortedBy": "Sortert etter: {{field}}"
+                    "sortedBy": "Sortert etter: {{field}}",
+                    "fromType": "Frå type: {{type}}",
+                    "toType": "Til type: {{type}}",
+                    "displayName": "Namn: {{name}}"
                 },
                 "sort": {
                     "sortMenuButtonText": "Sorter",
+                    "sortDirectionMenuButtonText": "Sorteringsretning",
+                    "sortDirectionMenuButtonTextASC": "Stigande",
+                    "sortDirectionMenuButtonTextDESC": "Synkande",
                     "options": {
                         "id": "Id",
                         "displayName": "Namn",
@@ -565,6 +584,7 @@
                 "noValueConvertings": "Ingen verdikonverteringar funne",
                 "toType": "Til type",
                 "fromType": "Frå type",
+                "type": "Type",
                 "toApplication": "Til",
                 "fromApplication": "Frå",
                 "createdAt": "Opprettet",

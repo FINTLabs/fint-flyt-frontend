@@ -19,7 +19,7 @@ import { Link as RouterLink } from 'react-router';
 
 import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
 import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import { IAlertMessage } from '../../../shared/components/types/TableTypes';
+import { IAlertMessage } from '../../../shared/types/TableTypes';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { IConfiguration } from '../../configuration/types/Configuration';

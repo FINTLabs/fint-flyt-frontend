@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IPaginationSelect } from '../../types/TableTypes';
+import { IPaginationSelect } from '../../../types/TableTypes';
 import { CustomSelect } from './CustomSelect';
 
 type Props = {

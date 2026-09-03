@@ -1,7 +1,7 @@
 import { Select } from '@navikt/ds-react';
 import { FunctionComponent } from 'react';
 
-import { IPaginationSelect } from '../../types/TableTypes';
+import { IPaginationSelect } from '../../../types/TableTypes';
 
 type SelectProps = {
     options: IPaginationSelect[];

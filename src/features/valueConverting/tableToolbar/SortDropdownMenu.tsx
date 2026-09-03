@@ -12,10 +12,20 @@ export default function SortDropdownMenu() {
     });
     const { updateSort, filters } = useValueConvertingFilters();
 
-    function handleSortChange(value: string) {
-        if (value) {
-            updateSort(value);
-        }
+    function handleSortOrderByChange(orderBy: string) {
+        if (!orderBy) return;
+        updateSort({
+            orderBy,
+            direction: filters.sort.direction ?? 'ASC',
+        });
+    }
+
+    function handleSortDirectionChange(direction: 'ASC' | 'DESC') {
+        if (!direction) return;
+        updateSort({
+            orderBy: filters.sort.orderBy ?? 'id',
+            direction,
+        });
     }
 
     return (
@@ -27,7 +37,7 @@ export default function SortDropdownMenu() {
                     variant="secondary-neutral"
                     icon={<ChevronDownIcon aria-hidden />}
                     iconPosition="right"
-                    className={`table-toolbar-button right ${!!filters.sort ? 'toggled' : ''}`}
+                    className={`table-toolbar-button right ${filters.sort.orderBy ? 'toggled' : ''}`}
                 >
                     <HStack gap={'1'} wrap={false}>
                         <SortDownIcon aria-hidden fontSize={'1.2rem'} />
@@ -37,19 +47,31 @@ export default function SortDropdownMenu() {
             </ActionMenu.Trigger>
             <ActionMenu.Content className="table-toolbar-sort-menu">
                 <ActionMenu.RadioGroup
-                    onValueChange={handleSortChange}
-                    value={filters.sort || undefined}
+                    onValueChange={handleSortOrderByChange}
+                    value={filters.sort.orderBy}
                     label={t('sortMenuButtonText')}
                 >
                     {sortOptions.map((option) => (
                         <ActionMenu.RadioItem
                             value={option}
                             key={option}
-                            onClick={() => updateSort(option)}
                         >
                             {t(`options.${option}`)}
                         </ActionMenu.RadioItem>
                     ))}
+                </ActionMenu.RadioGroup>
+                <ActionMenu.Divider />
+                <ActionMenu.RadioGroup
+                    onValueChange={(value) => handleSortDirectionChange(value as 'ASC' | 'DESC')}
+                    value={filters.sort.direction}
+                    label={t('sortDirectionMenuButtonText')}
+                >
+                    <ActionMenu.RadioItem value="ASC" key="ASC">
+                        {t('sortDirectionMenuButtonTextASC')}
+                    </ActionMenu.RadioItem>
+                    <ActionMenu.RadioItem value="DESC" key="DESC">
+                        {t('sortDirectionMenuButtonTextDESC')}
+                    </ActionMenu.RadioItem>
                 </ActionMenu.RadioGroup>
             </ActionMenu.Content>
         </ActionMenu>
