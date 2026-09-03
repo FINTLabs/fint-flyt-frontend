@@ -100,12 +100,30 @@ jobs:
         id: bake
         uses: azure/k8s-bake@v4
         with:
-          renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}'
+          renderEngine: kustomize
+          kustomizationPath: kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}
 
-      - uses: azure/login@v3
+      - name: Substitute image into baked YAML
+        id: substitute
+        uses: azure/k8s-artifact-substitute@v2
         with:
-          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: ${{ steps.meta.outputs.tags }}
+
+      - name: Copy substituted manifest into workspace
+        id: workspace-manifest
+        run: |
+          mkdir -p .k8s-deploy
+          dest="$GITHUB_WORKSPACE/.k8s-deploy/$(basename "${{ steps.substitute.outputs.manifests }}")"
+          cp "${{ steps.substitute.outputs.manifests }}" "$dest"
+          echo "manifest=$dest" >> "$GITHUB_OUTPUT"
+          echo "Deploying with image:"
+          grep -n 'image:' "$dest" || true
+
+      - name: Azure login
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}
 
       - uses: azure/use-kubelogin@v1
         with:
@@ -114,16 +132,17 @@ jobs:
       - name: Set the target cluster
         uses: azure/aks-set-context@v5
         with:
-          cluster-name: '${{ matrix.cluster }}'
-          resource-group: '${{ steps.resource-group.outputs.result }}'
-          admin: 'true'
-          use-kubelogin: 'true'
+          cluster-name: ${{ matrix.cluster }}
+          resource-group: ${{ steps.resource-group.outputs.result }}
+          admin: true
+          use-kubelogin: true
 
       - name: Deploy
         if: github.ref == 'refs/heads/main'
         uses: azure/k8s-deploy@v7
         with:
           action: deploy
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          manifests: ${{ steps.workspace-manifest.outputs.manifest }}
           images: ${{ steps.meta.outputs.tags }}
           namespace: ${{ matrix.org }}
+          pull-images: false
