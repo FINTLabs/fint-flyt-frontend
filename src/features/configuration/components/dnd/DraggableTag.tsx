@@ -1,6 +1,6 @@
 import { Tag as AkselTag } from '@navikt/ds-react';
 import { Tooltip } from '@navikt/ds-react';
-import { FunctionComponent, ReactElement } from 'react';
+import { FunctionComponent, ReactElement, Ref } from 'react';
 import { useDrag } from 'react-dnd';
 
 import {
@@ -65,7 +65,7 @@ export const DraggableTag: FunctionComponent<Props> = ({
         <Tooltip content={name} placement="right">
             <AkselTag
                 size={'medium'}
-                ref={drag}
+                ref={drag as unknown as Ref<HTMLSpanElement>}
                 variant="neutral"
                 icon={icon}
                 className={`${styles.tag} ${isDragging ? styles.dragging : styles.notDragging}`}

@@ -82,7 +82,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
     };
 
     return (
-        <div id={'dnd-value-component-' + absoluteKey} ref={dropRef} key={absoluteKey}>
+        <div id={'dnd-value-component-' + absoluteKey} ref={dropRef as unknown as React.Ref<HTMLDivElement>} key={absoluteKey}>
             <TextField
                 autoComplete={'off'}
                 error={!!props.fieldState?.error}
