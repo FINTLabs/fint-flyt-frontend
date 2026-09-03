@@ -50,38 +50,44 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Get environment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         id: environment
         with:
           script: return '${{ matrix.cluster }}'.split('-')[1]
           result-encoding: string
 
       - name: Get resource group name
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         id: resource-group
         with:
           script: return 'rg-aks-${{ steps.environment.outputs.result }}'
           result-encoding: string
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lowercase image name
+        id: image
+        run: |
+          name="${REGISTRY}/$(echo "${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')-${{ matrix.org }}-${{ steps.environment.outputs.result }}"
+          echo "name=${name}" >> "$GITHUB_OUTPUT"
+
       - name: Extract metadata (tags, labels) for Docker
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         id: meta
         with:
-          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.org }}-${{ steps.environment.outputs.result }}"
+          images: ${{ steps.image.outputs.name }}
           tags: type=sha,enable=true,priority=100,prefix=shaF-,suffix=,format=short
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -92,32 +98,51 @@ jobs:
 
       - name: Bake manifests with Kustomize
         id: bake
-        uses: azure/k8s-bake@v3
+        uses: azure/k8s-bake@v4
         with:
-          renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}'
+          renderEngine: kustomize
+          kustomizationPath: kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}
 
-      - uses: azure/login@v2
+      - name: Substitute image into baked YAML
+        id: substitute
+        uses: azure/k8s-artifact-substitute@v2
         with:
-          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: ${{ steps.meta.outputs.tags }}
+
+      - name: Copy substituted manifest into workspace
+        id: workspace-manifest
+        run: |
+          mkdir -p .k8s-deploy
+          dest="$GITHUB_WORKSPACE/.k8s-deploy/$(basename "${{ steps.substitute.outputs.manifests }}")"
+          cp "${{ steps.substitute.outputs.manifests }}" "$dest"
+          echo "manifest=$dest" >> "$GITHUB_OUTPUT"
+          echo "Deploying with image:"
+          grep -n 'image:' "$dest" || true
+
+      - name: Azure login
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}
 
       - uses: azure/use-kubelogin@v1
         with:
           kubelogin-version: 'v0.0.32'
 
       - name: Set the target cluster
-        uses: azure/aks-set-context@v4
+        uses: azure/aks-set-context@v5
         with:
-          cluster-name: '${{ matrix.cluster }}'
-          resource-group: '${{ steps.resource-group.outputs.result }}'
-          admin: 'true'
-          use-kubelogin: 'true'
+          cluster-name: ${{ matrix.cluster }}
+          resource-group: ${{ steps.resource-group.outputs.result }}
+          admin: true
+          use-kubelogin: true
 
       - name: Deploy
         if: github.ref == 'refs/heads/main'
-        uses: azure/k8s-deploy@v5.0.3
+        uses: azure/k8s-deploy@v7
         with:
           action: deploy
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          manifests: ${{ steps.workspace-manifest.outputs.manifest }}
           images: ${{ steps.meta.outputs.tags }}
           namespace: ${{ matrix.org }}
+          pull-images: false

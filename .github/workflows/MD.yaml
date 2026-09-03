@@ -42,14 +42,14 @@ env:
   ORG: ${{ inputs.org }}
 
 jobs:
-  cd:
+  md:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         name: Get resource group name
         id: rg
         with:
@@ -58,7 +58,7 @@ jobs:
             return `rg-${a[0]}-${a[1]}`
           result-encoding: string
 
-      - uses: actions/github-script@v8
+      - uses: actions/github-script@v9
         name: Get environment
         id: environment
         with:
@@ -66,47 +66,39 @@ jobs:
             const a = '${{ inputs.cluster }}'.split('-')
             return `${a[1]}`
           result-encoding: string
-      - uses: actions/github-script@v8
-        name: Get auth
-        id: auth
-        with:
-          script: |
-            const e = '${{ steps.environment.outputs.result }}'.toUpperCase()
-            return `secrets.AKS_${e}_FINT_GITHUB`
-          result-encoding: string
 
       - run: |
           echo "Cluster: $CLUSTER_NAME"
           echo "Resource group: ${{ steps.rg.outputs.result }}"
           echo "Environment: ${{ steps.environment.outputs.result }}"
           echo "OrgId: $ORG"
+
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lowercase image name
+        id: image
+        run: |
+          name="${REGISTRY}/$(echo "${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')-${ORG}-${{ steps.environment.outputs.result }}"
+          echo "name=${name}" >> "$GITHUB_OUTPUT"
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
-          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ env.ORG }}-${{ steps.environment.outputs.result }}"
+          images: ${{ steps.image.outputs.name }}
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
-      - name: Bake manifests with Kustomize
-        uses: azure/k8s-bake@v3
-        with:
-          renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ env.ORG}}/${{ steps.environment.outputs.result }}'
-        id: bake
-
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -115,27 +107,52 @@ jobs:
           build-args: |
             BASE_PATH=${{ steps.environment.outputs.result == 'beta' && '/beta/' || '/' }}${{ env.ORG }}
 
-      - uses: azure/login@v2
+      - name: Bake manifests with Kustomize
+        id: bake
+        uses: azure/k8s-bake@v4
         with:
-          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+          renderEngine: kustomize
+          kustomizationPath: kustomize/overlays/${{ env.ORG }}/${{ steps.environment.outputs.result }}
+
+      - name: Substitute image into baked YAML
+        id: substitute
+        uses: azure/k8s-artifact-substitute@v2
+        with:
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: ${{ steps.meta.outputs.tags }}
+
+      - name: Copy substituted manifest into workspace
+        id: workspace-manifest
+        run: |
+          mkdir -p .k8s-deploy
+          dest="$GITHUB_WORKSPACE/.k8s-deploy/$(basename "${{ steps.substitute.outputs.manifests }}")"
+          cp "${{ steps.substitute.outputs.manifests }}" "$dest"
+          echo "manifest=$dest" >> "$GITHUB_OUTPUT"
+          echo "Deploying with image:"
+          grep -n 'image:' "$dest" || true
+
+      - name: Azure login
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}
 
       - uses: azure/use-kubelogin@v1
         with:
           kubelogin-version: 'v0.0.32'
 
       - name: Set the target cluster
-        uses: azure/aks-set-context@v4
+        uses: azure/aks-set-context@v5
         with:
           cluster-name: ${{ env.CLUSTER_NAME }}
           resource-group: ${{ steps.rg.outputs.result }}
-          admin: 'true'
-          use-kubelogin: 'true'
+          admin: true
+          use-kubelogin: true
 
       - name: Deploy to ${{ env.CLUSTER_NAME }}
-        uses: azure/k8s-deploy@v5.0.3
+        uses: azure/k8s-deploy@v7
         with:
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: |
-            ${{ steps.meta.outputs.tags }}
-          namespace: ${{ env.ORG }}
           action: deploy
+          manifests: ${{ steps.workspace-manifest.outputs.manifest }}
+          images: ${{ steps.meta.outputs.tags }}
+          namespace: ${{ env.ORG }}
+          pull-images: false
