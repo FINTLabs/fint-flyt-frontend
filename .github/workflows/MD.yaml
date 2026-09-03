@@ -42,7 +42,7 @@ env:
   ORG: ${{ inputs.org }}
 
 jobs:
-  cd:
+  md:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -90,11 +90,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set lowercase image name
+        id: image
+        run: |
+          name="${REGISTRY}/$(echo "${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')-${ORG}-${{ steps.environment.outputs.result }}"
+          echo "name=${name}" >> "$GITHUB_OUTPUT"
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ env.ORG }}-${{ steps.environment.outputs.result }}"
+          images: ${{ steps.image.outputs.name }}
           tags: |
             type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
 
