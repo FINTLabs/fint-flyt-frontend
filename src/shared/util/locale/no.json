@@ -523,7 +523,10 @@
             "button": {
                 "newConverting": "Ny verdikonvertering",
                 "basedOn": "Lag ny basert på denne",
+                "edit": "Rediger",
+                "delete": "Slett",
                 "create": "Opprett",
+                "save": "Lagre",
                 "cancel": "Avbryt",
                 "back": "Tilbake",
                 "clear": "Nullstill",
@@ -606,7 +609,16 @@
             "to": "Til",
             "from": "Fra",
             "saved": "Verdikonvertering lagret",
+            "deletedSuccessfully": "Verdikonvertering slettet",
+            "deletedFailed": "Kunne ikke slette verdikonvertering",
+            "deleteModal": {
+                "title": "Slett verdikonvertering",
+                "body": "Er du sikker på at du vil slette denne verdikonverteringen? Handlingen kan ikke angres.",
+                "cancel": "Avbryt"
+            },
             "saveError": "Feila under lagring, feilmelding: ",
+            "updateSuccessfully": "Verdikonvertering oppdatert",
+            "updateError": "Feila under oppdatering, feilmelding: ",
             "genericError": "Det har oppstått en feil",
             "requiredField": "Påkrevd felt",
             "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",

@@ -13,7 +13,7 @@ import {
 const BASE_PATH = process.env.BASE_PATH ?? import.meta.env.VITE_BASE_PATH ?? '';
 const IS_LOCAL = import.meta.env.VITE_IS_LOCAL === 'true';
 
-type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
+type HttpMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
 
 export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
@@ -50,6 +50,12 @@ type apiAdapterState = {
         url: string,
         config?: AdapterRequestConfigType
     ) => Promise<AdapterResponse<T>>;
+    put: <T>(
+        apiUrl: string,
+        url: string,
+        data?: unknown,
+        config?: AdapterRequestConfigType
+    ) => Promise<AdapterResponse<T>>;
 };
 
 const apiAdapterDefaultValues: apiAdapterState = {
@@ -64,6 +70,9 @@ const apiAdapterDefaultValues: apiAdapterState = {
         return { data: {} as T, status: 0 };
     },
     deleteFetch: async <T,>() => {
+        return { data: {} as T, status: 0 };
+    },
+    put: async <T,>() => {
         return { data: {} as T, status: 0 };
     },
 };
@@ -244,6 +253,15 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
         return request<T>('PATCH', apiUrl, url, data, config);
     }
 
+    async function put<T>(
+        apiUrl: string,
+        url: string,
+        data?: unknown,
+        config?: AdapterRequestConfigType
+    ): Promise<AdapterResponse<T>> {
+        return request<T>('PUT', apiUrl, url, data, config);
+    }
+
     async function deleteFetch<T>(
         apiUrl: string,
         url: string,
@@ -260,6 +278,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 post,
                 patch,
                 deleteFetch,
+                put,
             }}
         >
             {children}

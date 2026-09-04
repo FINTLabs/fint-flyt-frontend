@@ -1,10 +1,15 @@
-import { ActionMenu, Alert, HStack, Table } from '@navikt/ds-react';
-import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
+import { ActionMenu, Alert, BodyLong, Button, HStack, Modal, Table } from '@navikt/ds-react';
+import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
-import { ArrowRightIcon, FilesIcon } from '../../../shared/components/icons';
+import {
+    ArrowRightIcon,
+    FilesIcon,
+    PencilWritingIcon,
+    TrashIcon,
+} from '../../../shared/components/icons';
 import TableLoader from '../../../shared/components/table/TableLoader';
 import {
     useTablePageError,
@@ -12,6 +17,7 @@ import {
 } from '../../../shared/components/table/TablePageContext';
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { IAlertContent } from '../../../shared/types/AlertContent';
 import { Page } from '../../../shared/types/TableTypes';
 import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
 import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
@@ -24,6 +30,8 @@ import ValueConvertingPanel from './ValueConvertingPanel';
 
 type Props = {
     onValueConvertingSelected: (id: number) => void;
+    onValueConvertingEdit: (id: number) => void;
+    onAlert: (content: IAlertContent) => void;
 };
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
@@ -34,7 +42,10 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     const onError = useTablePageError();
     const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
-    const { filters, refreshKey } = useValueConvertingFilters();
+    const { filters, refreshKey, refresh } = useValueConvertingFilters();
+
+    const ref = useRef<HTMLDialogElement>(null);
+    const [idToDelete, setIdToDelete] = useState<number | null>(null);
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
     const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
@@ -44,10 +55,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         [sourceApplications]
     );
 
-    const visibleOptionalColumns = useMemo(
-        () => getVisibleOptionalColumns(filters),
-        [filters]
-    );
+    const visibleOptionalColumns = useMemo(() => getVisibleOptionalColumns(filters), [filters]);
 
     useEffect(() => {
         setPaginationMeta({
@@ -106,6 +114,36 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         props.onValueConvertingSelected(id);
     }
 
+    async function handleEditConvertingClick(id: number) {
+        props.onValueConvertingEdit(id);
+    }
+
+    async function handleDeleteConvertingClick(id: number) {
+        ValueConvertingRepository.deleteValueConverting(id)
+            .then(() => {
+                refresh();
+                props.onAlert({
+                    severity: 'success',
+                    message: t('deletedSuccessfully'),
+                });
+            })
+            .catch(() => {
+                props.onAlert({
+                    severity: 'error',
+                    message: t('deletedFailed'),
+                });
+            })
+            .finally(() => {
+                setIdToDelete(null);
+                ref.current?.close();
+            });
+    }
+
+    function openDeleteModal(id: number) {
+        setIdToDelete(id);
+        ref.current?.showModal();
+    }
+
     function actionMenu(value: IValueConverting): ReactElement {
         return (
             <TableRowActionsMenu id={`value-converting-${value.id}`}>
@@ -119,16 +157,31 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 >
                     {t('button.basedOn')}
                 </ActionMenu.Item>
+                <ActionMenu.Item
+                    onClick={() => {
+                        handleEditConvertingClick(value.id);
+                    }}
+                    icon={<PencilWritingIcon />}
+                >
+                    {t('button.edit')}
+                </ActionMenu.Item>
+                <ActionMenu.Divider />
+                <ActionMenu.Item
+                    onClick={() => {
+                        openDeleteModal(value.id);
+                    }}
+                    icon={<TrashIcon />}
+                    variant="danger"
+                >
+                    {t('button.delete')}
+                </ActionMenu.Item>
             </TableRowActionsMenu>
         );
     }
 
     return (
         <>
-            <Table
-                id={'value-convertings-table'}
-                size={'small'}
-            >
+            <Table id={'value-convertings-table'} size={'small'}>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell scope="col"></Table.HeaderCell>
@@ -188,8 +241,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
                                 <Table.DataCell scope="row">
                                     <HStack align="center" gap="2">
-
-                                    {value.fromTypeId} <ArrowRightIcon /> {value.toTypeId}{' '}
+                                        {value.fromTypeId} <ArrowRightIcon /> {value.toTypeId}{' '}
                                     </HStack>
                                 </Table.DataCell>
 
@@ -232,6 +284,44 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             {valueConvertings && valueConvertings.content.length === 0 && (
                 <Alert variant="info">{t('column.noValueConvertings')}</Alert>
             )}
+            <Modal
+                ref={ref}
+                size={'medium'}
+                onClose={() => {
+                    setIdToDelete(null);
+                    ref.current?.close();
+                }}
+                header={{ heading: t('deleteModal.title') }}
+            >
+                <Modal.Body>
+                    <BodyLong>{t('deleteModal.body')}</BodyLong>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button
+                        type="button"
+                        variant="secondary"
+                        size="small"
+                        onClick={() => {
+                            setIdToDelete(null);
+                            ref.current?.close();
+                        }}
+                    >
+                        {t('deleteModal.cancel')}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="danger"
+                        size="small"
+                        onClick={() => {
+                            if (idToDelete != null) {
+                                handleDeleteConvertingClick(idToDelete);
+                            }
+                        }}
+                    >
+                        {t('button.delete')}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
