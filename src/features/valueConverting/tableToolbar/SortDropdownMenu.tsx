@@ -1,5 +1,5 @@
 import { ActionMenu, Button, HStack } from '@navikt/ds-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ChevronDownIcon, SortDownIcon } from '../../../shared/components/icons';
@@ -11,13 +11,15 @@ export default function SortDropdownMenu() {
         keyPrefix: 'pages.valueConverting.toolbar.sort',
     });
     const { updateSort, filters } = useValueConvertingFilters();
-
+    const [open, setOpen] = useState(false);
+    
     function handleSortOrderByChange(orderBy: string) {
         if (!orderBy) return;
         updateSort({
             orderBy,
             direction: filters.sort.direction ?? 'ASC',
         });
+        setOpen(false);
     }
 
     function handleSortDirectionChange(direction: 'ASC' | 'DESC') {
@@ -26,11 +28,12 @@ export default function SortDropdownMenu() {
             orderBy: filters.sort.orderBy ?? 'id',
             direction,
         });
+        setOpen(false);
     }
 
     return (
-        <ActionMenu>
-            <ActionMenu.Trigger>
+        <ActionMenu open={open} onOpenChange={setOpen}>
+            <ActionMenu.Trigger onClick={() => setOpen(true)}>
                 <Button
                     size="small"
                     data-color="neutral"

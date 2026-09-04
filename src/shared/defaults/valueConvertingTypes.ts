@@ -1,4 +1,4 @@
-import { ISelect } from "./types/Select";
+import { ISelect } from "../types/Select";
 
 export const fromTypeIds: ISelect[] = [
     {label: "Mediatype", value: "mediatype"},

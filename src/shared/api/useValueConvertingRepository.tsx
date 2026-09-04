@@ -26,7 +26,7 @@ export type GetValueConvertingsParams = {
 };
 
 export default function useValueConvertingRepository() {
-    const { get, post } = useContext(ApiAdapterContext);
+    const { get, post, put, deleteFetch } = useContext(ApiAdapterContext);
 
     const getValueConvertings = ({
         page,
@@ -76,5 +76,23 @@ export default function useValueConvertingRepository() {
         return post<IValueConverting>(API_URL, '/api/intern/value-convertings', data);
     };
 
-    return { getValueConvertings, getValueConverting, createValueConverting };
+    const updateValueConverting = (valueConvertingId: number, data: IValueConverting) => {
+        return put<IValueConverting>(
+            API_URL,
+            `/api/intern/value-convertings/${valueConvertingId}`,
+            data
+        );
+    };
+
+    const deleteValueConverting = (valueConvertingId: number) => {
+        return deleteFetch<void>(API_URL, `/api/intern/value-convertings/${valueConvertingId}`);
+    };
+
+    return {
+        getValueConvertings,
+        getValueConverting,
+        createValueConverting,
+        updateValueConverting,
+        deleteValueConverting,
+    };
 }
