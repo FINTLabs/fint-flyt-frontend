@@ -525,7 +525,72 @@
                 "basedOn": "Lag ny basert på denne",
                 "create": "Opprett",
                 "cancel": "Avbryt",
-                "back": "Tilbake"
+                "back": "Tilbake",
+                "clear": "Nullstill",
+                "search": "Søk"
+            },
+            "toolbar": {
+                "filterMenuButtonText": "Filtrer tabellen",
+                "sourceApplicationCard": {
+                    "title": "Applikasjon",
+                    "sourceApplication": "Kildeapplikasjon",
+                    "toApplication": "Destinasjon",
+                    "toApplicationPlaceholder": "Velg destinasjon"
+                },
+                "typeCard": {
+                    "title": "Type",
+                    "fromType": "Fra type",
+                    "toType": "Til type",
+                    "fromTypePlaceholder": "Velg fra type",
+                    "toTypePlaceholder": "Velg til type"
+                },
+                "timeCard": {
+                    "title": "Tidsperiode",
+                    "tabs": {
+                        "created": "Opprettet",
+                        "modified": "Endret"
+                    },
+                    "fromDate": "Fra dato",
+                    "fromTime": "Fra klokkeslett",
+                    "toDate": "Til dato",
+                    "toTime": "Til klokkeslett"
+                },
+                "nameCard": {
+                    "title": "Navn",
+                    "name": "Navn"
+                },
+                "activeFilters": {
+                    "noFilters": "Ingen aktive filtre",
+                    "removeAll": "Fjern alle",
+                    "createdPrefix": "Opprettet",
+                    "modifiedPrefix": "Endret",
+                    "range": "{{prefix}}: {{from}} – {{to}}",
+                    "from": "{{prefix}}: fra {{from}}",
+                    "to": "{{prefix}}: til {{to}}",
+                    "sortedBy": "Sortert etter: {{field}}",
+                    "fromType": "Fra type: {{type}}",
+                    "toType": "Til type: {{type}}",
+                    "displayName": "Navn: {{name}}"
+                },
+                "sort": {
+                    "sortMenuButtonText": "Sorter",
+                    "sortDirectionMenuButtonText": "Sorteringsretning",
+                    "sortDirectionMenuButtonTextASC": "Stigende",
+                    "sortDirectionMenuButtonTextDESC": "Synkende",
+                    "options": {
+                        "id": "Id",
+                        "displayName": "Navn",
+                        "fromApplicationId": "Fra applikasjon",
+                        "sourceApplicationIds": "Kildeapplikasjoner",
+                        "fromTypeId": "Fra type",
+                        "toApplicationId": "Til applikasjon",
+                        "toTypeId": "Til type",
+                        "createdAt": "Opprettet",
+                        "modifiedAt": "Endret",
+                        "createdBy": "Opprettet av",
+                        "modifiedBy": "Endret av"
+                    }
+                }
             },
             "header": "Verdikonvertering",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
@@ -552,6 +617,7 @@
                 "displayName": "Navn",
                 "toType": "Til type",
                 "fromType": "Fra type",
+                "type": "Type",
                 "toApplication": "Til",
                 "fromApplication": "Fra",
                 "createdAt": "Opprettet",

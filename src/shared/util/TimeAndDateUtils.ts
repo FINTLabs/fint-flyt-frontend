@@ -1,7 +1,8 @@
 export function formatTimestampToReadableText(
     timestamp?: string,
     locale: string = 'no-NO',
-    showTime: boolean = true
+    showTime: boolean = true,
+    year: '2-digit' | 'numeric' = '2-digit'
 ): string {
     if (!timestamp) return '';
 
@@ -9,7 +10,7 @@ export function formatTimestampToReadableText(
     if (isNaN(date.getTime())) return '';
 
     const options: Intl.DateTimeFormatOptions = {
-        year: '2-digit',
+        year: year,
         month: '2-digit',
         day: '2-digit',
         hour: showTime ? '2-digit' : undefined,

@@ -23,7 +23,7 @@ import {
     TrashIcon,
 } from '../../../shared/components/icons';
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
-import { IAlertMessage, Page } from '../../../shared/components/types/TableTypes';
+import { IAlertMessage, Page } from '../../../shared/types/TableTypes';
 import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
 import { IConfiguration } from '../../configuration/types/Configuration';
 

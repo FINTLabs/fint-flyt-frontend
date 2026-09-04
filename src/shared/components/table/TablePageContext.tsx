@@ -1,7 +1,7 @@
 import { Alert, VStack } from '@navikt/ds-react';
 import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 
-import { IAlertMessage } from '../types/TableTypes';
+import { IAlertMessage } from '../../types/TableTypes';
 import LoadMorePagination from './pagination/LoadMorePagination';
 import TablePagination from './pagination/TablePagination';
 

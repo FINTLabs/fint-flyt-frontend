@@ -41,3 +41,6 @@ export { InformationSquareFillIcon as InformationSquareFillIcon } from '@navikt/
 export { MinusCircleIcon as MinusCircleIcon } from '@navikt/aksel-icons';
 export { DragVerticalIcon as DragIndicatorIcon } from '@navikt/aksel-icons';
 export { ArrowCirclepathIcon as RetryIcon} from '@navikt/aksel-icons';
+export { ArrowsUpDownIcon as SortIcon } from '@navikt/aksel-icons';
+export { SortDownIcon as SortDownIcon } from '@navikt/aksel-icons';
+export { SortUpIcon as SortUpIcon } from '@navikt/aksel-icons';

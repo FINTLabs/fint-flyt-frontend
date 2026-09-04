@@ -14,12 +14,13 @@ import ArrayComponent from "../../configuration/components/array/ArrayComponent"
 import SearchSelectValueComponent from "../../configuration/components/mapping/value/select/SearchSelectValueComponent";
 import SelectValueComponent from "../../configuration/components/mapping/value/select/SelectValueComponent";
 import StringValueComponent from "../../configuration/components/mapping/value/string/StringValueComponent";
-import {defaultAlert, destinations, fromTypeIds, toTypeIds,} from "../../configuration/defaults/DefaultValues";
+import {defaultAlert} from "../../configuration/defaults/DefaultValues";
 import {IAlertContent} from "../../configuration/types/AlertContent";
-import {ISelect} from "../../configuration/types/Select";
+import {ISelect} from "../../../shared/types/Select";
 import {ISelectable} from "../../configuration/types/Selectable";
 import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUtils';
 import {IValueConverting} from "../types/ValueConverting";
+import { destinations, fromTypeIds, toTypeIds } from "../../../shared/DefaultValues";
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;

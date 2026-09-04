@@ -10,7 +10,7 @@ import {
     useTablePageError,
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
-import { Page } from '../../../shared/components/types/TableTypes';
+import { Page } from '../../../shared/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {

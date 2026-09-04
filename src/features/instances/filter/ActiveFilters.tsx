@@ -1,19 +1,22 @@
-import { Button, Chips, HStack } from '@navikt/ds-react';
-import { Children, FC, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { XMarkIcon } from '../../../shared/components/icons';
-import { useFilters } from './FilterContext';
+import {
+    ActiveFilterChip,
+    ActiveFilters as SharedActiveFilters,
+} from '../../../shared/components/table/ActiveFilters';
+import { useInstanceFilters } from './FilterContext';
 import { useFilterOptions } from './OptionsContext';
 import { Filters } from './types';
 import { getFilterLabel, SPECIAL_FILTERS } from './util';
 
-const ActiveFilters: FC = () => {
-    const { t } = useTranslation('translations', {
+export default function ActiveFilters() {
+    const { t, i18n } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter.activeFilters',
     });
     const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave, isSaved } =
-        useFilters();
+        useInstanceFilters();
+    const filterOptions = useFilterOptions();
 
     const [savedFilters, setSavedFilters] = useState<Filters>(() => filters);
 
@@ -23,206 +26,122 @@ const ActiveFilters: FC = () => {
         }
     }, [filters, isSaved]);
 
-    const activeFilters: [key: string, value: Filters[keyof Filters]][] = useMemo(() => {
-        return Object.entries(savedFilters).filter(([, value]) => {
-            if (Array.isArray(value)) return value.length > 0;
-            return value !== null && value !== '' && value !== undefined;
+    const chips = useMemo(() => {
+        const next: ActiveFilterChip[] = [];
+
+        Object.entries(savedFilters).forEach(([key, value]) => {
+            if (SPECIAL_FILTERS.includes(key)) return;
+
+            const isActive = Array.isArray(value)
+                ? value.length > 0
+                : value !== null && value !== '' && value !== undefined;
+            if (!isActive) return;
+
+            const label = getFilterLabel({
+                key,
+                value,
+                i18n,
+                t,
+                options: filterOptions,
+            });
+            if (!label) return;
+
+            next.push({
+                key,
+                label,
+                onRemove: () => updateFilterAndSave(key as keyof Filters, null),
+            });
         });
-    }, [savedFilters]);
 
-    if (activeFilters.length === 0) {
-        return <HStack data-testid="active-filters">{t('noFilters')}</HStack>;
-    }
-
-    return (
-        <HStack gap="2" className={'active-filters'} align={'center'} data-testid="active-filters">
-            <Chips size={'small'}>
-                {Children.toArray([
-                    ...activeFilters.map(([key, value]) => {
-                        if (!SPECIAL_FILTERS.includes(key)) {
-                            return (
-                                <KeyValueTextChip
-                                    key={key}
-                                    filterKey={key}
-                                    filterValue={value}
-                                    onRemove={() => {
-                                        updateFilterAndSave(key as keyof Filters, null);
-                                    }}
-                                />
-                            );
-                        }
-                    }),
-
-                    (!!savedFilters.timeOffSetHours || !!savedFilters.timeOffsetMinutes) && (
-                        <TimeOffsetChip
-                            timeOffSetHours={savedFilters.timeOffSetHours}
-                            timeOffsetMinutes={savedFilters.timeOffsetMinutes}
-                            onRemove={() => {
-                                updateFilter('timeOffSetHours', null);
-                                updateFilter('timeOffsetMinutes', null);
-                                saveFilters();
-                            }}
-                        />
-                    ),
-
-                    (!!savedFilters.timeTimestampMin || !!savedFilters.timeTimestampMax) && (
-                        <TimeRangeChip
-                            from={savedFilters.timeTimestampMin}
-                            to={savedFilters.timeTimestampMax}
-                            onRemove={() => {
-                                updateFilter('timeTimestampMin', null);
-                                updateFilter('timeTimestampMax', null);
-                                saveFilters();
-                            }}
-                        />
-                    ),
-                ])}
-            </Chips>
-            <Button
-                size={'small'}
-                variant={'tertiary'}
-                className={'filter-clear-all'}
-                icon={<XMarkIcon aria-hidden />}
-                onClick={clearFilters}
-            >
-                {t('removeAll')}
-            </Button>
-        </HStack>
-    );
-};
-
-export default ActiveFilters;
-
-const KeyValueTextChip = ({
-    filterKey,
-    filterValue,
-    onRemove,
-}: {
-    filterKey: string;
-    filterValue: Filters[keyof Filters];
-    onRemove: () => void;
-}) => {
-    const { t, i18n } = useTranslation('translations', {
-        keyPrefix: 'pages.instances.filter.activeFilters',
-    });
-
-    const filterOptions = useFilterOptions();
-
-    const textNew = useMemo(() => {
-        return getFilterLabel({
-            key: filterKey,
-            value: filterValue,
-            i18n,
-            t,
-            options: filterOptions,
-        });
-    }, [filterKey, filterValue, i18n, t, filterOptions]);
-
-    if (!textNew) return null;
-
-    return (
-        <Chips.Removable key={filterKey} className={'filter-chip'} onClick={onRemove}>
-            {textNew}
-        </Chips.Removable>
-    );
-};
-
-const TimeOffsetChip = ({
-    timeOffSetHours,
-    timeOffsetMinutes,
-    onRemove,
-}: {
-    timeOffSetHours: string | null;
-    timeOffsetMinutes: string | null;
-    onRemove: () => void;
-}) => {
-    const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.instances.filter.activeFilters.timeOffSet',
-    });
-
-    console.log('TOMEOOOFEST');
-    const text = useMemo(() => {
-        const hasHours: boolean = !!timeOffSetHours && !!timeOffSetHours?.trim();
-        const hasMinutes: boolean = !!timeOffsetMinutes && !!timeOffsetMinutes?.trim();
-
-        if (hasHours && !hasMinutes) {
-            return t('hours', { hours: timeOffSetHours!.trim() });
-        }
-        if (hasMinutes && !hasHours) {
-            return t('minutes', { minutes: timeOffsetMinutes!.trim() });
-        }
-        if (hasHours && hasMinutes) {
-            return t('both', {
-                hours: timeOffSetHours!.trim(),
-                minutes: timeOffsetMinutes!.trim(),
+        const timeOffsetLabel = getTimeOffsetLabel(
+            savedFilters.timeOffSetHours,
+            savedFilters.timeOffsetMinutes,
+            t
+        );
+        if (timeOffsetLabel) {
+            next.push({
+                key: 'timeOffset',
+                label: timeOffsetLabel,
+                onRemove: () => {
+                    updateFilter('timeOffSetHours', null);
+                    updateFilter('timeOffsetMinutes', null);
+                    saveFilters();
+                },
             });
         }
 
-        return null;
-    }, [timeOffSetHours, timeOffsetMinutes]);
-
-    if (!text) {
-        return null;
-    }
-
-    return (
-        <Chips.Removable
-            key={'timeOffset'}
-            className={'filter-chip'}
-            onClick={() => {
-                onRemove();
-            }}
-        >
-            {text}
-        </Chips.Removable>
-    );
-};
-
-const TimeRangeChip = ({
-    from,
-    to,
-    onRemove,
-}: {
-    from: Date | null;
-    to: Date | null;
-    onRemove: () => void;
-}) => {
-    const { t } = useTranslation('translations', {
-        keyPrefix: 'pages.instances.filter.activeFilters.timeTimestamp',
-    });
-
-    const text = useMemo(() => {
-        const safeFrom = from ? new Date(from) : null;
-        const safeTo = to ? new Date(to) : null;
-
-        if (!safeFrom && !safeTo) return null;
-
-        if (safeFrom && safeTo) {
-            return t('range', {
-                from: safeFrom.toLocaleDateString(),
-                to: safeTo.toLocaleDateString(),
+        const timeRangeLabel = getTimeRangeLabel(
+            savedFilters.timeTimestampMin,
+            savedFilters.timeTimestampMax,
+            t
+        );
+        if (timeRangeLabel) {
+            next.push({
+                key: 'timeTimestamp',
+                label: timeRangeLabel,
+                onRemove: () => {
+                    updateFilter('timeTimestampMin', null);
+                    updateFilter('timeTimestampMax', null);
+                    saveFilters();
+                },
             });
         }
-        if (safeFrom && !safeTo) {
-            return t('from', { from: safeFrom.toLocaleDateString() });
-        }
-        if (!safeFrom && safeTo) {
-            return t('to', { to: safeTo.toLocaleDateString() });
-        }
-        return null;
-    }, [from, to]);
 
-    if (!text) return null;
+        return next;
+    }, [savedFilters, filterOptions, i18n, t, updateFilter, updateFilterAndSave, saveFilters]);
 
     return (
-        <Chips.Removable
-            key={'timeOffset'}
-            className={'filter-chip'}
-            onClick={() => {
-                onRemove();
-            }}
-        >
-            {text}
-        </Chips.Removable>
+        <SharedActiveFilters
+            chips={chips}
+            emptyLabel={t('noFilters')}
+            removeAllLabel={t('removeAll')}
+            onClearAll={clearFilters}
+        />
     );
-};
+}
+
+function getTimeOffsetLabel(
+    timeOffSetHours: string | null,
+    timeOffsetMinutes: string | null,
+    t: (key: string, options?: Record<string, string>) => string
+): string | null {
+    const hasHours = !!timeOffSetHours?.trim();
+    const hasMinutes = !!timeOffsetMinutes?.trim();
+
+    if (hasHours && !hasMinutes) {
+        return t('timeOffSet.hours', { hours: timeOffSetHours!.trim() });
+    }
+    if (hasMinutes && !hasHours) {
+        return t('timeOffSet.minutes', { minutes: timeOffsetMinutes!.trim() });
+    }
+    if (hasHours && hasMinutes) {
+        return t('timeOffSet.both', {
+            hours: timeOffSetHours!.trim(),
+            minutes: timeOffsetMinutes!.trim(),
+        });
+    }
+    return null;
+}
+
+function getTimeRangeLabel(
+    from: Date | null,
+    to: Date | null,
+    t: (key: string, options?: Record<string, string>) => string
+): string | null {
+    const safeFrom = from ? new Date(from) : null;
+    const safeTo = to ? new Date(to) : null;
+
+    if (safeFrom && safeTo) {
+        return t('timeTimestamp.range', {
+            from: safeFrom.toLocaleDateString(),
+            to: safeTo.toLocaleDateString(),
+        });
+    }
+    if (safeFrom) {
+        return t('timeTimestamp.from', { from: safeFrom.toLocaleDateString() });
+    }
+    if (safeTo) {
+        return t('timeTimestamp.to', { to: safeTo.toLocaleDateString() });
+    }
+    return null;
+}

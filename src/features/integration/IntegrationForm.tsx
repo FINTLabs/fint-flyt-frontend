@@ -28,7 +28,7 @@ import {
 } from '../configuration/defaults/DefaultValues';
 import { IAlertContent } from '../configuration/types/AlertContent';
 import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
-import { ISelect } from '../configuration/types/Select';
+import { ISelect } from '../../shared/types/Select';
 import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
 
 export const IntegrationForm: React.FC = () => {

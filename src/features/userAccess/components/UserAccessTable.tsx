@@ -8,8 +8,8 @@ import {
     useTablePageError,
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
-import { Page } from '../../../shared/components/types/TableTypes';
-import { IUser } from '../../../shared/components/types/UserTypes';
+import { Page } from '../../../shared/types/TableTypes';
+import { IUser } from '../../../shared/types/UserTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 

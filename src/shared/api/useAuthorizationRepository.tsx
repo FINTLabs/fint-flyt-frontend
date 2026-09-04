@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ApiAdapterContext } from './ApiAdapterContext';
-import { Page } from '../components/types/TableTypes';
-import { IUser } from '../components/types/UserTypes';
+import { Page } from '../types/TableTypes';
+import { IUser } from '../types/UserTypes';
 import { ISourceApplication } from '../../features/configuration/types/SourceApplication';
 
 const API_URL = import.meta.env.VITE_API_AUTH || '';

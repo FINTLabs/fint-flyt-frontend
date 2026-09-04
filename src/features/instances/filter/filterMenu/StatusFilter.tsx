@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, HStack, Tabs, UNSAFE_Combobox } from '@navikt/
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import { useFilterOptions } from '../OptionsContext';
 import { setArrayValue,updateArrayValue } from '../util';
 
@@ -11,7 +11,7 @@ export default function StatusFilter() {
         keyPrefix: 'pages.instances.filter',
     });
     const { statusesOptions, instanceStatusEventCategoriesOptions } = useFilterOptions();
-    const { filters, updateFilter } = useFilters();
+    const { filters, updateFilter } = useInstanceFilters();
 
     const [selectedTab, setSelectedTab] = useState<string>(
         (filters.lastStatusEvent ?? []).length > 0 ? 'event' : 'status'

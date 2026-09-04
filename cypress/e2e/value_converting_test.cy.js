@@ -117,4 +117,19 @@ describe('Testing value converting page', () => {
                 toTypeId: 'text',
             });
     });
+
+    it('should show optional columns when sorted or filtered by related fields', () => {
+        prep();
+        cy.get('#value-convertings-table thead').should('not.contain', 'Opprettet');
+        cy.get('#value-convertings-table thead').should('not.contain', 'Til');
+
+        cy.get('[data-testid="filters-form-button"]').click();
+        cy.get('[data-testid="filters-form"] select').select('fylkesrad');
+        cy.get('[data-testid="filters-submit"]').click();
+        cy.get('#value-convertings-table thead').should('contain', 'Til');
+
+        cy.contains('button', 'Sorter').click();
+        cy.contains('[role="menuitemradio"]', 'Opprettet').click();
+        cy.get('#value-convertings-table thead').should('contain', 'Opprettet');
+    });
 });

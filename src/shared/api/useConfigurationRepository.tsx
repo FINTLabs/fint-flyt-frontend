@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { IConfiguration, IConfigurationPatch } from '../../features/configuration/types/Configuration';
 import { ApiAdapterContext } from './ApiAdapterContext';
-import { Page } from '../components/types/TableTypes';
+import { Page } from '../types/TableTypes';
 const API_URL = import.meta.env.VITE_API_CONF || '';
 
 export default function useConfigurationRepository() {

@@ -498,7 +498,72 @@
                 "basedOn": "Create new based on this",
                 "create": "Create",
                 "cancel": "Cancel",
-                "back": "Back"
+                "back": "Back",
+                "clear": "Clear",
+                "search": "Search"
+            },
+            "toolbar": {
+                "filterMenuButtonText": "Filters",
+                "sourceApplicationCard": {
+                    "title": "Application",
+                    "sourceApplication": "Source application",
+                    "toApplication": "Destination",
+                    "toApplicationPlaceholder": "Select destination"
+                },
+                "typeCard": {
+                    "title": "Type",
+                    "fromType": "From type",
+                    "toType": "To type",
+                    "fromTypePlaceholder": "Select from type",
+                    "toTypePlaceholder": "Select to type"
+                },
+                    "timeCard": {
+                    "title": "Time period",
+                    "tabs": {
+                        "created": "Created",
+                        "modified": "Modified"
+                    },
+                    "fromDate": "From date",
+                    "fromTime": "From time",
+                    "toDate": "To date",
+                    "toTime": "To time"
+                },
+                "nameCard": {
+                    "title": "Name",
+                    "name": "Name"
+                },
+                "activeFilters": {
+                    "noFilters": "No active filters",
+                    "removeAll": "Remove all",
+                    "createdPrefix": "Created",
+                    "modifiedPrefix": "Modified",
+                    "range": "{{prefix}}: {{from}} – {{to}}",
+                    "from": "{{prefix}}: from {{from}}",
+                    "to": "{{prefix}}: to {{to}}",
+                    "sortedBy": "Sorted by: {{field}}",
+                    "fromType": "From type: {{type}}",
+                    "toType": "To type: {{type}}",
+                    "displayName": "Name: {{name}}"
+                },
+                "sort": {
+                    "sortMenuButtonText": "Sort",
+                    "sortDirectionMenuButtonText": "Sort direction",
+                    "sortDirectionMenuButtonTextASC": "Ascending",
+                    "sortDirectionMenuButtonTextDESC": "Descending",
+                    "options": {
+                        "id": "Id",
+                        "displayName": "Name",
+                        "fromApplicationId": "From application",
+                        "sourceApplicationIds": "Source applications",
+                        "fromTypeId": "From type",
+                        "toApplicationId": "To application",
+                        "toTypeId": "To type",
+                        "createdAt": "Created",
+                        "modifiedAt": "Modified",
+                        "createdBy": "Created by",
+                        "modifiedBy": "Modified by"
+                    }
+                }
             },
             "header": "Value conversion",
             "errorMessage": "There was an error fetching data, try again later.",
@@ -525,6 +590,7 @@
                 "displayName": "Name",
                 "toType": "To type",
                 "fromType": "From type",
+                "type": "Type",
                 "toApplication": "To",
                 "fromApplication": "From",
                 "createdAt": "Created",

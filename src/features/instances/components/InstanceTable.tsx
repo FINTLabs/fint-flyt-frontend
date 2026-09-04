@@ -19,7 +19,7 @@ import { SourceApplicationContext } from '../../../shared/context/SourceApplicat
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useTableSelect } from '../batchProcess/TableSelectContext';
-import { useFilters } from '../filter/FilterContext';
+import { useInstanceFilters } from '../filter/FilterContext';
 import { IEventNew, ISummary } from '../types/Event';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
 import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
@@ -34,7 +34,7 @@ const InstanceTable: React.FunctionComponent = () => {
     const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const { filters, refreshKey } = useFilters();
+    const { filters, refreshKey } = useInstanceFilters();
     const { selectedEvents, toggleSelectedEvents, addAllEvents, removeAllEvents, selectedSize } =
         useTableSelect();
 

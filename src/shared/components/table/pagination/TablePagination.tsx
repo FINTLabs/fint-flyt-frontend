@@ -3,7 +3,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IPaginationSelect } from '../../types/TableTypes';
+import { IPaginationSelect } from '../../../types/TableTypes';
 import { CustomSelect } from './CustomSelect';
 
 type Props = {
@@ -30,10 +30,7 @@ const TablePagination: FunctionComponent<Props> = ({
 
     const selectOptions: IPaginationSelect[] = [
         { value: 0, label: t('numberPerPage'), disabled: true },
-        {
-            value: 10,
-            label: '10',
-        },
+        { value: 10, label: '10' },
         { value: 25, label: '25' },
         { value: 50, label: '50' },
         { value: 100, label: '100' },

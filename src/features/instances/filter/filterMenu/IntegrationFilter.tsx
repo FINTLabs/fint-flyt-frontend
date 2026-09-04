@@ -2,7 +2,7 @@ import { HStack, Tabs, UNSAFE_Combobox } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import { useFilterOptions } from '../OptionsContext';
 import { updateArrayValue } from '../util';
 
@@ -11,7 +11,7 @@ export default function IntegrationFilter() {
         keyPrefix: 'pages.instances.filter.integrationCard',
     });
 
-    const { updateFilter, filters } = useFilters();
+    const { updateFilter, filters } = useInstanceFilters();
     const {
         integrationOptions,
         sourceApplicationIdOptions,

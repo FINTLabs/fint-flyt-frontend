@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { BriefcaseClockIcon, CalendarIcon, ClockDashedIcon } from '../../../../shared/components/icons';
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import { useFilterOptions } from '../OptionsContext';
 import { setSingleValue } from '../util';
 
@@ -20,7 +20,7 @@ export default function TimeFilter() {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances.filter.timeCard' });
 
     const { timeCurrentPeriodOptions } = useFilterOptions();
-    const { updateFilter, filters } = useFilters();
+    const { updateFilter, filters } = useInstanceFilters();
 
     const [selectedTab, setSelectedTab] = useState<string>(() => {
         if (filters.timeOffsetMinutes || filters.timeOffSetHours) return 'offset';

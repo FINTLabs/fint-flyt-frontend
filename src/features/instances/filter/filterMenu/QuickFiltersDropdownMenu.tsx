@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ChevronDownIcon } from '../../../../shared/components/icons';
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 
 export default function QuickFiltersDropdownMenu() {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter.quickFilter',
     });
-    const { setQuickFilters } = useFilters();
+    const { setQuickFilters } = useInstanceFilters();
 
     const [isOpen, setIsOpen] = useState(false);
 

@@ -2,14 +2,14 @@ import { TextField, VStack } from '@navikt/ds-react';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useFilters } from '../FilterContext';
+import { useInstanceFilters } from '../FilterContext';
 import { setCommaSeparatedValue } from '../util';
 
 export default function InstanceFilter() {
     const { t } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter.instanceCard',
     });
-    const { updateFilter, filters } = useFilters();
+    const { updateFilter, filters } = useInstanceFilters();
 
     const [instanceInput, setInstanceInput] = useState(
         filters.sourceApplicationInstanceIds?.join(', ') ?? ''

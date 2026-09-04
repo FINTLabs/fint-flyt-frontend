@@ -1,5 +1,5 @@
 import { IEventNew } from '../../features/instances/types/Event';
-import { Page } from '../../shared/components/types/TableTypes';
+import { Page } from '../../shared/types/TableTypes';
 
 export const MOCK_EVENTS: Page<IEventNew> = {
     content: [
