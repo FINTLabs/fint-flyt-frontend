@@ -1,4 +1,4 @@
-import { createContext, useCallback, useMemo, useState } from 'react';
+import { createContext, useCallback, useMemo, useRef, useState } from 'react';
 import { ContextProps } from './constants/interface';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import { ISourceApplication } from '../../features/configuration/types/SourceApplication';
@@ -47,6 +47,7 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
     const [sourceApplications, setSourceApplications] = useState<
         ISourceApplication[] | undefined
     >();
+    const sourceApplicationsRequestRef = useRef<Promise<ISourceApplication[]> | null>(null);
 
     const logoutUrl = useMemo(() => `${basePath}/_oauth/logout`, [basePath]);
 
@@ -75,23 +76,27 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
 
     const getAllSourceApplications = useCallback(
         async (filterByAvailable: boolean): Promise<ISourceApplication[]> => {
+            const applyFilter = (apps: ISourceApplication[]) =>
+                filterByAvailable ? apps.filter((sa) => sa.available) : apps;
+
             if (sourceApplications) {
-                return filterByAvailable
-                    ? sourceApplications.filter((sa) => sa.available)
-                    : sourceApplications;
-            } else {
-                try {
-                    return AuthorizationRepository.getSourceApplications().then((response) => {
-                        setSourceApplications(response.data);
-                        return filterByAvailable
-                            ? response.data.filter((sa) => sa.available)
-                            : response.data;
-                    });
-                } catch (error) {
-                    console.log(error);
-                    return [];
-                }
+                return applyFilter(sourceApplications);
             }
+
+            if (!sourceApplicationsRequestRef.current) {
+                sourceApplicationsRequestRef.current = AuthorizationRepository.getSourceApplications()
+                    .then((response) => {
+                        setSourceApplications(response.data);
+                        return response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        sourceApplicationsRequestRef.current = null;
+                        return [];
+                    });
+            }
+
+            return applyFilter(await sourceApplicationsRequestRef.current);
         },
         [sourceApplications]
     );

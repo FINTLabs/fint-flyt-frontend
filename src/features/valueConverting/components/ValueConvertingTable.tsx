@@ -1,4 +1,4 @@
-import { ActionMenu, Alert, HStack, SortState, Table } from '@navikt/ds-react';
+import { ActionMenu, Alert, HStack, Table } from '@navikt/ds-react';
 import React, { ReactElement, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -11,14 +11,15 @@ import {
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
-import { Page } from '../../../shared/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import { getDestinationDisplayName, toApiSortDirection } from '../../../shared/util/TableUtil';
+import { Page } from '../../../shared/types/TableTypes';
+import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
 import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useValueConvertingFilters } from '../tableToolbar/FilterContext';
 import { toApiDateTime } from '../tableToolbar/TimeFilter';
 import { IValueConverting } from '../types/ValueConverting';
+import { getVisibleOptionalColumns } from '../util/valueConvertingTableColumns';
 import ValueConvertingPanel from './ValueConvertingPanel';
 
 type Props = {
@@ -37,14 +38,15 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
 
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>([]);
     const [valueConvertings, setValueConvertings] = useState<Page<IValueConverting> | undefined>();
-    const [sort, setSort] = useState<SortState | undefined>({
-        orderBy: 'id',
-        direction: 'descending',
-    });
 
     const sourceAppDisplayNameById = useMemo(
         () => new Map(sourceApplications.map((app) => [app.id, app.displayName])),
         [sourceApplications]
+    );
+
+    const visibleOptionalColumns = useMemo(
+        () => getVisibleOptionalColumns(filters),
+        [filters]
     );
 
     useEffect(() => {
@@ -71,8 +73,8 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
         ValueConvertingRepository.getValueConvertings({
             page: page - 1,
             size: rowsPerPage,
-            sortProperty: filters.sort.orderBy ?? sort?.orderBy,
-            sortDirection: filters.sort.direction ?? toApiSortDirection(sort?.direction),
+            sortProperty: filters.sort.orderBy,
+            sortDirection: filters.sort.direction,
             excludeConvertingMap: false,
             sourceApplicationIds:
                 sourceApplicationIds.length > 0 ? sourceApplicationIds : undefined,
@@ -98,7 +100,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                 setValueConvertings(undefined);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refreshKey, page, rowsPerPage, sort?.orderBy, sort?.direction]);
+    }, [refreshKey, page, rowsPerPage]);
 
     async function handleNewOrEditConvertingClick(id: number) {
         props.onValueConvertingSelected(id);
@@ -126,8 +128,6 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             <Table
                 id={'value-convertings-table'}
                 size={'small'}
-                sort={sort}
-                // onSortChange={(sortKey) => handleSortByColumn(sortKey, sort, setSort)}
             >
                 <Table.Header>
                     <Table.Row>
@@ -141,21 +141,17 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                         </Table.ColumnHeader>
 
                         <Table.ColumnHeader scope="col">{t('column.type')}</Table.ColumnHeader>
-                        {(filters.sort.orderBy === 'createdAt' ||
-                            filters.createdFrom !== null ||
-                            filters.createdTo !== null) && (
+                        {visibleOptionalColumns.createdAt && (
                             <Table.ColumnHeader scope="col" align="center">
                                 {t('column.createdAt')}
                             </Table.ColumnHeader>
                         )}
-                        {(filters.sort.orderBy === 'modifiedAt' ||
-                            filters.modifiedFrom !== null ||
-                            filters.modifiedTo !== null) && (
+                        {visibleOptionalColumns.modifiedAt && (
                             <Table.ColumnHeader scope="col" align="center">
                                 {t('column.modifiedAt')}
                             </Table.ColumnHeader>
                         )}
-                        {(filters.sort.orderBy === 'toApplicationId' || filters.toApplicationId) && (
+                        {visibleOptionalColumns.toApplication && (
                             <Table.ColumnHeader scope="col">
                                 {t('column.toApplication')}
                             </Table.ColumnHeader>
@@ -197,9 +193,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                     </HStack>
                                 </Table.DataCell>
 
-                                {(filters.sort.orderBy === 'createdAt' ||
-                                    filters.createdFrom !== null ||
-                                    filters.createdTo !== null) && (
+                                {visibleOptionalColumns.createdAt && (
                                     <Table.DataCell scope="row" align="center">
                                         {value.createdAt
                                             ? formatTimestampToReadableText(
@@ -210,9 +204,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                             : ''}
                                     </Table.DataCell>
                                 )}
-                                {(filters.sort.orderBy === 'modifiedAt' ||
-                                    filters.modifiedFrom !== null ||
-                                    filters.modifiedTo !== null) && (
+                                {visibleOptionalColumns.modifiedAt && (
                                     <Table.DataCell scope="row" align="center">
                                         {value.lastModifiedAt
                                             ? formatTimestampToReadableText(
@@ -224,7 +216,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                     </Table.DataCell>
                                 )}
 
-                                {(filters.sort.orderBy === 'toApplicationId' || filters.toApplicationId) && (
+                                {visibleOptionalColumns.toApplication && (
                                     <Table.DataCell scope="row">
                                         {getDestinationDisplayName(value.toApplicationId)}
                                     </Table.DataCell>
