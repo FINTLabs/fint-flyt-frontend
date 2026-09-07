@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 import { SortState, ValueConvertingFilters } from './types';
 
@@ -29,6 +29,7 @@ type FilterContextProps = {
     clearFilters: () => void;
     numberOfActiveFilters: number;
     refreshKey: number;
+    refresh: () => void;
     isSaved: boolean;
     updateSort: (sort: SortState) => void;
 };
@@ -61,10 +62,6 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
     const [filters, setFilters] = useState<ValueConvertingFilters>({ ...EMPTY_FILTERS });
     const [refreshKey, setRefreshKey] = useState(0);
     const [isSaved, setIsSaved] = useState(true);
-
-    useEffect(() => {
-        console.log('filters', filters);
-    }, [filters]);
 
     const numberOfActiveFilters = countActiveFilters(filters);
 
@@ -100,6 +97,10 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
         applyFilters(filters);
     };
 
+    const refresh = () => {
+        setRefreshKey((prev) => prev + 1);
+    };
+
     return (
         <FilterContext.Provider
             value={{
@@ -110,6 +111,7 @@ export function ValueConvertingFilterProvider({ children }: { children: ReactNod
                 clearFilters,
                 numberOfActiveFilters,
                 refreshKey,
+                refresh,
                 isSaved,
                 updateSort,
             }}

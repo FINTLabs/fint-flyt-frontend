@@ -28,8 +28,8 @@ import {
     errorAlert,
     savedAlert,
     unknownErrorAlert,
-} from './defaults/DefaultValues';
-import { IAlertContent } from './types/AlertContent';
+} from '../../shared/defaults/alertMessages';
+import { IAlertContent } from '../../shared/types/AlertContent';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
 
 const Configuration: React.FC = () => {

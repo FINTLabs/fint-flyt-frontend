@@ -1,7 +1,8 @@
 import { Select, VStack } from '@navikt/ds-react';
 import { useTranslation } from 'react-i18next';
+
+import { fromTypeIds, toTypeIds } from '../../../shared/defaults/valueConvertingTypes';
 import { useValueConvertingFilters } from './FilterContext';
-import { fromTypeIds, toTypeIds } from '../../../shared/DefaultValues';
 
 export default function TypeFilter() {
     const { t } = useTranslation('translations', {

@@ -1,7 +1,8 @@
-import {ISelect} from "../../../shared/types/Select";
+import {ISelect} from "../types/Select";
 import {IAlertContent} from "../types/AlertContent";
 
 export const defaultAlert: IAlertContent = { severity: 'announcement', message: '' };
+
 export const savedAlert: IAlertContent = {
     severity: 'success',
     message: 'Konfigurasjonen er lagret',
@@ -23,23 +24,3 @@ export const activeAlert: IAlertContent = {
     severity: "success",
     message: "Konfigurasjon aktivert",
 };
-
-export function getSelectableDefaultByLanguage(lang: string): string {
-    if (lang === "no") {
-        return "- Velg kildeapplikasjon";
-    } else if (lang === "en") {
-        return "- Select source application";
-    } else {
-        return "- Velg kjeldeapplikasjon";
-    }
-}
-
-export function selectableDestinations(lang: string): ISelect[] {
-    return [
-        {
-            label: lang === "en" ? "- Select destination" : "- Velg destinasjon",
-            value: "",
-        },
-        {label: "Arkivsystem", value: "fylkesrad"},
-    ];
-}

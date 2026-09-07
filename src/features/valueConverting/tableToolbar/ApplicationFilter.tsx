@@ -3,10 +3,10 @@ import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import { destinations } from '../../../shared/defaults/valueConvertingTypes';
 import { ISelect } from '../../../shared/types/Select';
+import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
 import { useValueConvertingFilters } from './FilterContext';
-import { destinations } from '../../../shared/DefaultValues';
 
 export default function ApplicationFilter() {
     const { t } = useTranslation('translations', {

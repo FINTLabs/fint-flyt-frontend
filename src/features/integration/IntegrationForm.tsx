@@ -23,13 +23,12 @@ import i18n from '../../shared/util/locale/i18n';
 import { toIntegration } from '../../shared/util/mapping/ToIntegration';
 import {
     defaultAlert,
-    getSelectableDefaultByLanguage,
-    selectableDestinations,
-} from '../configuration/defaults/DefaultValues';
-import { IAlertContent } from '../configuration/types/AlertContent';
+} from '../../shared/defaults/alertMessages';
+import { IAlertContent } from '../../shared/types/AlertContent';
 import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
 import { ISelect } from '../../shared/types/Select';
 import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
+import { getSelectableDefaultByLanguage, selectableDestinations } from '../../shared/defaults/applocationOptions';
 
 export const IntegrationForm: React.FC = () => {
     const history = useNavigate();

@@ -61,7 +61,7 @@ describe('Testing value converting page', () => {
             .should('deep.equal', {
                 convertingMap: { test: 'kodeverk/format/systemid/DOCX' },
                 displayName: 'testkonvertering',
-                fromApplicationId: '1',
+                fromApplicationId: 1,
                 fromTypeId: 'mediatype',
                 toApplicationId: 'fylkesrad',
                 toTypeId: 'filformat',
