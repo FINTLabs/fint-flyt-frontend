@@ -8,6 +8,10 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Total events in the instance overview:',
+                text: 'The number of events that match the filters is now displayed above the table',
+            },
+            {
                 title: 'Edit value conversions:',
                 text: 'It is now possible to edit an existing value conversion directly from the actions menu in the table.',
             },

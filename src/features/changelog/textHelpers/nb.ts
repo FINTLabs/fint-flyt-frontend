@@ -10,6 +10,10 @@ export const VERSION_DATA: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Antall hendelser i instansoversikten:',
+                text: 'Antall hendelser som matcher filtrene vises nå over tabellen.',
+            },
+            {
                 title: 'Redigere verdikonverteringer:',
                 text: 'Det er nå mulig å redigere en eksisterende verdikonvertering direkte fra handlinger i tabellen.',
             },
