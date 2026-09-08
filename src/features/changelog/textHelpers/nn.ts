@@ -8,6 +8,14 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Redigere verdikonverteringar:',
+                text: 'Det er no mogleg å redigere ei eksisterande verdikonvertering direkte frå handlingar i tabellen.',
+            },
+            {
+                title: 'Slette verdikonverteringar:',
+                text: 'Verdikonverteringar kan no slettast frå handlingar i tabellen.',
+            },
+            {
                 title: 'Sortering av verdikonverteringar:',
                 text: 'Tabellen for verdikonvertering kan no sorterast ved å klikka på kolonneoverskrifter (ID, visningsnamn, frå-type, til-type, kjeldeapplikasjon, opprettet og sist endra).',
             },

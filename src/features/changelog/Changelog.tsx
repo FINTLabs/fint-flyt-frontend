@@ -3,11 +3,11 @@ import React, { useContext, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
+import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import {
     getAboutByLanguage,
     getVersionDataByLanguage,
-} from '../../shared/components/utils/version/VersionTexts';
-import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
+} from './textHelpers/VersionTexts';
 
 const Changelog: React.FC = () => {
     const { i18n } = useTranslation();

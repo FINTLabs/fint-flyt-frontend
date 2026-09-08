@@ -8,6 +8,14 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Edit value conversions:',
+                text: 'It is now possible to edit an existing value conversion directly from the actions menu in the table.',
+            },
+            {
+                title: 'Delete value conversions:',
+                text: 'Value conversions can now be deleted from the actions menu in the table.',
+            },
+            {
                 title: 'Sorting of value conversions:',
                 text: 'The value converting table now supports sorting by clicking column headers (ID, display name, from type, to type, source application, created, and last modified).',
             },
