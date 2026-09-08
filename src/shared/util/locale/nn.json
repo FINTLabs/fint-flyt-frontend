@@ -229,6 +229,8 @@
                 "loadMore": "Last inn meir...",
                 "activeFilters": {
                     "noFilters": "Ingen aktive filtre",
+                    "totalEventCount": "Totalt",
+                    "totalMatchingEventCount": "Antall treff",
                     "statuses": {
                         "title": "Status",
                         "TRANSFERRED": "Overført",

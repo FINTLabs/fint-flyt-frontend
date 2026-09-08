@@ -263,6 +263,8 @@
                 "activeFilters": {
                     "noFilters": "Ingen aktive filtre",
                     "removeAll": "Fjern alle",
+                    "totalEventCount": "Totalt",
+                    "totalMatchingEventCount": "Antall treff",
                     "filterNames": {
                         "statuses": "Status",
                         "integrationIds": "Integrasjoner",

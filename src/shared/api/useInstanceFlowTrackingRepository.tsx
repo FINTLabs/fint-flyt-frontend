@@ -62,9 +62,10 @@ export default function useInstanceFlowTrackingRepository() {
         });
     };
 
-    const getTotalEventCountByFilter = (filters?: Filters) => {
-        return get(API_URL, `/api/intern/instance-flow-tracking/summariesTotalCount`, {
+    const getTotalEventCountByFilter = (filters?: Filters, signal?: AbortSignal) => {
+        return get<number>(API_URL, `/api/intern/instance-flow-tracking/summariesTotalCount`, {
             params: buildFilterParams(filters),
+            signal,
         });
     };
 

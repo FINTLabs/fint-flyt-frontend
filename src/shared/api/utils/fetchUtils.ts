@@ -1,4 +1,4 @@
-export function createAbortSignal(timeout?: number): AbortSignal | undefined {
+function createAbortSignal(timeout?: number): AbortSignal | undefined {
     if (!timeout) {
         return undefined;
     }
@@ -6,6 +6,19 @@ export function createAbortSignal(timeout?: number): AbortSignal | undefined {
     const controller = new AbortController();
     setTimeout(() => controller.abort(), timeout);
     return controller.signal;
+}
+
+export function resolveAbortSignal(
+    signal?: AbortSignal,
+    timeout?: number
+): AbortSignal | undefined {
+    const timeoutSignal = createAbortSignal(timeout);
+
+    if (signal && timeoutSignal) {
+        return AbortSignal.any([signal, timeoutSignal]);
+    }
+
+    return signal ?? timeoutSignal;
 }
 
 export function buildSearchParams(

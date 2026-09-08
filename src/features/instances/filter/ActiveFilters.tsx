@@ -29,13 +29,27 @@ export default function ActiveFilters() {
     }, [filters, isSaved]);
 
     useEffect(() => {
-        InstanceFlowTrackingRepository.getTotalEventCountByFilter(filters).then((response) => {
-            if (response.data) {
-                setTotalEventCount(response.data as unknown as number);
-            }
-        }).catch((error) => {
-            console.error(error);
-        });
+        const abortController = new AbortController();
+
+        InstanceFlowTrackingRepository.getTotalEventCountByFilter(
+            filters,
+            abortController.signal
+        )
+            .then((response) => {
+                if (response.data != null) {
+                    setTotalEventCount(response.data);
+                }
+            })
+            .catch((error) => {
+                if (error?.name === 'AbortError') {
+                    return;
+                }
+                console.error(error);
+            });
+
+        return () => {
+            abortController.abort();
+        };
     }, [refreshKey, filters]);
 
     const chips = useMemo(() => {
@@ -109,6 +123,8 @@ export default function ActiveFilters() {
             removeAllLabel={t('removeAll')}
             onClearAll={clearFilters}
             totalEventCount={totalEventCount}
+            totalEventCountLabel={t('totalEventCount')}
+            totalMatchingEventCountLabel={t('totalMatchingEventCount')}
         />
     );
 }

@@ -1,4 +1,4 @@
-import { Button, Chips, HStack } from '@navikt/ds-react';
+import { BodyShort, Button, Chips, HStack } from '@navikt/ds-react';
 
 import { XMarkIcon } from '../icons';
 
@@ -14,6 +14,8 @@ type Props = {
     removeAllLabel: string;
     onClearAll: () => void;
     totalEventCount?: number | null;
+    totalEventCountLabel: string;
+    totalMatchingEventCountLabel: string;
 };
 
 export function ActiveFilters({
@@ -22,13 +24,26 @@ export function ActiveFilters({
     removeAllLabel,
     onClearAll,
     totalEventCount,
+    totalEventCountLabel,
+    totalMatchingEventCountLabel,
 }: Props) {
     if (chips.length === 0) {
-        return <HStack data-testid="active-filters">{emptyLabel}</HStack>;
+        return (
+            <HStack justify="space-between">
+                <HStack data-testid="active-filters">
+                    <BodyShort size="small">{emptyLabel}</BodyShort>
+                </HStack>
+                {totalEventCount != null && (
+                    <BodyShort size="small" textColor="subtle">
+                        {totalEventCountLabel}: {totalEventCount}
+                    </BodyShort>
+                )}
+            </HStack>
+        );
     }
 
     return (
-        <>
+        <HStack justify="space-between">
             <HStack gap="2" className="active-filters" align="center" data-testid="active-filters">
                 <Chips size="small">
                     {chips.map((chip) => (
@@ -51,7 +66,11 @@ export function ActiveFilters({
                     {removeAllLabel}
                 </Button>
             </HStack>
-            {totalEventCount && <span className="total-event-count">{totalEventCount}</span>}
-        </>
+            {totalEventCount != null && (
+                <BodyShort size="small" textColor="subtle">
+                    {totalMatchingEventCountLabel}: {totalEventCount}
+                </BodyShort>
+            )}
+        </HStack>
     );
 }

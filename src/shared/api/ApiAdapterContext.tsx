@@ -4,10 +4,10 @@ import { ContextProps } from '../context/constants/interface';
 import { createApiError } from './utils/apiErrorUtils';
 import {
     buildSearchParams,
-    createAbortSignal,
     getTokenExpiration,
     isTokenValid,
     parseResponse,
+    resolveAbortSignal,
 } from './utils/fetchUtils';
 
 const BASE_PATH = process.env.BASE_PATH ?? import.meta.env.VITE_BASE_PATH ?? '';
@@ -19,6 +19,7 @@ export type AdapterRequestConfigType = {
     params?: Record<string, string | string[] | number | boolean | null | undefined>;
     headers?: Headers;
     timeout?: number;
+    signal?: AbortSignal;
 };
 
 export interface AdapterResponse<T> {
@@ -195,7 +196,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 method,
                 headers,
                 body: data ? JSON.stringify(data) : undefined,
-                signal: createAbortSignal(config?.timeout),
+                signal: resolveAbortSignal(config?.signal, config?.timeout),
             },
             config
         );
@@ -223,7 +224,7 @@ const APIAdapterProvider = ({ children }: ContextProps) => {
                 {
                     method: 'GET',
                     headers,
-                    signal: createAbortSignal(config?.timeout),
+                    signal: resolveAbortSignal(config?.signal, config?.timeout),
                 },
                 config
             );

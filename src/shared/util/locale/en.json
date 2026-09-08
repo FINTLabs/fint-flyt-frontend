@@ -235,6 +235,8 @@
                 "loadMore": "Load More...",
                 "activeFilters": {
                     "noFilters": "Ingen aktive filtre",
+                    "totalEventCount": "Total",
+                    "totalMatchingEventCount": "Matching events",
                     "statuses": {
                         "title": "Status",
                         "TRANSFERRED": "Overført",
