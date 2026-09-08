@@ -14,8 +14,8 @@ type Props = {
     removeAllLabel: string;
     onClearAll: () => void;
     totalEventCount?: number | null;
-    totalEventCountLabel: string;
-    totalMatchingEventCountLabel: string;
+    totalEventCountLabel?: string;
+    totalMatchingEventCountLabel?: string;
 };
 
 export function ActiveFilters({
@@ -33,7 +33,7 @@ export function ActiveFilters({
                 <HStack data-testid="active-filters">
                     <BodyShort size="small">{emptyLabel}</BodyShort>
                 </HStack>
-                {totalEventCount != null && (
+                {totalEventCount != null && totalEventCountLabel && (
                     <BodyShort size="small" textColor="subtle">
                         {totalEventCountLabel}: {totalEventCount}
                     </BodyShort>
@@ -66,7 +66,7 @@ export function ActiveFilters({
                     {removeAllLabel}
                 </Button>
             </HStack>
-            {totalEventCount != null && (
+            {totalEventCount != null && totalMatchingEventCountLabel && (
                 <BodyShort size="small" textColor="subtle">
                     {totalMatchingEventCountLabel}: {totalEventCount}
                 </BodyShort>

@@ -15,7 +15,17 @@ export function resolveAbortSignal(
     const timeoutSignal = createAbortSignal(timeout);
 
     if (signal && timeoutSignal) {
-        return AbortSignal.any([signal, timeoutSignal]);
+        const controller = new AbortController();
+        const onAbort = () => controller.abort();
+
+        if (signal.aborted || timeoutSignal.aborted) {
+            controller.abort();
+            return controller.signal;
+        }
+
+        signal.addEventListener('abort', onAbort, { once: true });
+        timeoutSignal.addEventListener('abort', onAbort, { once: true });
+        return controller.signal;
     }
 
     return signal ?? timeoutSignal;
