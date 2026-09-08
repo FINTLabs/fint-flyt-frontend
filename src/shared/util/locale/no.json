@@ -639,8 +639,7 @@
             },
             "help": {
                 "toggle": "Det jobbes med flere muligheter for å bruke verdikonverteringer i Flyt. For nå er det som før og det er kun egendefinerte verdikonverteringer som benyttes",
-                "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet. Det er ikke mulig å redigere en eksisterende verdikonvertering da dette kan påvirke eksisterende konfigurasjoner, men det er mulig å opprette en ny basert på en eksisterende verdikonvertering",
-                "valueConvertingName": "Navn på verdikonverteringen som skal opprettes.Merk at navn ikke er påkrevd å være unikt, men det er lurt å gi et beskrivende navn",
+                "valueConverting": "Verdikonvertering er et felt som lar deg bruke en definert regel for å konvertere hver forekomst av en verdi. Verdikonverteringer brukes i konfigurasjoner på samme måte som metadata og vil gjelde for det aktuelle feltet.",
                 "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",
                 "to": "Velg applikasjonen verdiene som trenger konvertering skal til og hvilken type de skal konverteres til.",
                 "convertingMap": "Her legger du til konverteringer, trykk + for å legge til flere og - for å fjerne",
