@@ -319,6 +319,12 @@ export const mockSelectablesFromInstanceFlowTrackingRepository = () => {
             fixture: 'filter/current-period.json',
             alias: 'event-category-3',
         },
+        {
+            method: 'GET',
+            url: '**/api/intern/instance-flow-tracking/summariesTotalCount*',
+            fixture: 'filter/summariesTotalCount.json',
+            alias: 'summariesTotalCount',
+        },
     ];
 
     intercepts.forEach(({ method, url, fixture, response, alias }) => {

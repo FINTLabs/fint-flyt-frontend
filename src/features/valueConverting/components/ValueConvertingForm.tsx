@@ -202,9 +202,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                         <VStack gap={'3'} id={'name-container'}>
                             <HStack gap={'2'} align="center">
                                 <Heading size={'small'}>{t('valueConvertingName')}</Heading>
-                                <HelpText title="Hva er dette?" placement="bottom">
-                                    {t('help.valueConvertingName')}
-                                </HelpText>
                             </HStack>
                             <Controller
                                 rules={{

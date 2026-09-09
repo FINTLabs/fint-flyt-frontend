@@ -10,6 +10,18 @@ export const VERSION_DATA: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Antall hendelser i instansoversikten:',
+                text: 'Antall hendelser som matcher filtrene vises nå over tabellen.',
+            },
+            {
+                title: 'Redigere verdikonverteringer:',
+                text: 'Det er nå mulig å redigere en eksisterende verdikonvertering direkte fra handlinger i tabellen.',
+            },
+            {
+                title: 'Slette verdikonverteringer:',
+                text: 'Verdikonverteringer kan nå slettes fra handlinger i tabellen.',
+            },
+            {
                 title: 'Sortering av verdikonverteringer:',
                 text: 'Tabellen for verdikonvertering kan nå sorteres ved å klikke på kolonneoverskrifter (ID, visningsnavn, fra-type, til-type, kildeapplikasjon, opprettet og sist endret).',
             },

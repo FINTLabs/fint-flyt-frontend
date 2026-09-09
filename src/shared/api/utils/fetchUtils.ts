@@ -1,4 +1,4 @@
-export function createAbortSignal(timeout?: number): AbortSignal | undefined {
+function createAbortSignal(timeout?: number): AbortSignal | undefined {
     if (!timeout) {
         return undefined;
     }
@@ -6,6 +6,29 @@ export function createAbortSignal(timeout?: number): AbortSignal | undefined {
     const controller = new AbortController();
     setTimeout(() => controller.abort(), timeout);
     return controller.signal;
+}
+
+export function resolveAbortSignal(
+    signal?: AbortSignal,
+    timeout?: number
+): AbortSignal | undefined {
+    const timeoutSignal = createAbortSignal(timeout);
+
+    if (signal && timeoutSignal) {
+        const controller = new AbortController();
+        const onAbort = () => controller.abort();
+
+        if (signal.aborted || timeoutSignal.aborted) {
+            controller.abort();
+            return controller.signal;
+        }
+
+        signal.addEventListener('abort', onAbort, { once: true });
+        timeoutSignal.addEventListener('abort', onAbort, { once: true });
+        return controller.signal;
+    }
+
+    return signal ?? timeoutSignal;
 }
 
 export function buildSearchParams(

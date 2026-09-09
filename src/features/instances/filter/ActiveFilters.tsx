@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import {
     ActiveFilterChip,
     ActiveFilters as SharedActiveFilters,
@@ -11,20 +12,45 @@ import { Filters } from './types';
 import { getFilterLabel, SPECIAL_FILTERS } from './util';
 
 export default function ActiveFilters() {
+    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const { t, i18n } = useTranslation('translations', {
         keyPrefix: 'pages.instances.filter.activeFilters',
     });
-    const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave, isSaved } =
+    const { clearFilters, filters, updateFilter, saveFilters, updateFilterAndSave, isSaved, refreshKey } =
         useInstanceFilters();
     const filterOptions = useFilterOptions();
 
     const [savedFilters, setSavedFilters] = useState<Filters>(() => filters);
-
+    const [totalEventCount, setTotalEventCount] = useState<number | null>(null);
     useEffect(() => {
         if (isSaved) {
             setSavedFilters(filters);
         }
     }, [filters, isSaved]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        InstanceFlowTrackingRepository.getTotalEventCountByFilter(
+            filters,
+            abortController.signal
+        )
+            .then((response) => {
+                if (response.data != null) {
+                    setTotalEventCount(response.data);
+                }
+            })
+            .catch((error) => {
+                if (error?.name === 'AbortError') {
+                    return;
+                }
+                console.error(error);
+            });
+
+        return () => {
+            abortController.abort();
+        };
+    }, [refreshKey, filters]);
 
     const chips = useMemo(() => {
         const next: ActiveFilterChip[] = [];
@@ -96,6 +122,9 @@ export default function ActiveFilters() {
             emptyLabel={t('noFilters')}
             removeAllLabel={t('removeAll')}
             onClearAll={clearFilters}
+            totalEventCount={totalEventCount}
+            totalEventCountLabel={t('totalEventCount')}
+            totalMatchingEventCountLabel={t('totalMatchingEventCount')}
         />
     );
 }

@@ -105,7 +105,10 @@ const InstanceTable: React.FunctionComponent = () => {
 
         try {
             const [eventResponse, sourceApps] = await Promise.all([
-                InstanceFlowTrackingRepository.getLatestEvents(Number(requestSize), filters),
+                InstanceFlowTrackingRepository.getLatestEventsByFilter(
+                    Number(requestSize),
+                    filters
+                ),
                 getAllSourceApplications(false),
             ]);
             setSourceApplications(sourceApps);

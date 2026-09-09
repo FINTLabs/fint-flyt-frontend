@@ -1,7 +1,5 @@
 import { useContext } from 'react';
 
-import { Page } from '../types/TableTypes';
-import { ApiAdapterContext } from './ApiAdapterContext';
 import { Filters } from '../../features/instances/filter/types';
 import {
     IInstanceFlowTrackingResponse,
@@ -9,48 +7,65 @@ import {
     ISummary,
     ITotalStatistics,
 } from '../../features/instances/types/Event';
+import { Page } from '../types/TableTypes';
+import { ApiAdapterContext } from './ApiAdapterContext';
 const API_URL = import.meta.env.VITE_API_HISTORY || '';
+
+function buildFilterParams(
+    filters?: Filters
+): Record<string, string | string[] | boolean | number> {
+    const params: Record<string, string | string[] | boolean | number> = {};
+
+    if (!filters) {
+        return params;
+    }
+
+    Object.entries(filters).forEach(([key, value]) => {
+        if (Array.isArray(value) && value.length > 0) {
+            params[key] = value;
+        } else if (value) {
+            switch (key) {
+                case 'timeCurrentPeriod':
+                    params['time.currentPeriod'] = value;
+                    break;
+                case 'timeOffSetHours':
+                    params['time.offset.hours'] = value;
+                    break;
+                case 'timeOffsetMinutes':
+                    params['time.offset.minutes'] = value;
+                    break;
+                case 'timeTimestampMin':
+                    params['time.manual.min'] = value;
+                    break;
+                case 'timeTimestampMax':
+                    params['time.manual.max'] = value;
+                    break;
+                default:
+                    params[key] = value;
+                    break;
+            }
+        }
+    });
+
+    return params;
+}
 
 export default function useInstanceFlowTrackingRepository() {
     const { get, post } = useContext(ApiAdapterContext);
 
-    const getLatestSummaries = (size: number, filters?: Filters) => {
-        const params: Record<string, string | string[] | boolean | number> = {
-            size: size,
-        };
-
-        if (filters) {
-            Object.entries(filters).forEach(([key, value]) => {
-                if (Array.isArray(value) && value.length > 0) {
-                    params[key] = value;
-                } else if (value) {
-                    // Map specific keys to the expected API format
-                    switch (key) {
-                        case 'timeCurrentPeriod':
-                            params['time.currentPeriod'] = value;
-                            break;
-                        case 'timeOffSetHours':
-                            params['time.offset.hours'] = value;
-                            break;
-                        case 'timeOffsetMinutes':
-                            params['time.offset.minutes'] = value;
-                            break;
-                        case 'timeTimestampMin':
-                            params['time.manual.min'] = value;
-                            break;
-                        case 'timeTimestampMax':
-                            params['time.manual.max'] = value;
-                            break;
-                        default:
-                            params[key] = value;
-                            break;
-                    }
-                }
-            });
-        }
-
+    const getLatestEventsByFilter = (size: number, filters?: Filters) => {
         return get<ISummary[]>(API_URL, '/api/intern/instance-flow-tracking/summaries', {
-            params,
+            params: {
+                size,
+                ...buildFilterParams(filters),
+            },
+        });
+    };
+
+    const getTotalEventCountByFilter = (filters?: Filters, signal?: AbortSignal) => {
+        return get<number>(API_URL, `/api/intern/instance-flow-tracking/summariesTotalCount`, {
+            params: buildFilterParams(filters),
+            signal,
         });
     };
 
@@ -147,12 +162,14 @@ export default function useInstanceFlowTrackingRepository() {
     };
 
     const getSelectables = (endpoint: string) => {
-        return get<{ value: string; label: string}[]
-        >(API_URL, `/api/intern/instance-flow-tracking/value-space/${endpoint}`);
+        return get<{ value: string; label: string }[]>(
+            API_URL,
+            `/api/intern/instance-flow-tracking/value-space/${endpoint}`
+        );
     };
 
     return {
-        getLatestEvents: getLatestSummaries,
+        getLatestEventsByFilter,
         getEventsByInstanceId,
         manualDispatchEvent,
         manualRejectEvent,
@@ -161,5 +178,6 @@ export default function useInstanceFlowTrackingRepository() {
         getStatistics,
         getStatisticsForIntegrations,
         getSelectables,
+        getTotalEventCountByFilter,
     };
 }
