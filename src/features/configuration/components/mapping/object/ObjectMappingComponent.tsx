@@ -6,7 +6,6 @@ import { useFormContext } from 'react-hook-form';
 import {
     ICollectionTemplate,
     IDependency,
-    IElementConfig,
     IElementTemplate,
     IObjectTemplate,
     ISelectableValueTemplate,
@@ -14,6 +13,14 @@ import {
 } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
 import { DependencySatisfiedStatefulValue } from '../../../util/DependencyUtils';
+import {
+    getObjectCollectionMappingKey,
+    getObjectMappingKey,
+    getValueCollectionMappingKey,
+    getValueMappingKey,
+    isDisabledByConfig,
+    shouldShowElementWithOrder,
+} from '../../../util/objectMappingUtils';
 import FieldsetElementComponent from '../../FieldsetElementComponent';
 import ToggleButtonComponent from '../../ToggleButtonComponent';
 import SelectableValueMappingComponent from '../value/SelectableValueMappingComponent';
@@ -34,7 +41,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
-            getValueMappingKey(elementTemplate),
+            getValueMappingKey(props.absoluteKey, elementTemplate),
             elementTemplate.elementConfig.showDependency,
         ])
         .filter((entry): entry is [number, string, IDependency] => !!entry[2])
@@ -68,84 +75,63 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
             })
         );
 
-    function getValueMappingKey(
-        template: IElementTemplate<IValueTemplate | ISelectableValueTemplate>
-    ): string {
-        return props.absoluteKey + '.valueMappingPerKey.' + template.elementConfig.key;
-    }
-
-    function getValueCollectionMappingKey(
-        template: IElementTemplate<ICollectionTemplate<IValueTemplate>>
-    ): string {
-        return props.absoluteKey + '.valueCollectionMappingPerKey.' + template.elementConfig.key;
-    }
-
-    function getObjectMappingKey(template: IElementTemplate<IObjectTemplate>): string {
-        return props.absoluteKey + '.objectMappingPerKey.' + template.elementConfig.key;
-    }
-
-    function getObjectCollectionMappingKey(
-        template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>
-    ): string {
-        return props.absoluteKey + '.objectCollectionMappingPerKey.' + template.elementConfig.key;
-    }
-
-    function shouldShowElementWithOrder(order: number) {
-        const showDependencyValue: boolean | undefined =
-            showDependencyValuePerOrder.current[order.toString()];
-        if (showDependencyValue === undefined || showDependencyValue) {
-            return true;
-        }
-    }
-
-    function isDisabledByConfig(elementConfig: IElementConfig): boolean | undefined {
-        return elementConfig.enableDependency
-            ? !DependencySatisfiedStatefulValue(props.absoluteKey, elementConfig.enableDependency)
-            : undefined;
-    }
-
     return (
         <VStack gap={'4'}>
             {[
                 ...(props.template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {
-                        return shouldShowElementWithOrder(template.order);
+                        return shouldShowElementWithOrder(
+                            template.order,
+                            showDependencyValuePerOrder.current
+                        );
                     })
                     .map<ReactElement<{ order: number }>>(
                         (template: IElementTemplate<IValueTemplate>, index) => (
                             <ValueMappingComponent
                                 key={index}
                                 order={template.order}
-                                absoluteKey={getValueMappingKey(template)}
+                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={isDisabledByConfig(template.elementConfig)}
+                                disabled={isDisabledByConfig(
+                                    props.absoluteKey,
+                                    template.elementConfig
+                                )}
                             />
                         )
                     ),
 
                 ...(props.template.selectableValueTemplates ?? [])
                     .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
-                        return shouldShowElementWithOrder(template.order);
+                        return shouldShowElementWithOrder(
+                            template.order,
+                            showDependencyValuePerOrder.current
+                        );
                     })
                     .map<ReactElement<{ order: number }>>(
                         (template: IElementTemplate<ISelectableValueTemplate>, index) => (
                             <SelectableValueMappingComponent
                                 key={index}
                                 order={template.order}
-                                absoluteKey={getValueMappingKey(template)}
+                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={isDisabledByConfig(template.elementConfig)}
+                                disabled={isDisabledByConfig(
+                                    props.absoluteKey,
+                                    template.elementConfig
+                                )}
                             />
                         )
                     ),
 
                 ...(props.template.valueCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                        return shouldShowElementWithOrder(template.order);
+                        return shouldShowElementWithOrder(
+                            template.order,
+                            showDependencyValuePerOrder.current
+                        );
                     })
                     .map<ReactElement<{ order: number }>>(
                         (
@@ -162,7 +148,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         valueCollections: [
                                             {
                                                 order: template.order.toString(),
-                                                absoluteKey: getValueCollectionMappingKey(template),
+                                                absoluteKey: getValueCollectionMappingKey(
+                                                    props.absoluteKey,
+                                                    template
+                                                ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
                                                 template: template.template,
@@ -175,14 +164,20 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(template.elementConfig)}
+                                disabled={isDisabledByConfig(
+                                    props.absoluteKey,
+                                    template.elementConfig
+                                )}
                             />
                         )
                     ),
 
                 ...(props.template.objectTemplates ?? [])
                     .filter((template: IElementTemplate<IObjectTemplate>) => {
-                        return shouldShowElementWithOrder(template.order);
+                        return shouldShowElementWithOrder(
+                            template.order,
+                            showDependencyValuePerOrder.current
+                        );
                     })
                     .map<ReactElement<{ order: number }>>(
                         (template: IElementTemplate<IObjectTemplate>, index) => (
@@ -196,7 +191,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         objects: [
                                             {
                                                 order: template.order.toString(),
-                                                absoluteKey: getObjectMappingKey(template),
+                                                absoluteKey: getObjectMappingKey(
+                                                    props.absoluteKey,
+                                                    template
+                                                ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
                                                 template: template.template,
@@ -209,14 +207,20 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(template.elementConfig)}
+                                disabled={isDisabledByConfig(
+                                    props.absoluteKey,
+                                    template.elementConfig
+                                )}
                             />
                         )
                     ),
 
                 ...(props.template.objectCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                        return shouldShowElementWithOrder(template.order);
+                        return shouldShowElementWithOrder(
+                            template.order,
+                            showDependencyValuePerOrder.current
+                        );
                     })
                     .map<ReactElement<{ order: number }>>(
                         (
@@ -233,8 +237,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         objectCollections: [
                                             {
                                                 order: template.order.toString(),
-                                                absoluteKey:
-                                                    getObjectCollectionMappingKey(template),
+                                                absoluteKey: getObjectCollectionMappingKey(
+                                                    props.absoluteKey,
+                                                    template
+                                                ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
                                                 template: template.template,
@@ -247,7 +253,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(template.elementConfig)}
+                                disabled={isDisabledByConfig(
+                                    props.absoluteKey,
+                                    template.elementConfig
+                                )}
                             />
                         )
                     ),
