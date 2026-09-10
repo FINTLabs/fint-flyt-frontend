@@ -30,10 +30,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<
         Record<string, boolean>
     >({});
-    [
-        ...(props.template.valueTemplates ? props.template.valueTemplates : []),
-        ...(props.template.selectableValueTemplates ? props.template.selectableValueTemplates : []),
-    ]
+    [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
             getValueMappingKey(elementTemplate),
@@ -49,11 +46,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
             })
         );
     [
-        ...(props.template.valueCollectionTemplates ? props.template.valueCollectionTemplates : []),
-        ...(props.template.objectTemplates ? props.template.objectTemplates : []),
-        ...(props.template.objectCollectionTemplates
-            ? props.template.objectCollectionTemplates
-            : []),
+        ...(props.template.valueCollectionTemplates ?? []),
+        ...(props.template.objectTemplates ?? []),
+        ...(props.template.objectCollectionTemplates ?? []),
     ]
         .map(
             (
@@ -105,7 +100,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     return (
         <VStack gap={'4'}>
             {[
-                ...(props.template.valueTemplates ? props.template.valueTemplates : [])
+                ...(props.template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {
                         return shouldShowElementWithOrder(template.order);
                     })
@@ -130,10 +125,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         )
                     ),
 
-                ...(props.template.selectableValueTemplates
-                    ? props.template.selectableValueTemplates
-                    : []
-                )
+                ...(props.template.selectableValueTemplates ?? [])
                     .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
                         return shouldShowElementWithOrder(template.order);
                     })
@@ -158,10 +150,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         )
                     ),
 
-                ...(props.template.valueCollectionTemplates
-                    ? props.template.valueCollectionTemplates
-                    : []
-                )
+                ...(props.template.valueCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
                         return shouldShowElementWithOrder(template.order);
                     })
@@ -205,7 +194,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         )
                     ),
 
-                ...(props.template.objectTemplates ? props.template.objectTemplates : [])
+                ...(props.template.objectTemplates ?? [])
                     .filter((template: IElementTemplate<IObjectTemplate>) => {
                         return shouldShowElementWithOrder(template.order);
                     })
@@ -246,10 +235,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                         )
                     ),
 
-                ...(props.template.objectCollectionTemplates
-                    ? props.template.objectCollectionTemplates
-                    : []
-                )
+                ...(props.template.objectCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
                         return shouldShowElementWithOrder(template.order);
                     })
