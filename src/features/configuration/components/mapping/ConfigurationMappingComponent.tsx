@@ -1,6 +1,6 @@
 import { Box } from '@navikt/ds-react';
 import * as React from 'react';
-import { ReactElement, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { EditingContext } from '../../context/EditingContext';
@@ -11,9 +11,11 @@ import {
     IValueTemplate,
 } from '../../types/FormTemplate';
 import {
+    ColumnElement,
     ElementTemplates,
     NestedElementsCallbacks,
     NestedElementTemplate,
+    SimplifiedColumnElement,
 } from '../../types/NestedElement';
 import { findFromCollectionMappingAbsoluteKeys } from '../../util/KeyUtils';
 import ValueWatchComponent from '../ValueWatchComponent';
@@ -21,43 +23,16 @@ import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappi
 import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';
 import ColumnElementComponent from './ColumnElementComponent';
 import ObjectMappingComponent from './object/ObjectMappingComponent';
+import {
+    findDeepestColumnIndex,
+    getElementsByColumn,
+    getEntriesWithKeyStartingWith,
+    openNestedColumnElement,
+} from '../../util/mappingUtils';
 
 interface Props {
     mappingTemplate: IMappingTemplate;
     onCollectionReferencesInEditContextChange: (collectionReferences: string[]) => void;
-}
-
-type ColumnElement = {
-    path: string[];
-    title: string;
-    reactElement: ReactElement<{ absoluteKey: string }>;
-    nestedColumnElementPerOrder: Record<string, ColumnElement>;
-};
-
-type SimplifiedColumnElement = Omit<ColumnElement, 'nestedColumnElementPerOrder'>;
-
-function openNestedColumnElement(
-    displayPath: string[],
-    nestedColumnElements: Record<string, ColumnElement>,
-    template:
-        | NestedElementTemplate<IObjectTemplate>
-        | NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>
-        | NestedElementTemplate<ICollectionTemplate<IValueTemplate>>,
-    createReactElement: (
-        childDisplayPath: string[],
-        newNestedColumnElements: Record<string, ColumnElement>
-    ) => ReactElement<{ absoluteKey: string }>
-): void {
-    const newNestedColumnElements: Record<string, ColumnElement> = {};
-    nestedColumnElements[template.order.toString()] = {
-        path: [...displayPath, ...template.displayPath],
-        title: template.displayName,
-        reactElement: createReactElement(
-            [...displayPath, ...template.displayPath, template.displayName],
-            newNestedColumnElements
-        ),
-        nestedColumnElementPerOrder: newNestedColumnElements,
-    };
 }
 
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
@@ -181,49 +156,6 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                 setDisplayRootElement({ ...rootElement });
             },
         };
-    }
-
-    function findDeepestColumnIndex(columnElement: ColumnElement, depth = 0): number {
-        if (!Object.keys(columnElement.nestedColumnElementPerOrder).length) {
-            return depth; // No more nested columns, return the depth
-        }
-
-        return Math.max(
-            ...Object.values(columnElement.nestedColumnElementPerOrder).map((nested) =>
-                findDeepestColumnIndex(nested, depth + 1)
-            )
-        );
-    }
-
-    function getEntriesWithKeyStartingWith<T>(
-        record: Record<string, T>,
-        startingWith: string
-    ): [string, T][] {
-        return Object.entries(record).filter(([order]: [string, T]) =>
-            order.startsWith(startingWith)
-        );
-    }
-
-    function getElementsByColumn(columnElement: ColumnElement): SimplifiedColumnElement[][] {
-        return [
-            [columnElement],
-            ...Object.entries(columnElement.nestedColumnElementPerOrder)
-                .sort(([key1], [key2]) => key1.localeCompare(key2, undefined, { numeric: true }))
-                .map(([, nestedColumnElement]) => getElementsByColumn(nestedColumnElement))
-                .reduce(
-                    (
-                        combinedChildColumns: SimplifiedColumnElement[][],
-                        childColumns: SimplifiedColumnElement[][]
-                    ) => {
-                        for (const [columnIndex, column] of childColumns.entries()) {
-                            combinedChildColumns[columnIndex] ??= [];
-                            combinedChildColumns[columnIndex].push(...column);
-                        }
-                        return combinedChildColumns;
-                    },
-                    []
-                ),
-        ];
     }
 
     return (
