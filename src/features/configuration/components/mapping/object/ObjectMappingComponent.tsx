@@ -6,6 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import {
     ICollectionTemplate,
     IDependency,
+    IElementConfig,
     IElementTemplate,
     IObjectTemplate,
     ISelectableValueTemplate,
@@ -97,6 +98,12 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         }
     }
 
+    function isDisabledByConfig(elementConfig: IElementConfig): boolean | undefined {
+        return elementConfig.enableDependency
+            ? !DependencySatisfiedStatefulValue(props.absoluteKey, elementConfig.enableDependency)
+            : undefined;
+    }
+
     return (
         <VStack gap={'4'}>
             {[
@@ -113,14 +120,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={
-                                    template.elementConfig.enableDependency
-                                        ? !DependencySatisfiedStatefulValue(
-                                              props.absoluteKey,
-                                              template.elementConfig.enableDependency
-                                          )
-                                        : undefined
-                                }
+                                disabled={isDisabledByConfig(template.elementConfig)}
                             />
                         )
                     ),
@@ -138,14 +138,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={
-                                    template.elementConfig.enableDependency
-                                        ? !DependencySatisfiedStatefulValue(
-                                              props.absoluteKey,
-                                              template.elementConfig.enableDependency
-                                          )
-                                        : undefined
-                                }
+                                disabled={isDisabledByConfig(template.elementConfig)}
                             />
                         )
                     ),
@@ -182,14 +175,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={
-                                    template.elementConfig.enableDependency
-                                        ? !DependencySatisfiedStatefulValue(
-                                              props.absoluteKey,
-                                              template.elementConfig.enableDependency
-                                          )
-                                        : undefined
-                                }
+                                disabled={isDisabledByConfig(template.elementConfig)}
                             />
                         )
                     ),
@@ -223,14 +209,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={
-                                    template.elementConfig.enableDependency
-                                        ? !DependencySatisfiedStatefulValue(
-                                              props.absoluteKey,
-                                              template.elementConfig.enableDependency
-                                          )
-                                        : undefined
-                                }
+                                disabled={isDisabledByConfig(template.elementConfig)}
                             />
                         )
                     ),
@@ -268,14 +247,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={
-                                    template.elementConfig.enableDependency
-                                        ? !DependencySatisfiedStatefulValue(
-                                              props.absoluteKey,
-                                              template.elementConfig.enableDependency
-                                          )
-                                        : undefined
-                                }
+                                disabled={isDisabledByConfig(template.elementConfig)}
                             />
                         )
                     ),
