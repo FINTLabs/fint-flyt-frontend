@@ -1,4 +1,4 @@
-import {recordOrEmpty} from "../../features/configuration/util/ObjectUtils";
+import {recordOrEmpty} from "../../features/configuration/util/objectUtils";
 
 const record: Record<string, string> = {
     'link': 'system'

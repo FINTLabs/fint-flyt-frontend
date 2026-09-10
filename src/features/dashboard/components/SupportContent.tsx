@@ -14,7 +14,7 @@ import { Contact } from './Contact';
 import {
 	getAboutFlytByLanguage,
 	getFAQByLanguage,
-} from "../utils/TextUtils"
+} from "../utils/textUtils"
 
 const SupportContent = () => {
 	const { t } = useTranslation("translations", { keyPrefix: "pages.support" });

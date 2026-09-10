@@ -19,8 +19,8 @@ import { TableRowActionsMenu } from '../../../shared/components/table/TableRowAc
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { IAlertContent } from '../../../shared/types/AlertContent';
 import { Page } from '../../../shared/types/TableTypes';
-import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
-import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
+import { getDestinationDisplayName } from '../../../shared/util/tableUtil';
+import { formatTimestampToReadableText } from '../../../shared/util/timeAndDateUtils';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useValueConvertingFilters } from '../tableToolbar/FilterContext';
 import { toApiDateTime } from '../tableToolbar/TimeFilter';

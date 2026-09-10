@@ -7,7 +7,7 @@ import {
     getStatusDescriptionsByLanguage,
     getUserGuideByLanguage,
     getWordListByLanguage,
-} from './util/SupportUtil';
+} from './util/supportUtil';
 
 const UserGuide: React.FC = () => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.support' });

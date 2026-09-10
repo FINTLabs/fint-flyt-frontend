@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { destinations } from '../../../shared/defaults/valueConvertingTypes';
 import { ISelect } from '../../../shared/types/Select';
-import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { useValueConvertingFilters } from './FilterContext';
 
 export default function ApplicationFilter() {

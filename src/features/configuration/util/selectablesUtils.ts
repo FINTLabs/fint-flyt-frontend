@@ -5,7 +5,7 @@ import { ISelectable } from '../types/Selectable';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { useWatch } from 'react-hook-form';
-import { createSource, createValueRefPerAbsoluteKey, Source } from './UrlUtils';
+import { createSource, createValueRefPerAbsoluteKey, Source } from './urlUtils';
 import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
 
 export const useSelectablesStatefulValue = (

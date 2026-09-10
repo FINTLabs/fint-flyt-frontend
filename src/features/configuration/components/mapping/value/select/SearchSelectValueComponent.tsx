@@ -5,7 +5,7 @@ import {ControllerFieldState} from "react-hook-form";
 import {Noop} from "react-hook-form/dist/types";
 
 import FormErrorText from '../../../FormErrorText';
-import {autoCompleteSX} from "../../../../../../shared/util/styles/SystemStyles";
+import {autoCompleteSX} from "../../../../../../shared/util/styles/systemStyles";
 import {ISelectable} from "../../../../types/Selectable";
 
 interface Props {

@@ -13,7 +13,7 @@ import IconButton from '../../../IconButton';
 import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
-import { Search } from '../../../../util/UrlUtils';
+import { Search } from '../../../../util/urlUtils';
 
 interface Props {
     displayName?: string;

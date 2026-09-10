@@ -6,12 +6,12 @@ import {
     ActiveFilters as SharedActiveFilters,
 } from '../../../shared/components/table/ActiveFilters';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
-import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { ISelect } from '../../../shared/types/Select';
 import { useValueConvertingFilters } from './FilterContext';
 import { clearTimeRange } from './TimeFilter';
 import { ValueConvertingFilters } from './types';
-import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
+import { getDestinationDisplayName } from '../../../shared/util/tableUtil';
 
 export default function ActiveFilters() {
     const { t } = useTranslation('translations', {

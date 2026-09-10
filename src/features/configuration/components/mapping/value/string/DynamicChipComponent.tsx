@@ -9,8 +9,8 @@ import {useTranslation} from "react-i18next";
 import FormErrorText from '../../../FormErrorText';
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import {ITag} from "../../../../types/Metadata/Tag";
-import {Search} from "../../../../util/UrlUtils";
-import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
+import {Search} from "../../../../util/urlUtils";
+import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/valueFieldUtils";
 
 export interface Props {
     displayName?: string;

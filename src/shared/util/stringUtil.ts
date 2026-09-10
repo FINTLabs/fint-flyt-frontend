@@ -1,4 +1,4 @@
-import {toErrorType} from "./mapping/helpers/ToErrorType";
+import {toErrorType} from "./mapping/helpers/toErrorType";
 import {IError, IErrorArg} from "../../features/instances/types/Event";
 import {ErrorType} from "../../features/instances/types/ErrorType";
 

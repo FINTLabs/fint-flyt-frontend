@@ -17,7 +17,7 @@ import {
     NestedElementTemplate,
     SimplifiedColumnElement,
 } from '../../types/NestedElement';
-import { findFromCollectionMappingAbsoluteKeys } from '../../util/KeyUtils';
+import { findFromCollectionMappingAbsoluteKeys } from '../../util/keyUtils';
 import ValueWatchComponent from '../ValueWatchComponent';
 import ObjectCollectionMappingComponent from './collection/ObjectCollectionMappingComponent';
 import ValueCollectionMappingComponent from './collection/ValueCollectionMappingComponent';

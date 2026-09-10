@@ -1,7 +1,7 @@
 import {
     extractCollectionFieldReferenceIndexAndKey, extractFieldReferenceKey, isCollectionFieldReference,
     isFieldReference
-} from "../../features/configuration/util/FieldReferenceUtils";
+} from "../../features/configuration/util/fieldReferenceUtils";
 
 describe('isFieldReference', () => {
     it('returns true for valid field references', () => {

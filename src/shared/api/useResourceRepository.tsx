@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { ISelectable } from '../../features/configuration/types/Selectable';
-import { Source } from '../../features/configuration/util/UrlUtils';
+import { Source } from '../../features/configuration/util/urlUtils';
 import {
     AdapterRequestConfigType,
     AdapterResponse,

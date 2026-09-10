@@ -6,7 +6,7 @@ import {
     ISelectableValueTemplate,
     IValueTemplate,
 } from '../types/FormTemplate';
-import { DependencySatisfiedStatefulValue } from './DependencyUtils';
+import { DependencySatisfiedStatefulValue } from './dependencyUtils';
 
 export function getValueMappingKey(
     absoluteKey: string,

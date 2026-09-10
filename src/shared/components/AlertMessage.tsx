@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import { Box, LocalAlert, LocalAlertProps } from '@navikt/ds-react';
-import { transformPath } from '../util/ProblemDetailUtil';
+import { transformPath } from '../util/problemDetailUtil';
 
 type SnackbarProps = {
     id: string;

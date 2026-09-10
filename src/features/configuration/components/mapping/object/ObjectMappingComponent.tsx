@@ -12,7 +12,7 @@ import {
     IValueTemplate,
 } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
-import { DependencySatisfiedStatefulValue } from '../../../util/DependencyUtils';
+import { DependencySatisfiedStatefulValue } from '../../../util/dependencyUtils';
 import {
     getObjectCollectionMappingKey,
     getObjectMappingKey,

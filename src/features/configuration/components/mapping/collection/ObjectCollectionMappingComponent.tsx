@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IObjectTemplate } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
-import { prefixNestedElementsCallbacks } from '../../../util/NestedElementsUtils';
+import { prefixNestedElementsCallbacks } from '../../../util/nestedElementsUtils';
 import ObjectMappingComponent from '../object/ObjectMappingComponent';
 import CollectionMappingComponent from './common/CollectionMappingComponent';
 

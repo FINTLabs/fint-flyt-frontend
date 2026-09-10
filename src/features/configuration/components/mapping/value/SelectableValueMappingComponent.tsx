@@ -7,9 +7,9 @@ import {ConfigurationContext} from "../../../context/ConfigurationContext";
 import {EditingContext} from "../../../context/EditingContext";
 import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
 import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
-import {isOutsideCollectionEditContext} from "../../../util/KeyUtils";
-import { useSelectablesStatefulValue } from '../../../util/SelectablesUtils';
-import {hasValidFormat} from "../../../util/ValidationUtil";
+import {isOutsideCollectionEditContext} from "../../../util/keyUtils";
+import { useSelectablesStatefulValue } from '../../../util/selectablesUtils';
+import {hasValidFormat} from "../../../util/validationUtil";
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType
 } from "./DynamicStringOrSearchSelectValueComponent";
