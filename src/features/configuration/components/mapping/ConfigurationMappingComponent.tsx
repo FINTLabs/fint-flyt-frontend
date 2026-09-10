@@ -36,6 +36,30 @@ type ColumnElement = {
 
 type SimplifiedColumnElement = Omit<ColumnElement, 'nestedColumnElementPerOrder'>;
 
+function openNestedColumnElement(
+    displayPath: string[],
+    nestedColumnElements: Record<string, ColumnElement>,
+    template:
+        | NestedElementTemplate<IObjectTemplate>
+        | NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>
+        | NestedElementTemplate<ICollectionTemplate<IValueTemplate>>,
+    createReactElement: (
+        childDisplayPath: string[],
+        newNestedColumnElements: Record<string, ColumnElement>
+    ) => ReactElement<{ absoluteKey: string }>
+): void {
+    const newNestedColumnElements: Record<string, ColumnElement> = {};
+    nestedColumnElements[template.order.toString()] = {
+        path: [...displayPath, ...template.displayPath],
+        title: template.displayName,
+        reactElement: createReactElement(
+            [...displayPath, ...template.displayPath, template.displayName],
+            newNestedColumnElements
+        ),
+        nestedColumnElementPerOrder: newNestedColumnElements,
+    };
+}
+
 const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
     const { unregister } = useFormContext();
     const { editCollectionAbsoluteKey } = useContext(EditingContext);
@@ -67,74 +91,60 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
             onElementsOpen: (elementTemplates: ElementTemplates) => {
                 elementTemplates.objects?.forEach(
                     (template: NestedElementTemplate<IObjectTemplate>) => {
-                        const newNestedColumnElements: Record<string, ColumnElement> = {};
-                        nestedColumnElements[template.order.toString()] = {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            reactElement: (
+                        openNestedColumnElement(
+                            displayPath,
+                            nestedColumnElements,
+                            template,
+                            (childDisplayPath, newNestedColumnElements) => (
                                 <ObjectMappingComponent
                                     key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     template={template.template}
                                     nestedElementCallbacks={createNestedElementsCallbacks(
-                                        [
-                                            ...displayPath,
-                                            ...template.displayPath,
-                                            template.displayName,
-                                        ],
+                                        childDisplayPath,
                                         newNestedColumnElements
                                     )}
                                 />
-                            ),
-                            nestedColumnElementPerOrder: newNestedColumnElements,
-                        };
+                            )
+                        );
                     }
                 );
+
                 elementTemplates.objectCollections?.forEach(
                     (template: NestedElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                        const newNestedColumnElements: Record<string, ColumnElement> = {};
-                        nestedColumnElements[template.order.toString()] = {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            reactElement: (
+                        openNestedColumnElement(
+                            displayPath,
+                            nestedColumnElements,
+                            template,
+                            (childDisplayPath, newNestedColumnElements) => (
                                 <ObjectCollectionMappingComponent
                                     key={template.absoluteKey}
                                     absoluteKey={template.absoluteKey}
                                     elementTemplate={template.template.elementTemplate}
                                     nestedElementCallbacks={createNestedElementsCallbacks(
-                                        [
-                                            ...displayPath,
-                                            ...template.displayPath,
-                                            template.displayName,
-                                        ],
+                                        childDisplayPath,
                                         newNestedColumnElements
                                     )}
                                 />
-                            ),
-                            nestedColumnElementPerOrder: newNestedColumnElements,
-                        };
+                            )
+                        );
                     }
                 );
+
                 elementTemplates.valueCollections?.forEach(
                     (template: NestedElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                        const newNestedColumnElements: Record<string, ColumnElement> = {};
-                        nestedColumnElements[template.order.toString()] = {
-                            path: [...displayPath, ...template.displayPath],
-                            title: template.displayName,
-                            reactElement: (
-                                <ValueCollectionMappingComponent
-                                    key={template.absoluteKey}
-                                    absoluteKey={template.absoluteKey}
-                                    elementTemplate={template.template.elementTemplate}
-                                />
-                            ),
-                            nestedColumnElementPerOrder: newNestedColumnElements,
-                        };
+                        openNestedColumnElement(displayPath, nestedColumnElements, template, () => (
+                            <ValueCollectionMappingComponent
+                                key={template.absoluteKey}
+                                absoluteKey={template.absoluteKey}
+                                elementTemplate={template.template.elementTemplate}
+                            />
+                        ));
                     }
                 );
 
                 setDisplayRootElement({ ...rootElement });
-                console.log('ADDING A COLUMN');
+
                 // Scroll to the last added column
                 // Find the deepest (rightmost) column
                 setTimeout(() => {
