@@ -1,4 +1,4 @@
-import { Box } from '@navikt/ds-react';
+import { Box, VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
@@ -33,8 +33,6 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     HTMLDivElement,
     Props
 >((props, ref) => {
-    DynamicStringOrSearchSelectValueComponent.displayName =
-        'DynamicStringOrSearchSelectValueComponent';
     const [selectValue, setSelectValue] = useState<string | null>(null);
     const [dynamicValue, setDynamicValue] = useState<string>('');
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
@@ -56,7 +54,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     }, []);
 
     return (
-        <Box ref={ref}>
+        <VStack ref={ref} gap={'1'}>
             <SearchSelectValueComponent
                 displayName={props.displayName}
                 selectables={[
@@ -134,7 +132,9 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     name={props.name}
                 />
             )}
-        </Box>
+        </VStack>
     );
 });
+
+DynamicStringOrSearchSelectValueComponent.displayName = 'DynamicStringOrSearchSelectValueComponent';
 export default DynamicStringOrSearchSelectValueComponent;

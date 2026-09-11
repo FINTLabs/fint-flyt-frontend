@@ -21,7 +21,6 @@ interface Props {
 
 const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
     (props: Props, ref) => {
-        SelectValueComponent.displayName = 'SelectValueComponent';
         const absoluteKey: string = props.name;
         return (
             <div>
@@ -53,4 +52,6 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
         );
     }
 );
+
+SelectValueComponent.displayName = 'SelectValueComponent';
 export default SelectValueComponent;

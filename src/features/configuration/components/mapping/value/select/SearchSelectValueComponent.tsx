@@ -23,7 +23,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
     HTMLDivElement,
     Props
 >((props: Props, ref) => {
-    SearchSelectValueComponent.displayName = 'SearchSelectValueComponent';
     const absoluteKey: string = props.name;
     const filterOptions = createFilterOptions({
         matchFrom: 'any',
@@ -80,4 +79,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
         </div>
     );
 });
+
+SearchSelectValueComponent.displayName = 'SearchSelectValueComponent';
 export default SearchSelectValueComponent;

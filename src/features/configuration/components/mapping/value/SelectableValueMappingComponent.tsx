@@ -26,7 +26,6 @@ interface Props {
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) => {
-    SelectableValueMappingComponent.displayName = 'SelectableValueMappingComponent';
     const { control, setValue, getValues, watch } = useFormContext();
     const { completed } = useContext(ConfigurationContext);
     const { editCollectionAbsoluteKey } = useContext(EditingContext);
@@ -92,99 +91,79 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
             }}
             defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
             render={({ field, fieldState }) => {
+                const disabled =
+                    !!props.disabled ||
+                    isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey) ||
+                    completed;
+
+                setTypeIfUndefined(ConfigurationValueType.STRING);
+
+                let controlledInputElement: React.ReactElement;
+
                 switch (props.template.type) {
                     case SelectableValueType.DROPDOWN:
-                        setTypeIfUndefined(ConfigurationValueType.STRING);
-                        return (
-                            <HStack
-                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                align={'center'}
-                                gap={'2'}
-                            >
-                                <SelectValueComponent
-                                    {...field}
-                                    displayName={props.displayName}
-                                    selectables={selectables}
-                                    disabled={
-                                        props.disabled ||
-                                        isOutsideCollectionEditContext(
-                                            field.name,
-                                            editCollectionAbsoluteKey
-                                        ) ||
-                                        completed
-                                    }
-                                />
-                                <HelpText placement={'right'}>{props.description}</HelpText>
-                            </HStack>
+                        controlledInputElement = (
+                            <SelectValueComponent
+                                {...field}
+                                displayName={props.displayName}
+                                selectables={selectables}
+                                disabled={disabled}
+                            />
                         );
+                        break;
+
                     case SelectableValueType.SEARCH_SELECT:
-                        setTypeIfUndefined(ConfigurationValueType.STRING);
-                        return (
-                            <HStack
-                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                align={'center'}
-                                gap={'2'}
-                            >
-                                <SearchSelectValueComponent
-                                    {...field}
-                                    displayName={props.displayName}
-                                    selectables={selectables}
-                                    disabled={
-                                        props.disabled ||
-                                        isOutsideCollectionEditContext(
-                                            field.name,
-                                            editCollectionAbsoluteKey
-                                        ) ||
-                                        completed
-                                    }
-                                />
-                                <HelpText placement={'right'}>{props.description}</HelpText>
-                            </HStack>
+                        controlledInputElement = (
+                            <SearchSelectValueComponent
+                                {...field}
+                                displayName={props.displayName}
+                                selectables={selectables}
+                                disabled={disabled}
+                            />
                         );
+                        break;
                     case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
-                        setTypeIfUndefined(ConfigurationValueType.STRING);
-                        return (
-                            <HStack
-                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                align={'center'}
-                                gap={'2'}
-                            >
-                                <DynamicStringOrSearchSelectValueComponent
-                                    {...field}
-                                    displayName={props.displayName}
-                                    selectables={selectables}
-                                    fieldState={fieldState}
-                                    initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
-                                        getValues(typeAbsoluteKey)
-                                    )}
-                                    onTypeChange={(type: DynamicStringOrSearchSelectType) => {
-                                        setValidationType(
-                                            getConfigurationTypeFromDynamicStringOrSearchSelectType(
-                                                type
-                                            )
-                                        );
-                                        setValue(
-                                            typeAbsoluteKey,
-                                            getConfigurationTypeFromDynamicStringOrSearchSelectType(
-                                                type
-                                            )
-                                        );
-                                    }}
-                                    disabled={
-                                        props.disabled ||
-                                        isOutsideCollectionEditContext(
-                                            field.name,
-                                            editCollectionAbsoluteKey
-                                        ) ||
-                                        completed
-                                    }
-                                />
-                                <HelpText placement={'right'}>{props.description}</HelpText>
-                            </HStack>
+                        controlledInputElement = (
+                            <DynamicStringOrSearchSelectValueComponent
+                                {...field}
+                                displayName={props.displayName}
+                                selectables={selectables}
+                                fieldState={fieldState}
+                                initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
+                                    getValues(typeAbsoluteKey)
+                                )}
+                                onTypeChange={(type: DynamicStringOrSearchSelectType) => {
+                                    setValidationType(
+                                        getConfigurationTypeFromDynamicStringOrSearchSelectType(
+                                            type
+                                        )
+                                    );
+                                    setValue(
+                                        typeAbsoluteKey,
+                                        getConfigurationTypeFromDynamicStringOrSearchSelectType(
+                                            type
+                                        )
+                                    );
+                                }}
+                                disabled={disabled}
+                            />
                         );
+                        break;
                 }
+
+                return (
+                    <HStack
+                        id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                        align="center"
+                        gap="2"
+                    >
+                        {controlledInputElement}
+                        <HelpText placement="right">{props.description}</HelpText>
+                    </HStack>
+                );
             }}
         />
     );
 };
+
 export default SelectableValueMappingComponent;

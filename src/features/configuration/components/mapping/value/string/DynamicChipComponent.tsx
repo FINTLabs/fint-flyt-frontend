@@ -25,7 +25,6 @@ export interface Props {
 }
 
 const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-    DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? mappingStringToValueArray(props.value) : []);
     const absoluteKey: string = props.name;
     const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
@@ -121,4 +120,6 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     )
 
 })
+
+DynamicChipComponent.displayName = 'DynamicChipComponent';
 export default DynamicChipComponent;
