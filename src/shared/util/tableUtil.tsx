@@ -3,7 +3,7 @@ import { SortState } from '@navikt/ds-react';
 import { MOCK_EVENTS } from '../../__tests__/mock/events';
 import { MOCK_INTEGRATION } from '../../__tests__/mock/integration';
 import { IEventNew } from '../../features/instances/types/Event';
-import { IIntegration } from '../../features/integration/types/Integration';
+import { IIntegration } from '../../features/newIntegration/types/Integration';
 
 export function getDestinationDisplayName(id: string): string {
     if (id === 'fylkesrad') return 'Arkivsystem';

@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 import { IConfiguration } from '../../features/configuration/types/Configuration';
 import { IIntegrationMetadata } from '../../features/configuration/types/Metadata/IntegrationMetadata';
 import { ITotalStatistics } from '../../features/instances/types/Event';
-import { IIntegration } from '../../features/integration/types/Integration';
+import { IIntegration } from '../../features/newIntegration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';

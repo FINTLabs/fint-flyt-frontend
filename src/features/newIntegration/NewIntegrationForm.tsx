@@ -30,7 +30,7 @@ import { ISelect } from '../../shared/types/Select';
 import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
 import { getSelectableDefaultByLanguage, selectableDestinations } from '../../shared/defaults/applocationOptions';
 
-export const IntegrationForm: React.FC = () => {
+export const NewIntegrationForm: React.FC = () => {
     const history = useNavigate();
     const IntegrationRepository = useIntegrationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
@@ -311,4 +311,4 @@ export const IntegrationForm: React.FC = () => {
     );
 };
 
-export default IntegrationForm;
+export default NewIntegrationForm;
