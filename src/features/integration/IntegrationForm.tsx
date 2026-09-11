@@ -18,9 +18,9 @@ import AlertMessage from '../../shared/components/AlertMessage';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
-import { sourceApplicationsToSelectable } from '../../shared/util/FormUtil';
+import { sourceApplicationsToSelectable } from '../../shared/util/formUtil';
 import i18n from '../../shared/util/locale/i18n';
-import { toIntegration } from '../../shared/util/mapping/ToIntegration';
+import { toIntegration } from '../../shared/util/mapping/toIntegration';
 import {
     defaultAlert,
 } from '../../shared/defaults/alertMessages';

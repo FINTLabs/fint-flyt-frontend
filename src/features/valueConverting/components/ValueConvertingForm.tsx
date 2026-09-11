@@ -15,13 +15,13 @@ import {
 } from '../../../shared/defaults/valueConvertingTypes';
 import { IAlertContent } from '../../../shared/types/AlertContent';
 import { ISelect } from '../../../shared/types/Select';
-import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
+import { sortSelectables } from '../../../shared/util/selectableUtils';
 import ArrayComponent from '../../configuration/components/array/ArrayComponent';
 import SearchSelectValueComponent from '../../configuration/components/mapping/value/select/SearchSelectValueComponent';
 import SelectValueComponent from '../../configuration/components/mapping/value/select/SelectValueComponent';
 import StringValueComponent from '../../configuration/components/mapping/value/string/StringValueComponent';
 import { ISelectable } from '../../configuration/types/Selectable';
-import { sortAndHandleSelectables } from '../../configuration/util/SelectablesUtils';
 import { IValueConverting } from '../types/ValueConverting';
 
 type Props = {
@@ -78,7 +78,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
     useEffect(() => {
         getSelectableSourceApplications();
         ResourceRepository.getSelectableKodeverkFormat().then((result) => {
-            const sortedResult = sortAndHandleSelectables(result.data);
+            const sortedResult = sortSelectables(result.data);
             setToSelectables(sortedResult);
         });
 

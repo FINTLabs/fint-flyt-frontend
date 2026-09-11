@@ -1,6 +1,6 @@
 import {IUrlBuilder} from "../types/FormTemplate";
-import {recordOrEmpty} from "./ObjectUtils";
-import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
+import {recordOrEmpty} from "./objectUtils";
+import {getAbsoluteKeyFromValueRef} from "./keyUtils";
 import {useEffect, useState} from "react";
 import {useFormContext, useWatch} from "react-hook-form";
 import { AdapterRequestConfigType } from '../../../shared/api/ApiAdapterContext';

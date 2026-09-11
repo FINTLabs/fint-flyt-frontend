@@ -1,51 +1,57 @@
-import {MenuItem, TextField} from "@mui/material";
-import * as React from "react";
-import {forwardRef} from "react";
-import {ControllerFieldState} from "react-hook-form";
-import {Noop} from "react-hook-form/dist/types";
+import { MenuItem, TextField } from '@mui/material';
+import * as React from 'react';
+import { forwardRef } from 'react';
+import { ControllerFieldState } from 'react-hook-form';
+import { Noop } from 'react-hook-form/dist/types';
 
+import { selectSX } from '../../../../../../shared/util/styles/systemStyles';
+import { ISelectable } from '../../../../types/Selectable';
 import FormErrorText from '../../../FormErrorText';
-import {selectSX} from "../../../../../../shared/util/styles/SystemStyles";
-import {ISelectable} from "../../../../types/Selectable";
 
 interface Props {
     displayName: string;
     selectables: ISelectable[];
     disabled?: boolean;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onBlur?: Noop;
     name: string;
     value: string | null;
-    fieldState?: ControllerFieldState
+    fieldState?: ControllerFieldState;
 }
 
-const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-    SelectValueComponent.displayName = "SelectValueComponent";
-    const absoluteKey: string = props.name;
-    return <div>
-        <TextField
-            id={absoluteKey}
-            autoComplete={"off"}
-            size={'small'}
-            sx={selectSX}
-            select
-            label={props.displayName}
-            onChange={props.onChange}
-            onBlur={props.onBlur}
-            name={props.name}
-            value={props.value}
-            ref={ref}
-            disabled={props.disabled}
-            error={!!props.fieldState?.error}
-        >
-            {
-                props.selectables.map((selectable: ISelectable, index: number) =>
-                    <MenuItem key={absoluteKey + "." + index} value={selectable.value}>
-                        {selectable.displayName}
-                    </MenuItem>)
-            }
-        </TextField>
-        {props.fieldState?.error && <FormErrorText errorMessage={props.fieldState?.error.message}/>}
-    </div>
-})
+const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
+    (props: Props, ref) => {
+        const absoluteKey: string = props.name;
+        return (
+            <div>
+                <TextField
+                    id={absoluteKey}
+                    autoComplete={'off'}
+                    size={'small'}
+                    sx={selectSX}
+                    select
+                    label={props.displayName}
+                    onChange={props.onChange}
+                    onBlur={props.onBlur}
+                    name={props.name}
+                    value={props.value}
+                    ref={ref}
+                    disabled={props.disabled}
+                    error={!!props.fieldState?.error}
+                >
+                    {props.selectables.map((selectable: ISelectable, index: number) => (
+                        <MenuItem key={absoluteKey + '.' + index} value={selectable.value}>
+                            {selectable.displayName}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                {props.fieldState?.error && (
+                    <FormErrorText errorMessage={props.fieldState?.error.message} />
+                )}
+            </div>
+        );
+    }
+);
+
+SelectValueComponent.displayName = 'SelectValueComponent';
 export default SelectValueComponent;

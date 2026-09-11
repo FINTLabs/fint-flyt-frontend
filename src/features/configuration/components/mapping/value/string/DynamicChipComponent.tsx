@@ -9,8 +9,8 @@ import {useTranslation} from "react-i18next";
 import FormErrorText from '../../../FormErrorText';
 import {ValueType} from "../../../../types/Metadata/IntegrationMetadata";
 import {ITag} from "../../../../types/Metadata/Tag";
-import {Search} from "../../../../util/UrlUtils";
-import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/ValueFieldUtils";
+import {Search} from "../../../../util/urlUtils";
+import {getTagStyles, mappingStringToValueArray, valueArrayToMappingString} from "../../../../util/valueFieldUtils";
 
 export interface Props {
     displayName?: string;
@@ -25,7 +25,6 @@ export interface Props {
 }
 
 const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-    DynamicChipComponent.displayName = "DynamicChipComponent"
     const [values, setValues] = React.useState<string[]>(props.value ? mappingStringToValueArray(props.value) : []);
     const absoluteKey: string = props.name;
     const { t } = useTranslation("translations", { keyPrefix: "pages.configuration" });
@@ -121,4 +120,6 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     )
 
 })
+
+DynamicChipComponent.displayName = 'DynamicChipComponent';
 export default DynamicChipComponent;

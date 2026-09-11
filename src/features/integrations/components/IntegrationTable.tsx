@@ -19,7 +19,7 @@ import {
     integrationComparator,
     handleSortByColumn,
     toApiSortDirection,
-} from '../../../shared/util/TableUtil';
+} from '../../../shared/util/tableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
 import { IIntegration } from '../../integration/types/Integration';
