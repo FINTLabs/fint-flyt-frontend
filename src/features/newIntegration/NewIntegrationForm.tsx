@@ -49,7 +49,7 @@ export const NewIntegrationForm: React.FC = () => {
         currentMetaData,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext);
-    const { getAllSourceApplications } = useContext(AuthorizationContext);
+    const { getSourceApplicationsForUser } = useContext(AuthorizationContext);
     const [destination, setDestination] = useState<string>('');
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [showAlert, setShowAlert] = React.useState<boolean>(false);
@@ -73,7 +73,7 @@ export const NewIntegrationForm: React.FC = () => {
         }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
-        getAllSourceApplications(true).then((sourceApps) => {
+        getSourceApplicationsForUser().then((sourceApps) => {
             const options = sourceApplicationsToSelectable(sourceApps);
             setSelectableSourceApplications(options);
         });
@@ -162,15 +162,11 @@ export const NewIntegrationForm: React.FC = () => {
                             defaultValue={''}
                             render={({ fieldState, field }) => (
                                 <Select
+                                description={t('help.sourceApplicationId')}
                                     id={'sourceApplicationId'}
-                                    label={
-                                        <HStack gap={'2'} align={'center'} wrap={false}>
-                                            {t('labels.sourceApplicationId')}
-                                            <HelpText title={'hva er dette'} placement="right">
-                                                {t('help.sourceApplicationId')}
-                                            </HelpText>
-                                        </HStack>
-                                    }
+                                    label={t('labels.sourceApplicationId')}
+
+                                    
                                     error={!!fieldState.error}
                                     onChange={(event) => {
                                         setSourceApplication(Number(event.target.value));
@@ -179,6 +175,7 @@ export const NewIntegrationForm: React.FC = () => {
                                         field.onChange(event.target.value);
                                     }}
                                 >
+                                    <option value="">- {t('labels.selectSourceApplication')}</option>
                                     {selectableSourceApplications.map((option, index) => (
                                         <option key={index} value={option.value}>
                                             {option.label}
@@ -195,14 +192,8 @@ export const NewIntegrationForm: React.FC = () => {
                             render={({ fieldState, field }) => (
                                 <Select
                                     id={'sourceApplicationIntegrationId'}
-                                    label={
-                                        <HStack gap={'2'} align={'center'}>
-                                            {t('labels.sourceApplicationIntegrationId')}
-                                            <HelpText title={'hva er dette'} placement="right">
-                                                {t('help.sourceApplicationIntegrationId')}
-                                            </HelpText>
-                                        </HStack>
-                                    }
+                                    label={t('labels.sourceApplicationIntegrationId')}
+                                    description={t('help.sourceApplicationIntegrationId')}
                                     error={!!fieldState.error}
                                     onChange={(event) => {
                                         setSourceApplicationIntegrationId(event.target.value);
