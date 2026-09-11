@@ -1,6 +1,7 @@
 import { ApiSelectableResource, ISelectable } from '../../features/configuration/types/Selectable';
 
-export function toSortedSelectables(resources: ApiSelectableResource[]): ISelectable[] {
+export function sortSelectables(resources: ApiSelectableResource[] | undefined): ISelectable[] {
+    if (!resources) return [];
     return [...resources]
         .sort((a, b) => (a.displayName < b.displayName ? -1 : 1))
         .map((resource) => {
@@ -15,14 +16,4 @@ export function toSortedSelectables(resources: ApiSelectableResource[]): ISelect
                 value: resource.id,
             };
         });
-}
-
-export function sortAndHandleSelectables(
-    selectables: ApiSelectableResource[] | undefined
-): ISelectable[] {
-    const sortedSelectable = selectables ? toSortedSelectables(selectables) : [];
-
-    return sortedSelectable !== undefined
-        ? sortedSelectable.filter((selectablesArray) => selectablesArray).flat()
-        : [];
 }

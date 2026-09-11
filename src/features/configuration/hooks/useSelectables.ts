@@ -4,7 +4,7 @@ import { Control } from 'react-hook-form/dist/types/form';
 
 import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
 import useResourceRepository from '../../../shared/api/useResourceRepository';
-import { toSortedSelectables } from '../../../shared/util/selectableUtils';
+import { sortSelectables } from '../../../shared/util/selectableUtils';
 import { IUrlBuilder } from '../types/FormTemplate';
 import { ApiSelectableResource, ISelectable } from '../types/Selectable';
 import { createSource, createValueRefPerAbsoluteKey, Source } from '../util/urlUtils';
@@ -50,7 +50,7 @@ export const useSelectables = (
                 sources.map((source) =>
                     ResourceRepository.getSelectables('/' + source.url, source.config)
                         .then((response: AdapterResponse<ApiSelectableResource[]>) =>
-                            response.data ? toSortedSelectables(response.data) : []
+                            sortSelectables(response.data)
                         )
                         .catch(() => [])
                 )
