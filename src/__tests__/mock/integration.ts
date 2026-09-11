@@ -1,4 +1,4 @@
-import {IIntegration} from "../../features/integration/types/Integration";
+import {IIntegration} from "../../features/newIntegration/types/Integration";
 
 export const MOCK_INTEGRATION: IIntegration = {
     id:"id",

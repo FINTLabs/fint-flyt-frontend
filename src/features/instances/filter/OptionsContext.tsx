@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
-import { IIntegration } from '../../integration/types/Integration';
+import { IIntegration } from '../../newIntegration/types/Integration';
 import { FilterOption, Filters } from './types';
 
 

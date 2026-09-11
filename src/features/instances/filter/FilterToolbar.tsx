@@ -6,7 +6,7 @@ import { AuthorizationContext } from '../../../shared/context/AuthorizationConte
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
-import { IIntegration } from '../../integration/types/Integration';
+import { IIntegration } from '../../newIntegration/types/Integration';
 import BulkActions from '../batchProcess/BulkActions';
 import ActiveFilters from './ActiveFilters';
 import InstanceToolbarFilterOptions from './filterMenu/InstanceToolbarFilterOptions';

@@ -183,7 +183,7 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
     };
 
     const fetchMetadata = async (onlyLatest: boolean): Promise<IIntegrationMetadata[]> => {
-        const response = await AuthorizationRepository.getUserSourceApplications();
+        const response = await AuthorizationRepository.getUserData();
         const sourceApplicationIds = response.data.sourceApplicationIds.map(String).join(',');
         const metadataResponse = await SourceApplicationRepository.getMetadataForSourceApplications(
             sourceApplicationIds,

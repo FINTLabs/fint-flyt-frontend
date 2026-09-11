@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ApiAdapterContext } from './ApiAdapterContext';
 import { Page } from '../types/TableTypes';
-import { IUser } from '../types/UserTypes';
+import { IUser, UserData } from '../types/UserTypes';
 import { ISourceApplication } from '../../features/configuration/types/SourceApplication';
 
 const API_URL = import.meta.env.VITE_API_AUTH || '';
@@ -22,8 +22,8 @@ export default function useAuthorizationRepository() {
         );
     };
 
-    const getUserSourceApplications = () => {
-        return get<IUser>(API_URL, '/api/intern/authorization/me');
+    const getUserData = () => {
+        return get<UserData>(API_URL, '/api/intern/authorization/me');
     };
 
     const getSourceApplications = () => {
@@ -52,7 +52,7 @@ export default function useAuthorizationRepository() {
         getUser,
         getUsers,
         updateUsers,
-        getUserSourceApplications,
+        getUserData,
         getSourceApplications,
     };
 }

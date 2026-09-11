@@ -125,6 +125,7 @@
                 "missingMetadata": "Can't find metadata for integration"
             },
             "labels": {
+                "selectSourceApplication": "Select source application",
                 "placeholder": "Select source application first",
                 "loading": "Loading...",
                 "sourceApplicationId": "Source application",
@@ -132,9 +133,8 @@
                 "destination": "Destination"
             },
             "help": {
-                "sourceApplicationId": "A source application is the source system that data to be processed in Flyt comes from",
-                "sourceApplicationIntegrationId": "Reference/name/id of data to be processed in Flyt",
-                "destination": "Where data is to be sent after transformation in Flyt"
+                "sourceApplicationId": "The source system that data comes from",
+                "sourceApplicationIntegrationId": "Reference to data to be processed"
             }
         },
         "integrations": {
