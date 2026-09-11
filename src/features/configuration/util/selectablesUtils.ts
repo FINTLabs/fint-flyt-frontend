@@ -1,12 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IUrlBuilder } from '../types/FormTemplate';
 import useResourceRepository from '../../../shared/api/useResourceRepository';
-import { ISelectable } from '../types/Selectable';
+import { ApiSelectableResource, ISelectable } from '../types/Selectable';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Control } from 'react-hook-form/dist/types/form';
 import { useWatch } from 'react-hook-form';
 import { createSource, createValueRefPerAbsoluteKey, Source } from './urlUtils';
 import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
+
+function toSortedSelectables(resources: ApiSelectableResource[]): ISelectable[] {
+    return [...resources]
+        .sort((a, b) => (a.displayName < b.displayName ? -1 : 1))
+        .map((resource) => {
+            if (resource.name) {
+                return {
+                    displayName: `${resource.name}${resource.functionalId ? ` [${resource.functionalId}]` : ''}${resource.technicalId ? ` #${resource.technicalId}` : ''}`,
+                    value: resource.id,
+                };
+            }
+            return {
+                displayName: resource.displayName,
+                value: resource.id,
+            };
+        });
+}
 
 export const useSelectablesStatefulValue = (
     control: Control,
@@ -51,18 +68,8 @@ export const useSelectablesStatefulValue = (
                         ISelectable[],
                         ISelectable[]
                     >(
-                        (response: AdapterResponse<ISelectable[]>): ISelectable[] =>
-                            response.data
-                                ? response.data
-                                      .sort((a: ISelectable, b: ISelectable) =>
-                                          a.displayName < b.displayName ? -1 : 1
-                                      )
-                                      .map((resource: any) => ({
-                                          // eslint-disable-line
-                                          displayName: resource.displayName,
-                                          value: resource.id,
-                                      }))
-                                : [],
+                        (response: AdapterResponse<ApiSelectableResource[]>): ISelectable[] =>
+                            response.data ? toSortedSelectables(response.data) : [],
                         () => []
                     )
                 )
@@ -88,15 +95,10 @@ export const useSelectablesStatefulValue = (
     return selectables;
 };
 
-export function sortAndHandleSelectables(selectables: ISelectable[] | undefined): ISelectable[] {
-    const sortedSelectable = selectables
-        ? selectables
-              .sort((a: ISelectable, b: ISelectable) => (a.displayName < b.displayName ? -1 : 1))
-              .map((resource: any) => ({
-                  displayName: resource.displayName,
-                  value: resource.id,
-              }))
-        : [];
+export function sortAndHandleSelectables(
+    selectables: ApiSelectableResource[] | undefined
+): ISelectable[] {
+    const sortedSelectable = selectables ? toSortedSelectables(selectables) : [];
 
     return sortedSelectable !== undefined
         ? sortedSelectable.filter((selectablesArray) => selectablesArray).flat()

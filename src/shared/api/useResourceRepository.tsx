@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ISelectable } from '../../features/configuration/types/Selectable';
+import { ApiSelectableResource, ISelectable } from '../../features/configuration/types/Selectable';
 import { Source } from '../../features/configuration/util/urlUtils';
 import {
     AdapterRequestConfigType,
@@ -26,8 +26,8 @@ export default function useResourceRepository() {
     const getSelectables = (
         url: string,
         config?: AdapterRequestConfigType
-    ): Promise<AdapterResponse<ISelectable[]>> => {
-        return get<ISelectable[]>(API_URL, url, config);
+    ): Promise<AdapterResponse<ApiSelectableResource[]>> => {
+        return get<ApiSelectableResource[]>(API_URL, url, config);
     };
 
     const getSelectableKodeverkFormat = () => {
