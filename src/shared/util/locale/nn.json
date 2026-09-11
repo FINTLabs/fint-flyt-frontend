@@ -134,8 +134,7 @@
             },
             "help": {
                 "sourceApplicationId": "Fagsystemet data kjem frå",
-                "sourceApplicationIntegrationId": "Referanse til data som skal behandlast",
-                "destination": "Kvar data skal sendast etter omforming i Flyt"
+                "sourceApplicationIntegrationId": "Referanse til data som skal behandlast"
             }
         },
         "integrations": {

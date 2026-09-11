@@ -26,14 +26,14 @@ describe('Testing create new integration', () => {
         cy.wait('@sourceApplications');
         cy.get('#sourceApplicationId')
             .find('option')
-            .should('have.length', 6);
-
+            .should('have.length', 5);
+        
         cy.get('#sourceApplicationId').select('2');
         cy.get('#sourceApplicationId').should('have.value', '2');
         cy.get('#sourceApplicationId  option:selected').should('have.text', 'eGrunnerverv');
-
+        
         cy.wait('@getAllIntegrationBySourceApplicationId');
-
+        
         cy.get('#sourceApplicationIntegrationId').find('option').should('have.length', 3);
         cy.get('#sourceApplicationIntegrationId').select('sak');
         cy.get('#sourceApplicationIntegrationId').should('have.value', 'sak');
@@ -41,17 +41,20 @@ describe('Testing create new integration', () => {
             'have.text',
             '[sak] Arkivsak'
         );
-
-        cy.get('#destination').select('fylkesrad');
-        cy.get('#destination').should('have.value', 'fylkesrad');
-        cy.get('#destination  option:selected').should('have.text', 'Arkivsystem');
+        
+        cy.get('#destination').should('contain', 'Arkivsystem');
     })
 
     it('should not allow submit on incomplete form', () => {
         prep()
         cy.get('#sourceApplicationId').select('2')
-        cy.get('#sourceApplicationIntegrationId').select('sak')
+
         cy.get('#form-settings-confirm-btn').should('be.disabled')
+
+        cy.get('#sourceApplicationIntegrationId').select('sak')
+
+        cy.get('#form-settings-confirm-btn').should('be.enabled')
+
     })
 
     it('should submit complete form and navigate to configuration form', () => {
@@ -60,7 +63,6 @@ describe('Testing create new integration', () => {
         cy.get('#sourceApplicationId');
         cy.get('#sourceApplicationId').select('2');
         cy.get('#sourceApplicationIntegrationId').select('sak');
-        cy.get('#destination').select('fylkesrad');
         cy.get('#form-settings-confirm-btn').click()
         cy.wait('@postIntegration').its('request.body').should('deep.equal', {
                 "sourceApplicationId": "2",

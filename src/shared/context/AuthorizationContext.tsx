@@ -125,6 +125,9 @@ const AuthorizationProvider = ({ children, basePath }: ContextProps & { basePath
             getActiveUserSourceApps(),
         ]);
 
+        console.log('apps', apps);
+        console.log('userAppIds', userAppIds);
+
         return apps.filter((sa) => userAppIds.includes(sa.id.toString()));
     }, [getAllSourceApplications, getActiveUserSourceApps]);
 

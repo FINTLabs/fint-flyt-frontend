@@ -10,12 +10,7 @@ export function getSelectableDefaultByLanguage(lang: string): string {
     }
 }
 
-export function selectableDestinations(lang: string): ISelect[] {
-    return [
-        {
-            label: lang === "en" ? "- Select destination" : "- Velg destinasjon",
-            value: "",
-        },
-        {label: "Arkivsystem", value: "fylkesrad"},
-    ];
-}
+export const defaultDestination: ISelect = {
+    label: "Arkivsystem",
+    value: "fylkesrad",
+};
