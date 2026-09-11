@@ -122,17 +122,17 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 
     const getAllIntegrations = async () => {
         try {
-            const [statisticsResponse, sourceApplicationsResponse, integrationResponse] =
+            const [statisticsResponse, userDataResponse, integrationResponse] =
                 await Promise.all([
                     InstanceFlowTrackingRepository.getAllStatistics(),
-                    AuthorizationRepository.getUserSourceApplications(),
+                    AuthorizationRepository.getUserData(),
                     IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
                 ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
             setTotalStatistics(statistics);
 
-            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds
+            const sourceApplicationIds = userDataResponse.data.sourceApplicationIds
                 .map(String)
                 .join(',');
             const integrations: IIntegration[] = integrationResponse.data.content || [];
