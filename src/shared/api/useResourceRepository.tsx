@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ApiSelectableResource, ISelectable } from '../../features/configuration/types/Selectable';
+import { ApiSelectableResource } from '../../features/configuration/types/Selectable';
 import { Source } from '../../features/configuration/util/urlUtils';
 import {
     AdapterRequestConfigType,
@@ -31,7 +31,7 @@ export default function useResourceRepository() {
     };
 
     const getSelectableKodeverkFormat = () => {
-        return get<ISelectable[]>(API_URL, '/api/intern/arkiv/kodeverk/format');
+        return get<ApiSelectableResource[]>(API_URL, '/api/intern/arkiv/kodeverk/format');
     };
 
     const getSak = (caseYear: number | string, id: number | string) => {

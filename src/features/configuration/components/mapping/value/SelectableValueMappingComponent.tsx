@@ -5,10 +5,10 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { ConfigurationContext } from '../../../context/ConfigurationContext';
 import { EditingContext } from '../../../context/EditingContext';
+import { useSelectables } from '../../../hooks/useSelectables';
 import { ValueType as ConfigurationValueType } from '../../../types/Configuration';
 import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
 import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
-import { useSelectables } from '../../../util/selectablesUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
