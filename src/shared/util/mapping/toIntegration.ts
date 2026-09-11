@@ -1,4 +1,4 @@
-import {IIntegration, IIntegrationFormData} from "../../../features/integration/types/Integration";
+import {IIntegration, IIntegrationFormData} from "../../../features/newIntegration/types/Integration";
 
 export function toIntegration(data: IIntegrationFormData, state: string): IIntegration {
     return {

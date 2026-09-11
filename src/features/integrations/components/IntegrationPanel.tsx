@@ -23,7 +23,7 @@ import { IAlertMessage } from '../../../shared/types/TableTypes';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import { IConfiguration } from '../../configuration/types/Configuration';
-import { IIntegration, IIntegrationPatch } from '../../integration/types/Integration';
+import { IIntegration, IIntegrationPatch } from '../../newIntegration/types/Integration';
 import { ConfigurationVersionsTable } from './ConfigurationVersionsTable';
 
 type Props = {

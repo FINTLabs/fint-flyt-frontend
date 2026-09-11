@@ -1,4 +1,4 @@
-import { IIntegration, IIntegrationPatch } from '../../features/integration/types/Integration';
+import { IIntegration, IIntegrationPatch } from '../../features/newIntegration/types/Integration';
 import { Page } from '../types/TableTypes';
 import { useContext } from 'react';
 import { ApiAdapterContext } from './ApiAdapterContext';

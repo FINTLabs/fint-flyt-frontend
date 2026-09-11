@@ -4,7 +4,7 @@ import IRoute from './Route';
 
 const Dashboard = lazy(() => import('../pages/DashboardPage'));
 const Forbidden = lazy(() => import('../pages/./ForbiddenPage'));
-const IntegrationForm = lazy(() => import('../pages/IntegrationFormPage'));
+const NewIntegration = lazy(() => import('../pages/NewIntegrationPage'));
 const Configuration = lazy(() => import('../pages/ConfigurationPage'));
 const UserGuide = lazy(() => import('../pages/UserGuidePage'));
 const Changelog = lazy(() => import('../pages/./ChangelogPage'));
@@ -24,7 +24,7 @@ const routes: IRoute[] = [
     {
         path: '/integration/new',
         name: 'integration',
-        component: IntegrationForm,
+        component: NewIntegration,
         exact: true,
     },
     {

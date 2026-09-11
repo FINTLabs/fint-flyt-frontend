@@ -14,7 +14,7 @@ import { AuthorizationContext } from '../../shared/context/AuthorizationContext'
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
 import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
-import { IIntegrationPatch, IntegrationState } from '../integration/types/Integration';
+import { IIntegrationPatch, IntegrationState } from '../newIntegration/types/Integration';
 import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
 import StringValueComponent from './components/mapping/value/string/StringValueComponent';

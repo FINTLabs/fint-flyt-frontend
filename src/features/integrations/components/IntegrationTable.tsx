@@ -22,7 +22,7 @@ import {
 } from '../../../shared/util/tableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { IIntegrationDetailedStatistics } from '../../instances/types/Event';
-import { IIntegration } from '../../integration/types/Integration';
+import { IIntegration } from '../../newIntegration/types/Integration';
 import IntegrationPanel from './IntegrationPanel';
 
 type IntegrationProps = {
