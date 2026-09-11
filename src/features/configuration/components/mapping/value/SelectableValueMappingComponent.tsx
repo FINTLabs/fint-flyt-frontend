@@ -8,7 +8,7 @@ import { EditingContext } from '../../../context/EditingContext';
 import { ValueType as ConfigurationValueType } from '../../../types/Configuration';
 import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
 import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
-import { useSelectablesStatefulValue } from '../../../util/selectablesUtils';
+import { useSelectables } from '../../../util/selectablesUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
@@ -31,7 +31,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
     const { editCollectionAbsoluteKey } = useContext(EditingContext);
 
     const absoluteKeySplit = props.absoluteKey.split('.');
-    const selectables = useSelectablesStatefulValue(
+    const selectables = useSelectables(
         control,
         props.template.selectables,
         props.template.selectablesSources,

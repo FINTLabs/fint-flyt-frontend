@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { IUrlBuilder } from '../types/FormTemplate';
-import useResourceRepository from '../../../shared/api/useResourceRepository';
-import { ApiSelectableResource, ISelectable } from '../types/Selectable';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Control } from 'react-hook-form/dist/types/form';
 import { useWatch } from 'react-hook-form';
-import { createSource, createValueRefPerAbsoluteKey, Source } from './urlUtils';
+import { Control } from 'react-hook-form/dist/types/form';
+
 import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
+import useResourceRepository from '../../../shared/api/useResourceRepository';
+import { IUrlBuilder } from '../types/FormTemplate';
+import { ApiSelectableResource, ISelectable } from '../types/Selectable';
+import { createSource, createValueRefPerAbsoluteKey, Source } from './urlUtils';
 
 function toSortedSelectables(resources: ApiSelectableResource[]): ISelectable[] {
     return [...resources]
@@ -25,7 +25,7 @@ function toSortedSelectables(resources: ApiSelectableResource[]): ISelectable[] 
         });
 }
 
-export const useSelectablesStatefulValue = (
+export const useSelectables = (
     control: Control,
     staticSelectables: ISelectable[] = [],
     sourceUrlBuilders: IUrlBuilder[] = [],
@@ -40,7 +40,7 @@ export const useSelectablesStatefulValue = (
         absoluteKey
     );
     const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey);
-    const useWatchValues: any[] = useWatch({ control, name: absoluteKeys });
+    const watchedValues: any[] = useWatch({ control, name: absoluteKeys });
 
     const updateSelectables = useCallback(
         (
@@ -60,25 +60,20 @@ export const useSelectablesStatefulValue = (
         []
     );
 
-    const getSelectables = useCallback(async (sources: Source[]) => {
+    const getSelectables = useCallback(async (sources: Source[]): Promise<ISelectable[]> => {
         try {
-            const selectablesForEachSourceArray = await Promise.all(
+            const selectablesPerSource: ISelectable[][] = await Promise.all(
                 sources.map((source) =>
-                    ResourceRepository.getSelectables('/' + source.url, source.config).then<
-                        ISelectable[],
-                        ISelectable[]
-                    >(
-                        (response: AdapterResponse<ApiSelectableResource[]>): ISelectable[] =>
-                            response.data ? toSortedSelectables(response.data) : [],
-                        () => []
-                    )
+                    ResourceRepository.getSelectables('/' + source.url, source.config)
+                        .then((response: AdapterResponse<ApiSelectableResource[]>) =>
+                            response.data ? toSortedSelectables(response.data) : []
+                        )
+                        .catch(() => [])
                 )
             );
-            return selectablesForEachSourceArray !== undefined
-                ? selectablesForEachSourceArray
-                      .filter((selectablesArray) => selectablesArray)
-                      .flat()
-                : [];
+            return selectablesPerSource
+                .filter((selectables) => selectables && selectables.length > 0)
+                .flat();
         } catch (err) {
             console.error(err);
             return [];
@@ -88,10 +83,10 @@ export const useSelectablesStatefulValue = (
     useEffect(() => {
         const valuePerValueRef: Record<string, any> = {};
         Array.from(Array(absoluteKeys.length).keys()).forEach(
-            (i) => (valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = useWatchValues[i])
+            (i) => (valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = watchedValues[i])
         );
         updateSelectables(staticSelectables, sourceUrlBuilders, valuePerValueRef, setSelectables);
-    }, [useWatchValues]);
+    }, [watchedValues]);
     return selectables;
 };
 
