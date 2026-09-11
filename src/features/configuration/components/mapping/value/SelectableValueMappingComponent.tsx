@@ -1,20 +1,20 @@
-import {HelpText, HStack} from "@navikt/ds-react";
-import * as React from "react";
-import {useContext, useState} from "react";
-import {Controller, useFormContext} from "react-hook-form";
+import { HelpText, HStack } from '@navikt/ds-react';
+import * as React from 'react';
+import { useContext, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import {ConfigurationContext} from "../../../context/ConfigurationContext";
-import {EditingContext} from "../../../context/EditingContext";
-import {ValueType as ConfigurationValueType} from "../../../types/Configuration";
-import {ISelectableValueTemplate, SelectableValueType} from "../../../types/FormTemplate";
-import {isOutsideCollectionEditContext} from "../../../util/keyUtils";
+import { ConfigurationContext } from '../../../context/ConfigurationContext';
+import { EditingContext } from '../../../context/EditingContext';
+import { ValueType as ConfigurationValueType } from '../../../types/Configuration';
+import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
+import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
 import { useSelectablesStatefulValue } from '../../../util/selectablesUtils';
-import {hasValidFormat} from "../../../util/validationUtil";
+import { hasValidFormat } from '../../../util/validationUtil';
 import DynamicStringOrSearchSelectValueComponent, {
-    Type as DynamicStringOrSearchSelectType
-} from "./DynamicStringOrSearchSelectValueComponent";
-import SearchSelectValueComponent from "./select/SearchSelectValueComponent";
-import SelectValueComponent from "./select/SelectValueComponent";
+    Type as DynamicStringOrSearchSelectType,
+} from './DynamicStringOrSearchSelectValueComponent';
+import SearchSelectValueComponent from './select/SearchSelectValueComponent';
+import SelectValueComponent from './select/SelectValueComponent';
 
 interface Props {
     order: number;
@@ -26,31 +26,37 @@ interface Props {
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) => {
-    SelectableValueMappingComponent.displayName = "SelectableValueMappingComponent"
-    const {control, setValue, getValues, watch} = useFormContext();
-    const {completed} = useContext(ConfigurationContext)
-    const {editCollectionAbsoluteKey} = useContext(EditingContext)
+    SelectableValueMappingComponent.displayName = 'SelectableValueMappingComponent';
+    const { control, setValue, getValues, watch } = useFormContext();
+    const { completed } = useContext(ConfigurationContext);
+    const { editCollectionAbsoluteKey } = useContext(EditingContext);
 
-    const absoluteKeySplit = props.absoluteKey.split(".");
+    const absoluteKeySplit = props.absoluteKey.split('.');
     const selectables = useSelectablesStatefulValue(
         control,
         props.template.selectables,
         props.template.selectablesSources,
-        absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join(".")
+        absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join('.')
     );
-    const typeAbsoluteKey: string = props.absoluteKey + ".type";
+    const typeAbsoluteKey: string = props.absoluteKey + '.type';
 
-    const initialType: { type: ConfigurationValueType, mappingString: string } = getValues(props.absoluteKey)
+    const initialType: { type: ConfigurationValueType; mappingString: string } = getValues(
+        props.absoluteKey
+    );
 
-    const [validationType, setValidationType] = useState<ConfigurationValueType>(initialType ? initialType.type : ConfigurationValueType.STRING)
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(
+        initialType ? initialType.type : ConfigurationValueType.STRING
+    );
 
     function setTypeIfUndefined(type: ConfigurationValueType) {
         if (!getValues(typeAbsoluteKey)) {
-            setValue(typeAbsoluteKey, type)
+            setValue(typeAbsoluteKey, type);
         }
     }
 
-    function getDynamicStringOrSearchSelectTypeFromConfigurationType(configurationType: ConfigurationValueType): DynamicStringOrSearchSelectType {
+    function getDynamicStringOrSearchSelectTypeFromConfigurationType(
+        configurationType: ConfigurationValueType
+    ): DynamicStringOrSearchSelectType {
         switch (configurationType) {
             case ConfigurationValueType.STRING:
                 return DynamicStringOrSearchSelectType.SELECT;
@@ -59,11 +65,13 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
             case ConfigurationValueType.VALUE_CONVERTING:
                 return DynamicStringOrSearchSelectType.VALUE_CONVERTING;
             default:
-                throw new Error("Invalid configurationValueType");
+                throw new Error('Invalid configurationValueType');
         }
     }
 
-    function getConfigurationTypeFromDynamicStringOrSearchSelectType(dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType): ConfigurationValueType {
+    function getConfigurationTypeFromDynamicStringOrSearchSelectType(
+        dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType
+    ): ConfigurationValueType {
         switch (dynamicStringOrSearchSelectType) {
             case DynamicStringOrSearchSelectType.SELECT:
                 return ConfigurationValueType.STRING;
@@ -72,80 +80,111 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
             case DynamicStringOrSearchSelectType.VALUE_CONVERTING:
                 return ConfigurationValueType.VALUE_CONVERTING;
             default:
-                throw new Error("Invalid dynamicStringOrSearchSelectType");
+                throw new Error('Invalid dynamicStringOrSearchSelectType');
         }
     }
 
-    return <Controller
-        name={props.absoluteKey + ".mappingString"}
-        rules={{
-            validate: (value) => hasValidFormat(value, validationType, watch('completed'))
-        }}
-        defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
-        render={({field, fieldState}) => {
-            switch (props.template.type) {
-                case SelectableValueType.DROPDOWN:
-                    setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                                   align={"center"} gap={"2"}>
-                        <SelectValueComponent
-                            {...field}
-                            displayName={props.displayName}
-                            selectables={selectables}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-                            }
-                        />
-                        <HelpText placement={"right"}>{props.description}</HelpText>
-                    </HStack>
-                case SelectableValueType.SEARCH_SELECT:
-                    setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey} align={"center"}
-                                   gap={"2"}>
-                        <SearchSelectValueComponent
-                            {...field}
-                            displayName={props.displayName}
-                            selectables={selectables}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-
-                            }
-                        />
-                        <HelpText placement={"right"}>{props.description}</HelpText>
-                    </HStack>
-                case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
-                    setTypeIfUndefined(ConfigurationValueType.STRING);
-                    return <HStack id={'selectable-value-mapping-wrapper-' + props.absoluteKey} align={"center"}
-                                   gap={"2"}>
-                        <DynamicStringOrSearchSelectValueComponent
-                            {...field}
-                            displayName={props.displayName}
-                            selectables={selectables}
-                            fieldState={fieldState}
-                            initialType={
-                                getDynamicStringOrSearchSelectTypeFromConfigurationType(getValues(typeAbsoluteKey))
-                            }
-                            onTypeChange={(type: DynamicStringOrSearchSelectType) => {
-                                setValidationType(getConfigurationTypeFromDynamicStringOrSearchSelectType(type))
-                                setValue(
-                                    typeAbsoluteKey,
-                                    getConfigurationTypeFromDynamicStringOrSearchSelectType(type)
-                                )
-                            }}
-                            disabled={
-                                props.disabled
-                                || isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey)
-                                || completed
-                            }
-                        />
-                        <HelpText placement={"right"}>{props.description}</HelpText>
-                    </HStack>
-            }
-        }}
-    />
-}
+    return (
+        <Controller
+            name={props.absoluteKey + '.mappingString'}
+            rules={{
+                validate: (value) => hasValidFormat(value, validationType, watch('completed')),
+            }}
+            defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
+            render={({ field, fieldState }) => {
+                switch (props.template.type) {
+                    case SelectableValueType.DROPDOWN:
+                        setTypeIfUndefined(ConfigurationValueType.STRING);
+                        return (
+                            <HStack
+                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                                align={'center'}
+                                gap={'2'}
+                            >
+                                <SelectValueComponent
+                                    {...field}
+                                    displayName={props.displayName}
+                                    selectables={selectables}
+                                    disabled={
+                                        props.disabled ||
+                                        isOutsideCollectionEditContext(
+                                            field.name,
+                                            editCollectionAbsoluteKey
+                                        ) ||
+                                        completed
+                                    }
+                                />
+                                <HelpText placement={'right'}>{props.description}</HelpText>
+                            </HStack>
+                        );
+                    case SelectableValueType.SEARCH_SELECT:
+                        setTypeIfUndefined(ConfigurationValueType.STRING);
+                        return (
+                            <HStack
+                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                                align={'center'}
+                                gap={'2'}
+                            >
+                                <SearchSelectValueComponent
+                                    {...field}
+                                    displayName={props.displayName}
+                                    selectables={selectables}
+                                    disabled={
+                                        props.disabled ||
+                                        isOutsideCollectionEditContext(
+                                            field.name,
+                                            editCollectionAbsoluteKey
+                                        ) ||
+                                        completed
+                                    }
+                                />
+                                <HelpText placement={'right'}>{props.description}</HelpText>
+                            </HStack>
+                        );
+                    case SelectableValueType.DYNAMIC_STRING_OR_SEARCH_SELECT:
+                        setTypeIfUndefined(ConfigurationValueType.STRING);
+                        return (
+                            <HStack
+                                id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
+                                align={'center'}
+                                gap={'2'}
+                            >
+                                <DynamicStringOrSearchSelectValueComponent
+                                    {...field}
+                                    displayName={props.displayName}
+                                    selectables={selectables}
+                                    fieldState={fieldState}
+                                    initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
+                                        getValues(typeAbsoluteKey)
+                                    )}
+                                    onTypeChange={(type: DynamicStringOrSearchSelectType) => {
+                                        setValidationType(
+                                            getConfigurationTypeFromDynamicStringOrSearchSelectType(
+                                                type
+                                            )
+                                        );
+                                        setValue(
+                                            typeAbsoluteKey,
+                                            getConfigurationTypeFromDynamicStringOrSearchSelectType(
+                                                type
+                                            )
+                                        );
+                                    }}
+                                    disabled={
+                                        props.disabled ||
+                                        isOutsideCollectionEditContext(
+                                            field.name,
+                                            editCollectionAbsoluteKey
+                                        ) ||
+                                        completed
+                                    }
+                                />
+                                <HelpText placement={'right'}>{props.description}</HelpText>
+                            </HStack>
+                        );
+                }
+            }}
+        />
+    );
+};
 export default SelectableValueMappingComponent;
