@@ -8,7 +8,6 @@ import { mockGenericAuthorizationRepository,
 function fillAll() {
     cy.get('#sourceApplicationId').select('2')
     cy.get('#sourceApplicationIntegrationId').select('sak')
-    cy.get('#destination').select('fylkesrad')
 }
 
 const newCaseFields = '#mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey';

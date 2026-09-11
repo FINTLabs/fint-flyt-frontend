@@ -134,8 +134,7 @@
             },
             "help": {
                 "sourceApplicationId": "The source system that data comes from",
-                "sourceApplicationIntegrationId": "Reference to data to be processed",
-                "destination": "Where data is to be sent after transformation in Flyt"
+                "sourceApplicationIntegrationId": "Reference to data to be processed"
             }
         },
         "integrations": {
