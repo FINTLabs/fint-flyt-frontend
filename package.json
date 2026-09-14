@@ -28,7 +28,7 @@
         "@emotion/styled": "^11.14.1",
         "@mui/icons-material": "^5.18.0",
         "@mui/material": "^5.18.0",
-        "@navikt/aksel-icons": "^7.35.3",
+        "@navikt/aksel-icons": "^8.16.2",
         "@navikt/ds-css": "^7.35.3",
         "@navikt/ds-react": "^7.35.3",
         "date-fns": "^4.1.0",
