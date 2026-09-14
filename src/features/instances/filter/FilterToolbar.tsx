@@ -4,7 +4,7 @@ import useIntegrationRepository from '../../../shared/api/useIntegrationReposito
 import { TableToolbar } from '../../../shared/components/table/TableToolbar';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
-import { sourceApplicationsToSelectable } from '../../../shared/util/FormUtil';
+import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { IIntegration } from '../../integration/types/Integration';
 import BulkActions from '../batchProcess/BulkActions';

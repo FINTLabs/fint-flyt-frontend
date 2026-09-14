@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getErrorArgs, getErrorDisplayParts } from '../../../shared/util/StringUtil';
+import { getErrorArgs, getErrorDisplayParts } from '../../../shared/util/stringUtil';
 import { IError } from '../types/Event';
 
 type Props = {

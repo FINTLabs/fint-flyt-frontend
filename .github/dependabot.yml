@@ -24,7 +24,7 @@ updates:
         update-types: ["version-update:semver-major"]
   - package-ecosystem: "npm"
     directory: "/"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
     schedule:
       interval: "daily"
       timezone: "Europe/Oslo"

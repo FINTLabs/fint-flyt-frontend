@@ -3,8 +3,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IValueConverting } from '../types/ValueConverting';
-import { getDestinationDisplayName } from '../../../shared/util/TableUtil';
-import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
+import { getDestinationDisplayName } from '../../../shared/util/tableUtil';
+import { formatTimestampToReadableText } from '../../../shared/util/timeAndDateUtils';
 
 type Props = {
     id: number;

@@ -1,4 +1,4 @@
-import {createValueRefPerAbsoluteKey} from "../../features/configuration/util/UrlUtils";
+import {createValueRefPerAbsoluteKey} from "../../features/configuration/util/urlUtils";
 import {IUrlBuilder} from "../../features/configuration/types/FormTemplate";
 
 const sourceUrlBuilder: IUrlBuilder[] = [

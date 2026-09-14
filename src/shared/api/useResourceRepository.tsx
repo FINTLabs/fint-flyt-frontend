@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { ISelectable } from '../../features/configuration/types/Selectable';
-import { Source } from '../../features/configuration/util/UrlUtils';
+import { ApiSelectableResource } from '../../features/configuration/types/Selectable';
+import { Source } from '../../features/configuration/util/urlUtils';
 import {
     AdapterRequestConfigType,
     AdapterResponse,
@@ -26,12 +26,12 @@ export default function useResourceRepository() {
     const getSelectables = (
         url: string,
         config?: AdapterRequestConfigType
-    ): Promise<AdapterResponse<ISelectable[]>> => {
-        return get<ISelectable[]>(API_URL, url, config);
+    ): Promise<AdapterResponse<ApiSelectableResource[]>> => {
+        return get<ApiSelectableResource[]>(API_URL, url, config);
     };
 
     const getSelectableKodeverkFormat = () => {
-        return get<ISelectable[]>(API_URL, '/api/intern/arkiv/kodeverk/format');
+        return get<ApiSelectableResource[]>(API_URL, '/api/intern/arkiv/kodeverk/format');
     };
 
     const getSak = (caseYear: number | string, id: number | string) => {

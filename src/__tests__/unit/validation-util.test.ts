@@ -1,6 +1,6 @@
 import {
     hasValidFormat
-} from "../../features/configuration/util/ValidationUtil";
+} from "../../features/configuration/util/validationUtil";
 import {ValueType} from "../../features/configuration/types/Configuration";
 
 describe('it shpuld validate format', () => {

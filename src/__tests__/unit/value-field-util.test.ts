@@ -3,7 +3,7 @@ import {
     getTagStyles,
     mappingStringToValueArray,
     valueArrayToMappingString
-} from "../../features/configuration/util/ValueFieldUtils";
+} from "../../features/configuration/util/valueFieldUtils";
 
 describe('testing value field utils', () => {
     it('should return correct mappingString from value array', () => {

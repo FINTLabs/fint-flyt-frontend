@@ -24,7 +24,7 @@ import {
 } from '../../../shared/components/icons';
 import { TableRowActionsMenu } from '../../../shared/components/table/TableRowActionsMenu';
 import { IAlertMessage, Page } from '../../../shared/types/TableTypes';
-import { formatTimestampToReadableText } from '../../../shared/util/TimeAndDateUtils';
+import { formatTimestampToReadableText } from '../../../shared/util/timeAndDateUtils';
 import { IConfiguration } from '../../configuration/types/Configuration';
 
 type ConfigurationTableProps = {

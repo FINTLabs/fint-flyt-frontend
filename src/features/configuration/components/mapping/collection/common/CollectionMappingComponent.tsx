@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import ArrayObjectWrapperComponent from "../../../array/ArrayObjectWrapperComponent";
 import ArrayValueWrapperComponent from "../../../array/ArrayValueWrapperComponent";
 import {ConfigurationContext} from "../../../../context/ConfigurationContext";
-import {isOutsideCollectionEditContext} from "../../../../util/KeyUtils";
+import {isOutsideCollectionEditContext} from "../../../../util/keyUtils";
 import {EditingContext} from "../../../../context/EditingContext";
 import {Box, Heading, HelpText, HStack, VStack} from "@navikt/ds-react";
 

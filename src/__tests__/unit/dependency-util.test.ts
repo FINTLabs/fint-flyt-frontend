@@ -1,4 +1,4 @@
-import {getCombinationValue, getPredicateValue} from "../../features/configuration/util/DependencyUtils";
+import {getCombinationValue, getPredicateValue} from "../../features/configuration/util/dependencyUtils";
 import {IValuePredicate} from "../../features/configuration/types/FormTemplate";
 
 describe('test dependency utils', () => {

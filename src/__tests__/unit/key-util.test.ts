@@ -2,7 +2,7 @@ import {
     findFromCollectionMappingAbsoluteKeys,
     getAbsoluteKeyFromValueRef,
     isOutsideCollectionEditContext
-} from "../../features/configuration/util/KeyUtils";
+} from "../../features/configuration/util/keyUtils";
 
 const valueRefString = 'testField';
 const valueRefString3 = '../../../testField';

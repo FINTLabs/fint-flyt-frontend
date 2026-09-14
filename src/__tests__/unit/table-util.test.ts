@@ -4,7 +4,7 @@ import {
     integrationComparator,
     isKeyOfEvent,
     isKeyOfIntegration,
-} from '../../shared/util/TableUtil';
+} from '../../shared/util/tableUtil';
 import { IIntegration } from '../../features/integration/types/Integration';
 import { MOCK_INTEGRATION, MOCK_INTEGRATION2, MOCK_INTEGRATION3 } from '../mock/integration';
 

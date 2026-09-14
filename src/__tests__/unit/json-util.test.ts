@@ -1,4 +1,4 @@
-import {toInstanceCollectionFieldReference, toInstanceFieldReference} from "../../shared/util/JsonUtil";
+import {toInstanceCollectionFieldReference, toInstanceFieldReference} from "../../shared/util/jsonUtil";
 
 const tagString = 'fornavn';
 

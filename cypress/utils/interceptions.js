@@ -1,5 +1,4 @@
-const MOCK_AUTHORIZATION_HEADER =
-    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjk5OTk5OTk5OTk5fQ.cypress';
+const MOCK_AUTHORIZATION_HEADER = 'Bearer cypress-mock-token';
 
 export const mockAuthHeader = () => {
     cy.intercept('GET', '**/auth/header', {

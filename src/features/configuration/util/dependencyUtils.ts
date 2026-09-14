@@ -1,7 +1,7 @@
 import {IDependency, IValuePredicate} from "../types/FormTemplate";
 import {useEffect, useState} from "react";
 import {useFormContext, useWatch} from "react-hook-form";
-import {getAbsoluteKeyFromValueRef} from "./KeyUtils";
+import {getAbsoluteKeyFromValueRef} from "./keyUtils";
 
 export function DependencySatisfiedStatefulValue(absoluteKey: string, dependency: IDependency, callback?: (value: boolean) => void): boolean {
     const {control} = useFormContext();

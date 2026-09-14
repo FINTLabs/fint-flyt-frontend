@@ -13,7 +13,7 @@ import { SourceApplicationContext } from '../../../shared/context/SourceApplicat
 import {
     toInstanceCollectionFieldReference,
     toInstanceFieldReference,
-} from '../../../shared/util/JsonUtil';
+} from '../../../shared/util/jsonUtil';
 import { IValueConverting } from '../../valueConverting/types/ValueConverting';
 import {
     IInstanceMetadataContent,
@@ -24,7 +24,7 @@ import {
     extractFieldReferenceKey,
     isCollectionFieldReference,
     isFieldReference,
-} from '../util/FieldReferenceUtils';
+} from '../util/fieldReferenceUtils';
 import DraggableValueConvertingTag from './dnd/DraggableValueConvertingTag';
 import MetadataContent from './metadata/MetadataContent';
 import MetadataContentWrapper from './metadata/MetadataContentWrapper';
