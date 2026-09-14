@@ -29,13 +29,18 @@ updates:
       interval: "daily"
       timezone: "Europe/Oslo"
     groups:
-      navikt:
+      navikt-minor-patch:
         patterns:
           - "@navikt/*"
         update-types:
           - "minor"
           - "patch"
-      mui:
+      navikt-major:
+        patterns:
+          - "@navikt/*"
+        update-types:
+          - "major"
+      mui-minor-patch:
         patterns:
           - "@mui/*"
           - "@types/mui"
@@ -43,7 +48,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      react:
+      mui-major:
+        patterns:
+          - "@mui/*"
+          - "@types/mui"
+          - "@emotion/*"
+        update-types:
+          - "major"
+      react-minor-patch:
         patterns:
           - "react"
           - "react-dom"
@@ -54,15 +66,34 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      eslint:
+      react-major:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "react-*"
+          - "@types/react"
+          - "@types/react-dom"
+          - "@types/react-*"
+        update-types:
+          - "major"
+      linting-minor-patch:
         patterns:
           - "eslint"
           - "eslint-*"
           - "@typescript-eslint/*"
+          - "prettier"
         update-types:
           - "minor"
           - "patch"
-      vite:
+      linting-major:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@typescript-eslint/*"
+          - "prettier"
+        update-types:
+          - "major"
+      vite-minor-patch:
         patterns:
           - "vite"
           - "vitest"
@@ -71,3 +102,28 @@ updates:
         update-types:
           - "minor"
           - "patch"
+      vite-major:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@vitejs/*"
+          - "@types/vite"
+        update-types:
+          - "major"
+      server-minor-patch:
+        patterns:
+          - "express"
+          - "helmet"
+          - "morgan"
+          - "log4js"
+        update-types:
+          - "minor"
+          - "patch"
+      server-major:
+        patterns:
+          - "express"
+          - "helmet"
+          - "morgan"
+          - "log4js"
+        update-types:
+          - "major"

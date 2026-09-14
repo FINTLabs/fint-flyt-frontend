@@ -5,7 +5,7 @@ import {
     isKeyOfEvent,
     isKeyOfIntegration,
 } from '../../shared/util/tableUtil';
-import { IIntegration } from '../../features/integration/types/Integration';
+import { IIntegration } from '../../features/newIntegration/types/Integration';
 import { MOCK_INTEGRATION, MOCK_INTEGRATION2, MOCK_INTEGRATION3 } from '../mock/integration';
 
 describe('Testing table utils', () => {

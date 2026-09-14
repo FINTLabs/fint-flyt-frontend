@@ -1,9 +1,11 @@
 import {
+    BodyShort,
     Button,
     ErrorSummary,
     Heading,
     HelpText,
     HStack,
+    Label,
     Loader,
     Select,
     VStack,
@@ -18,19 +20,20 @@ import AlertMessage from '../../shared/components/AlertMessage';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
+import { defaultAlert } from '../../shared/defaults/alertMessages';
+import {
+    defaultDestination,
+    getSelectableDefaultByLanguage,
+} from '../../shared/defaults/applocationOptions';
+import { IAlertContent } from '../../shared/types/AlertContent';
+import { ISelect } from '../../shared/types/Select';
 import { sourceApplicationsToSelectable } from '../../shared/util/formUtil';
 import i18n from '../../shared/util/locale/i18n';
 import { toIntegration } from '../../shared/util/mapping/toIntegration';
-import {
-    defaultAlert,
-} from '../../shared/defaults/alertMessages';
-import { IAlertContent } from '../../shared/types/AlertContent';
 import { IIntegrationMetadata } from '../configuration/types/Metadata/IntegrationMetadata';
-import { ISelect } from '../../shared/types/Select';
 import { IIntegration, IIntegrationFormData, IntegrationState } from './types/Integration';
-import { getSelectableDefaultByLanguage, selectableDestinations } from '../../shared/defaults/applocationOptions';
 
-export const IntegrationForm: React.FC = () => {
+export const NewIntegrationForm: React.FC = () => {
     const history = useNavigate();
     const IntegrationRepository = useIntegrationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
@@ -49,14 +52,19 @@ export const IntegrationForm: React.FC = () => {
         currentMetaData,
         getInstanceElementMetadata,
     } = useContext(SourceApplicationContext);
-    const { getAllSourceApplications } = useContext(AuthorizationContext);
-    const [destination, setDestination] = useState<string>('');
+    const { getSourceApplicationsForUser } = useContext(AuthorizationContext);
     const [sourceApplicationId, setSourceApplicationId] = useState<string>('');
     const [showAlert, setShowAlert] = React.useState<boolean>(false);
     const [alertContent, setAlertContent] = React.useState<IAlertContent>(defaultAlert);
     const [sourceApplicationIntegrationId, setSourceApplicationIntegrationId] =
         useState<string>('');
-    const methods = useForm<IIntegrationFormData>();
+    const methods = useForm<IIntegrationFormData>({
+        defaultValues: {
+            destination: defaultDestination.value,
+            sourceApplicationId: '',
+            sourceApplicationIntegrationId: '',
+        },
+    });
     const [selectableSourceApplications, setSelectableSourceApplications] = useState<ISelect[]>([
         { label: getSelectableDefaultByLanguage(i18n.language), value: '' },
     ]);
@@ -73,7 +81,7 @@ export const IntegrationForm: React.FC = () => {
         }, [sourceApplication, availableForms, integrations, i18n.language]);
 
     function getSelectableSourceApplications() {
-        getAllSourceApplications(true).then((sourceApps) => {
+        getSourceApplicationsForUser().then((sourceApps) => {
             const options = sourceApplicationsToSelectable(sourceApps);
             setSelectableSourceApplications(options);
         });
@@ -162,15 +170,9 @@ export const IntegrationForm: React.FC = () => {
                             defaultValue={''}
                             render={({ fieldState, field }) => (
                                 <Select
+                                    description={t('help.sourceApplicationId')}
                                     id={'sourceApplicationId'}
-                                    label={
-                                        <HStack gap={'2'} align={'center'} wrap={false}>
-                                            {t('labels.sourceApplicationId')}
-                                            <HelpText title={'hva er dette'} placement="right">
-                                                {t('help.sourceApplicationId')}
-                                            </HelpText>
-                                        </HStack>
-                                    }
+                                    label={t('labels.sourceApplicationId')}
                                     error={!!fieldState.error}
                                     onChange={(event) => {
                                         setSourceApplication(Number(event.target.value));
@@ -179,6 +181,9 @@ export const IntegrationForm: React.FC = () => {
                                         field.onChange(event.target.value);
                                     }}
                                 >
+                                    <option value="">
+                                        - {t('labels.selectSourceApplication')}
+                                    </option>
                                     {selectableSourceApplications.map((option, index) => (
                                         <option key={index} value={option.value}>
                                             {option.label}
@@ -195,14 +200,8 @@ export const IntegrationForm: React.FC = () => {
                             render={({ fieldState, field }) => (
                                 <Select
                                     id={'sourceApplicationIntegrationId'}
-                                    label={
-                                        <HStack gap={'2'} align={'center'}>
-                                            {t('labels.sourceApplicationIntegrationId')}
-                                            <HelpText title={'hva er dette'} placement="right">
-                                                {t('help.sourceApplicationIntegrationId')}
-                                            </HelpText>
-                                        </HStack>
-                                    }
+                                    label={t('labels.sourceApplicationIntegrationId')}
+                                    description={t('help.sourceApplicationIntegrationId')}
                                     error={!!fieldState.error}
                                     onChange={(event) => {
                                         setSourceApplicationIntegrationId(event.target.value);
@@ -225,36 +224,11 @@ export const IntegrationForm: React.FC = () => {
                     </VStack>
                     <VStack gap={'3'} style={{ maxWidth: '40%' }}>
                         <Heading size={'small'}>{t('outgoing')}</Heading>
-                        <Controller
-                            rules={{ required: true }}
-                            name={'destination'}
-                            defaultValue={''}
-                            render={({ fieldState, field }) => (
-                                <Select
-                                    id={'destination'}
-                                    label={
-                                        <HStack gap={'2'} align={'center'}>
-                                            {t('labels.destination')}
-                                            <HelpText title={'hva er dette'} placement="right">
-                                                {t('help.destination')}
-                                            </HelpText>
-                                        </HStack>
-                                    }
-                                    error={!!fieldState.error}
-                                    onChange={(event) => {
-                                        setDestination(event.target.value);
-                                        field.onChange(event.target.value);
-                                    }}
-                                    disabled={!sourceApplicationId}
-                                >
-                                    {selectableDestinations(i18n.language).map((option, index) => (
-                                        <option key={index} value={option.value}>
-                                            {option.label}
-                                        </option>
-                                    ))}
-                                </Select>
-                            )}
-                        />
+                        <input type="hidden" {...methods.register('destination')} />
+                        <VStack id="destination">
+                            <Label>{t('labels.destination')}</Label>
+                            <BodyShort>{defaultDestination.label}</BodyShort>
+                        </VStack>
                     </VStack>
                     {!methods.formState.isValid && methods.formState.isSubmitted && (
                         <ErrorSummary heading={t('errorHeading')} size="small">
@@ -266,11 +240,6 @@ export const IntegrationForm: React.FC = () => {
                             {!sourceApplicationIntegrationId && (
                                 <ErrorSummary.Item href="#sourceApplicationIntegrationId">
                                     {t('labels.sourceApplicationIntegrationId')}
-                                </ErrorSummary.Item>
-                            )}
-                            {!destination && (
-                                <ErrorSummary.Item href="#destination">
-                                    {t('labels.destination')}
                                 </ErrorSummary.Item>
                             )}
                         </ErrorSummary>
@@ -289,11 +258,7 @@ export const IntegrationForm: React.FC = () => {
                             id="form-settings-confirm-btn"
                             type="submit"
                             size={'small'}
-                            disabled={
-                                !sourceApplicationId ||
-                                !sourceApplicationIntegrationId ||
-                                !destination
-                            }
+                            disabled={!sourceApplicationId || !sourceApplicationIntegrationId}
                         >
                             {t('button.confirm')}
                         </Button>
@@ -311,4 +276,4 @@ export const IntegrationForm: React.FC = () => {
     );
 };
 
-export default IntegrationForm;
+export default NewIntegrationForm;

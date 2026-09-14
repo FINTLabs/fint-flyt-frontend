@@ -125,6 +125,7 @@
                 "missingMetadata": "Finner ikkje metadata for integrasjon"
             },
             "labels": {
+                "selectSourceApplication": "Velg kjeldeapplikasjon",
                 "placeholder": "Velg kjeldeapplikasjon først",
                 "loading": "Lastar inn...",
                 "sourceApplicationId": "Kjeldeapplikasjon",
@@ -132,9 +133,8 @@
                 "destination": "Destinasjon/Base"
             },
             "help": {
-                "sourceApplicationId": "Ein kjeldeapplikasjon er fagsystemet data som skal behandlast i Flyt kjem frå",
-                "sourceApplicationIntegrationId": "Referanse/navn/id til data som skal behandlast i flyt",
-                "destination": "Kvar data skal sendast etter omforming i Flyt"
+                "sourceApplicationId": "Fagsystemet data kjem frå",
+                "sourceApplicationIntegrationId": "Referanse til data som skal behandlast"
             }
         },
         "integrations": {

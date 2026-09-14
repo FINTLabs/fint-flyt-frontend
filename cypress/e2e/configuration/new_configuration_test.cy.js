@@ -11,7 +11,6 @@ import {
 function fillAll() {
     cy.get('#sourceApplicationId').select('2');
     cy.get('#sourceApplicationIntegrationId').select('sak');
-    cy.get('#destination').select('fylkesrad');
 }
 
 describe('Testing create new configuration from new integration', () => {

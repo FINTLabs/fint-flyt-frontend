@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 import { IConfiguration } from '../../features/configuration/types/Configuration';
 import { IIntegrationMetadata } from '../../features/configuration/types/Metadata/IntegrationMetadata';
 import { ITotalStatistics } from '../../features/instances/types/Event';
-import { IIntegration } from '../../features/integration/types/Integration';
+import { IIntegration } from '../../features/newIntegration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
@@ -122,17 +122,17 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 
     const getAllIntegrations = async () => {
         try {
-            const [statisticsResponse, sourceApplicationsResponse, integrationResponse] =
+            const [statisticsResponse, userDataResponse, integrationResponse] =
                 await Promise.all([
                     InstanceFlowTrackingRepository.getAllStatistics(),
-                    AuthorizationRepository.getUserSourceApplications(),
+                    AuthorizationRepository.getUserData(),
                     IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
                 ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
             setTotalStatistics(statistics);
 
-            const sourceApplicationIds = sourceApplicationsResponse.data.sourceApplicationIds
+            const sourceApplicationIds = userDataResponse.data.sourceApplicationIds
                 .map(String)
                 .join(',');
             const integrations: IIntegration[] = integrationResponse.data.content || [];
