@@ -1,6 +1,6 @@
 ARG BASE_PATH=/
 
-FROM node:24.20.0-alpine
+FROM node:24.21.0-alpine
 WORKDIR /src
 
 ARG BASE_PATH
