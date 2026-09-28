@@ -23,7 +23,7 @@ function Main() {
     }, []);
 
     return (
-        <Page footer={<Footer />}>
+        <Page footer={<Footer />} footerPosition="belowFold" contentBlockPadding={'none'}>
             {hasAccessToUserPermissionPage !== undefined && <AppBar />}
             <Page.Block as="main">
                 {authorized !== undefined &&

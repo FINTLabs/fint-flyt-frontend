@@ -1,4 +1,4 @@
-import { Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Box, Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -232,102 +232,120 @@ const Configuration: React.FC = () => {
                     <form
                         id="react-hook-form"
                         onSubmit={methods.handleSubmit(onSubmit, onSubmitError)}
+                        style={{
+                            height: '100%',
+                            minHeight: 0,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            overflow: 'hidden',
+                        }}
                     >
-                        <VStack gap={'3'}>
-                            <Heading size={'small'}>
-                                {t('header')} {existingIntegration?.sourceApplicationIntegrationId}{' '}
-                                - {existingIntegration?.displayName}
-                            </Heading>
+                        <VStack
+                            gap={'3'}
+                            style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}
+                        >
+                            <VStack gap={'3'} style={{ flexShrink: 0 }}>
+                                <Heading size={'small'}>
+                                    {t('header')}{' '}
+                                    {existingIntegration?.sourceApplicationIntegrationId} -{' '}
+                                    {existingIntegration?.displayName}
+                                </Heading>
 
-                            <VStack gap={'3'} paddingBlock={'0 4'}>
-                                <HStack gap={'6'}>
-                                    <Controller
-                                        name={'comment'.toString()}
-                                        rules={{
-                                            required: {
-                                                value: !!methods.watch('completed'),
-                                                message: t('reqFieldMsg'),
-                                            },
-                                        }}
-                                        render={({ field, fieldState }) => (
-                                            <StringValueComponent
-                                                {...field}
+                                <VStack gap={'3'} paddingBlock={'0 4'}>
+                                    <HStack gap={'6'}>
+                                        <Controller
+                                            name={'comment'.toString()}
+                                            rules={{
+                                                required: {
+                                                    value: !!methods.watch('completed'),
+                                                    message: t('reqFieldMsg'),
+                                                },
+                                            }}
+                                            render={({ field, fieldState }) => (
+                                                <StringValueComponent
+                                                    {...field}
+                                                    disabled={completed || loading}
+                                                    displayName={t('comment')}
+                                                    multiline
+                                                    fieldState={fieldState}
+                                                />
+                                            )}
+                                        />
+                                        <Controller
+                                            name={'completed'}
+                                            render={({ field }) => (
+                                                <CheckboxValueComponent
+                                                    {...field}
+                                                    disabled={loading}
+                                                    displayName={t('label.checkLabel')}
+                                                />
+                                            )}
+                                        />
+                                        {methods.watch('completed') && (
+                                            <CheckboxGroup
+                                                legend="form-active"
+                                                hideLegend
                                                 disabled={completed || loading}
-                                                displayName={t('comment')}
-                                                multiline
-                                                fieldState={fieldState}
-                                            />
+                                                value={[active && 'form-active']}
+                                                onChange={(val: string[]) => {
+                                                    setActive(val.includes('form-active'));
+                                                }}
+                                            >
+                                                <Checkbox
+                                                    id="form-active"
+                                                    value="form-active"
+                                                    size={'small'}
+                                                    aria-label="active-checkbox"
+                                                >
+                                                    {t('label.activeLabel')}
+                                                </Checkbox>
+                                            </CheckboxGroup>
                                         )}
-                                    />
-                                    <Controller
-                                        name={'completed'}
-                                        render={({ field }) => (
-                                            <CheckboxValueComponent
-                                                {...field}
-                                                disabled={loading}
-                                                displayName={t('label.checkLabel')}
-                                            />
-                                        )}
-                                    />
-                                    {methods.watch('completed') && (
-                                        <CheckboxGroup
-                                            legend="form-active"
-                                            hideLegend
-                                            disabled={completed || loading}
-                                            value={[active && 'form-active']}
-                                            onChange={(val: string[]) => {
-                                                setActive(val.includes('form-active'));
+                                    </HStack>
+                                    <HStack align={'center'} gap={'6'}>
+                                        <Button
+                                            id="form-submit-btn"
+                                            size={'small'}
+                                            disabled={configuration?.completed}
+                                            type="submit"
+                                            loading={loading}
+                                        >
+                                            {!methods.watch('completed')
+                                                ? t('button.submit')
+                                                : t('button.complete')}
+                                        </Button>
+
+                                        <Button
+                                            variant={'secondary'}
+                                            type="button"
+                                            id="form-cancel-btn"
+                                            size={'small'}
+                                            disabled={loading}
+                                            onClick={() => {
+                                                history('/integration/list');
                                             }}
                                         >
-                                            <Checkbox
-                                                id="form-active"
-                                                value="form-active"
-                                                size={'small'}
-                                                aria-label="active-checkbox"
-                                            >
-                                                {t('label.activeLabel')}
-                                            </Checkbox>
-                                        </CheckboxGroup>
-                                    )}
-                                </HStack>
-                                <HStack align={'center'} gap={'6'}>
-                                    <Button
-                                        id="form-submit-btn"
-                                        size={'small'}
-                                        disabled={configuration?.completed}
-                                        type="submit"
-                                        loading={loading}
-                                    >
-                                        {!methods.watch('completed')
-                                            ? t('button.submit')
-                                            : t('button.complete')}
-                                    </Button>
+                                            {t('button.cancel')}
+                                        </Button>
+                                    </HStack>
+                                </VStack>
 
-                                    <Button
-                                        variant={'secondary'}
-                                        type="button"
-                                        id="form-cancel-btn"
-                                        size={'small'}
-                                        disabled={loading}
-                                        onClick={() => {
-                                            history('/integration/list');
-                                        }}
-                                    >
-                                        {t('button.cancel')}
-                                    </Button>
-                                </HStack>
+                                <AlertMessage
+                                    status={alertContent.severity}
+                                    id="integration-form-snackbar-saved"
+                                    open={showAlert}
+                                    onClose={handleClose}
+                                    title={alertContent.message}
+                                    content={alertContent.content}
+                                />
                             </VStack>
 
-                            <AlertMessage
-                                status={alertContent.severity}
-                                id="integration-form-snackbar-saved"
-                                open={showAlert}
-                                onClose={handleClose}
-                                title={alertContent.message}
-                                content={alertContent.content}
-                            />
-
-                            <HStack gap={'8'} wrap={false}>
+                            <HStack
+                                gap={'8'}
+                                wrap={false}
+                                align="stretch"
+                                style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}
+                            >
                                 <IncomingData
                                     referencesForCollectionsToShow={
                                         collectionReferencesInEditContext

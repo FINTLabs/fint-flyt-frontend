@@ -129,11 +129,7 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
 
         applySelectedMetadata(metadata);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
-        availableVersions,
-        configuration?.integrationMetadataId,
-        existingIntegrationMetadata,
-    ]);
+    }, [availableVersions, configuration?.integrationMetadataId, existingIntegrationMetadata]);
 
     function findInstanceObjectCollectionMetadata(
         metadataContent: IInstanceMetadataContent,
@@ -199,14 +195,21 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
 
     return (
         <Box
-            style={{ minWidth: '400px' }}
             id={'incoming-form-panel'}
             className="incoming-form-panel"
             background={'surface-default'}
             paddingBlock={'4 0'}
+            style={{
+                minWidth: '400px',
+                height: '100%',
+                minHeight: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden',
+            }}
         >
-            <VStack gap={'2'}>
-                <HStack align={'end'} justify={'space-between'}>
+            <VStack gap={'2'} style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+                <HStack align={'end'} justify={'space-between'} style={{ flexShrink: 0 }}>
                     <HStack gap={'2'} align={'center'}>
                         <Heading level={'3'} size={'small'}>
                             {t('metadataPanel.header')}
@@ -246,60 +249,68 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
                         </Select>
                     </HStack>
                 </HStack>
-                {instanceElementMetadata && (
-                    <MetadataContentWrapper
-                        id={'metadata-content-panel'}
-                        title={t('metadataPanel.metadata')}
-                    >
-                        <MetadataContent
-                            content={instanceElementMetadata}
-                            keyToReferenceFunction={(key: string) => toInstanceFieldReference(key)}
-                        />
-                    </MetadataContentWrapper>
-                )}
-                {props.referencesForCollectionsToShow.length > 0 &&
-                    getReferenceAndCollectionMetadata(props.referencesForCollectionsToShow).map(
-                        (
-                            [reference, objectCollectionMetadata]: [
-                                string,
-                                IInstanceObjectCollectionMetadata,
-                            ],
-                            index: number
-                        ) => (
+                <Box style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
+                    <VStack gap={'2'}>
+                        {instanceElementMetadata && (
                             <MetadataContentWrapper
-                                key={'tagTreeCollectionValues-' + index}
-                                id={'tagTreeCollectionValues-' + index}
-                                title={objectCollectionMetadata.displayName}
-                                description={reference}
-                                icon={<FormatListNumbered />}
-                                active={true}
+                                id={'metadata-content-panel'}
+                                title={t('metadataPanel.metadata')}
                             >
                                 <MetadataContent
-                                    content={objectCollectionMetadata.objectMetadata}
+                                    content={instanceElementMetadata}
                                     keyToReferenceFunction={(key: string) =>
-                                        toInstanceCollectionFieldReference(index, key)
+                                        toInstanceFieldReference(key)
                                     }
                                 />
                             </MetadataContentWrapper>
-                        )
-                    )}
-                {valueConvertings && valueConvertings?.length > 0 && (
-                    <MetadataContentWrapper
-                        id={'value-converting-panel'}
-                        title={t('metadataPanel.valueConverting')}
-                    >
-                        {valueConvertings.map(
-                            (valueConverting: IValueConverting, index: number) => {
-                                return (
-                                    <DraggableValueConvertingTag
-                                        key={'valueConvertingValue-' + index}
-                                        valueConverting={valueConverting}
-                                    />
-                                );
-                            }
                         )}
-                    </MetadataContentWrapper>
-                )}
+                        {props.referencesForCollectionsToShow.length > 0 &&
+                            getReferenceAndCollectionMetadata(
+                                props.referencesForCollectionsToShow
+                            ).map(
+                                (
+                                    [reference, objectCollectionMetadata]: [
+                                        string,
+                                        IInstanceObjectCollectionMetadata,
+                                    ],
+                                    index: number
+                                ) => (
+                                    <MetadataContentWrapper
+                                        key={'tagTreeCollectionValues-' + index}
+                                        id={'tagTreeCollectionValues-' + index}
+                                        title={objectCollectionMetadata.displayName}
+                                        description={reference}
+                                        icon={<FormatListNumbered />}
+                                        active={true}
+                                    >
+                                        <MetadataContent
+                                            content={objectCollectionMetadata.objectMetadata}
+                                            keyToReferenceFunction={(key: string) =>
+                                                toInstanceCollectionFieldReference(index, key)
+                                            }
+                                        />
+                                    </MetadataContentWrapper>
+                                )
+                            )}
+                        {valueConvertings && valueConvertings?.length > 0 && (
+                            <MetadataContentWrapper
+                                id={'value-converting-panel'}
+                                title={t('metadataPanel.valueConverting')}
+                            >
+                                {valueConvertings.map(
+                                    (valueConverting: IValueConverting, index: number) => {
+                                        return (
+                                            <DraggableValueConvertingTag
+                                                key={'valueConvertingValue-' + index}
+                                                valueConverting={valueConverting}
+                                            />
+                                        );
+                                    }
+                                )}
+                            </MetadataContentWrapper>
+                        )}
+                    </VStack>
+                </Box>
             </VStack>
         </Box>
     );

@@ -5,7 +5,13 @@ import PageTemplate from '../shared/components/layout/PageTemplate';
 
 const ConfigurationPage: RouteComponent = () => (
     <ConfigurationProvider>
-        <PageTemplate id={'configuration'} keyPrefix={'pages.configuration'} wide customHeading>
+        <PageTemplate
+            id={'configuration'}
+            keyPrefix={'pages.configuration'}
+            wide
+            customHeading
+            noScroll={true}
+        >
             <Configuration />
         </PageTemplate>
     </ConfigurationProvider>

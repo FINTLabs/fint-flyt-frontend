@@ -22,6 +22,7 @@ interface PageTemplateProps {
     customHeading?: boolean;
     headingHelpTextKey?: string;
     headerButton?: HeaderButtonProps;
+    noScroll?: boolean;
 }
 
 const HeaderButton: FC<HeaderButtonProps & { label: string }> = ({
@@ -57,6 +58,7 @@ const PageTemplate = ({
     wide,
     customHeading,
     headerButton,
+    noScroll,
 }: PageTemplateProps) => {
     const { t } = useTranslation('translations', { keyPrefix: keyPrefix });
 
@@ -65,11 +67,32 @@ const PageTemplate = ({
             paddingInline={wide ? '8' : '32'}
             maxWidth="var(--a-breakpoint-lx)"
             marginInline="auto"
+            marginBlock={noScroll ? '0' : '0 8'}
             paddingBlock="8"
             id={id + '-content'}
-            style={{ minWidth: 'fit-content' }}
+            style={
+                noScroll
+                    ? {
+                          /* Fill the viewport under the app header; footer stays below the fold */
+                          height: 'calc(100dvh - 3.5rem)',
+                          maxHeight: 'calc(100dvh - 3.5rem)',
+                          boxSizing: 'border-box',
+                          overflow: 'hidden',
+                          display: 'flex',
+                          flexDirection: 'column',
+                      }
+                    : { minWidth: 'fit-content' }
+            }
         >
-            <VStack id={id + '-content-stack'} gap="6">
+            <VStack
+                id={id + '-content-stack'}
+                gap="6"
+                style={
+                    noScroll
+                        ? { flex: 1, minHeight: 0, overflow: 'hidden' }
+                        : undefined
+                }
+            >
                 {!customHeading && (
                     <HStack justify="space-between" align="center">
                         <PageHeader

@@ -107,9 +107,6 @@
                 "description": "Text and number",
                 "string": "Text",
                 "integer": "Whole number"
-            },
-            "help": {
-                "formHeader": "Outgoing data"
             }
         },
         "integrationForm": {

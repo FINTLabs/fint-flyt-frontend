@@ -40,45 +40,34 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 
     return (
         <Box
-            style={{ minWidth: '400px', maxWidth: '70vw', overflow: 'auto' }}
             id={'outgoing-form-panel'}
             background={'surface-default'}
             padding="6"
             borderRadius={'large'}
             borderWidth="1"
             borderColor={'border-subtle'}
+            style={{
+                minWidth: '400px',
+                flex: 1,
+                minHeight: 0,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                overflow: 'hidden',
+            }}
         >
-            <HStack gap={'10'}>
-                <HStack>
-                    <Heading size={'small'}>{t('formHeader')}</Heading>
-                    <HelpText title={'Hva er dette?'} placement={'right'}>
-                        {t('help.formHeader')}
-                    </HelpText>
-                </HStack>
-                <Spacer />
-                <Box borderRadius="medium">
-                    <Button
-                        variant="tertiary"
-                        onClick={() => scroll('left')}
-                        icon={<ChevronLeftIcon />}
-                        type={'button'}
-                        size={'medium'}
-                    />
-                    <Button
-                        variant="tertiary"
-                        onClick={() => scroll('right')}
-                        icon={<ChevronRightIcon />}
-                        type={'button'}
-                        size={'medium'}
-                    />
-                </Box>
-            </HStack>
+            <Heading size={'small'}>{t('formHeader')}</Heading>
 
-            {/* Scrollable Content */}
             <Box
                 id="scroll-container"
                 ref={scrollContainerRef}
-                style={{ overflowX: 'auto', display: 'flex', gap: '1rem' }}
+                style={{
+                    flex: 1,
+                    minHeight: 0,
+                    overflow: 'auto',
+                    display: 'flex',
+                    gap: '1rem',
+                }}
             >
                 {templateStatus === 'success' && template && (
                     <HStack id="configuration-mapping-wrapper" wrap={false}>
