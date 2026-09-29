@@ -109,9 +109,6 @@
                 "description": "Tekst og tall",
                 "string": "Tekst",
                 "integer": "Heltall"
-            },
-            "help": {
-                "formHeader": "Utgående data"
             }
         },
         "integrationForm": {

@@ -5,6 +5,7 @@ import { Link as RouterLink } from 'react-router';
 
 import { PencilWritingIcon, PlusIcon } from '../icons';
 import PageHeader from './PageHeader';
+import scrollStyles from './scrollLayout.module.css';
 
 type HeaderButtonProps = {
     textKey: string;
@@ -22,6 +23,7 @@ interface PageTemplateProps {
     customHeading?: boolean;
     headingHelpTextKey?: string;
     headerButton?: HeaderButtonProps;
+    noScroll?: boolean;
 }
 
 const HeaderButton: FC<HeaderButtonProps & { label: string }> = ({
@@ -57,6 +59,7 @@ const PageTemplate = ({
     wide,
     customHeading,
     headerButton,
+    noScroll,
 }: PageTemplateProps) => {
     const { t } = useTranslation('translations', { keyPrefix: keyPrefix });
 
@@ -65,11 +68,17 @@ const PageTemplate = ({
             paddingInline={wide ? '8' : '32'}
             maxWidth="var(--a-breakpoint-lx)"
             marginInline="auto"
+            marginBlock={noScroll ? '0' : '0 8'}
             paddingBlock="8"
             id={id + '-content'}
-            style={{ minWidth: 'fit-content' }}
+            className={noScroll ? scrollStyles.viewportFill : undefined}
+            style={noScroll ? undefined : { minWidth: 'fit-content' }}
         >
-            <VStack id={id + '-content-stack'} gap="6">
+            <VStack
+                id={id + '-content-stack'}
+                gap="6"
+                className={noScroll ? scrollStyles.fill : undefined}
+            >
                 {!customHeading && (
                     <HStack justify="space-between" align="center">
                         <PageHeader

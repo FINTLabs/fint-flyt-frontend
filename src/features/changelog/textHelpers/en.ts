@@ -8,6 +8,10 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Improved scrolling in the configuration form:',
+                text: 'Scrolling in the configuration form is now improved, making it easier to navigate between different parts of the form.',
+            },
+            {
                 title: 'Total events in the instance overview:',
                 text: 'The number of events that match the filters is now displayed above the table',
             },

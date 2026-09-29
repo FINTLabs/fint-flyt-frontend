@@ -8,7 +8,6 @@ export default function Footer() {
         <Box
             style={{
                 padding: '2rem',
-                marginTop: '2rem',
                 backgroundColor: "#6B133D",
                 // textAlign: "center",
             }}>

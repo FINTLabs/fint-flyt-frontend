@@ -107,9 +107,6 @@
                 "description": "Tekst og tall",
                 "string": "Tekst",
                 "integer": "Heiltall"
-            },
-            "help": {
-                "formHeader": "Utgåande data"
             }
         },
         "integrationForm": {
