@@ -217,6 +217,38 @@
                 "search": "Søk",
                 "clear": "Tilbakestill"
             },
+            "toolbar": {
+                "actions": {
+                    "buttonText": "Handlingar for utval",
+                    "option": {
+                        "rerun": "Køyr instansar igjen",
+                        "resetSelected": "Tilbakestill utval"
+                    },
+                    "rerunModal": {
+                        "title": "Køyr valde instansar på nytt",
+                        "noRunnableText": "Ingen av dei valde instansane kan køyrast på nytt.",
+                        "descriptionText": "Du har valt {{totalSize}} instansar, men det er berre {{runnableSize}} som kvalifiserer til å kunne køyrast på nytt. Sjå instansane som vil bli køyrde på nytt i tabellen under.",
+                        "table": {
+                            "header": {
+                                "sourceApplication": "Kjeldeapp.",
+                                "intergationName": "Integr.namn",
+                                "sourceApplicationIntegrationId": "Kjeldeapp. integr.-ID",
+                                "sourceApplicationInstanceId": "Kjeldeapp. instans-ID"
+                            }
+                        },
+                        "button": {
+                            "cancel": "Avbryt",
+                            "run": "Køyr på nytt"
+                        },
+                        "alert": {
+                            "successTitle": "Instansar er sende til ny køyring",
+                            "successContent": "{{count}} instansar er lagde i kø for handsaming. Det kan ta litt tid før statusen blir oppdatert i oversikta.",
+                            "errorTitle": "Kunne ikkje starte ny køyring",
+                            "errorContent": "Noko gjekk gale ved innsending. Prøv igjen seinare, eller kontakt Novari support viss problemet held fram."
+                        }
+                    }
+                }
+            },
             "filter": {
                 "filterMenuButtonText": "Filtrer tabellen",
                 "alerts": {

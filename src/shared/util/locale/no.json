@@ -224,7 +224,6 @@
                 "clear": "Tilbakestill"
             },
             "toolbar": {
-                "actionsButtonText": "Handlinger for utvalg",
                 "actions": {
                     "buttonText": "Handlinger for utvalg",
                     "option": {
@@ -246,6 +245,12 @@
                         "button": {
                             "cancel": "Avbryt",
                             "run": "Kjør på nytt"
+                        },
+                        "alert": {
+                            "successTitle": "Instanser er sendt til ny kjøring",
+                            "successContent": "{{count}} instanser er lagt i kø for behandling. Det kan ta litt tid før statusen oppdateres i oversikten.",
+                            "errorTitle": "Kunne ikke starte ny kjøring",
+                            "errorContent": "Noe gikk galt ved innsending. Prøv igjen senere, eller kontakt Novari support hvis problemet vedvarer."
                         }
                     }
                 }

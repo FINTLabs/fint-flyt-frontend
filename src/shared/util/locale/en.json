@@ -217,6 +217,38 @@
                 "search": "Search",
                 "clear": "Clear"
             },
+            "toolbar": {
+                "actions": {
+                    "buttonText": "Actions for selection",
+                    "option": {
+                        "rerun": "Run instances again",
+                        "resetSelected": "Clear selection"
+                    },
+                    "rerunModal": {
+                        "title": "Run selected instances again",
+                        "noRunnableText": "None of the selected instances can be run again.",
+                        "descriptionText": "You have selected {{totalSize}} instances, but only {{runnableSize}} qualify to be run again. See the instances that will be run again in the table below.",
+                        "table": {
+                            "header": {
+                                "sourceApplication": "Source app.",
+                                "intergationName": "Integr. name",
+                                "sourceApplicationIntegrationId": "Source app. integr.-ID",
+                                "sourceApplicationInstanceId": "Source app. instance ID"
+                            }
+                        },
+                        "button": {
+                            "cancel": "Cancel",
+                            "run": "Run again"
+                        },
+                        "alert": {
+                            "successTitle": "Instances queued for retry",
+                            "successContent": "{{count}} instances have been queued for processing. It may take some time before the status updates in the overview.",
+                            "errorTitle": "Could not start retry",
+                            "errorContent": "Something went wrong while submitting. Try again later, or contact Novari support if the problem persists."
+                        }
+                    }
+                }
+            },
             "TRANSFERRED": "Transferred",
             "ABORTED": "Aborted",
             "IN_PROGRESS": "In Progress",

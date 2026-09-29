@@ -1,0 +1,25 @@
+.toast {
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
+    z-index: 10000;
+    max-width: min(500px, calc(100vw - 2rem));
+    pointer-events: auto;
+}
+
+.validationErrorList {
+    margin-top: var(--a-spacing-2);
+}
+
+.errorPath {
+    font-weight: 500;
+}
+
+.errorPathWithSpacing {
+    font-weight: 500;
+    margin-top: var(--a-spacing-2);
+}
+
+.errorDetailList {
+    margin-top: var(--a-spacing-1);
+}

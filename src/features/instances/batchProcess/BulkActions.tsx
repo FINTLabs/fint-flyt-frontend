@@ -1,4 +1,4 @@
-import { ActionMenu, BodyLong, Box, Button, HStack, Modal, Table } from '@navikt/ds-react';
+import { ActionMenu, BodyLong, Button, HStack, Modal, Table } from '@navikt/ds-react';
 import React, { FC, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -10,10 +10,15 @@ import {
 } from '../../../shared/components/icons';
 import TableLoader from '../../../shared/components/table/TableLoader';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
+import { IAlertContent } from '../../../shared/types/AlertContent';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
 import { useTableSelect } from './TableSelectContext';
 
-const BulkActions: FC = ({}) => {
+type Props = {
+    onAlert: (content: IAlertContent) => void;
+};
+
+const BulkActions: FC<Props> = ({ onAlert }) => {
     const InstanceRepository = useInstanceRepository();
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
@@ -42,22 +47,31 @@ const BulkActions: FC = ({}) => {
             event.latestInstanceId != null ? [event.latestInstanceId] : []
         );
 
-        if (rerunIdList.length > 0) {
-            InstanceRepository.resendInstances(rerunIdList)
-                .then((response) => {
-                    if (response.status === 200) {
-                        removeAllEvents();
-                        ref.current?.close();
-                    }
-                })
-                .catch((e) => {
-                    console.error(e);
-                });
+        if (rerunIdList.length === 0) {
+            return;
         }
+
+        const count = rerunIdList.length;
+        ref.current?.close();
+        removeAllEvents();
+        onAlert({
+            severity: 'success',
+            message: t('rerunModal.alert.successTitle'),
+            content: t('rerunModal.alert.successContent', { count }),
+        });
+
+        void InstanceRepository.resendInstances(rerunIdList).catch((e) => {
+            console.error(e);
+            onAlert({
+                severity: 'error',
+                message: t('rerunModal.alert.errorTitle'),
+                content: t('rerunModal.alert.errorContent'),
+            });
+        });
     };
 
     return (
-        <Box>
+        <>
             <ActionMenu open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
                 <ActionMenu.Trigger>
                     <Button
@@ -92,12 +106,7 @@ const BulkActions: FC = ({}) => {
                     </ActionMenu.Item>
                 </ActionMenu.Content>
             </ActionMenu>
-            <Modal
-                ref={ref}
-                size={'medium'}
-                onClose={() => ref.current?.close()}
-                header={{ heading: t('rerunModal.title') }}
-            >
+            <Modal ref={ref} size={'medium'} header={{ heading: t('rerunModal.title') }}>
                 <Modal.Body>
                     {(!runnableEvents?.length || runnableEvents.length === 0) && (
                         <BodyLong>{t('rerunModal.noRunnableText')}</BodyLong>
@@ -176,16 +185,13 @@ const BulkActions: FC = ({}) => {
                     <Button
                         size={'small'}
                         disabled={runnableEvents.length === 0}
-                        onClick={() => {
-                            resendAllPossible();
-                            ref.current?.close();
-                        }}
+                        onClick={resendAllPossible}
                     >
                         {t('rerunModal.button.run')}
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </Box>
+        </>
     );
 };
 

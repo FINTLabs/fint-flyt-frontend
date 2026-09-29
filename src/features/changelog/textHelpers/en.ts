@@ -8,6 +8,10 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Improved feedback for bulk actions in the instance overview:',
+                text: 'When you retry multiple instances at once, you now get a clear message that the instances have been queued for processing. It may take some time before the status updates in the overview, even after you reload the page.',
+            },
+            {
                 title: 'Improved scrolling in the configuration form:',
                 text: 'Scrolling in the configuration form is now improved, making it easier to navigate between different parts of the form.',
             },

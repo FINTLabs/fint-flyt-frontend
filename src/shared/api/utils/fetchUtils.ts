@@ -77,11 +77,32 @@ export function isTokenValid(
 }
 
 export async function parseResponse(response: Response): Promise<unknown> {
+    if (response.status === 204 || response.headers.get('content-length') === '0') {
+        return null;
+    }
+
     const contentType = response.headers.get('content-type');
     const isJson = contentType?.includes('application/json');
 
+    if (isJson) {
+        try {
+            return await response.json();
+        } catch {
+            return null;
+        }
+    }
+
+    if (!contentType) {
+        try {
+            await response.body?.cancel();
+        } catch {
+            // ignore cancel errors
+        }
+        return null;
+    }
+
     try {
-        return isJson ? await response.json() : await response.text();
+        return await response.text();
     } catch {
         return null;
     }
