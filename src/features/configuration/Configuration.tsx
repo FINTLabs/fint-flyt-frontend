@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -10,17 +10,10 @@ import useConfigurationRepository from '../../shared/api/useConfigurationReposit
 import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
+import scrollStyles from '../../shared/components/layout/scrollLayout.module.css';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../shared/context/SourceApplicationContext';
-import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
-import { IIntegrationPatch, IntegrationState } from '../newIntegration/types/Integration';
-import CheckboxValueComponent from './components/CheckboxValueComponent';
-import IncomingData from './components/IncomingData';
-import StringValueComponent from './components/mapping/value/string/StringValueComponent';
-import OutgoingDataComponent from './components/OutgoingDataComponent';
-import { ConfigurationContext } from './context/ConfigurationContext';
-import EditingProvider, { EditingContext } from './context/EditingContext';
 import {
     activeAlert,
     completedAlert,
@@ -30,6 +23,14 @@ import {
     unknownErrorAlert,
 } from '../../shared/defaults/alertMessages';
 import { IAlertContent } from '../../shared/types/AlertContent';
+import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
+import { IIntegrationPatch, IntegrationState } from '../newIntegration/types/Integration';
+import CheckboxValueComponent from './components/CheckboxValueComponent';
+import IncomingData from './components/IncomingData';
+import StringValueComponent from './components/mapping/value/string/StringValueComponent';
+import OutgoingDataComponent from './components/OutgoingDataComponent';
+import { ConfigurationContext } from './context/ConfigurationContext';
+import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
 
 const Configuration: React.FC = () => {
@@ -232,19 +233,10 @@ const Configuration: React.FC = () => {
                     <form
                         id="react-hook-form"
                         onSubmit={methods.handleSubmit(onSubmit, onSubmitError)}
-                        style={{
-                            height: '100%',
-                            minHeight: 0,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            overflow: 'hidden',
-                        }}
+                        className={scrollStyles.fillColumn}
                     >
-                        <VStack
-                            gap={'3'}
-                            style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}
-                        >
-                            <VStack gap={'3'} style={{ flexShrink: 0 }}>
+                        <VStack gap={'3'} className={scrollStyles.fill}>
+                            <VStack gap={'3'} className={scrollStyles.fixed}>
                                 <Heading size={'small'}>
                                     {t('header')}{' '}
                                     {existingIntegration?.sourceApplicationIntegrationId} -{' '}
@@ -340,12 +332,7 @@ const Configuration: React.FC = () => {
                                 />
                             </VStack>
 
-                            <HStack
-                                gap={'8'}
-                                wrap={false}
-                                align="stretch"
-                                style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}
-                            >
+                            <HStack gap={'8'} wrap={false} align="stretch" className={scrollStyles.fill}>
                                 <IncomingData
                                     referencesForCollectionsToShow={
                                         collectionReferencesInEditContext

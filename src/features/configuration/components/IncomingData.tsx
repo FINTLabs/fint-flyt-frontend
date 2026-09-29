@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
 import { WarningTriangleIcon } from '../../../shared/components/icons';
-import { ConfigurationContext } from '../context/ConfigurationContext';
+import scrollStyles from '../../../shared/components/layout/scrollLayout.module.css';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
 import {
@@ -15,6 +15,7 @@ import {
     toInstanceFieldReference,
 } from '../../../shared/util/jsonUtil';
 import { IValueConverting } from '../../valueConverting/types/ValueConverting';
+import { ConfigurationContext } from '../context/ConfigurationContext';
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
@@ -196,20 +197,12 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <Box
             id={'incoming-form-panel'}
-            className="incoming-form-panel"
+            className={`incoming-form-panel ${scrollStyles.sidePanel}`}
             background={'surface-default'}
             paddingBlock={'4 0'}
-            style={{
-                minWidth: '400px',
-                height: '100%',
-                minHeight: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
-            }}
         >
-            <VStack gap={'2'} style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-                <HStack align={'end'} justify={'space-between'} style={{ flexShrink: 0 }}>
+            <VStack gap={'2'} className={scrollStyles.fill}>
+                <HStack align={'end'} justify={'space-between'} className={scrollStyles.fixed}>
                     <HStack gap={'2'} align={'center'}>
                         <Heading level={'3'} size={'small'}>
                             {t('metadataPanel.header')}
@@ -249,7 +242,7 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
                         </Select>
                     </HStack>
                 </HStack>
-                <Box style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
+                <Box className={scrollStyles.scrollY}>
                     <VStack gap={'2'}>
                         {instanceElementMetadata && (
                             <MetadataContentWrapper

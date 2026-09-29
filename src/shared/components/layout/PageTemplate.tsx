@@ -5,6 +5,7 @@ import { Link as RouterLink } from 'react-router';
 
 import { PencilWritingIcon, PlusIcon } from '../icons';
 import PageHeader from './PageHeader';
+import scrollStyles from './scrollLayout.module.css';
 
 type HeaderButtonProps = {
     textKey: string;
@@ -70,28 +71,13 @@ const PageTemplate = ({
             marginBlock={noScroll ? '0' : '0 8'}
             paddingBlock="8"
             id={id + '-content'}
-            style={
-                noScroll
-                    ? {
-                          /* Fill the viewport under the app header; footer stays below the fold */
-                          height: 'calc(100dvh - 3.5rem)',
-                          maxHeight: 'calc(100dvh - 3.5rem)',
-                          boxSizing: 'border-box',
-                          overflow: 'hidden',
-                          display: 'flex',
-                          flexDirection: 'column',
-                      }
-                    : { minWidth: 'fit-content' }
-            }
+            className={noScroll ? scrollStyles.viewportFill : undefined}
+            style={noScroll ? undefined : { minWidth: 'fit-content' }}
         >
             <VStack
                 id={id + '-content-stack'}
                 gap="6"
-                style={
-                    noScroll
-                        ? { flex: 1, minHeight: 0, overflow: 'hidden' }
-                        : undefined
-                }
+                className={noScroll ? scrollStyles.fill : undefined}
             >
                 {!customHeading && (
                     <HStack justify="space-between" align="center">

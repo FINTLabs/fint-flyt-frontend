@@ -8,6 +8,10 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Forbetra scrolling i konfigurasjonsskjema:',
+                text: 'Scrolling i konfigurasjonsskjemaet er no forbetra, slik at det er enklare å navigere mellom ulike delar av skjemaet.',
+            },
+            {
                 title: 'Antall hendingar i instansoversikta:',
                 text: 'Antall hendingar som passar filtrene vert no vist over tabellen.',
             },
