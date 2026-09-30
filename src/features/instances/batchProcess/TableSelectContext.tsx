@@ -59,7 +59,7 @@ export const TableSelectProvider: React.FC<TableSelectProviderProps> = ({ childr
     };
 
     const removeAllEvents = () => {
-        setSelectedEvents([]);
+        setSelectedEvents({});
     };
 
     return (

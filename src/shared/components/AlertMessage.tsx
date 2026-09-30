@@ -1,7 +1,10 @@
+import { LocalAlert, LocalAlertProps } from '@navikt/ds-react';
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
-import { Box, LocalAlert, LocalAlertProps } from '@navikt/ds-react';
+import { createPortal } from 'react-dom';
+
 import { transformPath } from '../util/problemDetailUtil';
+import styles from './AlertMessage.module.css';
 
 type SnackbarProps = {
     id: string;
@@ -35,27 +38,30 @@ const AlertMessage: React.FunctionComponent<SnackbarProps> = ({
         };
     }, [open]);
 
-    return (
-        <Box position={'absolute'} top={'16'} right={'12'} style={{ zIndex: 1000 }}>
-            {open && (
-                <LocalAlert id={id} status={status} size="small" style={{ maxWidth: '500px' }}>
-                    <LocalAlert.Header style={{ maxWidth: '500px' }}>
-                        <LocalAlert.Title>{title}</LocalAlert.Title>
-                        <LocalAlert.CloseButton onClick={onClose} />
-                    </LocalAlert.Header>
+    if (!open) {
+        return null;
+    }
 
-                    {content && (
-                        <LocalAlert.Content>
-                            {status === 'error' ? (
-                                <ValidationErrorContent message={content} />
-                            ) : (
-                                content
-                            )}
-                        </LocalAlert.Content>
-                    )}
-                </LocalAlert>
-            )}
-        </Box>
+    return createPortal(
+        <div className={styles.toast}>
+            <LocalAlert id={id} status={status} size="small">
+                <LocalAlert.Header>
+                    <LocalAlert.Title>{title}</LocalAlert.Title>
+                    <LocalAlert.CloseButton onClick={onClose} />
+                </LocalAlert.Header>
+
+                {content && (
+                    <LocalAlert.Content>
+                        {status === 'error' ? (
+                            <ValidationErrorContent message={content} />
+                        ) : (
+                            content
+                        )}
+                    </LocalAlert.Content>
+                )}
+            </LocalAlert>
+        </div>,
+        document.body
     );
 };
 
@@ -78,7 +84,7 @@ function ValidationErrorContent({ message }: { message: string }) {
     return (
         <div>
             <strong>Validation errors:</strong>
-            <ul style={{ marginTop: 8 }}>
+            <ul className={styles.validationErrorList}>
                 {errors.map((error, index) => (
                     <li key={index}>
                         <ValidationErrorItem error={error} />
@@ -101,7 +107,7 @@ function ValidationErrorItem({ error }: { error: string }) {
     const pathToErrorLocation = containsIndex !== -1 ? error.substring(0, containsIndex) : error;
 
     const readablePathToErrorLocation = transformPath(pathToErrorLocation);
-    
+
     if (hasMetadataReference) {
         const faultyMetadataMatch = lastMatch;
         const lastBracketIndex = error.lastIndexOf('[');
@@ -117,7 +123,7 @@ function ValidationErrorItem({ error }: { error: string }) {
             .filter(Boolean);
         return (
             <div>
-                <div style={{ fontWeight: 500, marginTop: '8px' }}>
+                <div className={styles.errorPathWithSpacing}>
                     {readablePathToErrorLocation}
                 </div>
                 <ul>
@@ -136,10 +142,10 @@ function ValidationErrorItem({ error }: { error: string }) {
 
     return (
         <div>
-            <div style={{ fontWeight: 500 }}>{readablePathToErrorLocation}</div>
+            <div className={styles.errorPath}>{readablePathToErrorLocation}</div>
 
             {middleText && (
-                <ul style={{ marginTop: 4 }}>
+                <ul className={styles.errorDetailList}>
                     <li>{middleText}</li>
                 </ul>
             )}

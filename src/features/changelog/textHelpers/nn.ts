@@ -8,6 +8,10 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         heading: 'September 2026',
         updates: [
             {
+                title: 'Betre tilbakemelding ved massehandling i instansoversikta:',
+                text: 'Når du køyrer fleire instansar på nytt samstundes, får du no ei tydeleg melding om at instansane er sende til ny handsaming. Det kan ta litt tid før statusen blir oppdatert i oversikta, òg etter at du lastar sida på nytt.',
+            },
+            {
                 title: 'Forbetra scrolling i konfigurasjonsskjema:',
                 text: 'Scrolling i konfigurasjonsskjemaet er no forbetra, slik at det er enklare å navigere mellom ulike delar av skjemaet.',
             },

@@ -4,6 +4,7 @@ import useIntegrationRepository from '../../../shared/api/useIntegrationReposito
 import { TableToolbar } from '../../../shared/components/table/TableToolbar';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { IAlertContent } from '../../../shared/types/AlertContent';
 import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { IIntegrationMetadata } from '../../configuration/types/Metadata/IntegrationMetadata';
 import { IIntegration } from '../../newIntegration/types/Integration';
@@ -13,7 +14,11 @@ import InstanceToolbarFilterOptions from './filterMenu/InstanceToolbarFilterOpti
 import QuickFiltersDropdownMenu from './filterMenu/QuickFiltersDropdownMenu';
 import { useFilterOptions } from './OptionsContext';
 
-const FilterToolbar: FC = () => {
+type Props = {
+    onAlert: (content: IAlertContent) => void;
+};
+
+const FilterToolbar: FC<Props> = ({ onAlert }) => {
     const IntegrationRepository = useIntegrationRepository();
     const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
@@ -59,7 +64,7 @@ const FilterToolbar: FC = () => {
                     <QuickFiltersDropdownMenu />
                 </>
             }
-            end={<BulkActions />}
+            end={<BulkActions onAlert={onAlert} />}
             footer={<ActiveFilters />}
         />
     );
