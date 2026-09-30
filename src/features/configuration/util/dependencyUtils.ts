@@ -1,67 +1,79 @@
-import { IDependency, IValuePredicate } from '../types/FormTemplate';
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
+
+import { IDependency, IValuePredicate } from '../types/FormTemplate';
 import { getAbsoluteKeyFromValueRef } from './keyUtils';
 
-export function DependencySatisfiedStatefulValue(
+/**
+ * Watches form fields referenced by `dependency` and returns whether it is currently satisfied.
+ * Optional `onChange` is called whenever that boolean changes.
+ */
+export function useDependencySatisfied(
     absoluteKey: string,
     dependency: IDependency,
-    callback?: (value: boolean) => void
+    onChange?: (satisfied: boolean) => void
 ): boolean {
     const { control } = useFormContext();
-    const [dependencyValue, setDependencyValue] = useState<boolean>(false);
+    const [satisfied, setSatisfied] = useState<boolean>(false);
 
-    const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
+    const valueRefByFormPath: Record<string, string> = createValueRefByFormPath(
         absoluteKey,
         dependency
     );
-    const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey);
+    const formPaths: string[] = Object.keys(valueRefByFormPath);
 
-    const predicateValuesWatch: string[] = useWatch({
+    const watchedValues: string[] = useWatch({
         control: control,
-        name: absoluteKeys,
+        name: formPaths,
     });
 
     useEffect(() => {
         const valuePerValueRef: Record<string, string> = {};
-        for (let i = 0; i < absoluteKeys.length; i++) {
-            valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = predicateValuesWatch[i];
+        for (let i = 0; i < formPaths.length; i++) {
+            valuePerValueRef[valueRefByFormPath[formPaths[i]]] = watchedValues[i];
         }
 
-        const combinationValues: boolean[] = dependency.hasAnyCombination.map(
-            (combination: IValuePredicate[]) => getCombinationValue(valuePerValueRef, combination)
-        );
-        const value: boolean = combinationValues.includes(true);
-        setDependencyValue(value);
-        if (callback) {
-            callback(value);
+        const nextSatisfied = isDependencySatisfied(valuePerValueRef, dependency);
+        setSatisfied(nextSatisfied);
+        if (onChange) {
+            onChange(nextSatisfied);
         }
-    }, [predicateValuesWatch]);
+    }, [watchedValues]);
 
-    return dependencyValue;
+    return satisfied;
 }
 
-function createValueRefPerAbsoluteKey(
+export function isDependencySatisfied(
+    valuePerValueRef: Record<string, string>,
+    dependency: IDependency
+): boolean {
+    return dependency.hasAnyCombination.some((combination: IValuePredicate[]) =>
+        getCombinationValue(valuePerValueRef, combination)
+    );
+}
+
+function createValueRefByFormPath(
     absoluteKey: string,
     dependency: IDependency
 ): Record<string, string> {
-    return dependency.hasAnyCombination
-        .flat()
-        .reduce((valueAbsoluteKeysPerRef: Record<string, string>, predicate: IValuePredicate) => {
-            valueAbsoluteKeysPerRef[getAbsoluteKeyFromValueRef(predicate.key, absoluteKey)] =
+    return dependency.hasAnyCombination.flat().reduce(
+        (valueRefByFormPath: Record<string, string>, predicate: IValuePredicate) => {
+            valueRefByFormPath[getAbsoluteKeyFromValueRef(predicate.key, absoluteKey)] =
                 predicate.key;
-            return valueAbsoluteKeysPerRef;
-        }, {});
+            return valueRefByFormPath;
+        },
+        {}
+    );
 }
 
 export function getCombinationValue(
     valuePerValueRef: Record<string, string>,
     combination: IValuePredicate[]
 ): boolean {
-    const predicateValues: boolean[] = combination.map((predicate: IValuePredicate) =>
+    const predicateResults: boolean[] = combination.map((predicate: IValuePredicate) =>
         getPredicateValue(valuePerValueRef, predicate)
     );
-    return !predicateValues.includes(false);
+    return !predicateResults.includes(false);
 }
 
 export function getPredicateValue(

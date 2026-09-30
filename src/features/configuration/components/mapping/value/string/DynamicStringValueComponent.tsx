@@ -86,7 +86,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
             ref={dropRef as unknown as React.Ref<HTMLDivElement>}
             key={absoluteKey}
         >
-            &&&
             <TextField
                 autoComplete={'off'}
                 error={!!props.fieldState?.error}
@@ -119,7 +118,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                                                 (result: { value: string } | undefined) => {
                                                     setSearchResult(
                                                         'Søkeresultat: ' +
-                                                            (result ? result.value : 'Ingen treff')
+                                                            (result?.value ?? 'Ingen treff')
                                                     );
                                                 }
                                             );

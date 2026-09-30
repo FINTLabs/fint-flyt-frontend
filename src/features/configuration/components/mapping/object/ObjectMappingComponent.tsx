@@ -12,7 +12,7 @@ import {
     IValueTemplate,
 } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
-import { DependencySatisfiedStatefulValue } from '../../../util/dependencyUtils';
+import { useDependencySatisfied } from '../../../util/dependencyUtils';
 import {
     getObjectCollectionMappingKey,
     getObjectMappingKey,
@@ -38,6 +38,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<
         Record<string, boolean>
     >({});
+
+    // Value/selectable fields: hide + unregister when showDependency is not satisfied
     [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
@@ -46,13 +48,15 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         ])
         .filter((entry): entry is [number, string, IDependency] => !!entry[2])
         .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value && getValues(absoluteKey) !== undefined) {
                     unregister(absoluteKey);
                 }
             })
         );
+
+    // Nested objects/collections: hide + close nested panels when showDependency is not satisfied
     [
         ...(props.template.valueCollectionTemplates ?? []),
         ...(props.template.objectTemplates ?? []),
@@ -67,7 +71,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         )
         .filter((entry): entry is [number, IDependency] => !!entry[1])
         .forEach(([order, dependency]: [number, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value) {
                     props.nestedElementCallbacks.onElementsClose([order.toString()], true);
