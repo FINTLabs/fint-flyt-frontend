@@ -8,11 +8,10 @@ import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
 
 import useResourceRepository from '../../../../../../shared/api/useResourceRepository';
-import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
-import { IconButton } from '../../../buttons/IconButton';
+import { SearchButton } from '../../../buttons/SearchButton';
 import FormErrorText from '../../../FormErrorText';
 
 interface Props {
@@ -113,9 +112,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                     endAdornment: (
                         <>
                             {props.search && (
-                                <IconButton
-                                    size="xsmall"
-                                    variant={'tertiary'}
+                                <SearchButton
                                     onClick={() => {
                                         if (props.search?.source) {
                                             ResourceRepository.search(props.search.source).then(
@@ -128,7 +125,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                                             );
                                         }
                                     }}
-                                    icon={<SearchRoundedIcon />}
                                 />
                             )}
                         </>
