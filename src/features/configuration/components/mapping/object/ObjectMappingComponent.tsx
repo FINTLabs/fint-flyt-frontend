@@ -21,8 +21,8 @@ import {
     isDisabledByConfig,
     shouldShowElementWithOrder,
 } from '../../../util/objectMappingUtils';
+import ToggleElementButton from '../../buttons/ToggleElementButton';
 import FieldsetElementComponent from '../../FieldsetElementComponent';
-import ToggleButtonComponent from '../../ToggleButtonComponent';
 import SelectableValueMappingComponent from '../value/SelectableValueMappingComponent';
 import ValueMappingComponent from '../value/ValueMappingComponent';
 
@@ -138,7 +138,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             template: IElementTemplate<ICollectionTemplate<IValueTemplate>>,
                             index
                         ) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
@@ -181,7 +181,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     })
                     .map<ReactElement<{ order: number }>>(
                         (template: IElementTemplate<IObjectTemplate>, index) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
@@ -227,7 +227,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>,
                             index
                         ) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}

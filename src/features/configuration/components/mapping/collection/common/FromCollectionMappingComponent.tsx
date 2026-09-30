@@ -12,7 +12,7 @@ import { isOutsideCollectionEditContext } from '../../../../util/keyUtils';
 import { hasValidFormat } from '../../../../util/validationUtil';
 import ArrayComponent from '../../../array/ArrayComponent';
 import ArrayValueWrapperComponent from '../../../array/ArrayValueWrapperComponent';
-import { EditButton } from '../../../ConfigurationFormButtons';
+import { EditButton } from '../../../buttons/EditButton';
 import DynamicChipComponent from '../../value/string/DynamicChipComponent';
 
 interface Props {

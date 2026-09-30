@@ -19,7 +19,6 @@ export { ExclamationmarkTriangleFillIcon as WarningTriangleIcon } from '@navikt/
 export { FilterIcon as FilterIcon } from '@navikt/aksel-icons';
 export { LanguageIcon as LanguageIcon } from '@navikt/aksel-icons';
 export { LeaveIcon as LeaveIcon } from '@navikt/aksel-icons';
-export { MenuElipsisVerticalCircleIcon as MenuElipsisVerticalCircleIcon } from '@navikt/aksel-icons';
 export { MenuHamburgerIcon as AppBarMenuIcon } from '@navikt/aksel-icons';
 export { PencilWritingIcon as PencilWritingIcon } from '@navikt/aksel-icons';
 export { PlusIcon as PlusIcon } from '@navikt/aksel-icons';
@@ -32,7 +31,6 @@ export { CheckmarkCircleIcon as CheckmarkCircleIcon } from '@navikt/aksel-icons'
 export { DocPencilIcon as DocPencilIcon } from '@navikt/aksel-icons';
 export { PencilIcon as PencilIcon } from '@navikt/aksel-icons';
 export { CheckmarkHeavyIcon as CheckmarkHeavyIcon } from '@navikt/aksel-icons';
-export { PencilFillIcon as PencilFillIcon } from '@navikt/aksel-icons';
 export { FilesIcon as FilesIcon } from '@navikt/aksel-icons';
 export { MagnifyingGlassIcon as MagnifyingGlassIcon } from '@navikt/aksel-icons';
 export { TrashIcon as TrashIcon } from '@navikt/aksel-icons';
@@ -44,6 +42,4 @@ export { InformationSquareFillIcon as InformationSquareFillIcon } from '@navikt/
 export { MinusCircleIcon as MinusCircleIcon } from '@navikt/aksel-icons';
 export { DragVerticalIcon as DragIndicatorIcon } from '@navikt/aksel-icons';
 export { ArrowCirclepathIcon as RetryIcon} from '@navikt/aksel-icons';
-export { ArrowsUpDownIcon as SortIcon } from '@navikt/aksel-icons';
 export { SortDownIcon as SortDownIcon } from '@navikt/aksel-icons';
-export { SortUpIcon as SortUpIcon } from '@navikt/aksel-icons';

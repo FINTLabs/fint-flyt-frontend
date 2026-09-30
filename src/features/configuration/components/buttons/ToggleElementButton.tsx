@@ -2,7 +2,7 @@ import { Button, HelpText, HStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '../../../shared/components/icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../../shared/components/icons';
 
 interface Props {
     order: number;
@@ -14,7 +14,7 @@ interface Props {
     selected?: boolean;
 }
 
-const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
+const ToggleElementButton: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedState, setSelectedState] = useState<boolean>(props.selected ?? false);
     const [displayName, setDisplayName] = useState(props.displayName);
 
@@ -83,4 +83,4 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
         </HStack>
     );
 };
-export default ToggleButtonComponent;
+export default ToggleElementButton;

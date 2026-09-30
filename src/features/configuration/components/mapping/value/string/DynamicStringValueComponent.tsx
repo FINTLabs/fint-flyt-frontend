@@ -12,7 +12,7 @@ import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
-import { IconButton } from '../../../ConfigurationFormButtons';
+import { IconButton } from '../../../buttons/IconButton';
 import FormErrorText from '../../../FormErrorText';
 
 interface Props {
@@ -82,7 +82,11 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
     };
 
     return (
-        <div id={'dnd-value-component-' + absoluteKey} ref={dropRef as unknown as React.Ref<HTMLDivElement>} key={absoluteKey}>
+        <div
+            id={'dnd-value-component-' + absoluteKey}
+            ref={dropRef as unknown as React.Ref<HTMLDivElement>}
+            key={absoluteKey}
+        >
             &&&
             <TextField
                 autoComplete={'off'}
@@ -131,10 +135,12 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                     ),
                 }}
             />
-            {searchResult && <BodyShort size={'small'} style={{ padding: 'var(--a-spacing-1)'}}>{searchResult}</BodyShort>}
-            {props.fieldState?.error && (
-                <FormErrorText errorMessage={t('label.formatError')}/>
+            {searchResult && (
+                <BodyShort size={'small'} style={{ padding: 'var(--a-spacing-1)' }}>
+                    {searchResult}
+                </BodyShort>
             )}
+            {props.fieldState?.error && <FormErrorText errorMessage={t('label.formatError')} />}
         </div>
     );
 });

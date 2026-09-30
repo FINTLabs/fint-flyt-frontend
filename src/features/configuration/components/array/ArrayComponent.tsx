@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { RoundedAddOrRemoveButton } from '../ConfigurationFormButtons';
+import { RoundedAddOrRemoveButton } from '../buttons/RoundedAddOrRemoveButton';
 
 interface Props {
     absoluteKey: string;
