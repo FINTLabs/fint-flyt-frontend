@@ -49,15 +49,15 @@
         "@types/node": "^24.13.3",
         "@types/react": "19.3.0",
         "@types/react-dom": "^19.3.0",
-        "@typescript-eslint/eslint-plugin": "^8.58.2",
-        "@typescript-eslint/parser": "^8.58.2",
+        "@typescript-eslint/eslint-plugin": "^8.70.1",
+        "@typescript-eslint/parser": "^8.71.0",
         "@vitejs/plugin-react": "^5.1.1",
-        "cypress": "^15.21.1",
+        "cypress": "^16.1.0",
         "eslint": "^9.39.4",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
-        "eslint-plugin-simple-import-sort": "^13.0.0",
-        "prettier": "^3.9.6",
+        "eslint-plugin-simple-import-sort": "^14.0.0",
+        "prettier": "^3.9.9",
         "typescript": "~5.4.0",
         "vite": "~7.3.6",
         "vitest": "^4.1.11"
@@ -79,6 +79,6 @@
     },
     "allowScripts": {
         "esbuild@0.28.1": true,
-        "cypress@15.21.1": true
+        "cypress@16.1.0": true
     }
 }
