@@ -1,6 +1,6 @@
 import { VStack } from '@navikt/ds-react';
 import * as React from 'react';
-import { MutableRefObject, ReactElement, useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -18,7 +18,6 @@ import {
     getObjectMappingKey,
     getValueCollectionMappingKey,
     getValueMappingKey,
-    isDisabledByConfig,
     shouldShowElementWithOrder,
 } from '../../../util/objectMappingUtils';
 import ToggleElementButton from '../../buttons/ToggleElementButton';
@@ -32,23 +31,25 @@ export interface Props {
     nestedElementCallbacks: NestedElementsCallbacks;
 }
 
-const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
+const ObjectMappingComponent: React.FunctionComponent<Props> = ({
+    absoluteKey,
+    template,
+    nestedElementCallbacks,
+}: Props) => {
     const { unregister, getValues } = useFormContext();
 
-    const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<
-        Record<string, boolean>
-    >({});
+    const showDependencyValuePerOrder = useRef<Record<string, boolean>>({});
 
     // Value/selectable fields: hide + unregister when showDependency is not satisfied
-    [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
+    [...(template.valueTemplates ?? []), ...(template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
-            getValueMappingKey(props.absoluteKey, elementTemplate),
+            getValueMappingKey(absoluteKey, elementTemplate),
             elementTemplate.elementConfig.showDependency,
         ])
         .filter((entry): entry is [number, string, IDependency] => !!entry[2])
         .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) =>
-            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value && getValues(absoluteKey) !== undefined) {
                     unregister(absoluteKey);
@@ -58,9 +59,9 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
 
     // Nested objects/collections: hide + close nested panels when showDependency is not satisfied
     [
-        ...(props.template.valueCollectionTemplates ?? []),
-        ...(props.template.objectTemplates ?? []),
-        ...(props.template.objectCollectionTemplates ?? []),
+        ...(template.valueCollectionTemplates ?? []),
+        ...(template.objectTemplates ?? []),
+        ...(template.objectCollectionTemplates ?? []),
     ]
         .map(
             (
@@ -71,10 +72,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         )
         .filter((entry): entry is [number, IDependency] => !!entry[1])
         .forEach(([order, dependency]: [number, IDependency]) =>
-            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value) {
-                    props.nestedElementCallbacks.onElementsClose([order.toString()], true);
+                    nestedElementCallbacks.onElementsClose([order.toString()], true);
                 }
             })
         );
@@ -82,7 +83,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     return (
         <VStack gap={'4'}>
             {[
-                ...(props.template.valueTemplates ?? [])
+                ...(template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {
                         return shouldShowElementWithOrder(
                             template.order,
@@ -94,19 +95,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             <ValueMappingComponent
                                 key={index}
                                 order={template.order}
-                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
+                                absoluteKey={getValueMappingKey(absoluteKey, template)}
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
+                                disabled={
+                                    template.elementConfig.enableDependency
+                                        ? !useDependencySatisfied(
+                                              absoluteKey,
+                                              template.elementConfig.enableDependency
+                                          )
+                                        : undefined
+                                }
                             />
                         )
                     ),
 
-                ...(props.template.selectableValueTemplates ?? [])
+                ...(template.selectableValueTemplates ?? [])
                     .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
                         return shouldShowElementWithOrder(
                             template.order,
@@ -118,19 +123,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             <SelectableValueMappingComponent
                                 key={index}
                                 order={template.order}
-                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
+                                absoluteKey={getValueMappingKey(absoluteKey, template)}
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 template={template.template}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
+                                disabled={
+                                    template.elementConfig.enableDependency
+                                        ? !useDependencySatisfied(
+                                              absoluteKey,
+                                              template.elementConfig.enableDependency
+                                          )
+                                        : undefined
+                                }
                             />
                         )
                     ),
 
-                ...(props.template.valueCollectionTemplates ?? [])
+                ...(template.valueCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
                         return shouldShowElementWithOrder(
                             template.order,
@@ -148,12 +157,12 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
+                                    nestedElementCallbacks.onElementsOpen({
                                         valueCollections: [
                                             {
                                                 order: template.order.toString(),
                                                 absoluteKey: getValueCollectionMappingKey(
-                                                    props.absoluteKey,
+                                                    absoluteKey,
                                                     template
                                                 ),
                                                 displayPath: [],
@@ -164,19 +173,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     });
                                 }}
                                 onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
+                                    nestedElementCallbacks.onElementsClose([
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
+                                disabled={
+                                    template.elementConfig.enableDependency
+                                        ? !useDependencySatisfied(
+                                              absoluteKey,
+                                              template.elementConfig.enableDependency
+                                          )
+                                        : undefined
+                                }
                             />
                         )
                     ),
 
-                ...(props.template.objectTemplates ?? [])
+                ...(template.objectTemplates ?? [])
                     .filter((template: IElementTemplate<IObjectTemplate>) => {
                         return shouldShowElementWithOrder(
                             template.order,
@@ -191,12 +204,12 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
+                                    nestedElementCallbacks.onElementsOpen({
                                         objects: [
                                             {
                                                 order: template.order.toString(),
                                                 absoluteKey: getObjectMappingKey(
-                                                    props.absoluteKey,
+                                                    absoluteKey,
                                                     template
                                                 ),
                                                 displayPath: [],
@@ -207,19 +220,23 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     });
                                 }}
                                 onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
+                                    nestedElementCallbacks.onElementsClose([
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
+                                disabled={
+                                    template.elementConfig.enableDependency
+                                        ? !useDependencySatisfied(
+                                              absoluteKey,
+                                              template.elementConfig.enableDependency
+                                          )
+                                        : undefined
+                                }
                             />
                         )
                     ),
 
-                ...(props.template.objectCollectionTemplates ?? [])
+                ...(template.objectCollectionTemplates ?? [])
                     .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
                         return shouldShowElementWithOrder(
                             template.order,
@@ -237,12 +254,12 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 displayName={template.elementConfig.displayName}
                                 description={template.elementConfig.description}
                                 onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
+                                    nestedElementCallbacks.onElementsOpen({
                                         objectCollections: [
                                             {
                                                 order: template.order.toString(),
                                                 absoluteKey: getObjectCollectionMappingKey(
-                                                    props.absoluteKey,
+                                                    absoluteKey,
                                                     template
                                                 ),
                                                 displayPath: [],
@@ -253,14 +270,18 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                     });
                                 }}
                                 onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
+                                    nestedElementCallbacks.onElementsClose([
                                         template.order.toString(),
                                     ]);
                                 }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
+                                disabled={
+                                    template.elementConfig.enableDependency
+                                        ? !useDependencySatisfied(
+                                              absoluteKey,
+                                              template.elementConfig.enableDependency
+                                          )
+                                        : undefined
+                                }
                             />
                         )
                     ),

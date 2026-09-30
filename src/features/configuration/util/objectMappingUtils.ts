@@ -46,12 +46,3 @@ export function shouldShowElementWithOrder(
         return true;
     }
 }
-
-export function isDisabledByConfig(
-    absoluteKey: string,
-    elementConfig: IElementConfig
-): boolean | undefined {
-    return elementConfig.enableDependency
-        ? !useDependencySatisfied(absoluteKey, elementConfig.enableDependency)
-        : undefined;
-}
