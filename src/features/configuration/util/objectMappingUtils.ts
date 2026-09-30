@@ -1,12 +1,10 @@
 import {
     ICollectionTemplate,
-    IElementConfig,
     IElementTemplate,
     IObjectTemplate,
     ISelectableValueTemplate,
     IValueTemplate,
 } from '../types/FormTemplate';
-import { useDependencySatisfied } from './dependencyUtils';
 
 export function getValueMappingKey(
     absoluteKey: string,
@@ -46,3 +44,12 @@ export function shouldShowElementWithOrder(
         return true;
     }
 }
+
+export function filterVisibleByOrder<T extends { order: number }>(
+    elementTemplates: T[] | undefined,
+    showDependencyValuePerOrder: Record<string, boolean>
+  ): T[] {
+    return (elementTemplates ?? []).filter((elementTemplate: T) =>
+      shouldShowElementWithOrder(elementTemplate.order, showDependencyValuePerOrder)
+    );
+  }
