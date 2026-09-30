@@ -92,7 +92,9 @@
             },
             "fromCollectionMapping": {
                 "collections": "Samlinger",
-                "convertCollectionElements": "Konvertering av samlingselementer"
+                "convertCollectionElements": "Konvertering av samlingselementer",
+                "edit": "Rediger",
+                "complete": "Fullfør"
             },
             "metadataPanel": {
                 "header": "Innkommende data",

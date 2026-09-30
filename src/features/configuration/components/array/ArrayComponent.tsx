@@ -3,8 +3,7 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { MinusIcon, PlusIcon } from '../../../../shared/components/icons';
-import IconButton from '../IconButton';
+import { RoundedAddOrRemoveButton } from '../ConfigurationFormButtons';
 
 interface Props {
     absoluteKey: string;
@@ -25,7 +24,8 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <ul
             id={'list-' + props.absoluteKey}
-            style={{ listStyle: 'none', padding: 'unset', marginTop: '6px', border: 'none' }}>
+            style={{ listStyle: 'none', padding: 'unset', marginTop: '6px', border: 'none' }}
+        >
             {fields.map((field, index) =>
                 props.fromCollection ? (
                     <Box
@@ -35,10 +35,12 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                         borderRadius={'large'}
                         borderWidth="2"
                         borderColor={'border-subtle'}
-                        style={{ marginBottom: '16px' }}>
+                        style={{ marginBottom: '16px' }}
+                    >
                         <li
                             id={'list-item-' + index}
-                            style={{ paddingBottom: 'var(--a-spacing-3)' }}>
+                            style={{ paddingBottom: 'var(--a-spacing-3)' }}
+                        >
                             {props.fieldComponentCreator(index, props.absoluteKey + '.' + index)}
                         </li>
                     </Box>
@@ -46,25 +48,23 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     <li
                         id={'list-item-' + index}
                         key={field.id}
-                        style={{ paddingBottom: 'var(--a-spacing-3)' }}>
+                        style={{ paddingBottom: 'var(--a-spacing-3)' }}
+                    >
                         {props.fieldComponentCreator(index, props.absoluteKey + '.' + index)}
                     </li>
                 )
             )}
             <HStack gap={'2'}>
-                <IconButton
-                    id={'add-icon'}
-                    ariaLabel={'add'}
+                <RoundedAddOrRemoveButton
+                    isAdd={true}
                     onClick={() => {
                         append(props.defaultValueCreator());
                     }}
-                    icon={<PlusIcon />}
                     disabled={props.disabled}
                 />
                 {fields.length > 0 && (
-                    <IconButton
-                        id={'remove-icon'}
-                        ariaLabel={'remove'}
+                    <RoundedAddOrRemoveButton
+                        isAdd={false}
                         onClick={() => {
                             const index = fields.length - 1;
                             remove(fields.length - 1);
@@ -73,7 +73,6 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                             }
                         }}
                         disabled={props.disabled}
-                        icon={<MinusIcon />}
                     />
                 )}
             </HStack>

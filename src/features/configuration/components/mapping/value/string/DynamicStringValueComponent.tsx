@@ -8,12 +8,12 @@ import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
 
 import useResourceRepository from '../../../../../../shared/api/useResourceRepository';
-import FormErrorText from '../../../FormErrorText';
-import IconButton from '../../../IconButton';
 import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
+import { IconButton } from '../../../ConfigurationFormButtons';
+import FormErrorText from '../../../FormErrorText';
 
 interface Props {
     displayName?: string;
@@ -83,6 +83,7 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
 
     return (
         <div id={'dnd-value-component-' + absoluteKey} ref={dropRef as unknown as React.Ref<HTMLDivElement>} key={absoluteKey}>
+            &&&
             <TextField
                 autoComplete={'off'}
                 error={!!props.fieldState?.error}

@@ -1,11 +1,9 @@
-import { EditOffRounded, EditRounded } from '@mui/icons-material';
 import { Box, Heading, HStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { MutableRefObject, ReactElement, useContext, useEffect, useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import IconButton from '../../../IconButton';
 import { ConfigurationContext } from '../../../../context/ConfigurationContext';
 import { EditingContext } from '../../../../context/EditingContext';
 import { ValueType as ConfigurationValueType } from '../../../../types/Configuration';
@@ -14,6 +12,7 @@ import { isOutsideCollectionEditContext } from '../../../../util/keyUtils';
 import { hasValidFormat } from '../../../../util/validationUtil';
 import ArrayComponent from '../../../array/ArrayComponent';
 import ArrayValueWrapperComponent from '../../../array/ArrayValueWrapperComponent';
+import { EditButton } from '../../../ConfigurationFormButtons';
 import DynamicChipComponent from '../../value/string/DynamicChipComponent';
 
 interface Props {
@@ -53,23 +52,19 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                 <HStack
                     id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
                     justify={'space-between'}
-                    align={'center'}>
+                    align={'center'}
+                >
                     <Heading id={'collection-mapping-header-' + props.absoluteKey} size={'small'}>
                         {t('collections')}
                     </Heading>
-                    <IconButton
+                    <EditButton
                         id={'edit-collection-mapping-button'}
-                        ariaLabel="edit"
+                        editLabel={t('edit')}
+                        closeLabel={t('complete')}
                         onClick={() => {
                             setEditCollectionAbsoluteKey(isEditingState ? '' : props.absoluteKey);
                         }}
-                        icon={
-                            isEditingState ? (
-                                <EditOffRounded style={{ color: 'blue' }} />
-                            ) : (
-                                <EditRounded />
-                            )
-                        }
+                        isEditingState={isEditingState}
                     />
                 </HStack>
                 <ArrayComponent
