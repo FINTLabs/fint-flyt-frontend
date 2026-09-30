@@ -332,7 +332,12 @@ const Configuration: React.FC = () => {
                                 />
                             </VStack>
 
-                            <HStack gap={'8'} wrap={false} align="stretch" className={scrollStyles.fill}>
+                            <HStack
+                                gap={'8'}
+                                wrap={false}
+                                align="stretch"
+                                className={scrollStyles.fill}
+                            >
                                 <IncomingData
                                     referencesForCollectionsToShow={
                                         collectionReferencesInEditContext

@@ -90,7 +90,9 @@
             },
             "fromCollectionMapping": {
                 "collections": "Collections",
-                "convertCollectionElements": "Converting collection elements"
+                "convertCollectionElements": "Converting collection elements",
+                "edit": "Edit",
+                "complete": "Complete"
             },
             "metadataPanel": {
                 "header": "Incoming data",
