@@ -1,0 +1,42 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: ra-no
+
+resources:
+  - ../../../base
+
+labels:
+  - pairs:
+      fintlabs.no/org-id: ra.no
+
+patches:
+  - patch: |-
+      - op: replace
+        path: "/metadata/labels/app.kubernetes.io~1instance"
+        value: "fint-flyt-frontend_ra-no"
+      - op: replace
+        path: "/spec/image"
+        value: ghcr.io/fintlabs/fint-flyt-frontend-ra-no-beta
+      - op: replace
+        path: "/spec/orgId"
+        value: "ra.no"
+      - op: replace
+        path: "/spec/env/0/value"
+        value: "/beta/ra-no"
+      - op: replace
+        path: "/spec/url/basePath"
+        value: "/beta/ra-no"
+      - op: replace
+        path: "/spec/probes/readiness/path"
+        value: "/beta/ra-no/health"
+    target:
+      kind: Application
+      name: fint-flyt-frontend
+
+  - patch: |-
+      - op: replace
+        path: "/spec/basePath"
+        value: "/beta/ra-no"
+    target:
+      kind: FLAISSso
+      name: fint-flyt-auth-forward-sso
