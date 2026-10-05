@@ -1,4 +1,4 @@
-import { Button, HelpText, HStack } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -10,7 +10,6 @@ interface Props {
     onSelect: () => void;
     onUnselect: () => void;
     disabled?: boolean;
-    description?: string;
     selected?: boolean;
 }
 
@@ -45,12 +44,7 @@ const ToggleElementButton: React.FunctionComponent<Props> = (props: Props) => {
     }, [selectedState]);
 
     return (
-        <HStack
-            id={'toggle-button-' + displayName + '-' + props.order}
-            align={'center'}
-            gap={'2'}
-            wrap={false}
-        >
+        <div id={'toggle-button-' + displayName + '-' + props.order}>
             <Button
                 id={'toggle-panel-button'}
                 type="button"
@@ -75,12 +69,7 @@ const ToggleElementButton: React.FunctionComponent<Props> = (props: Props) => {
             >
                 {displayName}
             </Button>
-            {props.description && (
-                <HelpText title={'Hva er dette?'} placement={'right'}>
-                    {props.description}
-                </HelpText>
-            )}
-        </HStack>
+        </div>
     );
 };
 export default ToggleElementButton;

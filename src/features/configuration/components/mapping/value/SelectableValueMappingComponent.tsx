@@ -1,4 +1,4 @@
-import { HelpText, HStack } from '@navikt/ds-react';
+import { Box, HelpText, HStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -15,6 +15,7 @@ import DynamicStringOrSearchSelectValueComponent, {
 } from './DynamicStringOrSearchSelectValueComponent';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import SelectValueComponent from './select/SelectValueComponent';
+import configurationInputStyles from '../../styles/configuration.module.css';
 
 interface Props {
     order: number;
@@ -106,6 +107,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <SelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 disabled={disabled}
                             />
@@ -152,14 +154,12 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                 }
 
                 return (
-                    <HStack
+                    <Box
                         id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                        align="center"
-                        gap="2"
+                        className={configurationInputStyles.inputContainer}
                     >
                         {controlledInputElement}
-                        <HelpText placement="right">{props.description}</HelpText>
-                    </HStack>
+                    </Box>
                 );
             }}
         />

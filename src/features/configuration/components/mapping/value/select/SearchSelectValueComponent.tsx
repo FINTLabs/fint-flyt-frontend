@@ -48,6 +48,7 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
 
     return (
         <div>
+            SSV
             <Autocomplete
                 sx={autoCompleteSX}
                 id={absoluteKey}

@@ -1,0 +1,27 @@
+.column {
+    margin-top: 8px;
+    min-width: 416px;
+
+    border-radius: var(--a-border-radius-large);
+    border-color: var(--a-border-subtle);
+    background-color: var(--a-surface-subtle);
+}
+
+.columnTitle {
+    margin-bottom: 8px;
+}
+
+.inputContainer {
+    width: 100%;    
+}
+
+.input {
+    --a-shadow-focus: 0 0 0 1px var(--a-border-focus);
+    
+    gap: var(--a-spacing-1);
+}
+
+.helpText :global(svg) {
+    width: 1rem;
+    height: 1rem;
+}

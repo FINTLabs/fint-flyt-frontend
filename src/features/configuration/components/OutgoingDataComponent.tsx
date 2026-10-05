@@ -20,7 +20,8 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
         <Box
             id={'outgoing-form-panel'}
             background={'surface-default'}
-            padding="6"
+            paddingInline="6"
+            paddingBlock='6 0'
             borderRadius={'large'}
             borderWidth="1"
             borderColor={'border-subtle'}

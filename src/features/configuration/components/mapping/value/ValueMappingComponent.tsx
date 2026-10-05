@@ -109,6 +109,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
         }}
         render={({field, fieldState}) =>
             <HStack id={'value-mapping-wrapper-' + props.absoluteKey} align={"center"} gap={"2"}>
+                VM
                 {createComponent({
                     ...field,
                     fieldState,

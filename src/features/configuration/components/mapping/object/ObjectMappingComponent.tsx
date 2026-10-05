@@ -148,7 +148,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                             key={index}
                             order={valueCollectionTemplate.order}
                             displayName={valueCollectionTemplate.elementConfig.displayName}
-                            description={valueCollectionTemplate.elementConfig.description}
                             onSelect={() => {
                                 nestedElementCallbacks.onElementsOpen({
                                     valueCollections: [
@@ -161,6 +160,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                                             displayPath: [],
                                             displayName:
                                                 valueCollectionTemplate.elementConfig.displayName,
+                                            description:
+                                                valueCollectionTemplate.elementConfig.description,
                                             template: valueCollectionTemplate.template,
                                         },
                                     ],
@@ -192,7 +193,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                             key={index}
                             order={objectTemplate.order}
                             displayName={objectTemplate.elementConfig.displayName}
-                            description={objectTemplate.elementConfig.description}
                             onSelect={() => {
                                 nestedElementCallbacks.onElementsOpen({
                                     objects: [
@@ -204,6 +204,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                                             ),
                                             displayPath: [],
                                             displayName: objectTemplate.elementConfig.displayName,
+                                            description: objectTemplate.elementConfig.description,
                                             template: objectTemplate.template,
                                         },
                                     ],
@@ -240,7 +241,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                             key={index}
                             order={objectCollectionTemplate.order}
                             displayName={objectCollectionTemplate.elementConfig.displayName}
-                            description={objectCollectionTemplate.elementConfig.description}
                             onSelect={() => {
                                 nestedElementCallbacks.onElementsOpen({
                                     objectCollections: [
@@ -253,6 +253,8 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = ({
                                             displayPath: [],
                                             displayName:
                                                 objectCollectionTemplate.elementConfig.displayName,
+                                            description:
+                                                objectCollectionTemplate.elementConfig.description,
                                             template: objectCollectionTemplate.template,
                                         },
                                     ],

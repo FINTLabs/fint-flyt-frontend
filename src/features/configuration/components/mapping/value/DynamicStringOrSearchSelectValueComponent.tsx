@@ -1,4 +1,4 @@
-import { Box, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
@@ -55,6 +55,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
 
     return (
         <VStack ref={ref} gap={'1'}>
+            DSOSV
             <SearchSelectValueComponent
                 displayName={props.displayName}
                 selectables={[
