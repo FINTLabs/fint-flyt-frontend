@@ -49,10 +49,11 @@ describe('Testing create new configuration from new integration', () => {
     it('should open panels in outgoing data', () => {
         prep();
         cy.get('#column-0').should('be.visible');
-        cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click();
-        cy.get(
-            '#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]'
-        ).type('{enter}');
+        cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]')
+            .should('have.value', 'NEW')
+        cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
+
+        cy.get('#toggle-panel-button').should('be.visible')
         cy.get('#toggle-panel-button').click();
         cy.get('#column-1').should('be.visible');
         cy.get('#column-1').should('contain', 'Sak');
@@ -97,11 +98,10 @@ describe('Testing creating new and editing configurations from integration overv
             .find('[data-testid="create-new-based-on-configuration"]')
             .click();
 
-        cy.get('#mapping\\.valueMappingPerKey\\.type\\.mappingString').click();
-        cy.get(
-            '#menu-mapping\\.valueMappingPerKey\\.type\\.mappingString > .MuiPaper-root > .MuiList-root > [tabindex="0"]'
-        ).type('{enter}');
-        cy.get('#toggle-panel-button').click();
+        cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]')
+            .select('NEW')
+            .should('have.value', 'NEW');
+        cy.get('#toggle-button-Sak-2').should('be.visible').find('button').click();
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
         ).should('contain.text', 'test basert på');

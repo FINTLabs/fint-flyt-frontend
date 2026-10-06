@@ -1,4 +1,4 @@
-import { Box, HelpText, HStack } from '@navikt/ds-react';
+import { Box } from '@navikt/ds-react';
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -90,7 +90,11 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
             rules={{
                 validate: (value) => hasValidFormat(value, validationType, watch('completed')),
             }}
-            defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
+            defaultValue={
+                props.template.type == SelectableValueType.DROPDOWN
+                    ? (props.template.selectables?.[0]?.value ?? '')
+                    : null
+            }
             render={({ field, fieldState }) => {
                 const disabled =
                     !!props.disabled ||
