@@ -41,3 +41,15 @@
 .inputFullWidth :global(.navds-textarea__input) {
     width: 100%;
 }
+
+.dynamicInput :global(.navds-textarea__input) {
+    background-color: var(--a-surface-default);
+}
+
+.dynamicInputCanDrop :global(.navds-textarea__input) {
+    background-color: lightblue;
+}
+
+.dynamicInputActive :global(.navds-textarea__input) {
+    background-color: lightgreen;
+}

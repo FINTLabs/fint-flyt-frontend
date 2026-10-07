@@ -58,9 +58,11 @@ describe('Testing fill new configuration', () => {
         );
         cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
         cy.get('#toggle-panel-button').click();
+
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test');
+
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
         cy.get(`${newCaseFields}\\.administrativEnhet\\.mappingString`).click();
@@ -92,9 +94,11 @@ describe('Testing fill new configuration', () => {
         )
             .find('#add-icon')
             .click();
+
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('journalpost tittel');
+
         cy.get(`${recordFields}\\.journalposttype\\.mappingString`).click();
         cy.get(`${recordFields}\\.journalposttype\\.mappingString-option-6`).click();
         cy.get(`${recordFields}\\.administrativEnhet\\.mappingString`).click();
@@ -122,30 +126,30 @@ describe('Testing fill new configuration', () => {
         )
             .find('#add-icon')
             .click();
+
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        )
-            .type('$if{saksparter}', {
+        ).type('$if{saksparter}', {
                 parseSpecialCharSequences: false,
                 delay: 0,
-            })
-            .type('{enter}');
+        }).type('{enter}');
+
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click();
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-option-4`).click();
         cy.get(
-            `${correspondentDndFields}\\.organisasjonsnummer\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`
+            `${correspondentDndFields}\\.organisasjonsnummer\\.mappingString`
         ).type('$icf{0}{organisasjonsnummer}', {
             parseSpecialCharSequences: false,
             delay: 0,
         });
         cy.get(
-            `${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`
+            `${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString`
         ).type('$icf{0}{navn}', {
             parseSpecialCharSequences: false,
             delay: 0,
         });
         cy.get(
-            `${correspondentDndFields}\\.kontaktperson\\.mappingString > .MuiFormControl-root > .MuiInputBase-root`
+            `${correspondentDndFields}\\.kontaktperson\\.mappingString`
         ).type('$icf{0}{navn}', {
             parseSpecialCharSequences: false,
             delay: 0,
@@ -163,7 +167,7 @@ describe('Testing fill new configuration', () => {
             .find('#add-icon')
             .click();
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('tittel');
         cy.get(
             '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString'
@@ -205,7 +209,7 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
         cy.get('#toggle-panel-button').click();
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test');
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
@@ -248,18 +252,17 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
         cy.get('#toggle-panel-button').click();
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test ferdigstilling', { delay: 0 });
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
         cy.get('#form-complete').click();
         cy.get('#form-submit-btn').click();
 
-        cy.get('#string-value-component-comment');
-
-        cy.get('#string-value-component-comment')
-        .should('contain.text', 'Kommentar er påkrevd ved ferdigstilling');
-
+        cy.get('#string-value-component-comment').should(
+            'contain.text',
+            'Kommentar er påkrevd ved ferdigstilling'
+        );
 
         cy.get('#comment').type('kommentar', { delay: 0 });
         cy.get('#form-submit-btn').click();
