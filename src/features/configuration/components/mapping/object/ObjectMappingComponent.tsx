@@ -1,6 +1,6 @@
 import { VStack } from '@navikt/ds-react';
 import * as React from 'react';
-import { MutableRefObject, ReactElement, useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -12,17 +12,16 @@ import {
     IValueTemplate,
 } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
-import { DependencySatisfiedStatefulValue } from '../../../util/dependencyUtils';
+import { useDependencySatisfied } from '../../../util/dependencyUtils';
 import {
+    filterVisibleByOrder,
     getObjectCollectionMappingKey,
     getObjectMappingKey,
     getValueCollectionMappingKey,
     getValueMappingKey,
-    isDisabledByConfig,
-    shouldShowElementWithOrder,
 } from '../../../util/objectMappingUtils';
+import ToggleElementButton from '../../buttons/ToggleElementButton';
 import FieldsetElementComponent from '../../FieldsetElementComponent';
-import ToggleButtonComponent from '../../ToggleButtonComponent';
 import SelectableValueMappingComponent from '../value/SelectableValueMappingComponent';
 import ValueMappingComponent from '../value/ValueMappingComponent';
 
@@ -32,31 +31,37 @@ export interface Props {
     nestedElementCallbacks: NestedElementsCallbacks;
 }
 
-const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) => {
+const ObjectMappingComponent: React.FunctionComponent<Props> = ({
+    absoluteKey,
+    template,
+    nestedElementCallbacks,
+}: Props) => {
     const { unregister, getValues } = useFormContext();
 
-    const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<
-        Record<string, boolean>
-    >({});
-    [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
+    const showDependencyValuePerOrder = useRef<Record<string, boolean>>({});
+
+    // Value/selectable fields: hide + unregister when showDependency is not satisfied
+    [...(template.valueTemplates ?? []), ...(template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
-            getValueMappingKey(props.absoluteKey, elementTemplate),
+            getValueMappingKey(absoluteKey, elementTemplate),
             elementTemplate.elementConfig.showDependency,
         ])
         .filter((entry): entry is [number, string, IDependency] => !!entry[2])
-        .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+        .forEach(([order, elementAbsoluteKey, dependency]: [number, string, IDependency]) =>
+            useDependencySatisfied(absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
-                if (!value && getValues(absoluteKey) !== undefined) {
-                    unregister(absoluteKey);
+                if (!value && getValues(elementAbsoluteKey) !== undefined) {
+                    unregister(elementAbsoluteKey);
                 }
             })
         );
+
+    // Nested objects/collections: hide + close nested panels when showDependency is not satisfied
     [
-        ...(props.template.valueCollectionTemplates ?? []),
-        ...(props.template.objectTemplates ?? []),
-        ...(props.template.objectCollectionTemplates ?? []),
+        ...(template.valueCollectionTemplates ?? []),
+        ...(template.objectTemplates ?? []),
+        ...(template.objectCollectionTemplates ?? []),
     ]
         .map(
             (
@@ -67,10 +72,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         )
         .filter((entry): entry is [number, IDependency] => !!entry[1])
         .forEach(([order, dependency]: [number, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value) {
-                    props.nestedElementCallbacks.onElementsClose([order.toString()], true);
+                    nestedElementCallbacks.onElementsClose([order.toString()], true);
                 }
             })
         );
@@ -78,188 +83,199 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     return (
         <VStack gap={'4'}>
             {[
-                ...(props.template.valueTemplates ?? [])
-                    .filter((template: IElementTemplate<IValueTemplate>) => {
-                        return shouldShowElementWithOrder(
-                            template.order,
-                            showDependencyValuePerOrder.current
-                        );
-                    })
-                    .map<ReactElement<{ order: number }>>(
-                        (template: IElementTemplate<IValueTemplate>, index) => (
-                            <ValueMappingComponent
-                                key={index}
-                                order={template.order}
-                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
-                                displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
-                                template={template.template}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
-                            />
-                        )
-                    ),
+                ...filterVisibleByOrder(
+                    template.valueTemplates,
+                    showDependencyValuePerOrder.current
+                ).map<ReactElement<{ order: number }>>(
+                    (valueTemplate: IElementTemplate<IValueTemplate>, index) => (
+                        <ValueMappingComponent
+                            key={index}
+                            order={valueTemplate.order}
+                            absoluteKey={getValueMappingKey(absoluteKey, valueTemplate)}
+                            displayName={valueTemplate.elementConfig.displayName}
+                            description={valueTemplate.elementConfig.description}
+                            template={valueTemplate.template}
+                            disabled={
+                                valueTemplate.elementConfig.enableDependency
+                                    ? !useDependencySatisfied(
+                                          absoluteKey,
+                                          valueTemplate.elementConfig.enableDependency
+                                      )
+                                    : undefined
+                            }
+                        />
+                    )
+                ),
 
-                ...(props.template.selectableValueTemplates ?? [])
-                    .filter((template: IElementTemplate<ISelectableValueTemplate>) => {
-                        return shouldShowElementWithOrder(
-                            template.order,
-                            showDependencyValuePerOrder.current
-                        );
-                    })
-                    .map<ReactElement<{ order: number }>>(
-                        (template: IElementTemplate<ISelectableValueTemplate>, index) => (
-                            <SelectableValueMappingComponent
-                                key={index}
-                                order={template.order}
-                                absoluteKey={getValueMappingKey(props.absoluteKey, template)}
-                                displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
-                                template={template.template}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
-                            />
-                        )
-                    ),
+                ...filterVisibleByOrder(
+                    template.selectableValueTemplates,
+                    showDependencyValuePerOrder.current
+                ).map<ReactElement<{ order: number }>>(
+                    (
+                        selectableValueTemplate: IElementTemplate<ISelectableValueTemplate>,
+                        index
+                    ) => (
+                        <SelectableValueMappingComponent
+                            key={index}
+                            order={selectableValueTemplate.order}
+                            absoluteKey={getValueMappingKey(absoluteKey, selectableValueTemplate)}
+                            displayName={selectableValueTemplate.elementConfig.displayName}
+                            description={selectableValueTemplate.elementConfig.description}
+                            template={selectableValueTemplate.template}
+                            disabled={
+                                selectableValueTemplate.elementConfig.enableDependency
+                                    ? !useDependencySatisfied(
+                                          absoluteKey,
+                                          selectableValueTemplate.elementConfig.enableDependency
+                                      )
+                                    : undefined
+                            }
+                        />
+                    )
+                ),
 
-                ...(props.template.valueCollectionTemplates ?? [])
-                    .filter((template: IElementTemplate<ICollectionTemplate<IValueTemplate>>) => {
-                        return shouldShowElementWithOrder(
-                            template.order,
-                            showDependencyValuePerOrder.current
-                        );
-                    })
-                    .map<ReactElement<{ order: number }>>(
-                        (
-                            template: IElementTemplate<ICollectionTemplate<IValueTemplate>>,
-                            index
-                        ) => (
-                            <ToggleButtonComponent
-                                key={index}
-                                order={template.order}
-                                displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
-                                onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
-                                        valueCollections: [
-                                            {
-                                                order: template.order.toString(),
-                                                absoluteKey: getValueCollectionMappingKey(
-                                                    props.absoluteKey,
-                                                    template
-                                                ),
-                                                displayPath: [],
-                                                displayName: template.elementConfig.displayName,
-                                                template: template.template,
-                                            },
-                                        ],
-                                    });
-                                }}
-                                onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
-                                        template.order.toString(),
-                                    ]);
-                                }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
-                            />
-                        )
-                    ),
+                ...filterVisibleByOrder(
+                    template.valueCollectionTemplates,
+                    showDependencyValuePerOrder.current
+                ).map<ReactElement<{ order: number }>>(
+                    (
+                        valueCollectionTemplate: IElementTemplate<
+                            ICollectionTemplate<IValueTemplate>
+                        >,
+                        index
+                    ) => (
+                        <ToggleElementButton
+                            key={index}
+                            order={valueCollectionTemplate.order}
+                            displayName={valueCollectionTemplate.elementConfig.displayName}
+                            onSelect={() => {
+                                nestedElementCallbacks.onElementsOpen({
+                                    valueCollections: [
+                                        {
+                                            order: valueCollectionTemplate.order.toString(),
+                                            absoluteKey: getValueCollectionMappingKey(
+                                                absoluteKey,
+                                                valueCollectionTemplate
+                                            ),
+                                            displayPath: [],
+                                            displayName:
+                                                valueCollectionTemplate.elementConfig.displayName,
+                                            description:
+                                                valueCollectionTemplate.elementConfig.description,
+                                            template: valueCollectionTemplate.template,
+                                        },
+                                    ],
+                                });
+                            }}
+                            onUnselect={() => {
+                                nestedElementCallbacks.onElementsClose([
+                                    valueCollectionTemplate.order.toString(),
+                                ]);
+                            }}
+                            disabled={
+                                valueCollectionTemplate.elementConfig.enableDependency
+                                    ? !useDependencySatisfied(
+                                          absoluteKey,
+                                          valueCollectionTemplate.elementConfig.enableDependency
+                                      )
+                                    : undefined
+                            }
+                        />
+                    )
+                ),
 
-                ...(props.template.objectTemplates ?? [])
-                    .filter((template: IElementTemplate<IObjectTemplate>) => {
-                        return shouldShowElementWithOrder(
-                            template.order,
-                            showDependencyValuePerOrder.current
-                        );
-                    })
-                    .map<ReactElement<{ order: number }>>(
-                        (template: IElementTemplate<IObjectTemplate>, index) => (
-                            <ToggleButtonComponent
-                                key={index}
-                                order={template.order}
-                                displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
-                                onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
-                                        objects: [
-                                            {
-                                                order: template.order.toString(),
-                                                absoluteKey: getObjectMappingKey(
-                                                    props.absoluteKey,
-                                                    template
-                                                ),
-                                                displayPath: [],
-                                                displayName: template.elementConfig.displayName,
-                                                template: template.template,
-                                            },
-                                        ],
-                                    });
-                                }}
-                                onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
-                                        template.order.toString(),
-                                    ]);
-                                }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
-                            />
-                        )
-                    ),
+                ...filterVisibleByOrder(
+                    template.objectTemplates,
+                    showDependencyValuePerOrder.current
+                ).map<ReactElement<{ order: number }>>(
+                    (objectTemplate: IElementTemplate<IObjectTemplate>, index) => (
+                        <ToggleElementButton
+                            key={index}
+                            order={objectTemplate.order}
+                            displayName={objectTemplate.elementConfig.displayName}
+                            onSelect={() => {
+                                nestedElementCallbacks.onElementsOpen({
+                                    objects: [
+                                        {
+                                            order: objectTemplate.order.toString(),
+                                            absoluteKey: getObjectMappingKey(
+                                                absoluteKey,
+                                                objectTemplate
+                                            ),
+                                            displayPath: [],
+                                            displayName: objectTemplate.elementConfig.displayName,
+                                            description: objectTemplate.elementConfig.description,
+                                            template: objectTemplate.template,
+                                        },
+                                    ],
+                                });
+                            }}
+                            onUnselect={() => {
+                                nestedElementCallbacks.onElementsClose([
+                                    objectTemplate.order.toString(),
+                                ]);
+                            }}
+                            disabled={
+                                objectTemplate.elementConfig.enableDependency
+                                    ? !useDependencySatisfied(
+                                          absoluteKey,
+                                          objectTemplate.elementConfig.enableDependency
+                                      )
+                                    : undefined
+                            }
+                        />
+                    )
+                ),
 
-                ...(props.template.objectCollectionTemplates ?? [])
-                    .filter((template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>) => {
-                        return shouldShowElementWithOrder(
-                            template.order,
-                            showDependencyValuePerOrder.current
-                        );
-                    })
-                    .map<ReactElement<{ order: number }>>(
-                        (
-                            template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>,
-                            index
-                        ) => (
-                            <ToggleButtonComponent
-                                key={index}
-                                order={template.order}
-                                displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
-                                onSelect={() => {
-                                    props.nestedElementCallbacks.onElementsOpen({
-                                        objectCollections: [
-                                            {
-                                                order: template.order.toString(),
-                                                absoluteKey: getObjectCollectionMappingKey(
-                                                    props.absoluteKey,
-                                                    template
-                                                ),
-                                                displayPath: [],
-                                                displayName: template.elementConfig.displayName,
-                                                template: template.template,
-                                            },
-                                        ],
-                                    });
-                                }}
-                                onUnselect={() => {
-                                    props.nestedElementCallbacks.onElementsClose([
-                                        template.order.toString(),
-                                    ]);
-                                }}
-                                disabled={isDisabledByConfig(
-                                    props.absoluteKey,
-                                    template.elementConfig
-                                )}
-                            />
-                        )
-                    ),
+                ...filterVisibleByOrder(
+                    template.objectCollectionTemplates,
+                    showDependencyValuePerOrder.current
+                ).map<ReactElement<{ order: number }>>(
+                    (
+                        objectCollectionTemplate: IElementTemplate<
+                            ICollectionTemplate<IObjectTemplate>
+                        >,
+                        index
+                    ) => (
+                        <ToggleElementButton
+                            key={index}
+                            order={objectCollectionTemplate.order}
+                            displayName={objectCollectionTemplate.elementConfig.displayName}
+                            onSelect={() => {
+                                nestedElementCallbacks.onElementsOpen({
+                                    objectCollections: [
+                                        {
+                                            order: objectCollectionTemplate.order.toString(),
+                                            absoluteKey: getObjectCollectionMappingKey(
+                                                absoluteKey,
+                                                objectCollectionTemplate
+                                            ),
+                                            displayPath: [],
+                                            displayName:
+                                                objectCollectionTemplate.elementConfig.displayName,
+                                            description:
+                                                objectCollectionTemplate.elementConfig.description,
+                                            template: objectCollectionTemplate.template,
+                                        },
+                                    ],
+                                });
+                            }}
+                            onUnselect={() => {
+                                nestedElementCallbacks.onElementsClose([
+                                    objectCollectionTemplate.order.toString(),
+                                ]);
+                            }}
+                            disabled={
+                                objectCollectionTemplate.elementConfig.enableDependency
+                                    ? !useDependencySatisfied(
+                                          absoluteKey,
+                                          objectCollectionTemplate.elementConfig.enableDependency
+                                      )
+                                    : undefined
+                            }
+                        />
+                    )
+                ),
             ]
                 .sort(
                     (a: ReactElement<{ order: number }>, b: ReactElement<{ order: number }>) =>

@@ -4,9 +4,9 @@ import { forwardRef, useEffect, useMemo, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 
-import { autoCompleteSX } from '../../../../../../shared/util/styles/systemStyles';
-import { ISelectable } from '../../../../types/Selectable';
-import FormErrorText from '../../../FormErrorText';
+import { autoCompleteSX } from '../../../../shared/util/styles/systemStyles';
+import { ISelectable } from '../../types/Selectable';
+import FormErrorText from './FormErrorText';
 
 interface Props {
     displayName: string;
@@ -48,7 +48,6 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
 
     return (
         <div>
-            SSV
             <Autocomplete
                 sx={autoCompleteSX}
                 id={absoluteKey}

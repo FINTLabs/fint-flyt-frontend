@@ -36,13 +36,13 @@ export default [
                     paths: [
                         {
                             name: '@navikt/aksel-icons',
-                            message: 'Importer ikoner fra src/components/icons.',
+                            message: 'Importer ikoner fra src/shared/components/icons.',
                         },
                     ],
                     patterns: [
                         {
                             group: ['@mui/icons-material/*'],
-                            message: 'Importer ikoner fra src/components/icons.',
+                            message: 'Importer ikoner fra src/shared/components/icons.',
                         },
                     ],
                 },
@@ -52,7 +52,7 @@ export default [
         },
     },
     {
-        files: ['src/components/icons/**/*'],
+        files: ['src/shared/components/icons/**/*'],
         rules: {
             'no-restricted-imports': 'off',
         },

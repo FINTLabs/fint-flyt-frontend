@@ -75,7 +75,7 @@
                 "valueConverting": "Verdikonvertering",
                 "customValue": "Egendefinert verdi",
                 "checkLabel": "Ferdigstilt",
-                "activeLabel": "Aktiv",
+                "activeLabel": "Sett som aktiv",
                 "placeholder": "Skriv eller trekk inn fra metadata",
                 "formatError": "Feltet oppfyller ikke påkrevd format"
             },
@@ -92,7 +92,9 @@
             },
             "fromCollectionMapping": {
                 "collections": "Samlinger",
-                "convertCollectionElements": "Konvertering av samlingselementer"
+                "convertCollectionElements": "Konvertering av samlingselementer",
+                "edit": "Rediger",
+                "complete": "Fullfør"
             },
             "metadataPanel": {
                 "header": "Innkommende data",

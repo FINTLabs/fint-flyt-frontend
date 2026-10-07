@@ -1,48 +1,68 @@
-import {TextField} from "@mui/material";
-import * as React from "react";
-import {forwardRef} from "react";
-import {ControllerFieldState} from "react-hook-form";
-import {Noop} from "react-hook-form/dist/types";
+import { Textarea, TextField } from '@navikt/ds-react';
+import * as React from 'react';
+import { forwardRef } from 'react';
+import { ControllerFieldState } from 'react-hook-form';
+import { Noop } from 'react-hook-form/dist/types';
 
-import FormErrorText from '../../../FormErrorText';
+import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
+import configurationStyles from '../../../styles/configuration.module.css';
 
 interface Props {
     displayName: string;
+    description?: string;
     multiline?: boolean;
     disabled?: boolean;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     onBlur?: Noop;
     required?: boolean;
     name: string;
     value: string | null;
-    fieldState: ControllerFieldState | undefined
+    fieldState: ControllerFieldState | undefined;
+    fullWidth?: boolean;
 }
 
-const StringValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>((props: Props, ref) => {
-    StringValueComponent.displayName = "StringValueComponent";
+const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
+    HTMLInputElement | HTMLTextAreaElement,
+    Props
+>((props: Props, ref) => {
     const absoluteKey: string = props.name;
-    return (
-        <div id={"string-value-component-" + absoluteKey} style={{display: 'flex', flexDirection: 'column'}}>
-            <TextField
-                id={absoluteKey}
-                autoComplete={"off"}
-                style={{backgroundColor: 'white', width: '352px'}}
-                variant='outlined'
-                size='small'
-                label={props.displayName}
-                onChange={props.onChange}
-                onBlur={props.onBlur}
-                name={props.name}
-                value={props.value}
-                ref={ref}
-                disabled={props.disabled}
-                required={props.required}
-                multiline={props.multiline}
-                maxRows={props.multiline ? 4 : undefined}
-                error={!!props.fieldState?.error}
+    const sharedProps = {
+        id: absoluteKey,
+        className: configurationStyles.input,
+        size: 'small' as const,
+        label: (
+            <DisplayNameWithHelpText
+                displayName={props.displayName}
+                description={props.description}
             />
-            {props.fieldState?.error && <FormErrorText errorMessage={props.fieldState?.error.message}/>}
+        ),
+        onChange: props.onChange,
+        onBlur: props.onBlur,
+        name: props.name,
+        value: props.value ?? '',
+        disabled: props.disabled,
+        required: props.required,
+        autoComplete: 'off',
+        error: props.fieldState?.error?.message,
+    };
+
+    return (
+        <div
+            id={'string-value-component-' + absoluteKey}
+            className={props.fullWidth ? configurationStyles.inputFullWidth : undefined}
+        >
+            {props.multiline ? (
+                <Textarea
+                    {...sharedProps}
+                    maxRows={4}
+                    ref={ref as React.Ref<HTMLTextAreaElement>}
+                />
+            ) : (
+                <TextField {...sharedProps} ref={ref as React.Ref<HTMLInputElement>} />
+            )}
         </div>
-    )
-})
+    );
+});
+
+StringValueComponent.displayName = 'StringValueComponent';
 export default StringValueComponent;

@@ -1,24 +1,15 @@
 import { ExpansionCard, HStack, VStack } from '@navikt/ds-react';
 import * as React from 'react';
-import { ReactElement } from 'react';
 
 export type Props = {
     id: string;
     title?: string;
     description?: string;
     children?: React.ReactNode;
-    icon?: ReactElement;
     active?: boolean;
 };
 
-const MetadataContentWrapper: React.FC<Props> = ({
-    id,
-    title,
-    description,
-    children,
-    icon,
-    active,
-}) => {
+const MetadataContentWrapper: React.FC<Props> = ({ id, title, description, children, active }) => {
     return (
         <ExpansionCard
             id={id}
@@ -34,7 +25,6 @@ const MetadataContentWrapper: React.FC<Props> = ({
                 {description && (
                     <ExpansionCard.Description>
                         <HStack align={'center'} gap={'2'}>
-                            {icon && icon}
                             {description}
                         </HStack>
                     </ExpansionCard.Description>

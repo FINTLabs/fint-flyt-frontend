@@ -6,6 +6,7 @@ export type NestedElementTemplate<T> = {
     absoluteKey: string;
     displayPath: string[];
     displayName: string;
+    description?: string;
     template: T;
 }
 
@@ -24,6 +25,7 @@ export type NestedElementsCallbacks = {
 export type ColumnElement = {
     path: string[];
     title: string;
+    description?: string;
     reactElement: ReactElement<{ absoluteKey: string }>;
     nestedColumnElementPerOrder: Record<string, ColumnElement>;
 };

@@ -1,5 +1,4 @@
-import { TextField } from '@mui/material';
-import { BodyShort } from '@navikt/ds-react';
+import { BodyShort, HStack, Textarea } from '@navikt/ds-react';
 import * as React from 'react';
 import { BaseSyntheticEvent, forwardRef, useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
@@ -8,12 +7,11 @@ import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
 
 import useResourceRepository from '../../../../../../shared/api/useResourceRepository';
-import FormErrorText from '../../../FormErrorText';
-import IconButton from '../../../IconButton';
-import { SearchRoundedIcon } from '../../../../../../shared/components/icons';
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
+import { SearchButton } from '../../../buttons/SearchButton';
+import configurationStyles from '../../../styles/configuration.module.css';
 
 interface Props {
     displayName?: string;
@@ -28,13 +26,11 @@ interface Props {
 }
 
 const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
-    HTMLDivElement,
+    HTMLTextAreaElement,
     Props
 >((props: Props, ref) => {
     const ResourceRepository = useResourceRepository();
-    DynamicStringValueComponent.displayName = 'DynamicStringValueComponent';
     const [searchResult, setSearchResult] = useState<string>();
-    const [shrink, setShrink] = useState<boolean | undefined>(undefined);
     const absoluteKey: string = props.name;
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
 
@@ -44,7 +40,6 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
             if (!props.disabled) {
                 if (props.onChange) {
                     if (props.value === undefined || props.value === '') {
-                        setShrink(true);
                         props.onChange(tag.value);
                     } else {
                         props.onChange(props.value + tag.value);
@@ -57,84 +52,75 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
             isOver: monitor.isOver(),
         }),
     });
+
     useEffect(() => {
         setSearchResult(undefined);
     }, [props.search]);
 
-    let background = 'white';
-
-    const inputStyle = {
-        backgroundColor: 'white',
-        width: '352px',
-        borderRadius: '4px',
-        margin: 'none',
-    };
-
+    let dropClassName = configurationStyles.dynamicInput;
     if (canDrop && isOver && !props.disabled) {
-        background = 'lightgreen';
+        dropClassName = `${configurationStyles.dynamicInput} ${configurationStyles.dynamicInputActive}`;
     } else if (canDrop && !props.disabled) {
-        background = 'lightblue';
+        dropClassName = `${configurationStyles.dynamicInput} ${configurationStyles.dynamicInputCanDrop}`;
     }
 
-    const dynamicStyle: React.CSSProperties = {
-        ...inputStyle,
-        background,
-    };
-
     return (
-        <div id={'dnd-value-component-' + absoluteKey} ref={dropRef as unknown as React.Ref<HTMLDivElement>} key={absoluteKey}>
-            <TextField
-                autoComplete={'off'}
-                error={!!props.fieldState?.error}
-                style={dynamicStyle}
-                variant="outlined"
-                size="small"
-                multiline
-                maxRows={5}
-                label={props.displayName}
-                disabled={props.disabled}
-                onChange={(e: BaseSyntheticEvent) => {
-                    if (props.onChange) {
-                        props.onChange(e.target.value);
+        <div
+            id={'dnd-value-component-' + absoluteKey}
+            ref={dropRef as unknown as React.Ref<HTMLDivElement>}
+            key={absoluteKey}
+            className={configurationStyles.inputFullWidth}
+        >
+            <HStack gap="2" align="end" wrap={false} width="100%">
+                <Textarea
+                    id={absoluteKey}
+                    className={`${configurationStyles.input} ${configurationStyles.inputFullWidth} ${dropClassName}`}
+                    autoComplete="off"
+                    size="small"
+                    minRows={1}
+                    maxRows={5}
+                    label={props.displayName}
+                    disabled={props.disabled}
+                    onChange={(e: BaseSyntheticEvent) => {
+                        if (props.onChange) {
+                            props.onChange(e.target.value);
+                        }
+                    }}
+                    onBlur={props.onBlur}
+                    value={props.value ?? ''}
+                    name={props.name}
+                    ref={ref}
+                    errorId={`error-message-${absoluteKey}`}
+                    error={
+                        props.fieldState?.error ? (
+                            <span data-testid="error-message">{t('label.formatError')}</span>
+                        ) : undefined
                     }
-                    setShrink(undefined);
-                }}
-                onBlur={props.onBlur}
-                value={props.value}
-                name={props.name}
-                ref={ref}
-                InputLabelProps={{ shrink }}
-                InputProps={{
-                    endAdornment: (
-                        <>
-                            {props.search && (
-                                <IconButton
-                                    size="xsmall"
-                                    variant={'tertiary'}
-                                    onClick={() => {
-                                        if (props.search?.source) {
-                                            ResourceRepository.search(props.search.source).then(
-                                                (result: { value: string } | undefined) => {
-                                                    setSearchResult(
-                                                        'Søkeresultat: ' +
-                                                            (result ? result.value : 'Ingen treff')
-                                                    );
-                                                }
-                                            );
-                                        }
-                                    }}
-                                    icon={<SearchRoundedIcon />}
-                                />
-                            )}
-                        </>
-                    ),
-                }}
-            />
-            {searchResult && <BodyShort size={'small'} style={{ padding: 'var(--a-spacing-1)'}}>{searchResult}</BodyShort>}
-            {props.fieldState?.error && (
-                <FormErrorText errorMessage={t('label.formatError')}/>
+                />
+                {props.search && (
+                    <SearchButton
+                        onClick={() => {
+                            if (props.search?.source) {
+                                ResourceRepository.search(props.search.source).then(
+                                    (result: { value: string } | undefined) => {
+                                        setSearchResult(
+                                            'Søkeresultat: ' + (result?.value ?? 'Ingen treff')
+                                        );
+                                    }
+                                );
+                            }
+                        }}
+                    />
+                )}
+            </HStack>
+            {searchResult && (
+                <BodyShort size={'small'} style={{ padding: 'var(--a-spacing-1)' }}>
+                    {searchResult}
+                </BodyShort>
             )}
         </div>
     );
 });
+
+DynamicStringValueComponent.displayName = 'DynamicStringValueComponent';
 export default DynamicStringValueComponent;

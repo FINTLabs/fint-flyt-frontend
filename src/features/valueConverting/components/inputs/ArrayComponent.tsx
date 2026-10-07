@@ -3,12 +3,12 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { RoundedAddOrRemoveButton } from '../buttons/RoundedAddOrRemoveButton';
+import { RoundedAddOrRemoveButton } from './RoundedAddOrRemoveButton';
 
 interface Props {
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement;
-    defaultValueCreator: () => any; // eslint-disable-line
+    defaultValueCreator: () => unknown;
     onFieldClose?: (index: number) => void;
     disabled?: boolean;
     fromCollection?: boolean;
