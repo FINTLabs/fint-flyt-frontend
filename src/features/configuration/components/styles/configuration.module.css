@@ -17,6 +17,7 @@
 
 .input {
     --a-shadow-focus: 0 0 0 1px var(--a-border-focus);
+    /* --ac-textfield-border: var(--a-border-subtle); */
     
     gap: var(--a-spacing-1);
 }
@@ -29,4 +30,14 @@
 .comment {
     width: 350px;
     max-width: 100vw;
+}
+
+.inputFullWidth {
+    width: 100%;
+}
+
+.inputFullWidth :global(.navds-form-field),
+.inputFullWidth :global(.navds-text-field__input),
+.inputFullWidth :global(.navds-textarea__input) {
+    width: 100%;
 }

@@ -18,6 +18,7 @@ interface Props {
     name: string;
     value: string | null;
     fieldState: ControllerFieldState | undefined;
+    fullWidth?: boolean;
 }
 
 const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
@@ -46,7 +47,10 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
     };
 
     return (
-        <div id={'string-value-component-' + absoluteKey}>
+        <div
+            id={'string-value-component-' + absoluteKey}
+            className={props.fullWidth ? configurationStyles.inputFullWidth : undefined}
+        >
             {props.multiline ? (
                 <Textarea
                     {...sharedProps}

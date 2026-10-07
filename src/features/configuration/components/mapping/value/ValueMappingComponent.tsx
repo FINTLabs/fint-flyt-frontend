@@ -82,7 +82,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 );
             case TemplateValueType.STRING:
                 setTypeIfUndefined(ConfigurationValueType.STRING);
-                return <StringValueComponent {...renderProps} />;
+                return <StringValueComponent {...renderProps} fullWidth />;
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
                 return (
@@ -113,8 +113,6 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             render={({ field, fieldState }) => (
                 <HStack
                     id={'value-mapping-wrapper-' + props.absoluteKey}
-                    align={'center'}
-                    gap={'2'}
                     className={configurationStyles.inputContainer}
                 >
                     {createComponent({
