@@ -1,4 +1,4 @@
-import { Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
+import { Box, Button, Checkbox, CheckboxGroup, Heading, HStack, VStack } from '@navikt/ds-react';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -32,6 +32,7 @@ import OutgoingDataComponent from './components/OutgoingDataComponent';
 import { ConfigurationContext } from './context/ConfigurationContext';
 import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
+import configurationStyles from './components/styles/configuration.module.css';
 
 const Configuration: React.FC = () => {
     const IntegrationRepository = useIntegrationRepository();
@@ -244,25 +245,27 @@ const Configuration: React.FC = () => {
                                 </Heading>
 
                                 <VStack gap={'3'} paddingBlock={'0 4'}>
-                                    <HStack gap={'6'}>
-                                        <Controller
-                                            name={'comment'.toString()}
-                                            rules={{
-                                                required: {
-                                                    value: !!methods.watch('completed'),
-                                                    message: t('reqFieldMsg'),
-                                                },
-                                            }}
-                                            render={({ field, fieldState }) => (
-                                                <StringValueComponent
-                                                    {...field}
-                                                    disabled={completed || loading}
-                                                    displayName={t('comment')}
-                                                    multiline
-                                                    fieldState={fieldState}
-                                                />
-                                            )}
-                                        />
+                                    <HStack gap={'6'} align={'center'}>
+                                        <Box className={configurationStyles.comment}>
+                                            <Controller
+                                                name={'comment'.toString()}
+                                                rules={{
+                                                    required: {
+                                                        value: !!methods.watch('completed'),
+                                                        message: t('reqFieldMsg'),
+                                                    },
+                                                }}
+                                                render={({ field, fieldState }) => (
+                                                    <StringValueComponent
+                                                        {...field}
+                                                        disabled={completed || loading}
+                                                        displayName={t('comment')}
+                                                        multiline
+                                                        fieldState={fieldState}
+                                                    />
+                                                )}
+                                            />
+                                        </Box>
                                         <Controller
                                             name={'completed'}
                                             render={({ field }) => (

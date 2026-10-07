@@ -75,7 +75,7 @@
                 "valueConverting": "Verdikonvertering",
                 "customValue": "Egendefinert verdi",
                 "checkLabel": "Ferdigstilt",
-                "activeLabel": "Aktiv",
+                "activeLabel": "Sett som aktiv",
                 "placeholder": "Skriv eller trekk inn fra metadata",
                 "formatError": "Feltet oppfyller ikke påkrevd format"
             },
