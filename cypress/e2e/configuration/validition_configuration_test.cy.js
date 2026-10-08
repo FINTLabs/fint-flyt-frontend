@@ -79,8 +79,7 @@ describe('Testing fill, validate and complete new configuration', () => {
 
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
-        )
-            .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
+        ).should('contain.text', 'Feltet oppfyller ikke påkrevd format');
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
         ).type('{backspace}');

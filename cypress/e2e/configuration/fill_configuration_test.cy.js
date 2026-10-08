@@ -64,17 +64,42 @@ describe('Testing fill new configuration', () => {
         ).type('test');
 
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`).should(
+            'be.visible'
+        );
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Fjellnettverkett')
+            .click();
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`).should(
+            'not.be.visible'
+        );
+
         cy.get(`${newCaseFields}\\.administrativEnhet\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.administrativEnhet\\.mappingString-option-3`).click();
+        cy.get(`${newCaseFields}\\.administrativEnhet\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Innsynsbegjæringer')
+            .click();
+
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-option-4`).click();
+        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Kompetanse')
+            .click();
+
         cy.get(`${newCaseFields}\\.saksansvarlig\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksansvarlig\\.mappingString-option-10`).click();
+
+        cy.get(`${newCaseFields}\\.saksansvarlig\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Saksansvarlig')
+            .click();
         cy.get(`${newCaseFields}\\.saksstatus\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksstatus\\.mappingString-option-5`).click();
+        cy.get(`${newCaseFields}\\.saksstatus\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Møte')
+            .click();
+
         cy.get(`${newCaseFields}\\.tilgangsgruppe\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.tilgangsgruppe\\.mappingString-option-1`).click();
+
+        cy.get(`${newCaseFields}\\.tilgangsgruppe\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Fjellnettverkett')
+            .click();
+
         cy.contains('button', 'Klassering').click();
         cy.get(
             '#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.klasse\\.elementMappings'
@@ -84,10 +109,13 @@ describe('Testing fill new configuration', () => {
         cy.get(`${newCaseClassificationFields}\\.rekkefolge\\.mappingString`).type('0');
         cy.get(`${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString`).click();
         cy.get(
-            `${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString-option-2`
-        ).click();
+            `${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Fjellnettverkett')
+            .click();
         cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString`).click();
-        cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString-option-3`).click();
+        cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Klasse2')
+            .click();
         cy.contains('button', 'Journalposter').click();
         cy.get(
             '#list-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings'
@@ -100,15 +128,25 @@ describe('Testing fill new configuration', () => {
         ).type('journalpost tittel');
 
         cy.get(`${recordFields}\\.journalposttype\\.mappingString`).click();
-        cy.get(`${recordFields}\\.journalposttype\\.mappingString-option-6`).click();
+        cy.get(`${recordFields}\\.journalposttype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Møte- og utvalg')
+            .click();
         cy.get(`${recordFields}\\.administrativEnhet\\.mappingString`).click();
-        cy.get(`${recordFields}\\.administrativEnhet\\.mappingString-option-7`).click();
+        cy.get(`${recordFields}\\.administrativEnhet\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Personalmapper')
+            .click();
         cy.get(`${recordFields}\\.saksbehandler\\.mappingString`).click();
-        cy.get(`${recordFields}\\.saksbehandler\\.mappingString-option-10`).click();
+        cy.get(`${recordFields}\\.saksbehandler\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Saksansvarlig')
+            .click();
         cy.get(`${recordFields}\\.journalstatus\\.mappingString`).click();
-        cy.get(`${recordFields}\\.journalstatus\\.mappingString-option-9`).click();
+        cy.get(`${recordFields}\\.journalstatus\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Sakarkiv')
+            .click();
         cy.get(`${recordFields}\\.tilgangsgruppe\\.mappingString`).click();
-        cy.get(`${recordFields}\\.tilgangsgruppe\\.mappingString-option-1`).click();
+        cy.get(`${recordFields}\\.tilgangsgruppe\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Verdikonvertering')
+            .click();
 
         cy.contains('button', 'Korrespondanseparter').click();
         cy.get(
@@ -129,28 +167,32 @@ describe('Testing fill new configuration', () => {
 
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        ).type('$if{saksparter}', {
+        )
+            .type('$if{saksparter}', {
                 parseSpecialCharSequences: false,
                 delay: 0,
-        }).type('{enter}');
+            })
+            .type('{enter}');
 
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click();
-        cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-option-4`).click();
-        cy.get(
-            `${correspondentDndFields}\\.organisasjonsnummer\\.mappingString`
-        ).type('$icf{0}{organisasjonsnummer}', {
-            parseSpecialCharSequences: false,
-            delay: 0,
-        });
-        cy.get(
-            `${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString`
-        ).type('$icf{0}{navn}', {
-            parseSpecialCharSequences: false,
-            delay: 0,
-        });
-        cy.get(
-            `${correspondentDndFields}\\.kontaktperson\\.mappingString`
-        ).type('$icf{0}{navn}', {
+        cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Kompetanse')
+            .click();
+        cy.get(`${correspondentDndFields}\\.organisasjonsnummer\\.mappingString`).type(
+            '$icf{0}{organisasjonsnummer}',
+            {
+                parseSpecialCharSequences: false,
+                delay: 0,
+            }
+        );
+        cy.get(`${correspondentDndFields}\\.korrespondansepartNavn\\.mappingString`).type(
+            '$icf{0}{navn}',
+            {
+                parseSpecialCharSequences: false,
+                delay: 0,
+            }
+        );
+        cy.get(`${correspondentDndFields}\\.kontaktperson\\.mappingString`).type('$icf{0}{navn}', {
             parseSpecialCharSequences: false,
             delay: 0,
         });
@@ -173,8 +215,9 @@ describe('Testing fill new configuration', () => {
             '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString'
         ).click();
         cy.get(
-            '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-option-1'
-        ).click();
+            '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-filtered-options'
+        ).contains('[role="option"]', 'Verdikonvertering')
+            .click();
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
         )
@@ -212,7 +255,9 @@ describe('Testing fill, save and complete new configuration', () => {
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test');
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Fjellnettverkett')
+            .click();
         cy.get('#form-submit-btn').click();
         cy.wait('@postConfiguration')
             .its('request.body')
@@ -255,7 +300,9 @@ describe('Testing fill, save and complete new configuration', () => {
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test ferdigstilling', { delay: 0 });
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-2`).click();
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Fjellnettverkett')
+            .click();
         cy.get('#form-complete').click();
         cy.get('#form-submit-btn').click();
 

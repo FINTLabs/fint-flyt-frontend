@@ -1,15 +1,15 @@
-import { Autocomplete, createFilterOptions, TextField } from '@mui/material';
+import { UNSAFE_Combobox } from '@navikt/ds-react';
 import * as React from 'react';
-import { forwardRef, useEffect, useMemo, useState } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 
-import { autoCompleteSX } from '../../../../../../shared/util/styles/systemStyles';
 import { ISelectable } from '../../../../types/Selectable';
-import FormErrorText from '../../../FormErrorText';
+import configurationStyles from '../../../styles/configuration.module.css';
 
 interface Props {
     displayName: string;
+    
     selectables: ISelectable[];
     disabled?: boolean;
     onChange?: (value: string | null) => void;
@@ -20,63 +20,50 @@ interface Props {
 }
 
 const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
-    HTMLDivElement,
+    HTMLInputElement,
     Props
 >((props: Props, ref) => {
     const absoluteKey: string = props.name;
-    const filterOptions = createFilterOptions({
-        matchFrom: 'any',
-        stringify: (option: string) => displayNamePerValue[option],
-        limit: 250,
-    });
 
-    const [displayNamePerValue, setDisplayNamePerValue] = useState<Record<string, string>>({});
-    const loading = useMemo(() => {
-        return (
-            Object.keys(props.selectables).length === 0 ||
-            Object.keys(displayNamePerValue).length === 0
-        );
-    }, [props.selectables]);
+    const options = useMemo(
+        () =>
+            props.selectables.map((selectable) => ({
+                label: selectable.displayName,
+                value: selectable.value,
+            })),
+        [props.selectables]
+    );
 
-    useEffect(() => {
-        const newDisplayNamePerValue: Record<string, string> = {};
-        props.selectables.forEach((selectable: ISelectable) => {
-            newDisplayNamePerValue[selectable.value] = selectable.displayName;
-        });
-        setDisplayNamePerValue(newDisplayNamePerValue);
-    }, [props.selectables]);
+    const selectedOptions = useMemo(() => {
+        if (!props.value) {
+            return [];
+        }
+        const match = options.find((option) => option.value === props.value);
+        return match ? [match] : [{ label: props.value, value: props.value }];
+    }, [options, props.value]);
+
+    const isLoading = props.selectables.length === 0;
 
     return (
-        <div>
-            SSV
-            <Autocomplete
-                sx={autoCompleteSX}
+        <div id={'search-select-' + absoluteKey} className={configurationStyles.inputFullWidth}>
+            <UNSAFE_Combobox
                 id={absoluteKey}
-                loading={loading}
-                filterOptions={filterOptions}
-                options={Object.keys(displayNamePerValue)}
-                getOptionLabel={(option: string) => displayNamePerValue[option as string] ?? ''}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        size="small"
-                        label={props.displayName}
-                        error={!!props.fieldState?.error}
-                    />
-                )}
-                onChange={(_, value: string | null) => {
-                    if (props.onChange) {
-                        props.onChange(value);
-                    }
+                ref={ref}
+                className={`${configurationStyles.input} ${configurationStyles.inputFullWidth}`}
+                label={props.displayName}
+                size="small"
+                options={options}
+                selectedOptions={selectedOptions}
+                onToggleSelected={(option, isSelected) => {
+                    props.onChange?.(isSelected ? option : null);
                 }}
                 onBlur={props.onBlur}
-                value={props.value}
-                ref={ref}
                 disabled={props.disabled}
+                isLoading={isLoading}
+                shouldAutocomplete
+                error={props.fieldState?.error?.message}
+                errorId={`error-message-${absoluteKey}`}
             />
-            {props.fieldState?.error && (
-                <FormErrorText errorMessage={props.fieldState?.error.message} />
-            )}
         </div>
     );
 });

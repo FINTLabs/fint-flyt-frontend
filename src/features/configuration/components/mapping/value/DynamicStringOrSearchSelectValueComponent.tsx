@@ -55,7 +55,6 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
 
     return (
         <VStack ref={ref} gap={'1'}>
-            DSOSV
             <SearchSelectValueComponent
                 displayName={props.displayName}
                 selectables={[
