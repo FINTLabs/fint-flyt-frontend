@@ -292,6 +292,90 @@ describe('Testing fill, save and complete new configuration', () => {
             });
     });
 
+    it('should select egendefinert verdi and verdikonvertering and fill DynamicChipComponent', () => {
+        prep();
+        cy.viewport(3000, 2000);
+        cy.get('#column-0').should('be.visible');
+        cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
+        cy.get('#toggle-panel-button').click();
+
+        cy.get(
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
+        ).type('test');
+
+        const saksmappetypeChip =
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString';
+        const arkivdelChip =
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString';
+
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Egendefinert verdi')
+            .click();
+        cy.get(saksmappetypeChip).should('be.visible');
+        cy.get(
+            `${saksmappetypeChip} > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root`
+        )
+            .type('$if{bnr}', {
+                parseSpecialCharSequences: false,
+                delay: 0,
+            })
+            .type('{enter}');
+        cy.get(saksmappetypeChip).find('.MuiChip-label').should('have.text', '$if{bnr}');
+
+        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click();
+        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Verdikonvertering')
+            .click();
+        cy.get(arkivdelChip).should('be.visible');
+        cy.get(
+            `${arkivdelChip} > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root`
+        )
+            .type('$vc{1}$if{bnr}', {
+                parseSpecialCharSequences: false,
+                delay: 0,
+            })
+            .type('{enter}');
+        cy.get(arkivdelChip).find('.MuiChip-label').should('have.text', '$vc{1}$if{bnr}');
+
+        cy.get('#form-submit-btn').click();
+        cy.wait('@postConfiguration')
+            .its('request.body')
+            .should('deep.equal', {
+                completed: false,
+                integrationId: null,
+                integrationMetadataId: 4,
+                mapping: {
+                    objectCollectionMappingPerKey: {},
+                    objectMappingPerKey: {
+                        newCase: {
+                            objectCollectionMappingPerKey: {},
+                            objectMappingPerKey: {},
+                            valueCollectionMappingPerKey: {},
+                            valueMappingPerKey: {
+                                tittel: { mappingString: 'test', type: 'DYNAMIC_STRING' },
+                                saksmappetype: {
+                                    mappingString: '$if{bnr}',
+                                    type: 'DYNAMIC_STRING',
+                                },
+                                arkivdel: {
+                                    mappingString: '$vc{1}$if{bnr}',
+                                    type: 'VALUE_CONVERTING',
+                                },
+                            },
+                        },
+                    },
+                    valueCollectionMappingPerKey: {},
+                    valueMappingPerKey: {
+                        type: {
+                            mappingString: 'NEW',
+                            type: 'STRING',
+                        },
+                    },
+                },
+            });
+    });
+
     it('should show error on missing required fields on saving completed configuration', () => {
         prep();
         cy.get('select[id="mapping.valueMappingPerKey.type.mappingString"]').select('NEW');
