@@ -110,9 +110,10 @@ const UrlTemplateBuilder = ({
     );
 
     return (
-        <VStack gap="1">
+        <VStack gap="1" id={'url-template-builder-' + name}>
             <HStack gap="2" wrap={false}>
                 <UNSAFE_Combobox
+                    id={name + '-identifier-type'}
                     size="small"
                     label="Kildesystemid"
                     options={identifierTypes}
@@ -124,6 +125,7 @@ const UrlTemplateBuilder = ({
                     disabled={disabled}
                 />
                 <TextField
+                    id={name + '-identifier-value'}
                     size="small"
                     label="Kildeidentifikator"
                     hideLabel
@@ -132,7 +134,11 @@ const UrlTemplateBuilder = ({
                     onChange={(e) => setIdentifierValue(e.target.value)}
                 />
             </HStack>
-            {urlPreview && <Detail textColor="subtle">{urlPreview}</Detail>}
+            {urlPreview && (
+                <Detail textColor="subtle" data-testid={name + '-url-preview'}>
+                    {urlPreview}
+                </Detail>
+            )}
         </VStack>
     );
 };

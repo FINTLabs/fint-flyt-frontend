@@ -42,6 +42,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     const [selectValue, setSelectValue] = useState<string | null>(null);
     const [dynamicValue, setDynamicValue] = useState<string>('');
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
+    const hasReferenceTemplate = Boolean(props.referenceTemplate);
 
     useEffect(() => {
         if (props.initialType === undefined || props.initialType === Type.SELECT) {
@@ -56,6 +57,8 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
             if (props.value) {
                 setDynamicValue(props.value);
             }
+        } else if (props.initialType === Type.URL_TEMPLATE && hasReferenceTemplate) {
+            setSelectValue('$urlTemplate');
         }
     }, []);
 
@@ -69,15 +72,18 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                         displayName: t('label.customValue'),
                         value: '$dynamic',
                     },
-
                     {
                         displayName: t('label.valueConverting'),
                         value: '$valueConverting',
                     },
-                    {
-                        displayName: t('label.urlTemplate'),
-                        value: '$urlTemplate',
-                    },
+                    ...(hasReferenceTemplate
+                        ? [
+                              {
+                                  displayName: t('label.urlTemplate'),
+                                  value: '$urlTemplate',
+                              },
+                          ]
+                        : []),
                     ...props.selectables,
                 ]}
                 disabled={props.disabled}
@@ -91,7 +97,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                             setDynamicValue('');
                             props.onChange('');
                         }
-                    } else if (value === '$urlTemplate') {
+                    } else if (value === '$urlTemplate' && hasReferenceTemplate) {
                         if (props.onTypeChange) {
                             props.onTypeChange(Type.URL_TEMPLATE);
                         }
@@ -152,7 +158,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     name={props.name}
                 />
             )}
-            {selectValue === '$urlTemplate' && (
+            {hasReferenceTemplate && selectValue === '$urlTemplate' && (
                 <UrlTemplateBuilder
                     fieldState={props.fieldState}
                     disabled={props.disabled}
@@ -160,7 +166,8 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     referenceTemplate={props.referenceTemplate}
                 />
             )}
-            {selectValue &&
+            {hasReferenceTemplate &&
+                selectValue &&
                 selectValue !== '$urlTemplate' &&
                 selectValue !== '$dynamic' &&
                 selectValue !== '$valueConverting' && (
