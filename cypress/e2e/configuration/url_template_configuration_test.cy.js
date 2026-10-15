@@ -148,5 +148,89 @@ describe('URL template in configuration', () => {
                 '/arkiv/noark/arkivressurs/kildesystemid/'
             );
         });
+
+        it('should submit the full referenceTemplate URL with selected identifiers', () => {
+            navigateToNewConfiguration();
+            cy.wait('@getArchiveTemplateWithReferences');
+            openNewCasePanel();
+
+            cy.get(saksansvarligField).click();
+            cy.get(`${saksansvarligField}-filtered-options`)
+                .contains('[role="option"]', 'URL-mal')
+                .click();
+
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');
+            cy.get(`[id="${saksansvarligName}-identifier-value"]`).type('test123');
+            cy.get(`[data-testid="${saksansvarligName}-url-preview"]`).should(
+                'contain.text',
+                '/arkiv/noark/arkivressurs/systemid/test123'
+            );
+
+            cy.get('#form-submit-btn').click();
+
+            cy.wait('@postConfiguration').then((interception) => {
+                expect(interception.request.body).to.deep.include({
+                    completed: false,
+                    integrationId: null,
+                    integrationMetadataId: 4,
+                });
+                expect(
+                    interception.request.body.mapping.objectMappingPerKey.newCase.valueMappingPerKey
+                        .saksansvarlig
+                ).to.deep.equal({
+                    mappingString:
+                        'http://fint-arkiv-adapter-simulator:9090/arkiv/noark/arkivressurs/systemid/test123',
+                    type: 'URL_TEMPLATE',
+                });
+            });
+        });
+
+        it('should show error when identifier type or value is missing', () => {
+            navigateToNewConfiguration();
+            cy.wait('@getArchiveTemplateWithReferences');
+            openNewCasePanel();
+
+            cy.get(saksansvarligField).click();
+            cy.get(`${saksansvarligField}-filtered-options`)
+                .contains('[role="option"]', 'URL-mal')
+                .click();
+
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');
+
+            // Missing identifier value
+            cy.get(`[id="${saksansvarligName}-identifier-value"]`).should('have.value', '');
+            cy.get('#form-submit-btn').click();
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
+                .find('[data-testid="error-message"]')
+                .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
+            cy.get('@postConfiguration.all').should('have.length', 0);
+
+            // Missing identifier type
+            cy.get(`[id="${saksansvarligName}-identifier-value"]`).type('test123');
+            cy.get(`[id="${saksansvarligName}-identifier-type"]`).click();
+            cy.get(`[id="${saksansvarligName}-identifier-type-filtered-options"]`)
+                .contains('[role="option"]', 'systemid')
+                .click();
+            cy.get(`[data-testid="${saksansvarligName}-url-preview"]`).should(
+                'contain.text',
+                '/arkiv/noark/arkivressurs//test123'
+            );
+            cy.get('#form-submit-btn').click();
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
+                .find('[data-testid="error-message"]')
+                .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
+            cy.get('@postConfiguration.all').should('have.length', 0);
+
+            // Fix error and allow submission
+            cy.get(`[id="${saksansvarligName}-identifier-type"]`).click();
+            cy.get(`[id="${saksansvarligName}-identifier-type-filtered-options"]`)
+                .contains('[role="option"]', 'systemid')
+                .should('be.visible')
+                .click();
+
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
+                .find('[data-testid="error-message"]')
+                .should('not.exist');
+        });
     });
 });

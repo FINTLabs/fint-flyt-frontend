@@ -164,6 +164,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     disabled={props.disabled}
                     name={props.name}
                     referenceTemplate={props.referenceTemplate}
+                    onChange={props.onChange ?? undefined}
                 />
             )}
             {hasReferenceTemplate &&

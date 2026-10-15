@@ -50,9 +50,29 @@ describe('it shpuld validate format', () => {
         expect(hasValidFormat('SomeValue', ValueType.STRING, true)).toBe(true);
     });
 
-    it('should return true for valid URL value', () => {
-        expect(hasValidFormat('https://example.com', ValueType.URL_TEMPLATE, true)).toBe(true);
+    it('should validate URL_TEMPLATE values regardless of completeCheck', () => {
+        expect(
+            hasValidFormat(
+                'http://example.com/arkiv/ressurs/systemid/test123',
+                ValueType.URL_TEMPLATE,
+                false
+            )
+        ).toBe(true);
+        expect(
+            hasValidFormat(
+                'http://example.com/arkiv/ressurs/systemid/',
+                ValueType.URL_TEMPLATE,
+                false
+            )
+        ).toBe(false);
+        expect(
+            hasValidFormat(
+                'http://example.com/arkiv/ressurs//test123',
+                ValueType.URL_TEMPLATE,
+                true
+            )
+        ).toBe(false);
+        expect(hasValidFormat('', ValueType.URL_TEMPLATE, false)).toBe(false);
+        expect(hasValidFormat(undefined, ValueType.URL_TEMPLATE, true)).toBe(false);
     });
-
-
 })
