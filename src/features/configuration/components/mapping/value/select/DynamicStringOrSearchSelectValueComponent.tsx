@@ -5,11 +5,13 @@ import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
 
-import { ValueType as MetadataValueType } from '../../../types/Metadata/IntegrationMetadata';
-import { ISelectable } from '../../../types/Selectable';
-import configurationStyles from '../../styles/configuration.module.css';
-import SearchSelectValueComponent from './select/SearchSelectValueComponent';
-import DynamicChipComponent from './string/DynamicChipComponent';
+import { ValueType as MetadataValueType } from '../../../../types/Metadata/IntegrationMetadata';
+import { ISelectable } from '../../../../types/Selectable';
+import configurationStyles from '../../../styles/configuration.module.css';
+import SearchSelectValueComponent from './SearchSelectValueComponent';
+import DynamicChipComponent from '../string/DynamicChipComponent';
+import UrlTemplateBuilder from './urlTemplateBuilder/UrlTemplateBuilder';
+import { IReferenceTemplate } from '../../../../types/FormTemplate';
 
 interface Props {
     displayName: string;
@@ -23,10 +25,12 @@ interface Props {
     name: string;
     value: string | null;
     fieldState: ControllerFieldState | undefined;
+    referenceTemplate?: IReferenceTemplate | null;
 }
 
 export enum Type {
     SELECT,
+    URL_TEMPLATE,
     DYNAMIC,
     VALUE_CONVERTING,
 }
@@ -65,9 +69,14 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                         displayName: t('label.customValue'),
                         value: '$dynamic',
                     },
+
                     {
                         displayName: t('label.valueConverting'),
                         value: '$valueConverting',
+                    },
+                    {
+                        displayName: t('label.urlTemplate'),
+                        value: '$urlTemplate',
                     },
                     ...props.selectables,
                 ]}
@@ -77,6 +86,14 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     if (value === '$dynamic') {
                         if (props.onTypeChange) {
                             props.onTypeChange(Type.DYNAMIC);
+                        }
+                        if (props.onChange) {
+                            setDynamicValue('');
+                            props.onChange('');
+                        }
+                    } else if (value === '$urlTemplate') {
+                        if (props.onTypeChange) {
+                            props.onTypeChange(Type.URL_TEMPLATE);
                         }
                         if (props.onChange) {
                             setDynamicValue('');
@@ -135,6 +152,26 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     name={props.name}
                 />
             )}
+            {selectValue === '$urlTemplate' && (
+                <UrlTemplateBuilder
+                    fieldState={props.fieldState}
+                    disabled={props.disabled}
+                    name={props.name}
+                    referenceTemplate={props.referenceTemplate}
+                />
+            )}
+            {selectValue &&
+                selectValue !== '$urlTemplate' &&
+                selectValue !== '$dynamic' &&
+                selectValue !== '$valueConverting' && (
+                    <UrlTemplateBuilder
+                        fieldState={props.fieldState}
+                        disabled={true}
+                        name={props.name}
+                        referenceTemplate={props.referenceTemplate}
+                        selectedValue={selectValue}
+                    />
+                )}
         </VStack>
     );
 });

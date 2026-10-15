@@ -74,6 +74,7 @@
             "label": {
                 "valueConverting": "Verdikonvertering",
                 "customValue": "Egendefinert verdi",
+                "urlTemplate": "URL-mal",
                 "checkLabel": "Ferdigstilt",
                 "activeLabel": "Sett som aktiv",
                 "placeholder": "Skriv eller trekk inn fra metadata",

@@ -1,18 +1,18 @@
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { Control } from 'react-hook-form/dist/types/form';
 
 import { AdapterResponse } from '../../../shared/api/ApiAdapterContext';
 import useResourceRepository from '../../../shared/api/useResourceRepository';
 import { sortSelectables } from '../../../shared/util/selectableUtils';
-import { IUrlBuilder } from '../types/FormTemplate';
+import { ISelectablesSources } from '../types/FormTemplate';
 import { ApiSelectableResource, ISelectable } from '../types/Selectable';
 import { createSource, createValueRefPerAbsoluteKey, Source } from '../util/urlUtils';
 
 export const useSelectables = (
     control: Control,
     staticSelectables: ISelectable[] = [],
-    sourceUrlBuilders: IUrlBuilder[] = [],
+    selectablesSources: ISelectablesSources[] = [],
     absoluteKey: string
 ) => {
     const ResourceRepository = useResourceRepository();
@@ -20,56 +20,49 @@ export const useSelectables = (
     const [selectables, setSelectables] = useState<ISelectable[]>(staticSelectables);
 
     const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
-        sourceUrlBuilders,
+        selectablesSources,
         absoluteKey
     );
     const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey);
     const watchedValues: any[] = useWatch({ control, name: absoluteKeys });
 
-    const updateSelectables = useCallback(
-        (
-            staticSelectables: ISelectable[],
-            sourceUrlBuilders: IUrlBuilder[],
-            valuePerValueRef: Record<string, string>,
-            setSelectables: Dispatch<SetStateAction<ISelectable[]>>
-        ) => {
-            const sources: Source[] = sourceUrlBuilders
-                .map((urlBuilder) => createSource(urlBuilder, valuePerValueRef))
-                .filter((source): source is Source => !!source);
-
-            getSelectables(sources).then((result: ISelectable[]) => {
-                setSelectables([...staticSelectables, ...result]);
-            });
+    const fetchSelectablesFromSources = useCallback(
+        async (sources: Source[]): Promise<ISelectable[]> => {
+            try {
+                const selectablesPerSource: ISelectable[][] = await Promise.all(
+                    sources.map((source) =>
+                        ResourceRepository.getSelectables('/' + source.url, source.config)
+                            .then((response: AdapterResponse<ApiSelectableResource[]>) =>
+                                sortSelectables(response.data)
+                            )
+                            .catch(() => [])
+                    )
+                );
+                return selectablesPerSource
+                    .filter((selectables) => selectables && selectables.length > 0)
+                    .flat();
+            } catch (err) {
+                console.error(err);
+                return [];
+            }
         },
         []
     );
 
-    const getSelectables = useCallback(async (sources: Source[]): Promise<ISelectable[]> => {
-        try {
-            const selectablesPerSource: ISelectable[][] = await Promise.all(
-                sources.map((source) =>
-                    ResourceRepository.getSelectables('/' + source.url, source.config)
-                        .then((response: AdapterResponse<ApiSelectableResource[]>) =>
-                            sortSelectables(response.data)
-                        )
-                        .catch(() => [])
-                )
-            );
-            return selectablesPerSource
-                .filter((selectables) => selectables && selectables.length > 0)
-                .flat();
-        } catch (err) {
-            console.error(err);
-            return [];
-        }
-    }, []);
-
     useEffect(() => {
         const valuePerValueRef: Record<string, any> = {};
-        Array.from(Array(absoluteKeys.length).keys()).forEach(
-            (i) => (valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = watchedValues[i])
-        );
-        updateSelectables(staticSelectables, sourceUrlBuilders, valuePerValueRef, setSelectables);
+        absoluteKeys.forEach((key, i) => {
+            valuePerValueRef[valueRefPerAbsoluteKey[key]] = watchedValues[i];
+        });
+
+        const sources: Source[] = selectablesSources
+            .map((selectableSource) => createSource(selectableSource, valuePerValueRef))
+            .filter((source): source is Source => !!source);
+
+        fetchSelectablesFromSources(sources).then((result: ISelectable[]) => {
+            setSelectables([...staticSelectables, ...result]);
+        });
     }, [watchedValues]);
+
     return selectables;
 };

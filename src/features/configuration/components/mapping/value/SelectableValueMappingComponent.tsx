@@ -13,7 +13,7 @@ import { hasValidFormat } from '../../../util/validationUtil';
 import configurationInputStyles from '../../styles/configuration.module.css';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
-} from './DynamicStringOrSearchSelectValueComponent';
+} from './select/DynamicStringOrSearchSelectValueComponent';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import SelectValueComponent from './select/SelectValueComponent';
 
@@ -60,6 +60,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
         switch (configurationType) {
             case ConfigurationValueType.STRING:
                 return DynamicStringOrSearchSelectType.SELECT;
+            case ConfigurationValueType.URL_TEMPLATE:
+                return DynamicStringOrSearchSelectType.URL_TEMPLATE;
             case ConfigurationValueType.DYNAMIC_STRING:
                 return DynamicStringOrSearchSelectType.DYNAMIC;
             case ConfigurationValueType.VALUE_CONVERTING:
@@ -79,6 +81,8 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                 return ConfigurationValueType.DYNAMIC_STRING;
             case DynamicStringOrSearchSelectType.VALUE_CONVERTING:
                 return ConfigurationValueType.VALUE_CONVERTING;
+            case DynamicStringOrSearchSelectType.URL_TEMPLATE:
+                return ConfigurationValueType.URL_TEMPLATE;
             default:
                 throw new Error('Invalid dynamicStringOrSearchSelectType');
         }
@@ -136,6 +140,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                                 displayName={props.displayName}
                                 description={props.description}
                                 selectables={selectables}
+                                referenceTemplate={props.template.referenceTemplate}
                                 fieldState={fieldState}
                                 initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
                                     getValues(typeAbsoluteKey)

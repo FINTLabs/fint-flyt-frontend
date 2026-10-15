@@ -51,7 +51,7 @@ describe('it shpuld validate format', () => {
     });
 
     it('should return true for valid URL value', () => {
-        expect(hasValidFormat('https://example.com', ValueType.URL, true)).toBe(true);
+        expect(hasValidFormat('https://example.com', ValueType.URL_TEMPLATE, true)).toBe(true);
     });
 
 
