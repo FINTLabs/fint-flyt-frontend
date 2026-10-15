@@ -15,10 +15,12 @@ import {
     mappingStringToValueArray,
     valueArrayToMappingString,
 } from '../../../../util/valueFieldUtils';
+import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
 import configurationStyles from '../../../styles/configuration.module.css';
 
 export interface Props {
     displayName?: string;
+    description?: string;
     search?: Search;
     accept: ValueType[];
     disabled?: boolean;
@@ -329,7 +331,10 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 >
                     {props.displayName ? (
                         <Label htmlFor={absoluteKey} size="small">
-                            {props.displayName}
+                            <DisplayNameWithHelpText
+                                displayName={props.displayName}
+                                description={props.description}
+                            />
                         </Label>
                     ) : null}
                     <div className={configurationStyles.chipInputShell}>

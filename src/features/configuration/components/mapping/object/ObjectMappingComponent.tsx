@@ -39,7 +39,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         Record<string, boolean>
     >({});
 
-    // Value/selectable fields: hide + unregister when showDependency is not satisfied
     [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
@@ -56,7 +55,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
             })
         );
 
-    // Nested objects/collections: hide + close nested panels when showDependency is not satisfied
     [
         ...(props.template.valueCollectionTemplates ?? []),
         ...(props.template.objectTemplates ?? []),
@@ -80,7 +78,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         );
 
     return (
-        <VStack gap={'4'}>
+        <VStack gap={'3'}>
             {[
                 ...(props.template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -146,7 +144,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         valueCollections: [
@@ -158,6 +155,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],
@@ -189,7 +187,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objects: [
@@ -201,6 +198,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],
@@ -235,7 +233,6 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objectCollections: [
@@ -247,6 +244,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],

@@ -144,7 +144,10 @@ describe('Testing fill, validate and complete new configuration', () => {
                                     type: 'VALUE_CONVERTING',
                                 },
                                 tittel: { mappingString: '$if{test}', type: 'DYNAMIC_STRING' },
-                                arkivdel: { mappingString: '$if{testarkivdel}', type: 'DYNAMIC_STRING' },
+                                arkivdel: {
+                                    mappingString: '$if{testarkivdel}',
+                                    type: 'DYNAMIC_STRING',
+                                },
                             },
                         },
                     },

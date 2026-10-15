@@ -1,17 +1,11 @@
 .column {
     margin-top: 8px;
-    min-width: 416px;
-    max-width: 100%;
-    /* Allow children to shrink so contenteditable cannot force horizontal growth */
+    width: 416px;
     overflow-x: hidden;
 
     border-radius: var(--a-border-radius-large);
     border-color: var(--a-border-subtle);
     background-color: var(--a-surface-subtle);
-}
-
-.columnTitle {
-    margin-bottom: 8px;
 }
 
 .inputContainer {
@@ -20,8 +14,6 @@
 
 .input {
     --a-shadow-focus: 0 0 0 1px var(--a-border-focus);
-    /* --ac-textfield-border: var(--a-border-subtle); */
-    
     gap: var(--a-spacing-1);
 }
 
@@ -61,7 +53,6 @@
     background-color: lightgreen;
 }
 
-/* Outer shell: prevents contenteditable from expanding the form horizontally */
 .chipInputShell {
     width: 100%;
     max-width: 100%;
@@ -69,14 +60,12 @@
     overflow: hidden;
 }
 
-/* Multiline chip editor: width locked to parent, grows vertically */
 .chipInputBox {
     display: block;
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    /* Do not contribute intrinsic/min-content width to ancestors */
     contain: inline-size;
     min-height: calc(1.5em * 2 + 2 * var(--a-spacing-1));
     padding: var(--a-spacing-1) var(--a-spacing-2);
@@ -135,3 +124,6 @@
     user-select: none;
 }
 
+.toggleButton {
+ margin-top: var(--a-spacing-2);
+}

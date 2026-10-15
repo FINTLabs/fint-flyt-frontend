@@ -21,15 +21,17 @@ const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) =>
             borderWidth={'1'}
         >
             <VStack padding={'4'} gap={'2'}>
-                <HStack justify={'space-between'} align="center" className={configurationStyles.columnTitle}>
-                    <Heading size={'xsmall'}>{props.title}</Heading>
-                    {props.description && (
-                        <HelpText placement="top">
-                            {props.description}
-                        </HelpText>
-                    )}
-                </HStack>
-                {props.path.length > 0 && <PathComponent path={props.path} />}
+                <VStack>
+                    <HStack justify={'space-between'} align="center">
+                        <Heading size={'small'}>
+                            {props.title}
+                        </Heading>
+                        {props.description && (
+                            <HelpText placement="top">{props.description}</HelpText>
+                        )}
+                    </HStack>
+                    {props.path.length > 0 && <PathComponent path={props.path} />}
+                </VStack>
                 {props.content}
             </VStack>
         </Box>

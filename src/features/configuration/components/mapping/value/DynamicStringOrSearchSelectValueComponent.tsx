@@ -13,6 +13,7 @@ import DynamicChipComponent from './string/DynamicChipComponent';
 
 interface Props {
     displayName: string;
+    description?: string;
     selectables: ISelectable[];
     disabled?: boolean;
     initialType: Type;
@@ -58,6 +59,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         <VStack ref={ref} gap={'1'} className={configurationStyles.inputFullWidth}>
             <SearchSelectValueComponent
                 displayName={props.displayName}
+                description={props.description}
                 selectables={[
                     {
                         displayName: t('label.customValue'),

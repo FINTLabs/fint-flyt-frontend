@@ -11,10 +11,12 @@ import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
 import { SearchButton } from '../../../buttons/SearchButton';
+import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
 import configurationStyles from '../../../styles/configuration.module.css';
 
 interface Props {
     displayName?: string;
+    description?: string;
     search?: Search;
     accept: ValueType[];
     disabled?: boolean;
@@ -79,7 +81,14 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
                     size="small"
                     minRows={1}
                     maxRows={5}
-                    label={props.displayName}
+                    label={
+                        props.displayName ? (
+                            <DisplayNameWithHelpText
+                                displayName={props.displayName}
+                                description={props.description}
+                            />
+                        ) : undefined
+                    }
                     disabled={props.disabled}
                     onChange={(e: BaseSyntheticEvent) => {
                         if (props.onChange) {

@@ -5,11 +5,12 @@ import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 
 import { ISelectable } from '../../../../types/Selectable';
+import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
 import configurationStyles from '../../../styles/configuration.module.css';
 
 interface Props {
     displayName: string;
-    
+    description?: string;
     selectables: ISelectable[];
     disabled?: boolean;
     onChange?: (value: string | null) => void;
@@ -50,7 +51,12 @@ const SearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
                 id={absoluteKey}
                 ref={ref}
                 className={`${configurationStyles.input} ${configurationStyles.inputFullWidth}`}
-                label={props.displayName}
+                label={
+                    <DisplayNameWithHelpText
+                        displayName={props.displayName}
+                        description={props.description}
+                    />
+                }
                 size="small"
                 options={options}
                 selectedOptions={selectedOptions}

@@ -10,12 +10,12 @@ import { ValueType as ConfigurationValueType } from '../../../types/Configuratio
 import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
 import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
+import configurationInputStyles from '../../styles/configuration.module.css';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
 } from './DynamicStringOrSearchSelectValueComponent';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import SelectValueComponent from './select/SelectValueComponent';
-import configurationInputStyles from '../../styles/configuration.module.css';
 
 interface Props {
     order: number;
@@ -123,6 +123,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <SearchSelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 disabled={disabled}
                             />
@@ -133,6 +134,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <DynamicStringOrSearchSelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 fieldState={fieldState}
                                 initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
