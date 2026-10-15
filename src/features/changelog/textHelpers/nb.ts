@@ -7,6 +7,15 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: 'Oktober 2026',
+        updates: [
+            {
+                title: 'Oppdatert utforming i konfigurasjonsskjemaet:',
+                text: 'Feltene i konfigurasjonsskjemaet følger nå samme design som resten av Flyt. Skjemaet er mer konsistent å bruke, hjelpetekster er lettere å finne, og den universelle utformingen er forbedret.',
+            },
+        ],
+    },
+    {
         heading: 'September 2026',
         updates: [
             {

@@ -1,4 +1,3 @@
-import { FormatListNumbered } from '@mui/icons-material';
 import { Box, Heading, HelpText, HStack, Select, Tooltip, VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { useContext, useEffect, useMemo, useState } from 'react';
@@ -273,7 +272,6 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
                                         id={'tagTreeCollectionValues-' + index}
                                         title={objectCollectionMetadata.displayName}
                                         description={reference}
-                                        icon={<FormatListNumbered />}
                                         active={true}
                                     >
                                         <MetadataContent

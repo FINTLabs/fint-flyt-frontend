@@ -1,4 +1,4 @@
-import { Box, VStack } from '@navikt/ds-react';
+import { VStack } from '@navikt/ds-react';
 import * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
@@ -7,11 +7,13 @@ import { useTranslation } from 'react-i18next';
 
 import { ValueType as MetadataValueType } from '../../../types/Metadata/IntegrationMetadata';
 import { ISelectable } from '../../../types/Selectable';
+import configurationStyles from '../../styles/configuration.module.css';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import DynamicChipComponent from './string/DynamicChipComponent';
 
 interface Props {
     displayName: string;
+    description?: string;
     selectables: ISelectable[];
     disabled?: boolean;
     initialType: Type;
@@ -54,9 +56,10 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     }, []);
 
     return (
-        <VStack ref={ref} gap={'1'}>
+        <VStack ref={ref} gap={'1'} className={configurationStyles.inputFullWidth}>
             <SearchSelectValueComponent
                 displayName={props.displayName}
+                description={props.description}
                 selectables={[
                     {
                         displayName: t('label.customValue'),

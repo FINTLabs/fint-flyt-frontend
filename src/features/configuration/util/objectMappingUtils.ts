@@ -6,7 +6,7 @@ import {
     ISelectableValueTemplate,
     IValueTemplate,
 } from '../types/FormTemplate';
-import { DependencySatisfiedStatefulValue } from './dependencyUtils';
+import { useDependencySatisfied } from './dependencyUtils';
 
 export function getValueMappingKey(
     absoluteKey: string,
@@ -52,6 +52,6 @@ export function isDisabledByConfig(
     elementConfig: IElementConfig
 ): boolean | undefined {
     return elementConfig.enableDependency
-        ? !DependencySatisfiedStatefulValue(absoluteKey, elementConfig.enableDependency)
+        ? !useDependencySatisfied(absoluteKey, elementConfig.enableDependency)
         : undefined;
 }

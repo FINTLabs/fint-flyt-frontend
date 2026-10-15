@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'October 2026',
+        updates: [
+            {
+                title: 'Updated design in the configuration form:',
+                text: 'Fields in the configuration form now follow the same design as the rest of Flyt. The form is more consistent to use, help texts are easier to find, and accessibility has been improved.',
+            },
+        ],
+    },
+    {
         heading: 'September 2026',
         updates: [
             {

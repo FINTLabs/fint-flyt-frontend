@@ -32,6 +32,10 @@ export const EXPECTED_MAPPING = {
                 "saksstatus": {
                     "mappingString": "https://kodeverk.no/arkiv/noark/systemid/OESMU",
                     "type": "STRING"
+                },
+                "tilgangsgruppe": {
+                    "mappingString": "https://kodeverk.no/arkiv/noark/systemid/FJELL",
+                    "type": "STRING"
                 }
             },
             "valueCollectionMappingPerKey": {},
