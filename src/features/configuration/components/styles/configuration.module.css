@@ -1,6 +1,9 @@
 .column {
     margin-top: 8px;
     min-width: 416px;
+    max-width: 100%;
+    /* Allow children to shrink so contenteditable cannot force horizontal growth */
+    overflow-x: hidden;
 
     border-radius: var(--a-border-radius-large);
     border-color: var(--a-border-subtle);
@@ -34,12 +37,16 @@
 
 .inputFullWidth {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .inputFullWidth :global(.navds-form-field),
 .inputFullWidth :global(.navds-text-field__input),
 .inputFullWidth :global(.navds-textarea__input) {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .dynamicInput :global(.navds-textarea__input) {
@@ -53,3 +60,78 @@
 .dynamicInputActive :global(.navds-textarea__input) {
     background-color: lightgreen;
 }
+
+/* Outer shell: prevents contenteditable from expanding the form horizontally */
+.chipInputShell {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Multiline chip editor: width locked to parent, grows vertically */
+.chipInputBox {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    /* Do not contribute intrinsic/min-content width to ancestors */
+    contain: inline-size;
+    min-height: calc(1.5em * 2 + 2 * var(--a-spacing-1));
+    padding: var(--a-spacing-1) var(--a-spacing-2);
+    border: 1px solid var(--a-border-default);
+    border-radius: var(--a-border-radius-medium);
+    background-color: var(--a-surface-default);
+    cursor: text;
+    font-size: var(--a-font-size-medium);
+    line-height: 1.50;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-x: hidden;
+    outline: none;
+}
+
+.chipInputBox:focus {
+    border-color: var(--a-border-focus);
+    box-shadow: var(--a-shadow-focus);
+}
+
+.chipInputBox[contenteditable='false'] {
+    cursor: not-allowed;
+}
+
+.chipInputCanDrop {
+    background-color: lightblue;
+}
+
+.chipInputActive {
+    background-color: lightgreen;
+}
+
+.chipInputError {
+    border-color: var(--a-border-danger);
+}
+
+.chipInputEmpty::before {
+    content: attr(data-placeholder);
+    color: var(--a-text-subtle);
+    pointer-events: none;
+}
+
+:global(.chipTag) {
+    display: inline-block;
+    vertical-align: baseline;
+    font: inherit;
+    line-height: 1.25;
+    max-width: 100%;
+    margin-inline: 0.05em;
+    padding-block: 0;
+    padding-inline: 0.25em;
+    border-radius: 3px;
+    white-space: nowrap;
+    user-select: none;
+}
+

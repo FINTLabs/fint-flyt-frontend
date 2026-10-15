@@ -109,7 +109,8 @@ describe('Testing fill new configuration', () => {
         cy.get(`${newCaseClassificationFields}\\.rekkefolge\\.mappingString`).type('0');
         cy.get(`${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString`).click();
         cy.get(
-            `${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString-filtered-options`)
+            `${newCaseClassificationFields}\\.klassifikasjonssystem\\.mappingString-filtered-options`
+        )
             .contains('[role="option"]', 'Fjellnettverkett')
             .click();
         cy.get(`${newCaseClassificationFields}\\.klasseId\\.mappingString`).click();
@@ -166,13 +167,11 @@ describe('Testing fill new configuration', () => {
             .click();
 
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0 > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        )
-            .type('$if{saksparter}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.korrespondansepart\\.fromCollectionMappings\\.0\\.instanceCollectionReferencesOrdered\\.0'
+        ).type('$if{saksparter}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
 
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString`).click();
         cy.get(`${correspondentFields}\\.korrespondanseparttype\\.mappingString-filtered-options`)
@@ -216,16 +215,15 @@ describe('Testing fill new configuration', () => {
         ).click();
         cy.get(
             '#mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString-filtered-options'
-        ).contains('[role="option"]', 'Verdikonvertering')
+        )
+            .contains('[role="option"]', 'Verdikonvertering')
             .click();
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        )
-            .type('$vc{1}$if{bnr}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.objectCollectionMappingPerKey\\.journalpost\\.elementMappings\\.0\\.objectCollectionMappingPerKey\\.dokumentbeskrivelse\\.elementMappings\\.0\\.valueMappingPerKey\\.dokumentstatus\\.mappingString'
+        ).type('$vc{1}$if{bnr}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
         cy.get('#form-submit-btn').click();
         cy.wait('@postConfiguration').its('request.body').should('deep.equal', {
             completed: false,
@@ -303,40 +301,36 @@ describe('Testing fill, save and complete new configuration', () => {
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).type('test');
 
-        const saksmappetypeChip =
+        const saksmappetypeDynamicChipInput =
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString';
-        const arkivdelChip =
+        const arkivdelDynamicChipInput =
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString';
 
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
             .contains('[role="option"]', 'Egendefinert verdi')
             .click();
-        cy.get(saksmappetypeChip).should('be.visible');
-        cy.get(
-            `${saksmappetypeChip} > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root`
-        )
+        cy.get(saksmappetypeDynamicChipInput).should('be.visible');
+        cy.get(`${saksmappetypeDynamicChipInput}`)
             .type('$if{bnr}', {
                 parseSpecialCharSequences: false,
                 delay: 0,
             })
-            .type('{enter}');
-        cy.get(saksmappetypeChip).find('.MuiChip-label').should('have.text', '$if{bnr}');
+        cy.get(saksmappetypeDynamicChipInput).find('.chipTag').should('have.text', '$if{bnr}');
 
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click();
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-filtered-options`)
             .contains('[role="option"]', 'Verdikonvertering')
             .click();
-        cy.get(arkivdelChip).should('be.visible');
-        cy.get(
-            `${arkivdelChip} > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root`
-        )
+        cy.get(arkivdelDynamicChipInput).should('be.visible');
+        cy.get(`${arkivdelDynamicChipInput}`)
             .type('$vc{1}$if{bnr}', {
                 parseSpecialCharSequences: false,
                 delay: 0,
             })
-            .type('{enter}');
-        cy.get(arkivdelChip).find('.MuiChip-label').should('have.text', '$vc{1}$if{bnr}');
+        cy.get(arkivdelDynamicChipInput)
+            .find('.chipTag')
+            .should('have.text', '$vc{1}$if{bnr}');
 
         cy.get('#form-submit-btn').click();
         cy.wait('@postConfiguration')

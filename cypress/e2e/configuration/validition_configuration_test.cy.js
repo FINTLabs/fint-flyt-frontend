@@ -54,25 +54,32 @@ describe('Testing fill, validate and complete new configuration', () => {
             delay: 0,
         });
         cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-option-1`).click();
+
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`).should(
+            'be.visible'
+        );
+        cy.get(`${newCaseFields}\\.saksmappetype\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Verdikonvertering')
+            .click();
+
         cy.get(`${newCaseFields}\\.arkivdel\\.mappingString`).click();
-        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-option-0`).click();
+        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-filtered-options`).should('be.visible');
+        cy.get(`${newCaseFields}\\.arkivdel\\.mappingString-filtered-options`)
+            .contains('[role="option"]', 'Egendefinert verdi')
+            .click();
+
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root'
-        )
-            .type('$if{feil}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString'
+        ).type('$if{feil}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root'
-        )
-            .type('$vc{1}$if{testy}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString'
+        ).type('$vc{1}$if{testy}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
         cy.get('#comment').type('kommentar', { delay: 0 });
         cy.get('#form-complete').click();
         cy.get('#form-submit-btn').click();
@@ -81,16 +88,14 @@ describe('Testing fill, validate and complete new configuration', () => {
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
         ).should('contain.text', 'Feltet oppfyller ikke påkrevd format');
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString'
         ).type('{backspace}');
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        )
-            .type('$vc{1}$if{ikke_feil}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.saksmappetype\\.mappingString'
+        ).type('$vc{1}$if{ikke_feil}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
 
         cy.get(
             '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.tittel\\.mappingString'
@@ -108,16 +113,14 @@ describe('Testing fill, validate and complete new configuration', () => {
             .find('[data-testid="error-message"]')
             .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        ).type('{backspace}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString'
+        ).clear();
         cy.get(
-            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString > .MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root'
-        )
-            .type('$if{testy}', {
-                parseSpecialCharSequences: false,
-                delay: 0,
-            })
-            .type('{enter}');
+            '#dnd-value-component-mapping\\.objectMappingPerKey\\.newCase\\.valueMappingPerKey\\.arkivdel\\.mappingString'
+        ).type('$if{testarkivdel}', {
+            parseSpecialCharSequences: false,
+            delay: 0,
+        });
 
         cy.get('#form-submit-btn').click();
 
@@ -141,7 +144,7 @@ describe('Testing fill, validate and complete new configuration', () => {
                                     type: 'VALUE_CONVERTING',
                                 },
                                 tittel: { mappingString: '$if{test}', type: 'DYNAMIC_STRING' },
-                                arkivdel: { mappingString: '$if{testy}', type: 'DYNAMIC_STRING' },
+                                arkivdel: { mappingString: '$if{testarkivdel}', type: 'DYNAMIC_STRING' },
                             },
                         },
                     },

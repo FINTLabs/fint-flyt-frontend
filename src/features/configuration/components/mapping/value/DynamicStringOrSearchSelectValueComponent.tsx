@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { ValueType as MetadataValueType } from '../../../types/Metadata/IntegrationMetadata';
 import { ISelectable } from '../../../types/Selectable';
+import configurationStyles from '../../styles/configuration.module.css';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import DynamicChipComponent from './string/DynamicChipComponent';
 
@@ -54,7 +55,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     }, []);
 
     return (
-        <VStack ref={ref} gap={'1'}>
+        <VStack ref={ref} gap={'1'} className={configurationStyles.inputFullWidth}>
             <SearchSelectValueComponent
                 displayName={props.displayName}
                 selectables={[
