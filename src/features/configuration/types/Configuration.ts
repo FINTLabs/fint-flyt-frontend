@@ -19,7 +19,7 @@ export interface IConfigurationPatch {
 
 export enum ValueType {
     STRING = 'STRING',
-    URL = 'URL',
+    URL_TEMPLATE = 'URL_TEMPLATE',
     BOOLEAN = 'BOOLEAN',
     DYNAMIC_STRING = 'DYNAMIC_STRING',
     FILE = 'FILE',

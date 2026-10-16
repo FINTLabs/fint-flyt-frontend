@@ -3,7 +3,6 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '../../../../shared/components/icons';
-import configurationStyles from '../styles/configuration.module.css';
 
 interface Props {
     order: number;
@@ -45,10 +44,7 @@ const ToggleElementButton: React.FunctionComponent<Props> = (props: Props) => {
     }, [selectedState]);
 
     return (
-        <div
-            id={'toggle-button-' + displayName + '-' + props.order}
-            className={configurationStyles.toggleButton}
-        >
+        <div id={'toggle-button-' + displayName + '-' + props.order}>
             <Button
                 id={'toggle-panel-button'}
                 type="button"

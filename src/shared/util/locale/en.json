@@ -72,6 +72,7 @@
             "label": {
                 "valueConverting": "Value converting",
                 "customValue": "Custom value",
+                "urlTemplate": "URL template",
                 "checkLabel": "Completed",
                 "activeLabel": "Set as active",
                 "placeholder": "Write or drag and drop from metadata",

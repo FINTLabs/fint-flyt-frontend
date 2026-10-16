@@ -1,6 +1,6 @@
 import { Box } from '@navikt/ds-react';
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { ConfigurationContext } from '../../../context/ConfigurationContext';
@@ -9,11 +9,15 @@ import { useSelectables } from '../../../hooks/useSelectables';
 import { ValueType as ConfigurationValueType } from '../../../types/Configuration';
 import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
 import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
+import {
+    ResolvedSelectableInputType,
+    resolveSelectableInputType,
+} from '../../../util/urlTemplateUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
 import configurationInputStyles from '../../styles/configuration.module.css';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
-} from './DynamicStringOrSearchSelectValueComponent';
+} from './select/DynamicStringOrSearchSelectValueComponent';
 import SearchSelectValueComponent from './select/SearchSelectValueComponent';
 import SelectValueComponent from './select/SelectValueComponent';
 
@@ -24,6 +28,33 @@ interface Props {
     description: string;
     template: ISelectableValueTemplate;
     disabled?: boolean;
+}
+
+function toDynamicStringOrSearchSelectType(
+    resolved: ResolvedSelectableInputType
+): DynamicStringOrSearchSelectType {
+    return DynamicStringOrSearchSelectType[resolved];
+}
+
+function toStoredConfigurationType(type: DynamicStringOrSearchSelectType): ConfigurationValueType {
+    switch (type) {
+        case DynamicStringOrSearchSelectType.SELECT:
+        case DynamicStringOrSearchSelectType.URL_TEMPLATE:
+            return ConfigurationValueType.STRING;
+        case DynamicStringOrSearchSelectType.DYNAMIC:
+            return ConfigurationValueType.DYNAMIC_STRING;
+        case DynamicStringOrSearchSelectType.VALUE_CONVERTING:
+            return ConfigurationValueType.VALUE_CONVERTING;
+        default:
+            throw new Error('Invalid dynamicStringOrSearchSelectType');
+    }
+}
+
+function toValidationType(type: DynamicStringOrSearchSelectType): ConfigurationValueType {
+    if (type === DynamicStringOrSearchSelectType.URL_TEMPLATE) {
+        return ConfigurationValueType.URL_TEMPLATE;
+    }
+    return toStoredConfigurationType(type);
 }
 
 const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) => {
@@ -39,54 +70,46 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
         absoluteKeySplit.slice(0, absoluteKeySplit.length - 2).join('.')
     );
     const typeAbsoluteKey: string = props.absoluteKey + '.type';
+    const mappingStringAbsoluteKey: string = props.absoluteKey + '.mappingString';
 
-    const initialType: { type: ConfigurationValueType; mappingString: string } = getValues(
-        props.absoluteKey
+    const storedType: ConfigurationValueType | undefined = getValues(typeAbsoluteKey);
+    const mappingString: string | null | undefined = getValues(mappingStringAbsoluteKey);
+
+    const resolvedInputType = useMemo(
+        () =>
+            resolveSelectableInputType(
+                storedType,
+                mappingString,
+                selectables,
+                props.template.referenceTemplate
+            ),
+        [storedType, mappingString, selectables, props.template.referenceTemplate]
     );
 
-    const [validationType, setValidationType] = useState<ConfigurationValueType>(
-        initialType ? initialType.type : ConfigurationValueType.STRING
-    );
+    const initialUiType = toDynamicStringOrSearchSelectType(resolvedInputType);
 
-    function setTypeIfUndefined(type: ConfigurationValueType) {
+    const [validationType, setValidationType] = useState<ConfigurationValueType>(() =>
+        toValidationType(initialUiType)
+    );
+    const userPickedMode = useRef(false);
+
+    useEffect(() => {
+        if (userPickedMode.current) {
+            return;
+        }
+        const next = toValidationType(initialUiType);
+        setValidationType((current) => (current === next ? current : next));
+    }, [initialUiType]);
+
+    useEffect(() => {
         if (!getValues(typeAbsoluteKey)) {
-            setValue(typeAbsoluteKey, type);
+            setValue(typeAbsoluteKey, ConfigurationValueType.STRING);
         }
-    }
-
-    function getDynamicStringOrSearchSelectTypeFromConfigurationType(
-        configurationType: ConfigurationValueType
-    ): DynamicStringOrSearchSelectType {
-        switch (configurationType) {
-            case ConfigurationValueType.STRING:
-                return DynamicStringOrSearchSelectType.SELECT;
-            case ConfigurationValueType.DYNAMIC_STRING:
-                return DynamicStringOrSearchSelectType.DYNAMIC;
-            case ConfigurationValueType.VALUE_CONVERTING:
-                return DynamicStringOrSearchSelectType.VALUE_CONVERTING;
-            default:
-                throw new Error('Invalid configurationValueType');
-        }
-    }
-
-    function getConfigurationTypeFromDynamicStringOrSearchSelectType(
-        dynamicStringOrSearchSelectType: DynamicStringOrSearchSelectType
-    ): ConfigurationValueType {
-        switch (dynamicStringOrSearchSelectType) {
-            case DynamicStringOrSearchSelectType.SELECT:
-                return ConfigurationValueType.STRING;
-            case DynamicStringOrSearchSelectType.DYNAMIC:
-                return ConfigurationValueType.DYNAMIC_STRING;
-            case DynamicStringOrSearchSelectType.VALUE_CONVERTING:
-                return ConfigurationValueType.VALUE_CONVERTING;
-            default:
-                throw new Error('Invalid dynamicStringOrSearchSelectType');
-        }
-    }
+    }, [getValues, setValue, typeAbsoluteKey]);
 
     return (
         <Controller
-            name={props.absoluteKey + '.mappingString'}
+            name={mappingStringAbsoluteKey}
             rules={{
                 validate: (value) => hasValidFormat(value, validationType, watch('completed')),
             }}
@@ -100,8 +123,6 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                     !!props.disabled ||
                     isOutsideCollectionEditContext(field.name, editCollectionAbsoluteKey) ||
                     completed;
-
-                setTypeIfUndefined(ConfigurationValueType.STRING);
 
                 let controlledInputElement: React.ReactElement;
 
@@ -136,22 +157,28 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                                 displayName={props.displayName}
                                 description={props.description}
                                 selectables={selectables}
+                                referenceTemplate={props.template.referenceTemplate}
                                 fieldState={fieldState}
-                                initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
-                                    getValues(typeAbsoluteKey)
+                                initialType={toDynamicStringOrSearchSelectType(
+                                    resolveSelectableInputType(
+                                        getValues(typeAbsoluteKey),
+                                        field.value,
+                                        selectables,
+                                        props.template.referenceTemplate
+                                    )
                                 )}
                                 onTypeChange={(type: DynamicStringOrSearchSelectType) => {
-                                    setValidationType(
-                                        getConfigurationTypeFromDynamicStringOrSearchSelectType(
-                                            type
-                                        )
+                                    userPickedMode.current = true;
+                                    const nextValidation = toValidationType(type);
+                                    setValidationType((current) =>
+                                        current === nextValidation ? current : nextValidation
                                     );
-                                    setValue(
-                                        typeAbsoluteKey,
-                                        getConfigurationTypeFromDynamicStringOrSearchSelectType(
-                                            type
-                                        )
-                                    );
+                                    if (
+                                        getValues(typeAbsoluteKey) !==
+                                        toStoredConfigurationType(type)
+                                    ) {
+                                        setValue(typeAbsoluteKey, toStoredConfigurationType(type));
+                                    }
                                 }}
                                 disabled={disabled}
                             />

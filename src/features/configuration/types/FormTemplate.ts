@@ -28,7 +28,7 @@ export enum ValueType {
 
 export interface IValueTemplate {
     type: ValueType;
-    search?: IUrlBuilder;
+    search?: ISelectablesSources;
 }
 
 export enum SelectableValueType {
@@ -40,7 +40,13 @@ export enum SelectableValueType {
 export interface ISelectableValueTemplate {
     type: SelectableValueType,
     selectables?: ISelectable[];
-    selectablesSources?: IUrlBuilder[];
+    selectablesSources?: ISelectablesSources[];
+    referenceTemplate?: IReferenceTemplate;
+}
+
+export interface IReferenceTemplate {
+    urlTemplate: string;
+    identifierTypes: string[];
 }
 
 export interface IObjectTemplate {
@@ -55,7 +61,7 @@ export interface ICollectionTemplate<T> {
     elementTemplate: T
 }
 
-export interface IUrlBuilder {
+export interface ISelectablesSources {
     urlTemplate: string;
     valueRefPerPathParamKey?: Record<string, string>
     valueRefPerRequestParamKey?: Record<string, string>;
