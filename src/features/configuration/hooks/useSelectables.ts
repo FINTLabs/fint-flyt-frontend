@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { Control } from 'react-hook-form/dist/types/form';
 
@@ -9,22 +9,33 @@ import { ISelectablesSources } from '../types/FormTemplate';
 import { ApiSelectableResource, ISelectable } from '../types/Selectable';
 import { createSource, createValueRefPerAbsoluteKey, Source } from '../util/urlUtils';
 
+const EMPTY_SELECTABLES: ISelectable[] = [];
+const EMPTY_SOURCES: ISelectablesSources[] = [];
+
 export const useSelectables = (
     control: Control,
-    staticSelectables: ISelectable[] = [],
-    selectablesSources: ISelectablesSources[] = [],
+    staticSelectables: ISelectable[] = EMPTY_SELECTABLES,
+    selectablesSources: ISelectablesSources[] = EMPTY_SOURCES,
     absoluteKey: string
 ) => {
     const ResourceRepository = useResourceRepository();
 
     const [selectables, setSelectables] = useState<ISelectable[]>(staticSelectables);
 
-    const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(
-        selectablesSources,
-        absoluteKey
+    const valueRefPerAbsoluteKey = useMemo(
+        () => createValueRefPerAbsoluteKey(selectablesSources, absoluteKey),
+        [selectablesSources, absoluteKey]
     );
-    const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey);
-    const watchedValues: any[] = useWatch({ control, name: absoluteKeys });
+    const absoluteKeys = useMemo(
+        () => Object.keys(valueRefPerAbsoluteKey),
+        [valueRefPerAbsoluteKey]
+    );
+    const watchedValues = useWatch({
+        control,
+        name: absoluteKeys,
+        disabled: absoluteKeys.length === 0,
+    });
+    const watchedValuesKey = JSON.stringify(watchedValues ?? null);
 
     const fetchSelectablesFromSources = useCallback(
         async (sources: Source[]): Promise<ISelectable[]> => {
@@ -38,31 +49,55 @@ export const useSelectables = (
                             .catch(() => [])
                     )
                 );
-                return selectablesPerSource
-                    .filter((selectables) => selectables && selectables.length > 0)
-                    .flat();
+                return selectablesPerSource.filter((items) => items && items.length > 0).flat();
             } catch (err) {
                 console.error(err);
                 return [];
             }
         },
-        []
+        [ResourceRepository]
     );
 
     useEffect(() => {
-        const valuePerValueRef: Record<string, any> = {};
+        const parsedWatchedValues: unknown[] = watchedValuesKey
+            ? (JSON.parse(watchedValuesKey) as unknown[])
+            : [];
+        const valuePerValueRef: Record<string, unknown> = {};
         absoluteKeys.forEach((key, i) => {
-            valuePerValueRef[valueRefPerAbsoluteKey[key]] = watchedValues[i];
+            valuePerValueRef[valueRefPerAbsoluteKey[key]] = parsedWatchedValues?.[i];
         });
 
         const sources: Source[] = selectablesSources
-            .map((selectableSource) => createSource(selectableSource, valuePerValueRef))
+            .map((selectableSource) =>
+                createSource(selectableSource, valuePerValueRef as Record<string, string>)
+            )
             .filter((source): source is Source => !!source);
 
+        let cancelled = false;
         fetchSelectablesFromSources(sources).then((result: ISelectable[]) => {
-            setSelectables([...staticSelectables, ...result]);
+            if (cancelled) {
+                return;
+            }
+            const next = [...staticSelectables, ...result];
+            setSelectables((current) =>
+                current.length === next.length &&
+                current.every((item, index) => item.value === next[index]?.value)
+                    ? current
+                    : next
+            );
         });
-    }, [watchedValues]);
+
+        return () => {
+            cancelled = true;
+        };
+    }, [
+        watchedValuesKey,
+        absoluteKeys,
+        valueRefPerAbsoluteKey,
+        selectablesSources,
+        staticSelectables,
+        fetchSelectablesFromSources,
+    ]);
 
     return selectables;
 };

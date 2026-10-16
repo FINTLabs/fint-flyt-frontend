@@ -1,17 +1,17 @@
 import { VStack } from '@navikt/ds-react';
 import * as React from 'react';
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 import { useTranslation } from 'react-i18next';
 
+import { IReferenceTemplate } from '../../../../types/FormTemplate';
 import { ValueType as MetadataValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ISelectable } from '../../../../types/Selectable';
 import configurationStyles from '../../../styles/configuration.module.css';
-import SearchSelectValueComponent from './SearchSelectValueComponent';
 import DynamicChipComponent from '../string/DynamicChipComponent';
+import SearchSelectValueComponent from './SearchSelectValueComponent';
 import UrlTemplateBuilder from './urlTemplateBuilder/UrlTemplateBuilder';
-import { IReferenceTemplate } from '../../../../types/FormTemplate';
 
 interface Props {
     displayName: string;
@@ -29,10 +29,10 @@ interface Props {
 }
 
 export enum Type {
-    SELECT,
-    URL_TEMPLATE,
-    DYNAMIC,
-    VALUE_CONVERTING,
+    SELECT = 'SELECT',
+    URL_TEMPLATE = 'URL_TEMPLATE',
+    DYNAMIC = 'DYNAMIC',
+    VALUE_CONVERTING = 'VALUE_CONVERTING',
 }
 
 const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> = forwardRef<
@@ -43,8 +43,12 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     const [dynamicValue, setDynamicValue] = useState<string>('');
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const hasReferenceTemplate = Boolean(props.referenceTemplate);
+    const userHasChangedType = useRef(false);
 
     useEffect(() => {
+        if (userHasChangedType.current) {
+            return;
+        }
         if (props.initialType === undefined || props.initialType === Type.SELECT) {
             setSelectValue(props.value);
         } else if (props.initialType === Type.DYNAMIC) {
@@ -60,7 +64,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
         } else if (props.initialType === Type.URL_TEMPLATE && hasReferenceTemplate) {
             setSelectValue('$urlTemplate');
         }
-    }, []);
+    }, [props.initialType, props.value, hasReferenceTemplate]);
 
     return (
         <VStack ref={ref} gap={'1'} className={configurationStyles.inputFullWidth}>
@@ -88,6 +92,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 ]}
                 disabled={props.disabled}
                 onChange={(value: string | null) => {
+                    userHasChangedType.current = true;
                     setSelectValue(value);
                     if (value === '$dynamic') {
                         if (props.onTypeChange) {
@@ -164,6 +169,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     disabled={props.disabled}
                     name={props.name}
                     referenceTemplate={props.referenceTemplate}
+                    selectedValue={props.value}
                     onChange={props.onChange ?? undefined}
                 />
             )}
@@ -173,6 +179,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 selectValue !== '$dynamic' &&
                 selectValue !== '$valueConverting' && (
                     <UrlTemplateBuilder
+                        key={selectValue}
                         fieldState={props.fieldState}
                         disabled={true}
                         name={props.name}

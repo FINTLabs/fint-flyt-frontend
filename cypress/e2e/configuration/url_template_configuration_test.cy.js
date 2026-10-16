@@ -147,6 +147,10 @@ describe('URL template in configuration', () => {
                 'contain.text',
                 '/arkiv/noark/arkivressurs/kildesystemid/'
             );
+
+            cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
+                .find('[data-testid="error-message"]')
+                .should('not.exist');
         });
 
         it('should submit the full referenceTemplate URL with selected identifiers', () => {
@@ -180,12 +184,12 @@ describe('URL template in configuration', () => {
                 ).to.deep.equal({
                     mappingString:
                         'http://fint-arkiv-adapter-simulator:9090/arkiv/noark/arkivressurs/systemid/test123',
-                    type: 'URL_TEMPLATE',
+                    type: 'STRING',
                 });
             });
         });
 
-        it('should show error when identifier type or value is missing', () => {
+        it('should show error when identifier value is missing', () => {
             navigateToNewConfiguration();
             cy.wait('@getArchiveTemplateWithReferences');
             openNewCasePanel();
@@ -196,8 +200,11 @@ describe('URL template in configuration', () => {
                 .click();
 
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');
+            cy.get(`[data-testid="${saksansvarligName}-url-preview"]`).should(
+                'contain.text',
+                '/arkiv/noark/arkivressurs/systemid/'
+            );
 
-            // Missing identifier value
             cy.get(`[id="${saksansvarligName}-identifier-value"]`).should('have.value', '');
             cy.get('#form-submit-btn').click();
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
@@ -205,28 +212,11 @@ describe('URL template in configuration', () => {
                 .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
             cy.get('@postConfiguration.all').should('have.length', 0);
 
-            // Missing identifier type
             cy.get(`[id="${saksansvarligName}-identifier-value"]`).type('test123');
-            cy.get(`[id="${saksansvarligName}-identifier-type"]`).click();
-            cy.get(`[id="${saksansvarligName}-identifier-type-filtered-options"]`)
-                .contains('[role="option"]', 'systemid')
-                .click();
             cy.get(`[data-testid="${saksansvarligName}-url-preview"]`).should(
                 'contain.text',
-                '/arkiv/noark/arkivressurs//test123'
+                '/arkiv/noark/arkivressurs/systemid/test123'
             );
-            cy.get('#form-submit-btn').click();
-            cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
-                .find('[data-testid="error-message"]')
-                .should('contain.text', 'Feltet oppfyller ikke påkrevd format');
-            cy.get('@postConfiguration.all').should('have.length', 0);
-
-            // Fix error and allow submission
-            cy.get(`[id="${saksansvarligName}-identifier-type"]`).click();
-            cy.get(`[id="${saksansvarligName}-identifier-type-filtered-options"]`)
-                .contains('[role="option"]', 'systemid')
-                .should('be.visible')
-                .click();
 
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`)
                 .find('[data-testid="error-message"]')

@@ -1,8 +1,14 @@
 import { Detail, ErrorMessage, HStack, TextField, UNSAFE_Combobox, VStack } from '@navikt/ds-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+
 import { IReferenceTemplate } from '../../../../../types/FormTemplate';
+import {
+    buildFullUrl,
+    buildUrlPreview,
+    extractIdentifiersFromValue,
+} from '../../../../../util/urlTemplateUtils';
 
 type Props = {
     fieldState: ControllerFieldState | undefined;
@@ -13,70 +19,18 @@ type Props = {
     onChange?: (value: string) => void;
 };
 
-export function buildFullUrl(
-    urlTemplate: string,
-    identifierType: string | undefined,
-    identifierValue: string
-): string {
-    return urlTemplate
-        .replaceAll('{identifierType}', identifierType ?? '')
-        .replaceAll('{identifierValue}', identifierValue);
-}
-
-function removeHostFromUrl(url: string): string {
-    return url.replace(/^https?:\/\/[^/]+/, '');
-}
-
-function templatePathToRegex(templatePath: string): string {
-    return templatePath
-        .replaceAll('{identifierType}', '<<<TYPE>>>')
-        .replaceAll('{identifierValue}', '<<<VALUE>>>')
-        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        .replaceAll('<<<TYPE>>>', '([^/]+)')
-        .replaceAll('<<<VALUE>>>', '([^/]+)');
-}
-
-export function extractIdentifiersFromValue(
-    selectedValue: string,
-    urlTemplate: string
-): { identifierType: string; identifierValue: string } | null {
-    const templatePath = removeHostFromUrl(urlTemplate);
-    const selectedPath = removeHostFromUrl(selectedValue);
-
-    const fullMatch = selectedPath.match(new RegExp(`^${templatePathToRegex(templatePath)}$`));
-    if (fullMatch) {
-        return { identifierType: fullMatch[1], identifierValue: fullMatch[2] };
+function getInitialIdentifiers(
+    selectedValue: string | null | undefined,
+    referenceTemplate?: IReferenceTemplate | null
+): { identifierType: string | undefined; identifierValue: string } {
+    const fallbackType = referenceTemplate?.identifierTypes?.[0];
+    if (selectedValue && referenceTemplate?.urlTemplate) {
+        const parsed = extractIdentifiersFromValue(selectedValue, referenceTemplate.urlTemplate);
+        if (parsed) {
+            return parsed;
+        }
     }
-
-    const identifierTypeIndex = templatePath.indexOf('{identifierType}');
-    if (identifierTypeIndex === -1) {
-        return null;
-    }
-    const suffix = templatePath.slice(identifierTypeIndex);
-    const identifiersMatch = selectedPath.match(
-        new RegExp(`${templatePathToRegex('/' + suffix)}$`)
-    );
-    if (identifiersMatch) {
-        return { identifierType: identifiersMatch[1], identifierValue: identifiersMatch[2] };
-    }
-
-    return null;
-}
-
-function buildUrlPreview(
-    urlTemplate: string | undefined,
-    identifierType: string | undefined,
-    identifierValue: string
-): string {
-    if (!urlTemplate) {
-        return '';
-    }
-
-    const path = removeHostFromUrl(urlTemplate);
-
-    return path
-        .replaceAll('{identifierType}', identifierType ?? '')
-        .replaceAll('{identifierValue}', identifierValue);
+    return { identifierType: fallbackType, identifierValue: '' };
 }
 
 const UrlTemplateBuilder = ({
@@ -89,56 +43,43 @@ const UrlTemplateBuilder = ({
 }: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const identifierTypes = referenceTemplate?.identifierTypes ?? [];
-    const [selectedIdentifierType, setSelectedIdentifierType] = useState<string | undefined>(
-        identifierTypes[0]
+
+    const initial = useMemo(
+        () => getInitialIdentifiers(selectedValue, referenceTemplate),
+        // Only on mount or when urlTemplate identity changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [referenceTemplate?.urlTemplate]
     );
-    const [identifierValue, setIdentifierValue] = useState('');
-    const lastEmittedUrl = useRef<string | null>(null);
-    const hasError = Boolean(fieldState?.error);
+    const [selectedIdentifierType, setSelectedIdentifierType] = useState<string | undefined>(
+        initial.identifierType
+    );
+    const [identifierValue, setIdentifierValue] = useState(initial.identifierValue);
+    const lastEmittedUrl = useRef<string | null>(selectedValue ?? null);
+
+    const formHasError = Boolean(fieldState?.error);
+    const typeMissing = formHasError && !selectedIdentifierType;
+    const valueMissing = formHasError && !identifierValue.trim();
     const errorId = `error-message-${name}`;
 
-    useEffect(() => {
-        if (selectedValue && referenceTemplate?.urlTemplate) {
-            const parsed = extractIdentifiersFromValue(
-                selectedValue,
-                referenceTemplate.urlTemplate
-            );
-            if (parsed) {
-                setSelectedIdentifierType(parsed.identifierType);
-                setIdentifierValue(parsed.identifierValue);
-            }
+    const selectedOptions = useMemo(
+        () => (selectedIdentifierType ? [selectedIdentifierType] : []),
+        [selectedIdentifierType]
+    );
+
+    const emitUrl = (identifierType: string | undefined, value: string) => {
+        if (disabled || !onChange || !referenceTemplate?.urlTemplate) {
             return;
         }
-
-        if (identifierTypes.length > 0) {
-            setSelectedIdentifierType((current) =>
-                current && identifierTypes.includes(current) ? current : identifierTypes[0]
-            );
-        }
-    }, [selectedValue, referenceTemplate?.urlTemplate, identifierTypes]);
-
-    useEffect(() => {
-        if (disabled || selectedValue || !onChange || !referenceTemplate?.urlTemplate) {
-            return;
-        }
-        const nextUrl = buildFullUrl(
-            referenceTemplate.urlTemplate,
-            selectedIdentifierType,
-            identifierValue
-        );
+        const nextUrl =
+            identifierType && value.trim()
+                ? buildFullUrl(referenceTemplate.urlTemplate, identifierType, value)
+                : '';
         if (nextUrl === lastEmittedUrl.current) {
             return;
         }
         lastEmittedUrl.current = nextUrl;
         onChange(nextUrl);
-    }, [
-        disabled,
-        selectedValue,
-        onChange,
-        referenceTemplate?.urlTemplate,
-        selectedIdentifierType,
-        identifierValue,
-    ]);
+    };
 
     const urlPreview = useMemo(
         () =>
@@ -158,13 +99,23 @@ const UrlTemplateBuilder = ({
                     size="small"
                     label="Kildesystemid"
                     options={identifierTypes}
-                    selectedOptions={selectedIdentifierType ? [selectedIdentifierType] : []}
+                    selectedOptions={selectedOptions}
                     onToggleSelected={(option, isSelected) => {
-                        setSelectedIdentifierType(isSelected ? option : undefined);
+                        if (isSelected) {
+                            if (option === selectedIdentifierType) {
+                                return;
+                            }
+                            setSelectedIdentifierType(option);
+                            emitUrl(option, identifierValue);
+                            return;
+                        }
+                        if (option !== selectedIdentifierType) {
+                            return;
+                        }
                     }}
                     hideLabel
                     disabled={disabled}
-                    error={hasError}
+                    error={typeMissing}
                 />
                 <TextField
                     id={name + '-identifier-value'}
@@ -173,8 +124,12 @@ const UrlTemplateBuilder = ({
                     hideLabel
                     disabled={disabled}
                     value={identifierValue}
-                    onChange={(e) => setIdentifierValue(e.target.value)}
-                    error={hasError}
+                    onChange={(e) => {
+                        const nextValue = e.target.value;
+                        setIdentifierValue(nextValue);
+                        emitUrl(selectedIdentifierType, nextValue);
+                    }}
+                    error={valueMissing}
                 />
             </HStack>
             {urlPreview && (
@@ -182,8 +137,13 @@ const UrlTemplateBuilder = ({
                     {urlPreview}
                 </Detail>
             )}
-            {hasError && (
-                <ErrorMessage id={errorId} size="small" data-testid="error-message">
+            {typeMissing && (
+                <ErrorMessage id={`${errorId}-type`} size="small" data-testid="error-message">
+                    {t('label.formatError')}
+                </ErrorMessage>
+            )}
+            {valueMissing && (
+                <ErrorMessage id={`${errorId}-value`} size="small" data-testid="error-message">
                     {t('label.formatError')}
                 </ErrorMessage>
             )}
