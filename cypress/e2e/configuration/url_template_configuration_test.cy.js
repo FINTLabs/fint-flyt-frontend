@@ -46,14 +46,14 @@ describe('URL template in configuration', () => {
             mockGenericResourceRepository();
         });
 
-        it('should not show URL-mal option or UrlTemplateBuilder', () => {
+        it('should not show reference with ID option or UrlTemplateBuilder', () => {
             navigateToNewConfiguration();
             openNewCasePanel();
 
             cy.get(saksmappetypeField).click();
             cy.get(`${saksmappetypeField}-filtered-options`).should('be.visible');
             cy.get(`${saksmappetypeField}-filtered-options`)
-                .contains('[role="option"]', 'URL-mal')
+                .contains('[role="option"]', 'Sett sammen referanse med ID')
                 .should('not.exist');
             cy.get(`${saksmappetypeField}-filtered-options`)
                 .contains('[role="option"]', 'Egendefinert verdi')
@@ -74,16 +74,22 @@ describe('URL template in configuration', () => {
                 { method: 'GET', pathname: '**/api/intern/arkiv/template' },
                 { fixture: 'arkiv/templateWithUrlTemplateReferences.json' }
             ).as('getArchiveTemplateWithReferences');
+            // IDs must follow referenceTemplate path (.../saksmappetype/{type}/{value}),
+            // unlike the generic kodeverk mock which uses /arkiv/noark/systemid/...
+            cy.intercept(
+                { method: 'GET', pathname: '**/arkiv/kodeverk/saksmappetype' },
+                { fixture: 'kodeverk/saksmappetype.json' }
+            ).as('getSaksmappetype');
         });
 
-        it('should show URL-mal and open editable UrlTemplateBuilder', () => {
+        it('should show reference with ID and open editable UrlTemplateBuilder', () => {
             navigateToNewConfiguration();
             cy.wait('@getArchiveTemplateWithReferences');
             openNewCasePanel();
 
             cy.get(saksmappetypeField).click();
             cy.get(`${saksmappetypeField}-filtered-options`)
-                .contains('[role="option"]', 'URL-mal')
+                .contains('[role="option"]', 'Sett sammen referanse med ID')
                 .should('be.visible')
                 .click();
 
@@ -123,6 +129,25 @@ describe('URL template in configuration', () => {
             );
         });
 
+        it('should not show UrlTemplateBuilder when selected option does not match referenceTemplate', () => {
+            cy.intercept(
+                { method: 'GET', pathname: '**/arkiv/kodeverk/saksmappetype' },
+                { fixture: 'kodeverk/saksmappetypeNonMatching.json' }
+            ).as('getSaksmappetypeNonMatching');
+
+            navigateToNewConfiguration();
+            cy.wait('@getArchiveTemplateWithReferences');
+            openNewCasePanel();
+
+            cy.get(saksmappetypeField).click();
+            cy.get(`${saksmappetypeField}-filtered-options`)
+                .contains('[role="option"]', 'Fjellnettverkett')
+                .click();
+
+            cy.get(`[id="url-template-builder-${saksmappetypeName}"]`).should('not.exist');
+            cy.get(`[data-testid="${saksmappetypeName}-url-preview"]`).should('not.exist');
+        });
+
         it('should offer multiple identifier types when template defines them', () => {
             navigateToNewConfiguration();
             cy.wait('@getArchiveTemplateWithReferences');
@@ -130,7 +155,7 @@ describe('URL template in configuration', () => {
 
             cy.get(saksansvarligField).click();
             cy.get(`${saksansvarligField}-filtered-options`)
-                .contains('[role="option"]', 'URL-mal')
+                .contains('[role="option"]', 'Sett sammen referanse med ID')
                 .click();
 
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');
@@ -160,7 +185,7 @@ describe('URL template in configuration', () => {
 
             cy.get(saksansvarligField).click();
             cy.get(`${saksansvarligField}-filtered-options`)
-                .contains('[role="option"]', 'URL-mal')
+                .contains('[role="option"]', 'Sett sammen referanse med ID')
                 .click();
 
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');
@@ -196,7 +221,7 @@ describe('URL template in configuration', () => {
 
             cy.get(saksansvarligField).click();
             cy.get(`${saksansvarligField}-filtered-options`)
-                .contains('[role="option"]', 'URL-mal')
+                .contains('[role="option"]', 'Sett sammen referanse med ID')
                 .click();
 
             cy.get(`[id="url-template-builder-${saksansvarligName}"]`).should('be.visible');

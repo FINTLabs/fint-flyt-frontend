@@ -464,9 +464,9 @@
                     "status": "Status",
                     "event": "Hendelse",
                     "actions": "Handlinger",
-                    "sourceApplicationInstanceId": "Kildeapp. instans-ID",
-                    "configurationId": "Konfigurasjon-ID",
-                    "correlationId": "Korrelasjon-ID",
+                    "sourceApplicationInstanceId": "Kildeapp. instans-id",
+                    "configurationId": "Konfigurasjon-id",
+                    "correlationId": "Korrelasjon-id",
                     "archiveInstanceId": "Destinasjons instans-id",
                     "timestamp": "Tidspunkt"
                 }

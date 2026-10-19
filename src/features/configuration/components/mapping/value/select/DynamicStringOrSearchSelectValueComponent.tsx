@@ -11,6 +11,7 @@ import { ISelectable } from '../../../../types/Selectable';
 import configurationStyles from '../../../styles/configuration.module.css';
 import DynamicChipComponent from '../string/DynamicChipComponent';
 import SearchSelectValueComponent from './SearchSelectValueComponent';
+import { matchesReferenceTemplate } from '../../../../util/urlTemplateUtils';
 import UrlTemplateBuilder from './urlTemplateBuilder/UrlTemplateBuilder';
 
 interface Props {
@@ -177,7 +178,8 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 selectValue &&
                 selectValue !== '$urlTemplate' &&
                 selectValue !== '$dynamic' &&
-                selectValue !== '$valueConverting' && (
+                selectValue !== '$valueConverting' &&
+                matchesReferenceTemplate(selectValue, props.referenceTemplate) && (
                     <UrlTemplateBuilder
                         key={selectValue}
                         fieldState={props.fieldState}

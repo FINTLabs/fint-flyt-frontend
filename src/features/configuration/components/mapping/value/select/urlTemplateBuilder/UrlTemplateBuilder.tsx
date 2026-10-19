@@ -8,6 +8,7 @@ import {
     buildFullUrl,
     buildUrlPreview,
     getInitialIdentifiers,
+    matchesReferenceTemplate,
 } from '../../../../../util/urlTemplateUtils';
 
 type Props = {
@@ -77,6 +78,12 @@ const UrlTemplateBuilder = ({
         [referenceTemplate?.urlTemplate, selectedIdentifierType, identifierValue]
     );
 
+    // For a selected dropdown option that does not match the reference template,
+    // do not show a misleading preview built from fallback defaults.
+    const showUrlPreview =
+        Boolean(urlPreview) &&
+        (!disabled || matchesReferenceTemplate(selectedValue ?? '', referenceTemplate));
+
     return (
         <VStack gap="1" id={'url-template-builder-' + name}>
             <HStack gap="2" wrap={false}>
@@ -118,7 +125,7 @@ const UrlTemplateBuilder = ({
                     error={valueMissing}
                 />
             </HStack>
-            {urlPreview && (
+            {showUrlPreview && (
                 <Detail textColor="subtle" data-testid={name + '-url-preview'}>
                     {urlPreview}
                 </Detail>

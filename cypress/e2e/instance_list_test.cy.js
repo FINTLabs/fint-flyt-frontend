@@ -47,12 +47,12 @@ describe('Testing instance list', () => {
         let columns = [
             'Kildeapplikasjon',
             'Integrasjonsnavn',
-            'Kildeapplikasjon integrasjon-ID',
-            'Kildeapplikasjons instans-ID',
+            'Kildeapp. integrasjon-id',
+            'Kildeapp. instans-id',
             'Tidspunkt',
             'Status',
             'Mellomlagring',
-            'Destinasjons instans-ID',
+            'Destinasjons instans-id',
             ''
         ];
         columns.forEach((column) => {
