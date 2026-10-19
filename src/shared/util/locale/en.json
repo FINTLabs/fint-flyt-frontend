@@ -72,6 +72,7 @@
             "label": {
                 "valueConverting": "Value converting",
                 "customValue": "Custom value",
+                "urlTemplate": "Build reference with ID",
                 "checkLabel": "Completed",
                 "activeLabel": "Set as active",
                 "placeholder": "Write or drag and drop from metadata",
@@ -171,7 +172,7 @@
                     "id": "Id",
                     "configurationId": "Config. ID",
                     "destination": "Destination",
-                    "sourceApplicationIntegrationId": "Source application integration ID",
+                    "sourceApplicationIntegrationId": "Source app. integration ID",
                     "sourceApplicationIntegrationIdDisplayName": "Displayname",
                     "sourceApplicationId": "Source application",
                     "name": "Name",
@@ -440,14 +441,14 @@
             },
             "table": {
                 "column": {
-                    "sourceApplicationIntegrationId": "Source application integration Id",
+                    "sourceApplicationIntegrationId": "Source app. integration ID",
                     "sourceApplicationIntegrationIdDisplayName": "Display name",
                     "sourceApplicationId": "Source application",
                     "storage": "Intermediate storage",
                     "status": "Status",
                     "event": "Event",
                     "actions": "Actions",
-                    "sourceApplicationInstanceId": "Source application instance ID",
+                    "sourceApplicationInstanceId": "Source app. instance ID",
                     "configurationId": "Configuration Id",
                     "correlationId": "Correlation Id",
                     "archiveInstanceId": "Destination instance ID",

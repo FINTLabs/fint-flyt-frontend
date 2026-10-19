@@ -3,12 +3,18 @@ import { VersionEntry } from './types';
 export const ABOUT_VERSIONS =
     'FINT Flyt er under kontinuerlig utvikling. Vi legger fortløpende til ny funksjonalitet og forbedrer brukeropplevelsen basert på tilbakemeldinger fra brukerne. Denne siden beskriver større endringer og feilrettinger i Flyt.';
 
-
-
 export const VERSION_DATA: VersionEntry[] = [
     {
         heading: 'Oktober 2026',
         updates: [
+            {
+                title: 'Sett sammen referanser med ID:',
+                text: 'I konfigurasjonsskjemaet kan du nå velge referanse med ID for enkelte felt. Da setter du selv identifikator-type og verdi, og ser en forhåndsvisning av adressen før du lagrer. Når du velger en ferdig verdi fra listen, vises den samme informasjonen slik at det er lettere å se hva som er valgt.',
+            },
+            {
+                title: 'Enklere å sette inn verdier i fritekstfelt:',
+                text: 'I felter der du skriver egen tekst eller trekker inn metadata, er det nå mer oversiktlig å legge til og redigere verdier.',
+            },
             {
                 title: 'Oppdatert utforming i konfigurasjonsskjemaet:',
                 text: 'Feltene i konfigurasjonsskjemaet følger nå samme design som resten av Flyt. Skjemaet er mer konsistent å bruke, hjelpetekster er lettere å finne, og den universelle utformingen er forbedret.',
@@ -58,7 +64,7 @@ export const VERSION_DATA: VersionEntry[] = [
             {
                 title: 'Informasjon når eldre feilmeldinger ikke lenger finnes:',
                 text: 'Feilmeldinger på hendelser eldre enn 60 dager kan ikke lenger vises. Du får nå en forklaring om hvorfor meldingen mangler, mens hendelsen fortsatt vises i listen.',
-            }
+            },
         ],
     },
     {

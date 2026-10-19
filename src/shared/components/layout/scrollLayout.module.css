@@ -31,9 +31,18 @@
 .scroll {
     flex: 1;
     min-height: 0;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     gap: 1rem;
+    align-items: stretch;
+}
+
+.scrollChild {
+    height: 100%;
+    min-height: 0;
+    min-width: min-content;
+    overflow: hidden;
 }
 
 .fixed {

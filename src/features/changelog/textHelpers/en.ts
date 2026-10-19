@@ -8,6 +8,14 @@ export const VERSION_DATA_EN: VersionEntry[] = [
         heading: 'October 2026',
         updates: [
             {
+                title: 'Build references with ID:',
+                text: 'In the configuration form, you can now choose reference with ID for some fields. You set the identifier type and value yourself, and see a preview of the address before saving. When you select a ready value from the list, the same information is shown so it is easier to see what is selected.',
+            },
+            {
+                title: 'Easier to set values in text fields:',
+                text: 'In fields where you write your own text or pull in metadata, it is now easier to add and edit values.',
+            },
+            {
                 title: 'Updated design in the configuration form:',
                 text: 'Fields in the configuration form now follow the same design as the rest of Flyt. The form is more consistent to use, help texts are easier to find, and accessibility has been improved.',
             },

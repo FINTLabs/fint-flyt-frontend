@@ -33,7 +33,12 @@ const OutgoingDataComponent: React.FunctionComponent<Props> = (props: Props) => 
 
             <Box id="scroll-container" className={scrollStyles.scroll}>
                 {templateStatus === 'success' && template && (
-                    <HStack id="configuration-mapping-wrapper" wrap={false}>
+                    <HStack
+                        id="configuration-mapping-wrapper"
+                        wrap={false}
+                        align="stretch"
+                        className={scrollStyles.scrollChild}
+                    >
                         <ConfigurationMappingComponent
                             mappingTemplate={template}
                             onCollectionReferencesInEditContextChange={(collectionReferences) => {

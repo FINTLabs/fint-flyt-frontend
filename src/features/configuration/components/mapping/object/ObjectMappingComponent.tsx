@@ -78,7 +78,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         );
 
     return (
-        <VStack gap={'3'}>
+        <VStack gap={'4'}>
             {[
                 ...(props.template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {

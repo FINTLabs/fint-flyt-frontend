@@ -4,7 +4,28 @@ import {ValueType} from "../types/Configuration";
 export const vcPattern = /^\$vc\{\d+}((?:\$if\{(?:(?!\$if\{).)+})*|\$icf\{\d+}\{(?:(?!\$if\{).)+})$/
 export const combinedCollectionPattern = /^(?:(\$if\{[^}]+})|(\$icf\{\d+}{[^}]+}))$/;
 
+/** URL templates must include both identifierType and identifierValue (no empty path segments). */
+export const isValidUrlTemplateValue = (value: string | undefined): boolean => {
+    if (!value) {
+        return false;
+    }
+    try {
+        const { pathname } = new URL(value);
+        if (pathname.includes('//') || pathname.endsWith('/')) {
+            return false;
+        }
+        return pathname.split('/').filter(Boolean).length >= 2;
+    } catch {
+        return false;
+    }
+};
+
 export const hasValidFormat = (value: string | undefined, type: ValueType, completeCheck: boolean, collection?: boolean) => {
+    // Always validate URL templates — incomplete identifiers must not be saved.
+    if (type === ValueType.URL_TEMPLATE) {
+        return isValidUrlTemplateValue(value);
+    }
+
     if (!completeCheck) {
         return true
     }

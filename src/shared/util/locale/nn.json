@@ -72,6 +72,7 @@
             "label": {
                 "valueConverting": "Verdikonvertering",
                 "customValue": "Eigendefinert verdi",
+                "urlTemplate": "Sett sammen referanse med ID",
                 "checkLabel": "Ferdigstilt",
                 "activeLabel": "Sett som aktiv",
                 "placeholder": "Skriv eller trekk inn frå metadata",
@@ -171,11 +172,11 @@
                     "id": "Id",
                     "configurationId": "Konfig. Id",
                     "destination": "Destinasjon/base",
-                    "sourceApplicationIntegrationId": "Kildeapp. integr.Id",
+                    "sourceApplicationIntegrationId": "Kildeapp. integrasjon-id",
                     "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                     "sourceApplicationId": "Kjeldeapplikasjon",
                     "name": "Navn",
-                    "state": "Tilstand",
+                    "state": "Status",
                     "comment": "Kommentar",
                     "actions": "Handlingar",
                     "finished": "Ferdigstilt",
@@ -434,17 +435,17 @@
             },
             "table": {
                 "column": {
-                    "sourceApplicationIntegrationId": "Kjeldeapplikasjon integrasjon-id",
+                    "sourceApplicationIntegrationId": "Kjeldeapp. integrasjon-id",
                     "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                     "sourceApplicationId": "Kjeldeapplikasjon",
                     "storage": "Mellomlagring",
                     "status": "Status",
                     "event": "Hending",
                     "actions": "Handlingar",
-                    "sourceApplicationInstanceId": "Kjeldeapplikasjons instans-ID",
+                    "sourceApplicationInstanceId": "Kjeldeapp. instans-id",
                     "configurationId": "Konfigurasjon-ID",
                     "correlationId": "Korrelasjon-ID",
-                    "archiveInstanceId": "Destinasjons instans-ID",
+                    "archiveInstanceId": "Destinasjons instans-id",
                     "timestamp": "Tidspunkt"
                 }
             },

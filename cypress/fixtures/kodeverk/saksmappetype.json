@@ -1,0 +1,14 @@
+[
+  {
+    "id": "http://fint-arkiv-adapter-simulator:9090/arkiv/kodeverk/saksmappetype/systemid/FJELL",
+    "displayName": "Fjellnettverkett"
+  },
+  {
+    "id": "http://fint-arkiv-adapter-simulator:9090/arkiv/kodeverk/saksmappetype/systemid/INNSYN",
+    "displayName": "Innsynsbegjæringer"
+  },
+  {
+    "id": "http://fint-arkiv-adapter-simulator:9090/arkiv/kodeverk/saksmappetype/systemid/SAK",
+    "displayName": "Sakarkiv"
+  }
+]

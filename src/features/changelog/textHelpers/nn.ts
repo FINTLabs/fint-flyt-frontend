@@ -8,6 +8,14 @@ export const VERSION_DATA_NN: VersionEntry[] = [
         heading: 'Oktober 2026',
         updates: [
             {
+                title: 'Sett sammen referansar med ID:',
+                text: 'I konfigurasjonsskjemaet kan du no velja referanse med ID for nokre felt. Da set du selv identifikator-type og verdi, og ser ein forhåndsvisning av adressa før du lagrar. Når du vel ei ferdig verdi frå lista, vert den same informasjonen vist slik at det er lettare å sjå kva som er valt.',
+            },
+            {
+                title: 'Enklare å sette inn verdiar i fritekstfelt:',
+                text: 'I felt der du skriv egen tekst eller trek inn metadata, er det no meir oversiktleg å leggja til og redigera verdiar.',
+            },
+            {
                 title: 'Oppdatert utforming i konfigurasjonsskjemaet:',
                 text: 'Felta i konfigurasjonsskjemaet følgjer no same design som resten av Flyt. Skjemaet er meir konsistent å bruke, hjelpetekstar er lettare å finne, og den universelle utforminga er forbetra.',
             },
