@@ -1,63 +1,85 @@
-import {IDependency, IValuePredicate} from "../types/FormTemplate";
-import {useEffect, useState} from "react";
-import {useFormContext, useWatch} from "react-hook-form";
-import {getAbsoluteKeyFromValueRef} from "./keyUtils";
+import { useEffect, useState } from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
 
-export function DependencySatisfiedStatefulValue(absoluteKey: string, dependency: IDependency, callback?: (value: boolean) => void): boolean {
-    const {control} = useFormContext();
-    const [dependencyValue, setDependencyValue] = useState<boolean>(false);
+import { IDependency, IValuePredicate } from '../types/FormTemplate';
+import { getAbsoluteKeyFromValueRef } from './keyUtils';
 
-    const valueRefPerAbsoluteKey: Record<string, string> = createValueRefPerAbsoluteKey(absoluteKey, dependency);
-    const absoluteKeys: string[] = Object.keys(valueRefPerAbsoluteKey)
+/**
+ * Watches form fields referenced by `dependency` and returns whether it is currently satisfied.
+ * Optional `onChange` is called whenever that boolean changes.
+ */
+export function useDependencySatisfied(
+    absoluteKey: string,
+    dependency: IDependency,
+    onChange?: (satisfied: boolean) => void
+): boolean {
+    const { control } = useFormContext();
+    const [satisfied, setSatisfied] = useState<boolean>(false);
 
-    const predicateValuesWatch: string[] = useWatch({
+    const valueRefByFormPath: Record<string, string> = createValueRefByFormPath(
+        absoluteKey,
+        dependency
+    );
+    const formPaths: string[] = Object.keys(valueRefByFormPath);
+
+    const watchedValues: string[] = useWatch({
         control: control,
-        name: absoluteKeys
-    })
+        name: formPaths,
+    });
 
     useEffect(() => {
-        const valuePerValueRef: Record<string, string> = {}
-        for (let i = 0; i < absoluteKeys.length; i++) {
-            valuePerValueRef[valueRefPerAbsoluteKey[absoluteKeys[i]]] = predicateValuesWatch[i]
+        const valuePerValueRef: Record<string, string> = {};
+        for (let i = 0; i < formPaths.length; i++) {
+            valuePerValueRef[valueRefByFormPath[formPaths[i]]] = watchedValues[i];
         }
 
-        const combinationValues: boolean[] = dependency.hasAnyCombination
-            .map((combination: IValuePredicate[]) => getCombinationValue(
-                valuePerValueRef, combination
-            ))
-        const value: boolean = combinationValues.includes(true)
-        setDependencyValue(value)
-        if (callback) {
-            callback(value)
+        const nextSatisfied = isDependencySatisfied(valuePerValueRef, dependency);
+        setSatisfied(nextSatisfied);
+        if (onChange) {
+            onChange(nextSatisfied);
         }
+    }, [watchedValues]);
 
-    }, [predicateValuesWatch])
-
-    return dependencyValue;
+    return satisfied;
 }
 
-function createValueRefPerAbsoluteKey(absoluteKey: string, dependency: IDependency): Record<string, string> {
-    return dependency.hasAnyCombination
-        .flat()
-        .reduce((valueAbsoluteKeysPerRef: Record<string, string>, predicate: IValuePredicate) => {
-                valueAbsoluteKeysPerRef[getAbsoluteKeyFromValueRef(predicate.key, absoluteKey)] = predicate.key;
-                return valueAbsoluteKeysPerRef
-            },
-            {}
-        )
+export function isDependencySatisfied(
+    valuePerValueRef: Record<string, string>,
+    dependency: IDependency
+): boolean {
+    return dependency.hasAnyCombination.some((combination: IValuePredicate[]) =>
+        getCombinationValue(valuePerValueRef, combination)
+    );
 }
 
-export function getCombinationValue(valuePerValueRef: Record<string, string>, combination: IValuePredicate[]): boolean {
-    const predicateValues: boolean[] = combination
-        .map((predicate: IValuePredicate) => getPredicateValue(
-                valuePerValueRef,
-                predicate
-            )
-        );
-    return !predicateValues.includes(false);
+function createValueRefByFormPath(
+    absoluteKey: string,
+    dependency: IDependency
+): Record<string, string> {
+    return dependency.hasAnyCombination.flat().reduce(
+        (valueRefByFormPath: Record<string, string>, predicate: IValuePredicate) => {
+            valueRefByFormPath[getAbsoluteKeyFromValueRef(predicate.key, absoluteKey)] =
+                predicate.key;
+            return valueRefByFormPath;
+        },
+        {}
+    );
 }
 
-export function getPredicateValue(valuePerValueRef: Record<string, string>, predicate: IValuePredicate): boolean {
+export function getCombinationValue(
+    valuePerValueRef: Record<string, string>,
+    combination: IValuePredicate[]
+): boolean {
+    const predicateResults: boolean[] = combination.map((predicate: IValuePredicate) =>
+        getPredicateValue(valuePerValueRef, predicate)
+    );
+    return !predicateResults.includes(false);
+}
+
+export function getPredicateValue(
+    valuePerValueRef: Record<string, string>,
+    predicate: IValuePredicate
+): boolean {
     const value: string = valuePerValueRef[predicate.key];
     if (predicate.defined !== (value !== undefined)) {
         return false;
@@ -66,5 +88,4 @@ export function getPredicateValue(valuePerValueRef: Record<string, string>, pred
         return false;
     }
     return !(predicate.notValue !== undefined && predicate.notValue === value);
-
 }

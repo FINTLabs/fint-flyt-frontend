@@ -1,4 +1,4 @@
-import { HelpText, HStack } from '@navikt/ds-react';
+import { Box } from '@navikt/ds-react';
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { ValueType as ConfigurationValueType } from '../../../types/Configuratio
 import { ISelectableValueTemplate, SelectableValueType } from '../../../types/FormTemplate';
 import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
+import configurationInputStyles from '../../styles/configuration.module.css';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
 } from './DynamicStringOrSearchSelectValueComponent';
@@ -89,7 +90,11 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
             rules={{
                 validate: (value) => hasValidFormat(value, validationType, watch('completed')),
             }}
-            defaultValue={props.template.type == SelectableValueType.DROPDOWN ? '' : null}
+            defaultValue={
+                props.template.type == SelectableValueType.DROPDOWN
+                    ? (props.template.selectables?.[0]?.value ?? '')
+                    : null
+            }
             render={({ field, fieldState }) => {
                 const disabled =
                     !!props.disabled ||
@@ -106,6 +111,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <SelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 disabled={disabled}
                             />
@@ -117,6 +123,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <SearchSelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 disabled={disabled}
                             />
@@ -127,6 +134,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                             <DynamicStringOrSearchSelectValueComponent
                                 {...field}
                                 displayName={props.displayName}
+                                description={props.description}
                                 selectables={selectables}
                                 fieldState={fieldState}
                                 initialType={getDynamicStringOrSearchSelectTypeFromConfigurationType(
@@ -152,14 +160,12 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                 }
 
                 return (
-                    <HStack
+                    <Box
                         id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                        align="center"
-                        gap="2"
+                        className={configurationInputStyles.inputContainer}
                     >
                         {controlledInputElement}
-                        <HelpText placement="right">{props.description}</HelpText>
-                    </HStack>
+                    </Box>
                 );
             }}
         />

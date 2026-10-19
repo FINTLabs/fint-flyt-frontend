@@ -1,8 +1,9 @@
-import { Button, HelpText, HStack } from '@navikt/ds-react';
+import { Button } from '@navikt/ds-react';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import { ChevronLeftIcon, ChevronRightIcon } from '../../../shared/components/icons';
+import { ChevronLeftIcon, ChevronRightIcon } from '../../../../shared/components/icons';
+import configurationStyles from '../styles/configuration.module.css';
 
 interface Props {
     order: number;
@@ -10,11 +11,10 @@ interface Props {
     onSelect: () => void;
     onUnselect: () => void;
     disabled?: boolean;
-    description?: string;
     selected?: boolean;
 }
 
-const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => {
+const ToggleElementButton: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedState, setSelectedState] = useState<boolean>(props.selected ?? false);
     const [displayName, setDisplayName] = useState(props.displayName);
 
@@ -45,11 +45,9 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
     }, [selectedState]);
 
     return (
-        <HStack
+        <div
             id={'toggle-button-' + displayName + '-' + props.order}
-            align={'center'}
-            gap={'2'}
-            wrap={false}
+            className={configurationStyles.toggleButton}
         >
             <Button
                 id={'toggle-panel-button'}
@@ -75,12 +73,7 @@ const ToggleButtonComponent: React.FunctionComponent<Props> = (props: Props) => 
             >
                 {displayName}
             </Button>
-            {props.description && (
-                <HelpText title={'Hva er dette?'} placement={'right'}>
-                    {props.description}
-                </HelpText>
-            )}
-        </HStack>
+        </div>
     );
 };
-export default ToggleButtonComponent;
+export default ToggleElementButton;

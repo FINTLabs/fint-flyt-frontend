@@ -12,7 +12,7 @@ import {
     IValueTemplate,
 } from '../../../types/FormTemplate';
 import { NestedElementsCallbacks } from '../../../types/NestedElement';
-import { DependencySatisfiedStatefulValue } from '../../../util/dependencyUtils';
+import { useDependencySatisfied } from '../../../util/dependencyUtils';
 import {
     getObjectCollectionMappingKey,
     getObjectMappingKey,
@@ -21,8 +21,8 @@ import {
     isDisabledByConfig,
     shouldShowElementWithOrder,
 } from '../../../util/objectMappingUtils';
+import ToggleElementButton from '../../buttons/ToggleElementButton';
 import FieldsetElementComponent from '../../FieldsetElementComponent';
-import ToggleButtonComponent from '../../ToggleButtonComponent';
 import SelectableValueMappingComponent from '../value/SelectableValueMappingComponent';
 import ValueMappingComponent from '../value/ValueMappingComponent';
 
@@ -38,6 +38,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
     const showDependencyValuePerOrder: MutableRefObject<Record<string, boolean>> = useRef<
         Record<string, boolean>
     >({});
+
     [...(props.template.valueTemplates ?? []), ...(props.template.selectableValueTemplates ?? [])]
         .map((elementTemplate: IElementTemplate<IValueTemplate | ISelectableValueTemplate>) => [
             elementTemplate.order,
@@ -46,13 +47,14 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         ])
         .filter((entry): entry is [number, string, IDependency] => !!entry[2])
         .forEach(([order, absoluteKey, dependency]: [number, string, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value && getValues(absoluteKey) !== undefined) {
                     unregister(absoluteKey);
                 }
             })
         );
+
     [
         ...(props.template.valueCollectionTemplates ?? []),
         ...(props.template.objectTemplates ?? []),
@@ -67,7 +69,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         )
         .filter((entry): entry is [number, IDependency] => !!entry[1])
         .forEach(([order, dependency]: [number, IDependency]) =>
-            DependencySatisfiedStatefulValue(props.absoluteKey, dependency, (value) => {
+            useDependencySatisfied(props.absoluteKey, dependency, (value) => {
                 showDependencyValuePerOrder.current[order] = value;
                 if (!value) {
                     props.nestedElementCallbacks.onElementsClose([order.toString()], true);
@@ -76,7 +78,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
         );
 
     return (
-        <VStack gap={'4'}>
+        <VStack gap={'3'}>
             {[
                 ...(props.template.valueTemplates ?? [])
                     .filter((template: IElementTemplate<IValueTemplate>) => {
@@ -138,11 +140,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             template: IElementTemplate<ICollectionTemplate<IValueTemplate>>,
                             index
                         ) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         valueCollections: [
@@ -154,6 +155,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],
@@ -181,11 +183,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                     })
                     .map<ReactElement<{ order: number }>>(
                         (template: IElementTemplate<IObjectTemplate>, index) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objects: [
@@ -197,6 +198,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],
@@ -227,11 +229,10 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                             template: IElementTemplate<ICollectionTemplate<IObjectTemplate>>,
                             index
                         ) => (
-                            <ToggleButtonComponent
+                            <ToggleElementButton
                                 key={index}
                                 order={template.order}
                                 displayName={template.elementConfig.displayName}
-                                description={template.elementConfig.description}
                                 onSelect={() => {
                                     props.nestedElementCallbacks.onElementsOpen({
                                         objectCollections: [
@@ -243,6 +244,7 @@ const ObjectMappingComponent: React.FunctionComponent<Props> = (props: Props) =>
                                                 ),
                                                 displayPath: [],
                                                 displayName: template.elementConfig.displayName,
+                                                description: template.elementConfig.description,
                                                 template: template.template,
                                             },
                                         ],

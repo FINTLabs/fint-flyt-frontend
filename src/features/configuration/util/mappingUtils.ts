@@ -23,6 +23,7 @@ export function openNestedColumnElement(
     nestedColumnElements[template.order.toString()] = {
         path: [...displayPath, ...template.displayPath],
         title: template.displayName,
+        description: template.description,
         reactElement: createReactElement(
             [...displayPath, ...template.displayPath, template.displayName],
             newNestedColumnElements

@@ -73,7 +73,7 @@
                 "valueConverting": "Value converting",
                 "customValue": "Custom value",
                 "checkLabel": "Completed",
-                "activeLabel": "Active",
+                "activeLabel": "Set as active",
                 "placeholder": "Write or drag and drop from metadata",
                 "formatError": "Value does not have required format"
             },
@@ -90,7 +90,9 @@
             },
             "fromCollectionMapping": {
                 "collections": "Collections",
-                "convertCollectionElements": "Converting collection elements"
+                "convertCollectionElements": "Converting collection elements",
+                "edit": "Edit",
+                "complete": "Complete"
             },
             "metadataPanel": {
                 "header": "Incoming data",

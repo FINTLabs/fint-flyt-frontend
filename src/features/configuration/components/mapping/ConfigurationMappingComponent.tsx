@@ -210,6 +210,7 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                                         index={columnElementIndex}
                                         path={columnElement.path}
                                         title={columnElement.title}
+                                        description={columnElement.description}
                                         content={columnElement.reactElement}
                                     />
                                 );

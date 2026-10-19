@@ -1,12 +1,14 @@
-import { Checkbox,CheckboxGroup } from '@navikt/ds-react';
+import { Checkbox, CheckboxGroup } from '@navikt/ds-react';
 import * as React from 'react';
 import { ChangeEvent, forwardRef, useContext } from 'react';
 import { Noop } from 'react-hook-form/dist/types';
 
 import { ConfigurationContext } from '../context/ConfigurationContext';
+import DisplayNameWithHelpText from './inputs/DisplayNameWithHelpText';
 
 interface Props {
     displayName: string;
+    description?: string;
     disabled?: boolean;
     onChange?: (value: boolean) => void;
     onBlur?: Noop;
@@ -42,7 +44,10 @@ const CheckboxValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDi
                         }
                     }}
                 >
-                    {props.displayName}
+                    <DisplayNameWithHelpText
+                        displayName={props.displayName}
+                        description={props.description}
+                    />
                 </Checkbox>
             </CheckboxGroup>
         );
