@@ -30,6 +30,16 @@
    npm run stop-forward
    ```
 
+### Miljøvariabler
+
+Kopier eksempel-filen til `.env.local` og fyll inn verdiene:
+
+```bash
+cp env.local.example .env.local
+```
+
+`.env.local` er gitignoret og skal ikke committes. Bruk den til lokale verdier som `VITE_IS_LOCAL` og `VITE_ACCESS_TOKEN`. Ikke legg inn ekte tokens i `env.local.example`.
+
 ### Start applikasjonen lokalt
 ```bash
 npm start
