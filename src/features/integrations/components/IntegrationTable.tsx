@@ -147,7 +147,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeader />
-                    <Table.ColumnHeader sortKey="id" sortable>
+                    <Table.ColumnHeader align={'center'} sortKey="id" sortable>
                         {t('table.column.id')}
                     </Table.ColumnHeader>
                     <Table.ColumnHeader>{t('table.column.sourceApplicationId')}</Table.ColumnHeader>
@@ -161,11 +161,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                     <Table.ColumnHeader sortKey="state" sortable>
                         {t('table.column.state')}
                     </Table.ColumnHeader>
-                    <Table.ColumnHeader>{t('table.column.total')}</Table.ColumnHeader>
-                    <Table.ColumnHeader>{t('table.column.inProgress')}</Table.ColumnHeader>
-                    <Table.ColumnHeader>{t('table.column.transferred')}</Table.ColumnHeader>
-                    <Table.ColumnHeader>{t('table.column.aborted')}</Table.ColumnHeader>
-                    <Table.ColumnHeader>{t('table.column.failed')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>{t('table.column.total')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>{t('table.column.inProgress')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>{t('table.column.transferred')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>{t('table.column.aborted')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>{t('table.column.failed')}</Table.ColumnHeader>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
@@ -202,7 +202,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                                     )
                                 }
                             >
-                                <Table.DataCell>{value.id}</Table.DataCell>
+                                <Table.DataCell align={'center'}>{value.id}</Table.DataCell>
                                 <Table.DataCell scope="row">
                                     {
                                         sourceApplications?.find(

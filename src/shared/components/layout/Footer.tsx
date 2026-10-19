@@ -9,7 +9,6 @@ export default function Footer() {
             style={{
                 padding: '2rem',
                 backgroundColor: "#6B133D",
-                // textAlign: "center",
             }}>
             <HStack gap={"10"}>
                 <NovariIKS width={"9em"}/>
