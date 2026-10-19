@@ -7,7 +7,7 @@ import { IReferenceTemplate } from '../../../../../types/FormTemplate';
 import {
     buildFullUrl,
     buildUrlPreview,
-    extractIdentifiersFromValue,
+    getInitialIdentifiers,
 } from '../../../../../util/urlTemplateUtils';
 
 type Props = {
@@ -18,20 +18,6 @@ type Props = {
     selectedValue?: string | null;
     onChange?: (value: string) => void;
 };
-
-function getInitialIdentifiers(
-    selectedValue: string | null | undefined,
-    referenceTemplate?: IReferenceTemplate | null
-): { identifierType: string | undefined; identifierValue: string } {
-    const fallbackType = referenceTemplate?.identifierTypes?.[0];
-    if (selectedValue && referenceTemplate?.urlTemplate) {
-        const parsed = extractIdentifiersFromValue(selectedValue, referenceTemplate.urlTemplate);
-        if (parsed) {
-            return parsed;
-        }
-    }
-    return { identifierType: fallbackType, identifierValue: '' };
-}
 
 const UrlTemplateBuilder = ({
     fieldState,

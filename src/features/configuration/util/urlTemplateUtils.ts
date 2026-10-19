@@ -34,25 +34,49 @@ export function extractIdentifiersFromValue(
 ): { identifierType: string; identifierValue: string } | null {
     const templatePath = removeHostFromUrl(urlTemplate);
     const selectedPath = removeHostFromUrl(selectedValue);
+    const pathPattern = templatePathToRegex(templatePath);
 
-    const fullMatch = selectedPath.match(new RegExp(`^${templatePathToRegex(templatePath)}$`));
+    // Exact path match (hosts may differ; compared after strip)
+    const fullMatch = selectedPath.match(new RegExp(`^${pathPattern}$`));
     if (fullMatch) {
         return { identifierType: fullMatch[1], identifierValue: fullMatch[2] };
     }
 
-    const identifierTypeIndex = templatePath.indexOf('{identifierType}');
-    if (identifierTypeIndex === -1) {
-        return null;
-    }
-    const suffix = templatePath.slice(identifierTypeIndex);
-    const identifiersMatch = selectedPath.match(
-        new RegExp(`${templatePathToRegex('/' + suffix)}$`)
-    );
-    if (identifiersMatch) {
-        return { identifierType: identifiersMatch[1], identifierValue: identifiersMatch[2] };
+    // Same template path as a suffix (extra leading segments allowed), but still
+    // require the fixed path before {identifierType} — not only the last two segments.
+    if (templatePath.includes('{identifierType}')) {
+        const suffixMatch = selectedPath.match(new RegExp(`${pathPattern}$`));
+        if (suffixMatch) {
+            return { identifierType: suffixMatch[1], identifierValue: suffixMatch[2] };
+        }
     }
 
     return null;
+}
+
+function isAllowedIdentifierType(
+    identifierType: string,
+    identifierTypes: string[] | undefined
+): boolean {
+    return Boolean(identifierTypes?.length && identifierTypes.includes(identifierType));
+}
+
+/** Seed UrlTemplateBuilder fields from a selected value, or fall back to the first identifier type. */
+export function getInitialIdentifiers(
+    selectedValue: string | null | undefined,
+    referenceTemplate?: IReferenceTemplate | null
+): { identifierType: string | undefined; identifierValue: string } {
+    const fallbackType = referenceTemplate?.identifierTypes?.[0];
+    if (selectedValue && referenceTemplate?.urlTemplate) {
+        const parsed = extractIdentifiersFromValue(selectedValue, referenceTemplate.urlTemplate);
+        if (
+            parsed &&
+            isAllowedIdentifierType(parsed.identifierType, referenceTemplate.identifierTypes)
+        ) {
+            return parsed;
+        }
+    }
+    return { identifierType: fallbackType, identifierValue: '' };
 }
 
 export function matchesReferenceTemplate(
@@ -63,7 +87,11 @@ export function matchesReferenceTemplate(
         return false;
     }
     const parsed = extractIdentifiersFromValue(mappingString, referenceTemplate.urlTemplate);
-    return Boolean(parsed?.identifierType && parsed?.identifierValue);
+    return Boolean(
+        parsed?.identifierType &&
+            parsed?.identifierValue &&
+            isAllowedIdentifierType(parsed.identifierType, referenceTemplate.identifierTypes)
+    );
 }
 
 /**

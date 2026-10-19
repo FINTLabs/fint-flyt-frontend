@@ -120,16 +120,18 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
 
                 setDisplayRootElement({ ...rootElement });
 
-                // Scroll to the last added column
-                // Find the deepest (rightmost) column
                 setTimeout(() => {
                     const lastColumnIndex = findDeepestColumnIndex(displayRootElement);
                     const lastColumnElement = document.getElementById(`column-${lastColumnIndex}`);
-                    if (lastColumnElement) {
-                        lastColumnElement.scrollIntoView({
+                    const scrollContainer = document.getElementById('scroll-container');
+                    if (lastColumnElement && scrollContainer) {
+                        const columnLeft = lastColumnElement.offsetLeft;
+                        const columnWidth = lastColumnElement.offsetWidth;
+                        const targetScrollLeft =
+                            columnLeft - (scrollContainer.clientWidth - columnWidth) / 2;
+                        scrollContainer.scrollTo({
+                            left: Math.max(0, targetScrollLeft),
                             behavior: 'smooth',
-                            block: 'nearest',
-                            inline: 'center',
                         });
                     }
                 }, 100);
@@ -189,9 +191,10 @@ const ConfigurationMappingComponent: React.FunctionComponent<Props> = (props: Pr
                         style={{
                             marginRight: '18px',
                             minWidth: 'fit-content',
+                            height: '100%',
+                            minHeight: 0,
                             overflowY: 'auto',
                             overflowX: 'hidden',
-                            height: 'fit-content',
                         }}
                     >
                         {columns.map(
