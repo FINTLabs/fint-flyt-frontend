@@ -52,6 +52,10 @@ export default defineConfig(({ mode }) => {
                     target: 'http://localhost:8094/beta/fintlabs-no',
                     changeOrigin: true,
                 },
+                '/api/intern/metadata': {
+                    target: 'http://localhost:8094/beta/fintlabs-no',
+                    changeOrigin: true,
+                },
                 '/api/intern/integrasjoner': {
                     target: 'http://localhost:8090/beta/fintlabs-no',
                     changeOrigin: true,
@@ -62,10 +66,6 @@ export default defineConfig(({ mode }) => {
                 },
                 '/api/intern/arkiv': {
                     target: 'http://localhost:8085/beta/fintlabs-no',
-                    changeOrigin: true,
-                },
-                '/api/intern/metadata': {
-                    target: 'http://localhost:8084/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/instance-flow-tracking': {

@@ -1,17 +1,17 @@
 import React, { createContext, useState } from 'react';
 
+import { MOCK_INSTANCE_METADATA } from '../../__tests__/mock/mapping/mock-instans-metadata';
 import {
     IInstanceMetadataContent,
     IInstanceObjectCollectionMetadata,
     IIntegrationMetadata,
 } from '../../features/configuration/types/Metadata/IntegrationMetadata';
-import { ISelect } from '../types/Select';
-import { ContextProps } from './constants/interface';
-import { MOCK_INSTANCE_METADATA } from '../../__tests__/mock/mapping/mock-instans-metadata';
-import i18n from '../util/locale/i18n';
-import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
-import useIntegrationRepository from '../api/useIntegrationRepository';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
+import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
+import useIntegrationRepository from '../api/useIntegrationRepository';
+import { ISelect } from '../types/Select';
+import i18n from '../util/locale/i18n';
+import { ContextProps } from './constants/interface';
 
 type SourceApplicationContextState = {
     availableForms: ISelect[] | undefined;
@@ -62,6 +62,8 @@ const SourceApplicationContext = createContext<SourceApplicationContextState>(co
 const SourceApplicationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
+
     const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(
         contextDefaultValues.availableForms
     );
@@ -85,8 +87,6 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
         contextDefaultValues.currentMetaData
     );
 
-    const SourceApplicationRepository = useSourceApplicationRepository();
-
     function getInstanceObjectCollectionMetadata(keys: string[]): void {
         setInstanceObjectCollectionMetadata(
             keys
@@ -109,7 +109,7 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
             if (prefetchedMetadata && prefetchedMetadata.length > 0) {
                 sourceApplicationData = prefetchedMetadata;
             } else {
-                const metadataResponse = await SourceApplicationRepository.getMetadata(
+                const metadataResponse = await IntegrationConfigurationRepository.getMetadata(
                     sourceApplicationId,
                     true
                 );
@@ -149,7 +149,9 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
                         .sort((a: ISelect, b: ISelect) =>
                             a.disabled === b.disabled
                                 ? a.label.localeCompare(b.label)
-                                : a.disabled ? 1 : -1
+                                : a.disabled
+                                  ? 1
+                                  : -1
                         ),
                 ]);
             } else {
@@ -185,10 +187,11 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
     const fetchMetadata = async (onlyLatest: boolean): Promise<IIntegrationMetadata[]> => {
         const response = await AuthorizationRepository.getUserData();
         const sourceApplicationIds = response.data.sourceApplicationIds.map(String).join(',');
-        const metadataResponse = await SourceApplicationRepository.getMetadataForSourceApplications(
-            sourceApplicationIds,
-            onlyLatest
-        );
+        const metadataResponse =
+            await IntegrationConfigurationRepository.getMetadataForSourceApplications(
+                sourceApplicationIds,
+                onlyLatest
+            );
         return Object.values(metadataResponse.data).flat();
     };
 
@@ -216,8 +219,10 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
         updateAvailableForms: boolean
     ): Promise<void> => {
         try {
-            const metadataResponse =
-                await SourceApplicationRepository.getMetadata(sourceApplicationId, onlyLatest);
+            const metadataResponse = await IntegrationConfigurationRepository.getMetadata(
+                sourceApplicationId,
+                onlyLatest
+            );
             const metaData = metadataResponse.data || [];
             setCurrentMetaData(metaData);
 
@@ -231,7 +236,7 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
     };
 
     const getInstanceElementMetadata = (metadataId: string) => {
-        SourceApplicationRepository.getInstanceElementMetadataById(metadataId)
+        IntegrationConfigurationRepository.getInstanceElementMetadataById(metadataId)
             .then((response) => {
                 const data: IInstanceMetadataContent = response.data;
                 if (data) {
