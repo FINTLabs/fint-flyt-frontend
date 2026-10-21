@@ -3,7 +3,7 @@ import React, { ReactElement, useContext, useEffect, useMemo, useRef, useState }
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import {
     ArrowRightIcon,
     FilesIcon,
@@ -35,7 +35,7 @@ type Props = {
 };
 
 const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
-    const ValueConvertingRepository = useValueConvertingRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const { getAllSourceApplications } = useContext(AuthorizationContext);
 
     const history = useNavigate();
@@ -78,7 +78,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
             .map(Number)
             .filter((id: number) => Number.isFinite(id));
 
-        ValueConvertingRepository.getValueConvertings({
+        IntegrationConfigurationRepository.getValueConvertings({
             page: page - 1,
             size: rowsPerPage,
             sortProperty: filters.sort.orderBy,
@@ -119,7 +119,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
     }
 
     async function handleDeleteConvertingClick(id: number) {
-        ValueConvertingRepository.deleteValueConverting(id)
+        IntegrationConfigurationRepository.deleteValueConverting(id)
             .then(() => {
                 refresh();
                 props.onAlert({

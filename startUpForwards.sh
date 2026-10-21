@@ -7,7 +7,7 @@ services=(
   "fint-flyt-history-service"
   "fint-flyt-integration-service"
   "fint-flyt-instance-service"
-  "fint-flyt-value-converting-service"
+  "fint-flyt-intgr-conf-service"
   "fint-flyt-authorization-service"
 )
 ports=(
