@@ -4,7 +4,7 @@ import { IValueConverting } from '../../features/valueConverting/types/ValueConv
 import { Page } from '../types/TableTypes';
 import { ApiAdapterContext } from './ApiAdapterContext';
 
-const API_URL = import.meta.env.VITE_API_VALUE_CONV || '';
+const API_URL = import.meta.env.VITE_API_INTGR_CONF || '';
 
 export type GetValueConvertingsParams = {
     page: number;
@@ -25,7 +25,7 @@ export type GetValueConvertingsParams = {
     modifiedTo?: string;
 };
 
-export default function useValueConvertingRepository() {
+export default function useIntegrationConfigurationRepository() {
     const { get, post, put, deleteFetch } = useContext(ApiAdapterContext);
 
     const getValueConvertings = ({

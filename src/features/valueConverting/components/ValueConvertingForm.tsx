@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 
 import useResourceRepository from '../../../shared/api/useResourceRepository';
-import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import FormPageWrapper from '../../../shared/components/layout/FormPageWrapper';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import {
@@ -39,7 +39,7 @@ type IValueConvertingFormData = Omit<IValueConverting, 'convertingMap'> & {
 type IValueConvertingConvertingArrayEntry = { from: string; to: string };
 
 export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props) => {
-    const ValueConvertingRepository = useValueConvertingRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const ResourceRepository = useResourceRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
@@ -82,7 +82,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             setToSelectables(sortedResult);
         });
 
-        ValueConvertingRepository.getValueConvertings({
+        IntegrationConfigurationRepository.getValueConvertings({
             page: 0,
             size: 1000,
             sortProperty: 'id',
@@ -152,11 +152,11 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
         if (Object.keys(valueConverting.convertingMap).length > 0) {
             const saveRequest =
                 props.isEdit && valueConverting.id
-                    ? ValueConvertingRepository.updateValueConverting(
+                    ? IntegrationConfigurationRepository.updateValueConverting(
                           valueConverting.id,
                           valueConverting
                       )
-                    : ValueConvertingRepository.createValueConverting(valueConverting);
+                    : IntegrationConfigurationRepository.createValueConverting(valueConverting);
 
             saveRequest
                 .then(() => {

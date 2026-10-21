@@ -4,7 +4,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import useValueConvertingRepository from '../../../shared/api/useValueConvertingRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import { WarningTriangleIcon } from '../../../shared/components/icons';
 import scrollStyles from '../../../shared/components/layout/scrollLayout.module.css';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
@@ -35,7 +35,7 @@ export type Props = {
 
 const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
-    const ValueConvertingRepository = useValueConvertingRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const methods = useFormContext();
     const { completed } = useContext(ConfigurationContext);
     const { getInstanceElementMetadata, instanceElementMetadata, getAllMetadata, allMetadata } =
@@ -78,7 +78,7 @@ const IncomingData: React.FunctionComponent<Props> = (props: Props) => {
     );
 
     useEffect(() => {
-        ValueConvertingRepository.getValueConvertings({
+        IntegrationConfigurationRepository.getValueConvertings({
             page: 0,
             size: 100,
             sortProperty: 'fromApplicationId',

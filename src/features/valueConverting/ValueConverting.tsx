@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
-import useValueConvertingRepository from '../../shared/api/useValueConvertingRepository';
+import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import AlertMessage from '../../shared/components/AlertMessage';
 import { TableLayoutWrapper } from '../../shared/components/table/TableLayoutWrapper';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
@@ -14,7 +14,7 @@ import { ValueConvertingFilterProvider } from './tableToolbar/FilterContext';
 import { IValueConverting } from './types/ValueConverting';
 
 const ValueConverting: React.FC = () => {
-    const ValueConvertingRepository = useValueConvertingRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const [existingValueConverting, setExistingValueConverting] = useState<
         IValueConverting | undefined
     >(undefined);
@@ -41,7 +41,7 @@ const ValueConverting: React.FC = () => {
     };
 
     const openExistingValueConverting = (id: number, edit: boolean) => {
-        return ValueConvertingRepository.getValueConverting(id)
+        return IntegrationConfigurationRepository.getValueConverting(id)
             .then((response) => {
                 setIsEdit(edit);
                 setExistingValueConverting(response.data);
