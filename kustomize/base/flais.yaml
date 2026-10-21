@@ -38,8 +38,6 @@ spec:
       value: 'http://fint-flyt-integration-service:8080'
     - name: VITE_API_ARCH
       value: 'http://fint-flyt-archive-gateway:8080'
-    - name: VITE_API_DISC
-      value: 'http://fint-flyt-discovery-service:8080'
     - name: VITE_API_INTGR_CONF
       value: 'http://fint-flyt-intgr-conf-service:8080'
   resources:

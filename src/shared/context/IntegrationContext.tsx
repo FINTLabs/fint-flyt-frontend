@@ -7,8 +7,8 @@ import { IIntegration } from '../../features/newIntegration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
+import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
 import useIntegrationRepository from '../api/useIntegrationRepository';
-import useSourceApplicationRepository from '../api/useSourceApplicationRepository';
 import { ContextProps } from './constants/interface';
 
 type IntegrationContextState = {
@@ -68,7 +68,7 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 
 const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
-    const SourceApplicationRepository = useSourceApplicationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const ConfigurationRepository = useConfigurationRepository();
     const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
@@ -114,7 +114,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
         setIntegrations([]);
     };
 
-    // eslint-disable-next-line
     const resetConfiguration = () => {
         setConfigurations(undefined);
         setConfiguration(undefined);
@@ -122,12 +121,11 @@ const IntegrationProvider = ({ children }: ContextProps) => {
 
     const getAllIntegrations = async () => {
         try {
-            const [statisticsResponse, userDataResponse, integrationResponse] =
-                await Promise.all([
-                    InstanceFlowTrackingRepository.getAllStatistics(),
-                    AuthorizationRepository.getUserData(),
-                    IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
-                ]);
+            const [statisticsResponse, userDataResponse, integrationResponse] = await Promise.all([
+                InstanceFlowTrackingRepository.getAllStatistics(),
+                AuthorizationRepository.getUserData(),
+                IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
+            ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
             setTotalStatistics(statistics);
@@ -138,7 +136,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
             const integrations: IIntegration[] = integrationResponse.data.content || [];
             if (integrations.length > 0) {
                 const metadataResponse =
-                    await SourceApplicationRepository.getMetadataForSourceApplications(
+                    await IntegrationConfigurationRepository.getMetadataForSourceApplications(
                         sourceApplicationIds,
                         true
                     );
@@ -213,4 +211,4 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     );
 };
 
-export { IntegrationProvider as default,IntegrationContext };
+export { IntegrationProvider as default, IntegrationContext };

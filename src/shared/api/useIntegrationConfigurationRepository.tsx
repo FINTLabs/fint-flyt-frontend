@@ -1,5 +1,9 @@
 import { useContext } from 'react';
 
+import {
+    IInstanceMetadataContent,
+    IIntegrationMetadata,
+} from '../../features/configuration/types/Metadata/IntegrationMetadata';
 import { IValueConverting } from '../../features/valueConverting/types/ValueConverting';
 import { Page } from '../types/TableTypes';
 import { ApiAdapterContext } from './ApiAdapterContext';
@@ -28,6 +32,7 @@ export type GetValueConvertingsParams = {
 export default function useIntegrationConfigurationRepository() {
     const { get, post, put, deleteFetch } = useContext(ApiAdapterContext);
 
+    // Value Convertings
     const getValueConvertings = ({
         page,
         size,
@@ -88,11 +93,34 @@ export default function useIntegrationConfigurationRepository() {
         return deleteFetch<void>(API_URL, `/api/intern/value-convertings/${valueConvertingId}`);
     };
 
+    // Metadata
+    const getMetadata = (id: string, onlyLastestVersion?: boolean) => {
+        return get<IIntegrationMetadata[]>(API_URL, '/api/intern/metadata', {
+            params: { kildeapplikasjonId: id, bareSisteVersjoner: onlyLastestVersion },
+        });
+    };
+
+    const getMetadataForSourceApplications = (ids: string, onlyLastestVersion?: boolean) => {
+        return get<Record<number, IIntegrationMetadata[]>>(API_URL, '/api/intern/metadata', {
+            params: { kildeapplikasjonIds: ids, bareSisteVersjoner: onlyLastestVersion },
+        });
+    };
+
+    const getInstanceElementMetadataById = (metadataId: string) => {
+        return get<IInstanceMetadataContent>(
+            API_URL,
+            `/api/intern/metadata/${metadataId}/instans-metadata`
+        );
+    };
+
     return {
         getValueConvertings,
         getValueConverting,
         createValueConverting,
         updateValueConverting,
         deleteValueConverting,
+        getMetadata,
+        getMetadataForSourceApplications,
+        getInstanceElementMetadataById,
     };
 }
