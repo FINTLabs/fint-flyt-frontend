@@ -436,17 +436,22 @@
             "table": {
                 "column": {
                     "sourceApplicationIntegrationId": "Kjeldeapp. integrasjon-id",
+                    "sourceApplicationIntegrationIdShort": "Kjeldeapp. integrasjon-id",
                     "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                     "sourceApplicationId": "Kjeldeapplikasjon",
                     "storage": "Mellomlagring",
                     "status": "Status",
                     "event": "Hending",
                     "actions": "Handlingar",
-                    "sourceApplicationInstanceId": "Kjeldeapp. instans-id",
+                    "sourceApplicationInstanceId": "Kjeldeapplikasjons instans-id",
+                    "sourceApplicationInstanceIdShort": "Kjeldeapp. instans-id",
                     "configurationId": "Konfigurasjon-ID",
+                    "configurationIdShort": "Konf.-ID",
                     "correlationId": "Korrelasjon-ID",
                     "archiveInstanceId": "Destinasjons instans-id",
-                    "timestamp": "Tidspunkt"
+                    "archiveInstanceIdShort": "Dest. instans-id",
+                    "timestamp": "Tidspunkt",
+                    "createdBy": "Utført av"
                 }
             },
             "help": {

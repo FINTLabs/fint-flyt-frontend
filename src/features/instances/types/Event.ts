@@ -1,3 +1,5 @@
+import { ICreatedByActor } from "../../../shared/types/audit";
+
 export interface IEvent {
     id?: string;
     name: string;
@@ -101,8 +103,8 @@ export interface IEventNew {
     latestInstanceId?: string;
 }
 
-export interface IInstanceFlowTrackingResponse {
-    content: IInstanceFlowTracking[];
+export interface IInstanceEventsResponse {
+    content: IInstanceEvents[];
     pageable: IPageable;
     totalPages: number;
     totalElements: number;
@@ -115,17 +117,20 @@ export interface IInstanceFlowTrackingResponse {
     empty: boolean;
 }
 
-export interface IInstanceFlowTracking {
-    instanceFlowHeaders: IInstanceFlowHeaders;
+export interface IInstanceEvents {
+    instanceFlowHeaders: IInstanceEventHeaders;
     category: string;
     timestamp: string;
     type: string;
     applicationId: string;
     errors: any[];
     isScrubbed: boolean;
+    createdAt: string;
+    createdBy: string;
+    createdByActor: ICreatedByActor
 }
 
-export interface IInstanceFlowHeaders {
+export interface IInstanceEventHeaders {
     sourceApplicationId: number;
     sourceApplicationIntegrationId: string;
     sourceApplicationInstanceId: string;

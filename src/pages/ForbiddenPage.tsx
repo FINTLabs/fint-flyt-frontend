@@ -15,7 +15,7 @@ const ForbiddenPage: RouteComponent = () => {
       <VStack align={"center"} justify={"center"}>
         <h1>Error 401</h1>
         <p>{t('status')}</p>
-        <Button as={RouterLink} to={"./"}>
+        <Button as={RouterLink} to={"/"}>
           {t('return')}
         </Button>
       </VStack>

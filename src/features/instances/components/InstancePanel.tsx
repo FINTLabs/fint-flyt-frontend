@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Link, Loader, Table } from '@navikt/ds-react';
+import { Box, Button, HStack, Link, Loader, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import { IAlertMessage } from '../../../shared/types/TableTypes';
-import { IInstanceFlowTracking, IInstanceFlowTrackingResponse } from '../types/Event';
+import { IInstanceEvents, IInstanceEventsResponse } from '../types/Event';
 import InstanceEventErrorDialog from './InstanceEventErrorDialog';
 import { InstanceEventStatusWithText } from './InstanceEventStatusWithText';
 
@@ -21,10 +21,12 @@ type Props = {
 const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
-    const [selectedRow, setSelectedRow] = useState<IInstanceFlowTracking>();
+    const [selectedRow, setSelectedRow] = useState<IInstanceEvents>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
-    const [selectedInstances, setSelectedInstances] = useState<IInstanceFlowTrackingResponse>();
+    const [selectedInstances, setSelectedInstances] = useState<IInstanceEventsResponse>();
     const [rowCount, setRowCount] = useState<string>('10');
+
+    const [showCreatedByColumn, setShowCreatedByColumn] = useState(false);
 
     useEffect(() => {
         getSelectedInstances(
@@ -52,14 +54,19 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 sourceApplicationId,
                 instanceId
             );
-            const events: IInstanceFlowTrackingResponse = eventResponse.data;
+            const events: IInstanceEventsResponse = eventResponse.data;
 
             if (events) {
                 events.content.sort(
-                    (a: IInstanceFlowTracking, b: IInstanceFlowTracking) =>
+                    (a: IInstanceEvents, b: IInstanceEvents) =>
                         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
                 );
                 setSelectedInstances(events);
+                setShowCreatedByColumn(
+                    events.content.some(
+                        (value: IInstanceEvents) => value.createdByActor?.type === 'USER'
+                    )
+                );
             } else {
                 props.onError({ message: t('errorMessage') });
             }
@@ -89,12 +96,21 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                     <Table.HeaderCell scope="col">
                                         {t('table.column.event')}
                                     </Table.HeaderCell>
-                                    <Table.HeaderCell scope="col">
-                                        {t('table.column.archiveInstanceId')}
-                                    </Table.HeaderCell>
-                                    <Table.HeaderCell scope="col">
-                                        {t('table.column.configurationId')}
-                                    </Table.HeaderCell>
+                                    {showCreatedByColumn && (
+                                        <Table.HeaderCell scope="col">
+                                            {t('table.column.createdBy')}
+                                        </Table.HeaderCell>
+                                    )}
+                                    <Tooltip content={t('table.column.archiveInstanceId')}>
+                                        <Table.HeaderCell scope="col">
+                                            {t('table.column.archiveInstanceIdShort')}
+                                        </Table.HeaderCell>
+                                    </Tooltip>
+                                    <Tooltip content={t('table.column.configurationId')}>
+                                        <Table.HeaderCell scope="col">
+                                            {t('table.column.configurationIdShort')}
+                                        </Table.HeaderCell>
+                                    </Tooltip>
                                     <Table.HeaderCell scope="col">
                                         {t('table.column.correlationId')}
                                     </Table.HeaderCell>
@@ -125,6 +141,12 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                                     }
                                                 />
                                             </Table.DataCell>
+                                            {showCreatedByColumn && (
+                                                <Table.DataCell>
+                                                    {value.createdByActor?.type === 'USER' &&
+                                                        value.createdBy}
+                                                </Table.DataCell>
+                                            )}
                                             <Table.DataCell>
                                                 {value.instanceFlowHeaders.archiveInstanceId}
                                             </Table.DataCell>
@@ -143,13 +165,14 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                 ) : (
                     <Loader />
                 )}
-                <HStack justify={'center'} marginBlock={"5 0"}>
+                <HStack justify={'center'} marginBlock={'5 0'}>
                     {!selectedInstances?.last && (
                         <>
                             <Button
                                 variant="secondary"
                                 size={'xsmall'}
-                                onClick={() => setRowCount((prev) => String(Number(prev) + 10))}>
+                                onClick={() => setRowCount((prev) => String(Number(prev) + 10))}
+                            >
                                 {t('filter.loadMore')}
                             </Button>
                         </>

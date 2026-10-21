@@ -441,18 +441,23 @@
             },
             "table": {
                 "column": {
-                    "sourceApplicationIntegrationId": "Source app. integration ID",
+                    "sourceApplicationIntegrationId": "Source application integration ID",
+                    "sourceApplicationIntegrationIdShort": "Source app. integr. ID",
                     "sourceApplicationIntegrationIdDisplayName": "Display name",
                     "sourceApplicationId": "Source application",
                     "storage": "Intermediate storage",
                     "status": "Status",
                     "event": "Event",
                     "actions": "Actions",
-                    "sourceApplicationInstanceId": "Source app. instance ID",
+                    "sourceApplicationInstanceId": "Source application instance ID",
+                    "sourceApplicationInstanceIdShort": "Source app. instance ID",
                     "configurationId": "Configuration Id",
+                    "configurationIdShort": "Config. ID",
                     "correlationId": "Correlation Id",
                     "archiveInstanceId": "Destination instance ID",
-                    "timestamp": "Timestamp"
+                    "archiveInstanceIdShort": "Dest. instance ID",
+                    "timestamp": "Timestamp",
+                    "createdBy": "Triggered by"
                 }
             },
             "help": {
