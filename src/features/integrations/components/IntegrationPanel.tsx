@@ -17,11 +17,10 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 
-import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
-import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import { IAlertMessage } from '../../../shared/types/TableTypes';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { IAlertMessage } from '../../../shared/types/TableTypes';
 import { IConfiguration } from '../../configuration/types/Configuration';
 import { IIntegration, IIntegrationPatch } from '../../newIntegration/types/Integration';
 import { ConfigurationVersionsTable } from './ConfigurationVersionsTable';
@@ -34,12 +33,11 @@ type Props = {
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const { setConfiguration, setExistingIntegrationMetadata, setExistingIntegration } =
         useContext(IntegrationContext);
     const { latestMetadata, setSourceApplication, getInstanceElementMetadata } =
         useContext(SourceApplicationContext);
-    const ConfigurationRepository = useConfigurationRepository();
     const [activeVersion, setActiveVersion] = useState<undefined | null | number>(undefined);
     const [openDialog, setOpenDialog] = useState(false);
     const [configToActivate, setConfigToActivate] = useState<string>('');
@@ -59,7 +57,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             setActiveVersion(null);
             return;
         }
-        ConfigurationRepository.getConfigurationById(id.toString(), true)
+        IntegrationConfigurationRepository.getConfigurationById(id.toString(), true)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {
@@ -74,7 +72,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
 
     async function handleNewOrEditConfigClick(id: number | string, version?: unknown) {
         setExistingIntegration(props.integration);
-        await ConfigurationRepository.getConfigurationById(id.toString(), false)
+        await IntegrationConfigurationRepository.getConfigurationById(id.toString(), false)
             .then(async (response) => {
                 const data = response.data;
                 const usedVersionMetadata = latestMetadata?.find(
@@ -100,7 +98,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             state: 'ACTIVE',
         };
         if (props.integration?.id) {
-            IntegrationRepository.updateIntegration(props.integration?.id, patch)
+            IntegrationConfigurationRepository.updateIntegration(props.integration?.id, patch)
                 .then(() => {
                     getVersionForActiveConfig(configurationId.toString());
                 })
@@ -110,7 +108,9 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
 
     const deleteDraft = useCallback(async (configurationId: number | string): Promise<boolean> => {
         try {
-            await ConfigurationRepository.deleteConfiguration(configurationId.toString());
+            await IntegrationConfigurationRepository.deleteConfiguration(
+                configurationId.toString()
+            );
             return true;
         } catch (error) {
             console.error('Error: ', error);

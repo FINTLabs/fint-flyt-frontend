@@ -2,18 +2,14 @@
 
 services=(
   "fint-flyt-archive-gateway"
-  "fint-flyt-configuration-service"
   "fint-flyt-history-service"
-  "fint-flyt-integration-service"
   "fint-flyt-instance-service"
   "fint-flyt-intgr-conf-service"
   "fint-flyt-authorization-service"
 )
 ports=(
   "8085:8080"
-  "8082:8080"
   "8083:8080"
-  "8090:8080"
   "8081:8080"
   "8094:8080"
   "8086:8080"
@@ -81,7 +77,7 @@ stop_port_forwarding() {
 stop_all_port_forwarding() {
   echo "Stopping all port-forward processes on known ports..."
 
-  for port in 8081 8082 8083 8085 8086 8090 8094; do
+  for port in 8081 8083 8085 8086 8094; do
     pid_list=$(lsof -ti tcp:$port)
 
     for pid in $pid_list; do
@@ -129,7 +125,7 @@ status() {
 
   echo ""
   echo "===== LISTENING PORTS ====="  
-  lsof -i -P -n | grep LISTEN | grep -E "8081|8082|8083|8085|8086|8090|8094"
+  lsof -i -P -n | grep LISTEN | grep -E "8081|8083|8085|8086|8094"
 
   echo ""
   echo "===== EXPECTED URLS ====="
@@ -147,7 +143,7 @@ status() {
 
 
 check_health() {
-  for port in 8081 8082 8083 8085 8086 8090 8094; do
+  for port in 8081 8083 8085 8086 8094; do
     if curl -s "http://localhost:$port" > /dev/null; then
       echo "✅ Port $port is responding"
     else

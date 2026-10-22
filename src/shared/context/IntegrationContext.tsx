@@ -5,10 +5,8 @@ import { IIntegrationMetadata } from '../../features/configuration/types/Metadat
 import { ITotalStatistics } from '../../features/instances/types/Event';
 import { IIntegration } from '../../features/newIntegration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
-import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
 import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
-import useIntegrationRepository from '../api/useIntegrationRepository';
 import { ContextProps } from './constants/interface';
 
 type IntegrationContextState = {
@@ -69,8 +67,6 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
-    const ConfigurationRepository = useConfigurationRepository();
-    const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(
@@ -124,7 +120,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
             const [statisticsResponse, userDataResponse, integrationResponse] = await Promise.all([
                 InstanceFlowTrackingRepository.getAllStatistics(),
                 AuthorizationRepository.getUserData(),
-                IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
+                IntegrationConfigurationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
             ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];
@@ -167,7 +163,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     };
 
     const getConfiguration = async (id: number | string, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
+        IntegrationConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {

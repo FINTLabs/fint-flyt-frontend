@@ -6,8 +6,7 @@ import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hoo
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import useConfigurationRepository from '../../shared/api/useConfigurationRepository';
-import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
+import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
 import scrollStyles from '../../shared/components/layout/scrollLayout.module.css';
@@ -29,14 +28,13 @@ import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
 import StringValueComponent from './components/mapping/value/string/StringValueComponent';
 import OutgoingDataComponent from './components/OutgoingDataComponent';
+import configurationStyles from './components/styles/configuration.module.css';
 import { ConfigurationContext } from './context/ConfigurationContext';
 import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
-import configurationStyles from './components/styles/configuration.module.css';
 
 const Configuration: React.FC = () => {
-    const IntegrationRepository = useIntegrationRepository();
-    const ConfigurationRepository = useConfigurationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const history = useNavigate();
@@ -156,14 +154,11 @@ const Configuration: React.FC = () => {
     const onSubmit = (data: IConfiguration) => {
         setLoading(true);
 
-        // Force data.mapping to be of type IObjectMapping.
-        // This double cast silences the type error by asserting both the input and the output types.
-
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping) as IObjectMapping;
 
         if (configuration?.id) {
-            // Update configuration branch
-            ConfigurationRepository.updateConfiguration(
+            // Update configuration
+            IntegrationConfigurationRepository.updateConfiguration(
                 configuration.id.toString(),
                 data as IConfigurationPatch
             )
@@ -180,8 +175,8 @@ const Configuration: React.FC = () => {
                     handleAlertMessageOnError(error);
                 });
         } else {
-            // Create configuration branch
-            ConfigurationRepository.createConfiguration(data as IConfiguration)
+            // Create configuration
+            IntegrationConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then((response) => {
                     setLoading(false);
                     console.log('created', response);
@@ -211,7 +206,7 @@ const Configuration: React.FC = () => {
             state: IntegrationState.ACTIVE,
             destination: existingIntegration?.destination,
         };
-        IntegrationRepository.updateIntegration(integrationId, patch)
+        IntegrationConfigurationRepository.updateIntegration(integrationId, patch)
             .then((response) => {
                 setAlertContent(activeAlert);
                 setShowAlert(true);

@@ -4,20 +4,20 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
-import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import TableLoader from '../../../shared/components/table/TableLoader';
 import {
     useTablePageError,
     useTablePagination,
 } from '../../../shared/components/table/TablePageContext';
-import { Page } from '../../../shared/types/TableTypes';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { Page } from '../../../shared/types/TableTypes';
 import {
     getDestinationDisplayName,
     getStateDisplayName,
-    integrationComparator,
     handleSortByColumn,
+    integrationComparator,
     toApiSortDirection,
 } from '../../../shared/util/tableUtil';
 import { ISourceApplication } from '../../configuration/types/SourceApplication';
@@ -30,7 +30,7 @@ type IntegrationProps = {
 };
 
 const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: IntegrationProps) => {
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
     const { latestMetadata } = useContext(SourceApplicationContext);
@@ -39,7 +39,6 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const onError = useTablePageError();
     const { page, rowsPerPage, setPaginationMeta } = useTablePagination();
-
 
     const [integrations, setIntegrations] = useState<Page<IIntegration> | undefined>();
     const [sourceApplications, setSourceApplications] = useState<ISourceApplication[]>();
@@ -96,7 +95,7 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                 setIsFetching(true);
                 setIsLoading(true);
                 Promise.all([
-                    IntegrationRepository.getIntegrations(
+                    IntegrationConfigurationRepository.getIntegrations(
                         currentPage - 1,
                         currentRowCount,
                         currentSort ? currentSort.orderBy : 'state',
@@ -143,7 +142,11 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
     };
 
     return (
-        <Table sort={sort} onSortChange={(sortKey) => handleSortByColumn(sortKey, sort, setSort)} id={id}>
+        <Table
+            sort={sort}
+            onSortChange={(sortKey) => handleSortByColumn(sortKey, sort, setSort)}
+            id={id}
+        >
             <Table.Header>
                 <Table.Row>
                     <Table.ColumnHeader />
@@ -161,11 +164,21 @@ const IntegrationTable: React.FunctionComponent<IntegrationProps> = ({ id }: Int
                     <Table.ColumnHeader sortKey="state" sortable>
                         {t('table.column.state')}
                     </Table.ColumnHeader>
-                    <Table.ColumnHeader align={'center'}>{t('table.column.total')}</Table.ColumnHeader>
-                    <Table.ColumnHeader align={'center'}>{t('table.column.inProgress')}</Table.ColumnHeader>
-                    <Table.ColumnHeader align={'center'}>{t('table.column.transferred')}</Table.ColumnHeader>
-                    <Table.ColumnHeader align={'center'}>{t('table.column.aborted')}</Table.ColumnHeader>
-                    <Table.ColumnHeader align={'center'}>{t('table.column.failed')}</Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>
+                        {t('table.column.total')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>
+                        {t('table.column.inProgress')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>
+                        {t('table.column.transferred')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>
+                        {t('table.column.aborted')}
+                    </Table.ColumnHeader>
+                    <Table.ColumnHeader align={'center'}>
+                        {t('table.column.failed')}
+                    </Table.ColumnHeader>
                 </Table.Row>
             </Table.Header>
             <Table.Body>
