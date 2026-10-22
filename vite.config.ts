@@ -1,21 +1,8 @@
-import { defineConfig } from 'vitest/config';
-import { loadEnv, Plugin } from 'vite';
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import react from '@vitejs/plugin-react';
-
-function removeTestIds(enabled: boolean): Plugin {
-    return {
-        name: 'remove-testids',
-        enforce: 'pre',
-        apply: 'build',
-        transform(code, id) {
-            if (!enabled) return;
-            if (!/\.(j|t)sx?$/.test(id)) return;
-            const out = code.replace(/\sdata-testid="[^"]*"/g, '');
-            return { code: out, map: null };
-        },
-    };
-}
+import { loadEnv } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig(({ mode }) => {
     const apiEnv = loadEnv(mode, process.cwd(), 'VITE_API_');
@@ -57,7 +44,7 @@ export default defineConfig(({ mode }) => {
                     changeOrigin: true,
                 },
                 '/api/intern/integrasjoner': {
-                    target: 'http://localhost:8090/beta/fintlabs-no',
+                    target: 'http://localhost:8094/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/authorization': {

@@ -3,7 +3,6 @@ import {
     Button,
     ErrorSummary,
     Heading,
-    HelpText,
     HStack,
     Label,
     Loader,
@@ -15,7 +14,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
+import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import AlertMessage from '../../shared/components/AlertMessage';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
@@ -35,7 +34,7 @@ import { IIntegration, IIntegrationFormData, IntegrationState } from './types/In
 
 export const NewIntegrationForm: React.FC = () => {
     const history = useNavigate();
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrationForm' });
     const {
         setExistingIntegrationMetadata,
@@ -139,7 +138,7 @@ export const NewIntegrationForm: React.FC = () => {
 
         const newIntegration: IIntegration = toIntegration(data, IntegrationState.DEACTIVATED);
 
-        IntegrationRepository.createIntegration(newIntegration)
+        IntegrationConfigurationRepository.createIntegration(newIntegration)
             .then((response) => {
                 setSourceApplicationIntegrationId(
                     response.data.sourceApplicationIntegrationId ?? ''

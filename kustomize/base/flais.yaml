@@ -34,8 +34,6 @@ spec:
       value: 'http://fint-flyt-history-service:8080'
     - name: VITE_API_INST
       value: 'http://fint-flyt-instance-service:8080'
-    - name: VITE_API_INT
-      value: 'http://fint-flyt-integration-service:8080'
     - name: VITE_API_ARCH
       value: 'http://fint-flyt-archive-gateway:8080'
     - name: VITE_API_INTGR_CONF

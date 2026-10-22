@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useContext, useEffect } from 'react';
 
-import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import { TableToolbar } from '../../../shared/components/table/TableToolbar';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const FilterToolbar: FC<Props> = ({ onAlert }) => {
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const { latestMetadata } = useContext(SourceApplicationContext);
     const { getAllSourceApplications } = useContext(AuthorizationContext);
     const { setAllIntegrations, setSourceApplicationIdOptions } = useFilterOptions();
@@ -32,7 +32,7 @@ const FilterToolbar: FC<Props> = ({ onAlert }) => {
     }, []);
 
     const fetchIntegrations = useCallback((metadata: IIntegrationMetadata[]) => {
-        IntegrationRepository.getAllIntegrations()
+        IntegrationConfigurationRepository.getAllIntegrations()
             .then((response) => {
                 const data = response.data;
                 metadata?.forEach((meta) => {

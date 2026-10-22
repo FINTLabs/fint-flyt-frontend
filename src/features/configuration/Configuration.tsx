@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import useConfigurationRepository from '../../shared/api/useConfigurationRepository';
-import useIntegrationRepository from '../../shared/api/useIntegrationRepository';
+import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
 import scrollStyles from '../../shared/components/layout/scrollLayout.module.css';
@@ -29,13 +29,13 @@ import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
 import StringValueComponent from './components/mapping/value/string/StringValueComponent';
 import OutgoingDataComponent from './components/OutgoingDataComponent';
+import configurationStyles from './components/styles/configuration.module.css';
 import { ConfigurationContext } from './context/ConfigurationContext';
 import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
-import configurationStyles from './components/styles/configuration.module.css';
 
 const Configuration: React.FC = () => {
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const ConfigurationRepository = useConfigurationRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
@@ -211,7 +211,7 @@ const Configuration: React.FC = () => {
             state: IntegrationState.ACTIVE,
             destination: existingIntegration?.destination,
         };
-        IntegrationRepository.updateIntegration(integrationId, patch)
+        IntegrationConfigurationRepository.updateIntegration(integrationId, patch)
             .then((response) => {
                 setAlertContent(activeAlert);
                 setShowAlert(true);

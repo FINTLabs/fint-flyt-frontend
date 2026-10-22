@@ -8,7 +8,6 @@ import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
 import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
-import useIntegrationRepository from '../api/useIntegrationRepository';
 import { ContextProps } from './constants/interface';
 
 type IntegrationContextState = {
@@ -70,7 +69,6 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const ConfigurationRepository = useConfigurationRepository();
-    const IntegrationRepository = useIntegrationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(
@@ -124,7 +122,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
             const [statisticsResponse, userDataResponse, integrationResponse] = await Promise.all([
                 InstanceFlowTrackingRepository.getAllStatistics(),
                 AuthorizationRepository.getUserData(),
-                IntegrationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
+                IntegrationConfigurationRepository.getIntegrations(0, 1000, 'state', 'ASC'),
             ]);
 
             const statistics: ITotalStatistics = statisticsResponse.data || [];

@@ -18,10 +18,10 @@ import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 
 import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
-import useIntegrationRepository from '../../../shared/api/useIntegrationRepository';
-import { IAlertMessage } from '../../../shared/types/TableTypes';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import { IntegrationContext } from '../../../shared/context/IntegrationContext';
 import { SourceApplicationContext } from '../../../shared/context/SourceApplicationContext';
+import { IAlertMessage } from '../../../shared/types/TableTypes';
 import { IConfiguration } from '../../configuration/types/Configuration';
 import { IIntegration, IIntegrationPatch } from '../../newIntegration/types/Integration';
 import { ConfigurationVersionsTable } from './ConfigurationVersionsTable';
@@ -34,7 +34,7 @@ type Props = {
 
 const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
-    const IntegrationRepository = useIntegrationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
     const { setConfiguration, setExistingIntegrationMetadata, setExistingIntegration } =
         useContext(IntegrationContext);
     const { latestMetadata, setSourceApplication, getInstanceElementMetadata } =
@@ -100,7 +100,7 @@ const IntegrationPanel: React.FunctionComponent<Props> = (props: Props) => {
             state: 'ACTIVE',
         };
         if (props.integration?.id) {
-            IntegrationRepository.updateIntegration(props.integration?.id, patch)
+            IntegrationConfigurationRepository.updateIntegration(props.integration?.id, patch)
                 .then(() => {
                     getVersionForActiveConfig(configurationId.toString());
                 })

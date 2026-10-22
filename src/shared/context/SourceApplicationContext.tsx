@@ -8,7 +8,6 @@ import {
 } from '../../features/configuration/types/Metadata/IntegrationMetadata';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
 import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
-import useIntegrationRepository from '../api/useIntegrationRepository';
 import { ISelect } from '../types/Select';
 import i18n from '../util/locale/i18n';
 import { ContextProps } from './constants/interface';
@@ -61,7 +60,6 @@ const SourceApplicationContext = createContext<SourceApplicationContextState>(co
 
 const SourceApplicationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
-    const IntegrationRepository = useIntegrationRepository();
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
 
     const [availableForms, setAvailableForms] = useState<ISelect[] | undefined>(
@@ -117,7 +115,7 @@ const SourceApplicationProvider = ({ children }: ContextProps) => {
             }
 
             const integrationResponse =
-                await IntegrationRepository.getAllIntegrationBySourceApplicationId(
+                await IntegrationConfigurationRepository.getAllIntegrationBySourceApplicationId(
                     sourceApplicationId
                 );
             const integrationData = integrationResponse.data || [];
