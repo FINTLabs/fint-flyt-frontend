@@ -6,7 +6,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig(({ mode }) => {
     const apiEnv = loadEnv(mode, process.cwd(), 'VITE_API_');
-    const basePathProcess = process.env.BASE_PATH
+    const basePathProcess = process.env.BASE_PATH;
 
     return {
         plugins: [react()],
@@ -47,6 +47,10 @@ export default defineConfig(({ mode }) => {
                     target: 'http://localhost:8094/beta/fintlabs-no',
                     changeOrigin: true,
                 },
+                '/api/intern/konfigurasjoner': {
+                    target: 'http://localhost:8094/beta/fintlabs-no',
+                    changeOrigin: true,
+                },
                 '/api/intern/authorization': {
                     target: 'http://localhost:8086/beta/fintlabs-no',
                     changeOrigin: true,
@@ -57,10 +61,6 @@ export default defineConfig(({ mode }) => {
                 },
                 '/api/intern/instance-flow-tracking': {
                     target: 'http://localhost:8083/beta/fintlabs-no',
-                    changeOrigin: true,
-                },
-                '/api/intern/konfigurasjoner': {
-                    target: 'http://localhost:8082/beta/fintlabs-no',
                     changeOrigin: true,
                 },
                 '/api/intern/handlinger/instanser': {

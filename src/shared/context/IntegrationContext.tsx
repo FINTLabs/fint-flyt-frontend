@@ -5,7 +5,6 @@ import { IIntegrationMetadata } from '../../features/configuration/types/Metadat
 import { ITotalStatistics } from '../../features/instances/types/Event';
 import { IIntegration } from '../../features/newIntegration/types/Integration';
 import useAuthorizationRepository from '../api/useAuthorizationRepository';
-import useConfigurationRepository from '../api/useConfigurationRepository';
 import useInstanceFlowTrackingRepository from '../api/useInstanceFlowTrackingRepository';
 import useIntegrationConfigurationRepository from '../api/useIntegrationConfigurationRepository';
 import { ContextProps } from './constants/interface';
@@ -68,7 +67,6 @@ const IntegrationContext = createContext<IntegrationContextState>(contextDefault
 const IntegrationProvider = ({ children }: ContextProps) => {
     const AuthorizationRepository = useAuthorizationRepository();
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
-    const ConfigurationRepository = useConfigurationRepository();
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
 
     const [existingIntegration, setExistingIntegration] = useState<IIntegration | undefined>(
@@ -165,7 +163,7 @@ const IntegrationProvider = ({ children }: ContextProps) => {
     };
 
     const getConfiguration = async (id: number | string, excludeElements?: boolean) => {
-        ConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
+        IntegrationConfigurationRepository.getConfigurationById(id.toString(), excludeElements)
             .then((response) => {
                 const data: IConfiguration = response.data;
                 if (data) {

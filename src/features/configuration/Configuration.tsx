@@ -6,7 +6,6 @@ import { Controller, FormProvider, SubmitErrorHandler, useForm } from 'react-hoo
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import useConfigurationRepository from '../../shared/api/useConfigurationRepository';
 import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
@@ -36,7 +35,6 @@ import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Con
 
 const Configuration: React.FC = () => {
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
-    const ConfigurationRepository = useConfigurationRepository();
 
     const { t } = useTranslation('translations', { keyPrefix: 'pages.configuration' });
     const history = useNavigate();
@@ -156,14 +154,11 @@ const Configuration: React.FC = () => {
     const onSubmit = (data: IConfiguration) => {
         setLoading(true);
 
-        // Force data.mapping to be of type IObjectMapping.
-        // This double cast silences the type error by asserting both the input and the output types.
-
         data.mapping = pruneObjectMapping(data.mapping as IObjectMapping) as IObjectMapping;
 
         if (configuration?.id) {
-            // Update configuration branch
-            ConfigurationRepository.updateConfiguration(
+            // Update configuration
+            IntegrationConfigurationRepository.updateConfiguration(
                 configuration.id.toString(),
                 data as IConfigurationPatch
             )
@@ -180,8 +175,8 @@ const Configuration: React.FC = () => {
                     handleAlertMessageOnError(error);
                 });
         } else {
-            // Create configuration branch
-            ConfigurationRepository.createConfiguration(data as IConfiguration)
+            // Create configuration
+            IntegrationConfigurationRepository.createConfiguration(data as IConfiguration)
                 .then((response) => {
                     setLoading(false);
                     console.log('created', response);

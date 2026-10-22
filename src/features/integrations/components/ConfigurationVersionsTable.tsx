@@ -13,7 +13,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import useConfigurationRepository from '../../../shared/api/useConfigurationRepository';
+import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
 import {
     CheckmarkCircleFillIcon,
     CheckmarkCircleIcon,
@@ -51,7 +51,7 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.integrations' });
     const navigate = useNavigate();
 
-    const ConfigurationRepository = useConfigurationRepository();
+    const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
 
     const [configs, setConfigs] = useState<Page<IConfiguration>>();
 
@@ -66,7 +66,7 @@ export const ConfigurationVersionsTable: React.FunctionComponent<ConfigurationTa
         setConfigs(undefined);
         onError(undefined);
         try {
-            const configResponse = await ConfigurationRepository.getConfigurations(
+            const configResponse = await IntegrationConfigurationRepository.getConfigurations(
                 page - 1,
                 rowsPerPage,
                 completed ? 'version' : 'id',
