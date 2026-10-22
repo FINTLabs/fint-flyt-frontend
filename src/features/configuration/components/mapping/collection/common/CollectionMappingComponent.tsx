@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ConfigurationContext } from '../../../../context/ConfigurationContext';
 import { EditingContext } from '../../../../context/EditingContext';
 import { isOutsideCollectionEditContext } from '../../../../util/keyUtils';
-import ArrayComponent from '../../../array/ArrayComponent';
+import FieldArray from '../../../../../../shared/components/inputs/FieldArray';
 import ArrayObjectWrapperComponent from '../../../array/ArrayObjectWrapperComponent';
 import ArrayValueWrapperComponent from '../../../array/ArrayValueWrapperComponent';
 import FromCollectionMappingComponent from './FromCollectionMappingComponent';
@@ -33,7 +33,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
         <VStack>
             <Box>
                 <Heading size={'small'}>{t('defaultElements')}</Heading>
-                <ArrayComponent
+                <FieldArray
                     fromCollection
                     absoluteKey={props.absoluteKey + '.elementMappings'}
                     fieldComponentCreator={(index: number, absoluteKey: string) => {
@@ -65,7 +65,7 @@ const CollectionMappingComponent: React.FunctionComponent<Props> = (props: Props
                 />
             </Box>
             <Heading size={'small'}>{t('generatedElements')}</Heading>
-            <ArrayComponent
+            <FieldArray
                 fromCollection
                 absoluteKey={props.absoluteKey + '.fromCollectionMappings'}
                 fieldComponentCreator={(index: number, absoluteKey: string) => (

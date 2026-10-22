@@ -4,7 +4,7 @@ import { ChangeEvent, forwardRef, useContext } from 'react';
 import { Noop } from 'react-hook-form/dist/types';
 
 import { ConfigurationContext } from '../context/ConfigurationContext';
-import DisplayNameWithHelpText from './inputs/DisplayNameWithHelpText';
+import DisplayNameWithHelpText from '../../../shared/components/inputs/DisplayNameWithHelpText';
 
 interface Props {
     displayName: string;

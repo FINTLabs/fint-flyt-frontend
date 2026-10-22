@@ -27,18 +27,67 @@
     max-width: 100vw;
 }
 
+.inputDefault {
+    width: 352px;
+    max-width: 100%;
+    min-width: 0;
+}
+
 .inputFullWidth {
     width: 100%;
     max-width: 100%;
     min-width: 0;
 }
 
+/* Combobox/content can set min-width: auto and blow past grid cells */
+.inputDefault :global(.navds-form-field),
+.inputDefault :global(.navds-combobox),
+.inputDefault :global(.navds-combobox__wrapper),
+.inputDefault :global(.navds-combobox__wrapper-inner),
+.inputDefault :global(.navds-combobox__input-wrapper),
+.inputDefault :global(.navds-combobox__selected-options),
+.inputDefault :global(.navds-combobox__input),
 .inputFullWidth :global(.navds-form-field),
 .inputFullWidth :global(.navds-text-field__input),
-.inputFullWidth :global(.navds-textarea__input) {
+.inputFullWidth :global(.navds-textarea__input),
+.inputFullWidth :global(.navds-combobox),
+.inputFullWidth :global(.navds-combobox__wrapper),
+.inputFullWidth :global(.navds-combobox__wrapper-inner),
+.inputFullWidth :global(.navds-combobox__input-wrapper),
+.inputFullWidth :global(.navds-combobox__selected-options),
+.inputFullWidth :global(.navds-combobox__input) {
     width: 100%;
     max-width: 100%;
     min-width: 0;
+}
+
+.inputDefault :global(.navds-combobox__wrapper-inner),
+.inputFullWidth :global(.navds-combobox__wrapper-inner) {
+    align-items: flex-start;
+    height: auto;
+    min-height: var(--__ac-combobox-input-height);
+    overflow-x: hidden;
+}
+
+.inputDefault :global(.navds-combobox__wrapper-inner > :first-child),
+.inputFullWidth :global(.navds-combobox__wrapper-inner > :first-child) {
+    min-width: 0;
+}
+
+.inputDefault :global(.navds-combobox__selected-options),
+.inputFullWidth :global(.navds-combobox__selected-options) {
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.inputDefault :global(.navds-combobox__selected-options--no-bg),
+.inputFullWidth :global(.navds-combobox__selected-options--no-bg),
+.inputDefault :global(.navds-combobox__selected-options .navds-chips__chip-text),
+.inputFullWidth :global(.navds-combobox__selected-options .navds-chips__chip-text) {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 .dynamicInput :global(.navds-textarea__input) {

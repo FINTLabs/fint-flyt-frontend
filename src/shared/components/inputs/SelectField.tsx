@@ -4,10 +4,10 @@ import { forwardRef, useEffect } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 
-import { ISelectable } from '../../../../types/Selectable';
-import FormErrorText from '../../../FormErrorText';
-import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
-import configurationInputStyles from '../../../styles/configuration.module.css';
+import { ISelectable } from '../../../features/configuration/types/Selectable';
+import FormErrorText from '../../../features/configuration/components/FormErrorText';
+import DisplayNameWithHelpText from './DisplayNameWithHelpText';
+import formStyles from './formStyles.module.css';
 
 interface Props {
     displayName: string;
@@ -21,12 +21,10 @@ interface Props {
     description?: string;
 }
 
-const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
+const SelectField: React.FunctionComponent<Props> = forwardRef<HTMLDivElement, Props>(
     (props: Props, ref) => {
         const absoluteKey: string = props.name;
 
-        // Keep form state in sync with the option the browser shows when value is empty
-        // (native <select> displays the first option even if value is '').
         useEffect(() => {
             if (
                 props.selectables.length > 0 &&
@@ -41,7 +39,7 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
             <>
                 <Select
                     id={absoluteKey}
-                    className={configurationInputStyles.input}
+                    className={formStyles.input}
                     size={'small'}
                     label={
                         <DisplayNameWithHelpText
@@ -71,5 +69,5 @@ const SelectValueComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
     }
 );
 
-SelectValueComponent.displayName = 'SelectValueComponent';
-export default SelectValueComponent;
+SelectField.displayName = 'SelectField';
+export default SelectField;

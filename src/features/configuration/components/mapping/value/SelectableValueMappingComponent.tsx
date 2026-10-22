@@ -14,12 +14,12 @@ import {
     resolveSelectableInputType,
 } from '../../../util/urlTemplateUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
-import configurationInputStyles from '../../styles/configuration.module.css';
+import formStyles from '../../../../../shared/components/inputs/formStyles.module.css';
 import DynamicStringOrSearchSelectValueComponent, {
     Type as DynamicStringOrSearchSelectType,
 } from './select/DynamicStringOrSearchSelectValueComponent';
-import SearchSelectValueComponent from './select/SearchSelectValueComponent';
-import SelectValueComponent from './select/SelectValueComponent';
+import SearchField from '../../../../../shared/components/inputs/SearchField';
+import SelectField from '../../../../../shared/components/inputs/SelectField';
 
 interface Props {
     order: number;
@@ -129,7 +129,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                 switch (props.template.type) {
                     case SelectableValueType.DROPDOWN:
                         controlledInputElement = (
-                            <SelectValueComponent
+                            <SelectField
                                 {...field}
                                 displayName={props.displayName}
                                 description={props.description}
@@ -141,12 +141,13 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
 
                     case SelectableValueType.SEARCH_SELECT:
                         controlledInputElement = (
-                            <SearchSelectValueComponent
+                            <SearchField
                                 {...field}
                                 displayName={props.displayName}
                                 description={props.description}
                                 selectables={selectables}
                                 disabled={disabled}
+                                fullWidth
                             />
                         );
                         break;
@@ -189,7 +190,7 @@ const SelectableValueMappingComponent: React.FunctionComponent<Props> = (props) 
                 return (
                     <Box
                         id={'selectable-value-mapping-wrapper-' + props.absoluteKey}
-                        className={configurationInputStyles.inputContainer}
+                        className={formStyles.inputContainer}
                     >
                         {controlledInputElement}
                     </Box>

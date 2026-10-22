@@ -26,12 +26,12 @@ import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
 import { IIntegrationPatch, IntegrationState } from '../newIntegration/types/Integration';
 import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
-import StringValueComponent from './components/mapping/value/string/StringValueComponent';
+import StringField from '../../shared/components/inputs/StringField';
 import OutgoingDataComponent from './components/OutgoingDataComponent';
-import configurationStyles from './components/styles/configuration.module.css';
 import { ConfigurationContext } from './context/ConfigurationContext';
 import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
+import formStyles from '../../shared/components/inputs/formStyles.module.css';
 
 const Configuration: React.FC = () => {
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();
@@ -241,7 +241,7 @@ const Configuration: React.FC = () => {
 
                                 <VStack gap={'3'} paddingBlock={'0 4'}>
                                     <HStack gap={'6'} align={'center'}>
-                                        <Box className={configurationStyles.comment}>
+                                        <Box className={formStyles.comment}>
                                             <Controller
                                                 name={'comment'.toString()}
                                                 rules={{
@@ -251,7 +251,7 @@ const Configuration: React.FC = () => {
                                                     },
                                                 }}
                                                 render={({ field, fieldState }) => (
-                                                    <StringValueComponent
+                                                    <StringField
                                                         {...field}
                                                         disabled={completed || loading}
                                                         displayName={t('comment')}

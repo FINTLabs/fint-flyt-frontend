@@ -1,10 +1,11 @@
-import { BodyShort, Box, Heading, HGrid, HStack, Label, Table, VStack } from '@navikt/ds-react';
+import { BodyShort, Box, Heading, HStack, Label, Table, VStack } from '@navikt/ds-react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IValueConverting } from '../types/ValueConverting';
 import { getDestinationDisplayName } from '../../../shared/util/tableUtil';
 import { formatTimestampToReadableText } from '../../../shared/util/timeAndDateUtils';
+import { IValueConverting } from '../types/ValueConverting';
+import styles from './ValueConvertingPanel.module.css';
 
 type Props = {
     id: number;
@@ -24,7 +25,6 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
             id={'value-converting-panel-' + id}
             paddingBlock="8 12"
             paddingInline="8 12"
-            padding="4"
             background="surface-subtle"
             borderRadius="medium"
             marginBlock="0 12"
@@ -84,7 +84,7 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
                     <Heading id={'value-converting-panel-heading'} size={'xsmall'} spacing>
                         {t('convertingMap')}
                     </Heading>
-                    <Table size="small">
+                    <Table size="small" className={styles.mapTable}>
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell scope="col" className="subtle-text">
@@ -100,8 +100,12 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
                                 ([key, value], i) => {
                                     return (
                                         <Table.Row key={i}>
-                                            <Table.DataCell>{key}</Table.DataCell>
-                                            <Table.DataCell>{value as string}</Table.DataCell>
+                                            <Table.DataCell className={styles.wrapCell}>
+                                                <BodyShort>{key}</BodyShort>
+                                            </Table.DataCell>
+                                            <Table.DataCell className={styles.wrapCell}>
+                                                <BodyShort>{value as string}</BodyShort>
+                                            </Table.DataCell>
                                         </Table.Row>
                                     );
                                 }

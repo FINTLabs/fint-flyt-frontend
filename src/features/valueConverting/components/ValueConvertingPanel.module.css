@@ -1,0 +1,10 @@
+
+.mapTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.wrapCell {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}

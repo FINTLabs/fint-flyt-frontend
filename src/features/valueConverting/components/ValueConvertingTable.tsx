@@ -220,6 +220,7 @@ const ValueConvertingTable: React.FunctionComponent<Props> = (props: Props) => {
                                 expandOnRowClick
                                 id={'table-row-' + i}
                                 key={value.id}
+                                contentGutter="none"
                                 content={
                                     <ValueConvertingPanel
                                         id={i}

@@ -1,4 +1,4 @@
-import { Button, Heading, HelpText, HStack, VStack } from '@navikt/ds-react';
+import { Button, Fieldset, Heading, HelpText, HGrid, HStack, VStack, Box } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,10 +19,12 @@ import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { sortSelectables } from '../../../shared/util/selectableUtils';
 import { IValueConverting } from '../types/ValueConverting';
 import { ISelectable } from '../types/Selectable';
-import ArrayComponent from './inputs/ArrayComponent';
-import SearchSelectValueComponent from './inputs/SearchSelectValueComponent';
-import SelectValueComponent from './inputs/SelectValueComponent';
-import StringValueComponent from './inputs/StringValueComponent';
+import StringField from '../../../shared/components/inputs/StringField';
+import SelectField from '../../../shared/components/inputs/SelectField';
+import styles from '../../../shared/components/inputs/formStyles.module.css';
+import DisplayNameWithHelpText from '../../../shared/components/inputs/DisplayNameWithHelpText';
+import SearchField from '../../../shared/components/inputs/SearchField';
+import FieldArray from '../../../shared/components/inputs/FieldArray';
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -199,10 +201,14 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                     <VStack gap={'6'}>
-                        <VStack gap={'3'} id={'name-container'}>
-                            <HStack gap={'2'} align="center">
-                                <Heading size={'small'}>{t('valueConvertingName')}</Heading>
-                            </HStack>
+                        <HStack gap={'2'} align="center">
+                            <Heading size={'small'}>
+                                {props.isEdit
+                                    ? t('editValueConverting')
+                                    : t('createValueConverting')}
+                            </Heading>
+                        </HStack>
+                        <Box id={'name-container'}>
                             <Controller
                                 rules={{
                                     required: t('requiredField'),
@@ -221,7 +227,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 name={'displayName'}
                                 defaultValue={''}
                                 render={({ field, fieldState }) => (
-                                    <StringValueComponent
+                                    <StringField
                                         {...field}
                                         disabled={!valueConvertings}
                                         displayName={t('displayName')}
@@ -229,124 +235,122 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                     />
                                 )}
                             />
+                        </Box>
+                        <VStack gap={'6'} id={'from-to-container'} className={styles.inputDefault}>
+                            <Fieldset
+                                legend={
+                                    <DisplayNameWithHelpText
+                                        displayName={t('from')}
+                                        description={t('help.from')}
+                                    />
+                                }
+                            >
+                                <Controller
+                                    rules={{
+                                        required: { value: true, message: t('requiredField') },
+                                    }}
+                                    name={'fromApplicationId'}
+                                    defaultValue={''}
+                                    render={({ field, fieldState }) => (
+                                        <SelectField
+                                            {...field}
+                                            fieldState={fieldState}
+                                            displayName={t('fromApplicationId')}
+                                            selectables={selectableSourceApplications.map(
+                                                (fromApplicationId) => {
+                                                    return {
+                                                        displayName: fromApplicationId.label,
+                                                        value: fromApplicationId.value,
+                                                    };
+                                                }
+                                            )}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    rules={{
+                                        required: { value: true, message: t('requiredField') },
+                                    }}
+                                    name={'fromTypeId'}
+                                    defaultValue={''}
+                                    render={({ field, fieldState }) => (
+                                        <SelectField
+                                            {...field}
+                                            fieldState={fieldState}
+                                            displayName={t('fromTypeId')}
+                                            selectables={fromTypeIds.map((fromTypeId) => {
+                                                return {
+                                                    displayName: fromTypeId.label,
+                                                    value: fromTypeId.value,
+                                                };
+                                            })}
+                                        />
+                                    )}
+                                />
+                            </Fieldset>
+                            <Fieldset
+                                legend={
+                                    <DisplayNameWithHelpText
+                                        displayName={t('to')}
+                                        description={t('help.to')}
+                                    />
+                                }
+                            >
+                                <Controller
+                                    rules={{
+                                        required: { value: true, message: t('requiredField') },
+                                    }}
+                                    name={'toApplicationId'}
+                                    defaultValue={''}
+                                    render={({ field, fieldState }) => (
+                                        <SelectField
+                                            {...field}
+                                            fieldState={fieldState}
+                                            displayName={t('toApplicationId')}
+                                            selectables={destinations.map((destination) => {
+                                                return {
+                                                    displayName: destination.label,
+                                                    value: destination.value,
+                                                };
+                                            })}
+                                        />
+                                    )}
+                                />
+                                <Controller
+                                    rules={{
+                                        required: { value: true, message: t('requiredField') },
+                                    }}
+                                    name={'toTypeId'}
+                                    defaultValue={''}
+                                    render={({ field, fieldState }) => (
+                                        <SelectField
+                                            {...field}
+                                            fieldState={fieldState}
+                                            displayName={t('toTypeId')}
+                                            selectables={toTypeIds.map((toTypeId) => {
+                                                return {
+                                                    displayName: toTypeId.label,
+                                                    value: toTypeId.value,
+                                                };
+                                            })}
+                                        />
+                                    )}
+                                />
+                            </Fieldset>
                         </VStack>
-                        <HStack gap={'6'} id={'from-to-container'}>
-                            <VStack gap={'3'}>
-                                <HStack gap={'2'} align="center">
-                                    <Heading size={'small'}>{t('from')}</Heading>
-                                    <HelpText title="Hva er dette?" placement="bottom">
-                                        {t('help.from')}
-                                    </HelpText>
-                                </HStack>
-                                <VStack gap={'3'}>
-                                    <Controller
-                                        rules={{
-                                            required: { value: true, message: t('requiredField') },
-                                        }}
-                                        name={'fromApplicationId'}
-                                        defaultValue={''}
-                                        render={({ field, fieldState }) => (
-                                            <SelectValueComponent
-                                                {...field}
-                                                fieldState={fieldState}
-                                                displayName={t('fromApplicationId')}
-                                                selectables={selectableSourceApplications.map(
-                                                    (fromApplicationId) => {
-                                                        return {
-                                                            displayName: fromApplicationId.label,
-                                                            value: fromApplicationId.value,
-                                                        };
-                                                    }
-                                                )}
-                                            />
-                                        )}
-                                    />
-                                    <Controller
-                                        rules={{
-                                            required: { value: true, message: t('requiredField') },
-                                        }}
-                                        name={'fromTypeId'}
-                                        defaultValue={''}
-                                        render={({ field, fieldState }) => (
-                                            <SelectValueComponent
-                                                {...field}
-                                                fieldState={fieldState}
-                                                displayName={t('fromTypeId')}
-                                                selectables={fromTypeIds.map((fromTypeId) => {
-                                                    return {
-                                                        displayName: fromTypeId.label,
-                                                        value: fromTypeId.value,
-                                                    };
-                                                })}
-                                            />
-                                        )}
-                                    />
-                                </VStack>
-                            </VStack>
-                            <VStack gap={'3'}>
-                                <HStack gap={'2'} align="center">
-                                    <Heading size={'small'}>{t('to')}</Heading>
-                                    <HelpText title="Hva er dette?" placement="bottom">
-                                        {t('help.to')}
-                                    </HelpText>
-                                </HStack>
-                                <VStack gap={'3'}>
-                                    <Controller
-                                        rules={{
-                                            required: { value: true, message: t('requiredField') },
-                                        }}
-                                        name={'toApplicationId'}
-                                        defaultValue={''}
-                                        render={({ field, fieldState }) => (
-                                            <SelectValueComponent
-                                                {...field}
-                                                fieldState={fieldState}
-                                                displayName={t('toApplicationId')}
-                                                selectables={destinations.map((destination) => {
-                                                    return {
-                                                        displayName: destination.label,
-                                                        value: destination.value,
-                                                    };
-                                                })}
-                                            />
-                                        )}
-                                    />
-                                    <Controller
-                                        rules={{
-                                            required: { value: true, message: t('requiredField') },
-                                        }}
-                                        name={'toTypeId'}
-                                        defaultValue={''}
-                                        render={({ field, fieldState }) => (
-                                            <SelectValueComponent
-                                                {...field}
-                                                fieldState={fieldState}
-                                                displayName={t('toTypeId')}
-                                                selectables={toTypeIds.map((toTypeId) => {
-                                                    return {
-                                                        displayName: toTypeId.label,
-                                                        value: toTypeId.value,
-                                                    };
-                                                })}
-                                            />
-                                        )}
-                                    />
-                                </VStack>
-                            </VStack>
-                        </HStack>
-                        <VStack gap={'3'} id={'value-convertings-container'}>
-                            <HStack gap={'2'} align="center">
-                                <Heading id={'value-convertings-header'} size={'small'}>
-                                    {t('convertingMap')}
-                                </Heading>
-                                <HelpText title="Konverteringer informasjon" placement="bottom">
-                                    {t('help.convertingMap')}
-                                </HelpText>
-                            </HStack>
-                            <ArrayComponent
+                        <Fieldset
+                            id={'value-convertings-container'}
+                            legend={
+                                <DisplayNameWithHelpText
+                                    displayName={t('convertingMap')}
+                                    description={t('help.convertingMap')}
+                                />
+                            }
+                        >
+                            <FieldArray
                                 absoluteKey={'convertingArray'}
                                 fieldComponentCreator={(index: number, absoluteKey: string) => (
-                                    <HStack gap={'6'} wrap={false}>
+                                    <HGrid columns={2} gap="5" key={index}>
                                         <Controller
                                             rules={{
                                                 required: {
@@ -357,11 +361,12 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                             name={`${absoluteKey}.from`}
                                             defaultValue={''}
                                             render={({ field, fieldState }) => (
-                                                <StringValueComponent
+                                                <StringField
                                                     {...field}
                                                     displayName={t('from')}
                                                     multiline={true}
                                                     fieldState={fieldState}
+                                                    fullWidth
                                                 />
                                             )}
                                         />
@@ -376,23 +381,25 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                             defaultValue={''}
                                             render={({ field, fieldState }) => {
                                                 return toTypeIdWatch === 'text' ? (
-                                                    <StringValueComponent
+                                                    <StringField
                                                         {...field}
                                                         displayName={t('to')}
                                                         multiline={true}
                                                         fieldState={fieldState}
+                                                        fullWidth
                                                     />
                                                 ) : (
-                                                    <SearchSelectValueComponent
+                                                    <SearchField
                                                         {...field}
                                                         displayName={t('to')}
                                                         selectables={toSelectables}
                                                         fieldState={fieldState}
+                                                        fullWidth
                                                     />
                                                 );
                                             }}
                                         />
-                                    </HStack>
+                                    </HGrid>
                                 )}
                                 defaultValueCreator={() => {
                                     return {
@@ -401,7 +408,7 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                     };
                                 }}
                             />
-                        </VStack>
+                        </Fieldset>
                         <HStack justify={'end'} id={'button-container'} gap={'4'}>
                             <Button
                                 size={'small'}
