@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { Filters } from '../../features/instances/filter/types';
 import {
-    IInstanceFlowTrackingResponse,
+    IInstanceEventsResponse,
     IIntegrationDetailedStatistics,
     ISummary,
     ITotalStatistics,
@@ -76,7 +76,7 @@ export default function useInstanceFlowTrackingRepository() {
         kildeapplikasjonId?: number,
         kildeapplikasjonInstansId?: string
     ) => {
-        return get<IInstanceFlowTrackingResponse>(
+        return get<IInstanceEventsResponse>(
             API_URL,
             `/api/intern/instance-flow-tracking/events`,
             {

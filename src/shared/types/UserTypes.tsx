@@ -1,4 +1,6 @@
-export interface IUser {
+import { ICreatedByActor } from "./audit";
+
+    export interface IUser {
     objectIdentifier: string,
     email: string,
     name: string,
@@ -12,9 +14,7 @@ export interface UserData {
     sourceApplicationIds: number[],
     createdAt: string | null,
     createdBy: string,
-    createdByActor: {
-        type: string,
-    },
+    createdByActor: ICreatedByActor;
     lastModifiedAt: string | null,
     lastModifiedBy: string,
     lastModifiedByActor: {

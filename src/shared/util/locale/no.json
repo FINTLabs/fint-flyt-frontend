@@ -457,18 +457,23 @@
             },
             "table": {
                 "column": {
-                    "sourceApplicationIntegrationId": "Kildeapp. integrasjon-id",
+                    "sourceApplicationIntegrationId": "Kildeapplikasjon integrasjons-id",
+                    "sourceApplicationIntegrationIdShort": "Kildeapp. integrasjon-id",
                     "sourceApplicationIntegrationIdDisplayName": "Integrasjonsnavn",
                     "sourceApplicationId": "Kildeapplikasjon",
                     "storage": "Mellomlagring",
                     "status": "Status",
                     "event": "Hendelse",
                     "actions": "Handlinger",
-                    "sourceApplicationInstanceId": "Kildeapp. instans-id",
+                    "sourceApplicationInstanceId": "Kildeapplikasjons instans-id",
+                    "sourceApplicationInstanceIdShort": "Kildeapp. instans-id",
                     "configurationId": "Konfigurasjon-id",
+                    "configurationIdShort": "Konf.-id",
                     "correlationId": "Korrelasjon-id",
                     "archiveInstanceId": "Destinasjons instans-id",
-                    "timestamp": "Tidspunkt"
+                    "archiveInstanceIdShort": "Dest. instans-id",
+                    "timestamp": "Tidspunkt",
+                    "createdBy": "Utført av"
                 }
             },
             "help": {

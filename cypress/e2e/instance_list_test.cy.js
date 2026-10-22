@@ -77,6 +77,41 @@ describe('Testing instance list', () => {
             .should('contain.text', 'vis feilmelding');
     });
 
+    it('should not show createdBy column when no events are triggered by a user', () => {
+        prep();
+        cy.viewport(3000, 2000);
+
+        cy.get('#instance-row-0').click();
+        cy.wait('@getHendelser');
+        cy.get('#instance-panel-0').should('be.visible');
+        cy.get('#instance-panel-0 thead').should('not.contain.text', 'Utført av');
+    });
+
+    it('should show createdBy column and user name when an event is triggered by a user', () => {
+        cy.intercept(
+            'GET',
+            '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
+            { fixture: 'hendelserWithUser.json' }
+        ).as('getHendelserWithUser');
+
+        prep();
+        cy.viewport(3000, 2000);
+
+        cy.get('#instance-row-0').click();
+        cy.wait('@getHendelserWithUser');
+        cy.get('#instance-panel-0').should('be.visible');
+        cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
+        cy.get('#instance-panel-0 tbody tr')
+            .first()
+            .should('contain.text', 'Ingrid Myrann');
+        // SYSTEM actor row: column is shown, but cell is empty
+        cy.get('#instance-panel-0 tbody tr')
+            .eq(1)
+            .find('td')
+            .eq(2)
+            .should('have.text', '');
+    });
+
     it('it should post correct id for retry', () => {
         prep();
 

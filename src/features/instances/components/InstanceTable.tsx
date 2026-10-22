@@ -1,4 +1,4 @@
-import { ActionMenu, Alert, Box, Checkbox, Table } from '@navikt/ds-react';
+import { ActionMenu, Alert, Box, Checkbox, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
@@ -134,8 +134,8 @@ const InstanceTable: React.FunctionComponent = () => {
                 typeof error === 'object' &&
                 error !== null &&
                 'response' in error &&
-                (error as { response?: { status?: number; data?: string } }).response
-                    ?.status === 422
+                (error as { response?: { status?: number; data?: string } }).response?.status ===
+                    422
             ) {
                 const resError = error as { response: { data: string } };
                 onError({ message: resError.response.data || 'Validation error occurred' });
@@ -239,12 +239,16 @@ const InstanceTable: React.FunctionComponent = () => {
                         <Table.ColumnHeader>
                             {t('table.column.sourceApplicationIntegrationIdDisplayName')}
                         </Table.ColumnHeader>
-                        <Table.ColumnHeader>
-                            {t('table.column.sourceApplicationIntegrationId')}
-                        </Table.ColumnHeader>
-                        <Table.ColumnHeader>
-                            {t('table.column.sourceApplicationInstanceId')}
-                        </Table.ColumnHeader>
+                        <Tooltip content={t('table.column.sourceApplicationIntegrationId')}>
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationIntegrationIdShort')}
+                            </Table.ColumnHeader>
+                        </Tooltip>
+                        <Tooltip content={t('table.column.sourceApplicationInstanceId')}>
+                            <Table.ColumnHeader>
+                                {t('table.column.sourceApplicationInstanceIdShort')}
+                            </Table.ColumnHeader>
+                        </Tooltip>
                         <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
                         <Table.ColumnHeader align={'center'}>
                             {t('table.column.status')}
