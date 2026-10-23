@@ -10,7 +10,7 @@ import { ValueType as ConfigurationValueType } from '../../../../types/Configura
 import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { isOutsideCollectionEditContext } from '../../../../util/keyUtils';
 import { hasValidFormat } from '../../../../util/validationUtil';
-import ArrayComponent from '../../../array/ArrayComponent';
+import FieldArray from '../../../../../../shared/components/inputs/FieldArray';
 import ArrayValueWrapperComponent from '../../../array/ArrayValueWrapperComponent';
 import { EditButton } from '../../../buttons/EditButton';
 import DynamicChipComponent from '../../value/string/DynamicChipComponent';
@@ -67,7 +67,7 @@ const FromCollectionMappingComponent: React.FunctionComponent<Props> = (props: P
                         isEditingState={isEditingState}
                     />
                 </HStack>
-                <ArrayComponent
+                <FieldArray
                     absoluteKey={props.absoluteKey + '.instanceCollectionReferencesOrdered'}
                     fieldComponentCreator={(index: number, absoluteKey: string) => (
                         <ArrayValueWrapperComponent

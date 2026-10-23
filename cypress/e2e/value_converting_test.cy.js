@@ -40,21 +40,19 @@ describe('Testing value converting page', () => {
         prep();
         cy.get('#new-button').click();
         cy.get('#displayName').type('testkonvertering', { delay: 0 });
-        cy.get('#fromApplicationId').click();
-        cy.get('#menu-fromApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
-        cy.get('#fromTypeId').click();
-        cy.get('#menu-fromTypeId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
-        cy.get('#toApplicationId').click();
-        cy.get('#menu-toApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
-        cy.get('#toTypeId').click();
-        cy.get('#menu-toTypeId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
+        cy.get('#fromApplicationId').select('1');
+        cy.get('#fromTypeId').select('mediatype');
+        cy.get('#toApplicationId').select('fylkesrad');
+        cy.get('#toTypeId').select('filformat');
         cy.get('#add-icon').click();
         cy.get('#convertingArray\\.0\\.from').type('test');
-        cy.get('.MuiAutocomplete-root > .MuiFormControl-root > .MuiInputBase-root')
+
+        cy.get('#convertingArray\\.0\\.to')
             .click()
             .type('doc')
             .type('{downArrow}')
             .type('{enter}');
+
         cy.get('#submit-button').click();
         cy.wait('@postValueconverting')
             .its('request.body')
@@ -72,17 +70,12 @@ describe('Testing value converting page', () => {
         prep();
         cy.get('#new-button').click();
         cy.get('#displayName').type('testkonvertering', { delay: 0 });
-        cy.get('#fromApplicationId').click();
-        cy.get('#menu-fromApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
-        cy.get('#fromTypeId').click();
-        cy.get('#menu-fromTypeId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
-        cy.get('#toApplicationId').click();
-        cy.get('#menu-toApplicationId > .MuiPaper-root > .MuiList-root > [tabindex="0"]').click();
+        cy.get('#fromApplicationId').select('1');
+        cy.get('#fromTypeId').select('mediatype');
+        cy.get('#toApplicationId').select('fylkesrad');
+        cy.get('#add-icon').click();
         cy.get('#submit-button').click();
-        cy.get('#from-to-container > :nth-child(2) > .navds-vstack > :nth-child(2)').should(
-            'contain.text',
-            'Påkrevd felt'
-        );
+        cy.get('#value-convertings-container').should('contain.text', 'Påkrevd felt');
     });
 
     it('should open and fill converting form based on existing', () => {
@@ -98,7 +91,7 @@ describe('Testing value converting page', () => {
         cy.get('#convertingArray\\.1\\.to').type('html');
         cy.get('#submit-button').click();
 
-        cy.get('#name-container #error-message').should('contain.text', 'Navn må være unikt');
+        cy.get('#name-container').should('contain.text', 'Navn må være unikt');
         cy.get('#displayName').type(' ny versjon', { delay: 0 });
         cy.get('#submit-button').click();
 

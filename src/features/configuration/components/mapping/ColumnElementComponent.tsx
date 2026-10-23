@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactElement } from 'react';
 
 import PathComponent from '../PathComponent';
-import configurationStyles from '../styles/configuration.module.css';
+import formStyles from '../../../../shared/components/inputs/formStyles.module.css'
 
 export interface Props {
     index: number;
@@ -17,7 +17,7 @@ const ColumnElementComponent: React.FunctionComponent<Props> = (props: Props) =>
     return (
         <Box
             id={'column-item-' + props.index + '-' + props.title}
-            className={configurationStyles.column}
+            className={formStyles.column}
             borderWidth={'1'}
         >
             <VStack padding={'4'} gap={'2'}>

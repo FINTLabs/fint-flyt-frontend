@@ -1,7 +1,7 @@
 import { HelpText, HStack } from '@navikt/ds-react';
 import * as React from 'react';
 
-import configurationInputStyles from '../styles/configuration.module.css';
+import formStyles from './formStyles.module.css';
 
 interface Props {
     displayName: string;
@@ -16,7 +16,7 @@ const DisplayNameWithHelpText: React.FunctionComponent<Props> = ({
         <HStack gap="1" align="center">
             {displayName}
             {description && (
-                <HelpText className={configurationInputStyles.helpText} placement="top">
+                <HelpText className={formStyles.helpText} placement="top">
                     {description}
                 </HelpText>
             )}

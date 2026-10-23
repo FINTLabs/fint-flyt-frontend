@@ -384,7 +384,7 @@ describe('Testing fill, save and complete new configuration', () => {
         cy.get('#form-complete').click();
         cy.get('#form-submit-btn').click();
 
-        cy.get('#string-value-component-comment').should(
+        cy.get('#string-field-comment').should(
             'contain.text',
             'Kommentar er påkrevd ved ferdigstilling'
         );

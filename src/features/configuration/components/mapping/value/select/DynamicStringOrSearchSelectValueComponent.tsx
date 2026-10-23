@@ -8,9 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { IReferenceTemplate } from '../../../../types/FormTemplate';
 import { ValueType as MetadataValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ISelectable } from '../../../../types/Selectable';
-import configurationStyles from '../../../styles/configuration.module.css';
+import formStyles from '../../../../../../shared/components/inputs/formStyles.module.css';
 import DynamicChipComponent from '../string/DynamicChipComponent';
-import SearchSelectValueComponent from './SearchSelectValueComponent';
+import SearchField from '../../../../../../shared/components/inputs/SearchField';
 import { matchesReferenceTemplate } from '../../../../util/urlTemplateUtils';
 import UrlTemplateBuilder from './urlTemplateBuilder/UrlTemplateBuilder';
 
@@ -68,8 +68,8 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
     }, [props.initialType, props.value, hasReferenceTemplate]);
 
     return (
-        <VStack ref={ref} gap={'1'} className={configurationStyles.inputFullWidth}>
-            <SearchSelectValueComponent
+        <VStack ref={ref} gap={'1'} className={formStyles.inputFullWidth}>
+            <SearchField
                 displayName={props.displayName}
                 description={props.description}
                 selectables={[
@@ -92,6 +92,7 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                     ...props.selectables,
                 ]}
                 disabled={props.disabled}
+                fullWidth
                 onChange={(value: string | null) => {
                     userHasChangedType.current = true;
                     setSelectValue(value);

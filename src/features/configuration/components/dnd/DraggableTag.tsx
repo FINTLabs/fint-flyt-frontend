@@ -4,17 +4,17 @@ import { FunctionComponent, ReactElement, Ref } from 'react';
 import { useDrag } from 'react-dnd';
 
 import {
-    AlternateEmailRoundedIcon,
-    CalendarMonthIcon,
-    DialpadIcon,
+    EmailIcon,
+    CalendarIcon,
+    PhoneIcon,
     DragIndicatorIcon,
-    FilePresentIcon,
-    FormatListNumberedIcon,
+    FileIcon,
+    NumberListIcon,
     LinkIcon,
-    NumbersIcon,
-    RuleRoundedIcon,
-    SwitchAccessShortcutRoundedIcon,
-    TextFieldsRoundedIcon,
+    HashtagIcon,
+    RuleIcon,
+    SwitchAccessShortcutIcon,
+    TextFieldsIcon,
 } from '../../../../shared/components/icons';
 import { ValueType } from '../../types/Metadata/IntegrationMetadata';
 import styles from './DraggableTag.module.css';
@@ -28,16 +28,16 @@ export interface Props {
 }
 
 const typeIcons: Record<string, ReactElement> = {
-    [ValueType.STRING]: <TextFieldsRoundedIcon />,
-    [ValueType.FILE]: <FilePresentIcon />,
-    [ValueType.INTEGER]: <NumbersIcon />,
-    [ValueType.DATE]: <CalendarMonthIcon />,
-    [ValueType.PHONE]: <DialpadIcon />,
-    [ValueType.BOOLEAN]: <RuleRoundedIcon />,
-    [ValueType.EMAIL]: <AlternateEmailRoundedIcon />,
+    [ValueType.STRING]: <TextFieldsIcon />,
+    [ValueType.FILE]: <FileIcon />,
+    [ValueType.INTEGER]: <HashtagIcon />,
+    [ValueType.DATE]: <CalendarIcon />,
+    [ValueType.PHONE]: <PhoneIcon />,
+    [ValueType.BOOLEAN]: <RuleIcon />,
+    [ValueType.EMAIL]: <EmailIcon />,
     [ValueType.URL]: <LinkIcon />,
-    [ValueType.COLLECTION]: <FormatListNumberedIcon />,
-    [ValueType.VALUE_CONVERTING]: <SwitchAccessShortcutRoundedIcon />,
+    [ValueType.COLLECTION]: <NumberListIcon />,
+    [ValueType.VALUE_CONVERTING]: <SwitchAccessShortcutIcon />,
 };
 
 export const DraggableTag: FunctionComponent<Props> = ({
