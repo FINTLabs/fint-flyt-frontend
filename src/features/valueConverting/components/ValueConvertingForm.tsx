@@ -229,7 +229,6 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                 render={({ field, fieldState }) => (
                                     <StringField
                                         {...field}
-                                        disabled={!valueConvertings}
                                         displayName={t('displayName')}
                                         fieldState={fieldState}
                                     />
