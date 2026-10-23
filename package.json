@@ -24,7 +24,6 @@
         "forward-check": "bash ./startUpForwards.sh check"
     },
     "dependencies": {
-        "@mui/icons-material": "^5.18.0",
         "@navikt/aksel-icons": "^7.35.3",
         "@navikt/ds-css": "^7.35.3",
         "@navikt/ds-react": "^7.35.3",

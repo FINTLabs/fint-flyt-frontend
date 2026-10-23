@@ -1,14 +1,9 @@
-export { default as AlternateEmailRoundedIcon } from '@mui/icons-material/AlternateEmailRounded';
-export { default as CalendarMonthIcon } from '@mui/icons-material/CalendarMonth';
-export { default as DialpadIcon } from '@mui/icons-material/Dialpad';
-export { default as FilePresentIcon } from '@mui/icons-material/FilePresent';
-export { default as FormatListNumberedIcon } from '@mui/icons-material/FormatListNumbered';
-export { default as LinkIcon } from '@mui/icons-material/Link';
-export { default as NumbersIcon } from '@mui/icons-material/Numbers';
-export { default as RuleRoundedIcon } from '@mui/icons-material/RuleRounded';
-export { default as SearchRoundedIcon } from '@mui/icons-material/SearchRounded';
-export { default as SwitchAccessShortcutRoundedIcon } from '@mui/icons-material/SwitchAccessShortcutRounded';
-export { default as TextFieldsRoundedIcon } from '@mui/icons-material/TextFieldsRounded';
+export {
+    EmailIcon,
+    RuleIcon,
+    SwitchAccessShortcutIcon,
+    TextFieldsIcon,
+} from './localIcons';
 export { ArrowRightIcon as ArrowRightIcon } from '@navikt/aksel-icons';
 export { BriefcaseClockIcon as BriefcaseClockIcon } from '@navikt/aksel-icons';
 export { CalendarIcon as CalendarIcon } from '@navikt/aksel-icons';
@@ -41,5 +36,10 @@ export { XMarkOctagonFillIcon as XMarkOctagonFillIcon } from '@navikt/aksel-icon
 export { InformationSquareFillIcon as InformationSquareFillIcon } from '@navikt/aksel-icons';
 export { MinusCircleIcon as MinusCircleIcon } from '@navikt/aksel-icons';
 export { DragVerticalIcon as DragIndicatorIcon } from '@navikt/aksel-icons';
-export { ArrowCirclepathIcon as RetryIcon} from '@navikt/aksel-icons';
+export { ArrowCirclepathIcon as RetryIcon } from '@navikt/aksel-icons';
 export { SortDownIcon as SortDownIcon } from '@navikt/aksel-icons';
+export { PhoneIcon as PhoneIcon } from '@navikt/aksel-icons';
+export { FileIcon as FileIcon } from '@navikt/aksel-icons';
+export { NumberListIcon as NumberListIcon } from '@navikt/aksel-icons';
+export { LinkIcon as LinkIcon } from '@navikt/aksel-icons';
+export { HashtagIcon as HashtagIcon } from '@navikt/aksel-icons';

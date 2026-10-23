@@ -154,29 +154,20 @@ Ved styling av tredjepartskomponenter (f.eks. NAV Designsystemet) kan `:global(.
 }
 ```
 
-### Utfasing av MUI
-
-Prosjektet er i ferd med å fases bort fra Material UI (MUI), inkludert `@mui/material` og `@mui/icons-material`.
-
-Ved nyutvikling skal Aksel-komponenter og Aksel-ikoner benyttes der tilsvarende funksjonalitet finnes.
-
-Det finnes fortsatt enkelte MUI-ikoner i løsningen der det foreløpig ikke finnes gode alternativer i Aksel. Disse eksponeres gjennom den felles ikon-modulen slik at de senere kan erstattes uten å endre imports i resten av kodebasen.
-
 ### Retningslinjer for ikoner
 
-Applikasjonen benytter primært ikoner fra NAV Aksel (`@navikt/aksel-icons`).
+Applikasjonen benytter ikoner fra NAV Aksel (`@navikt/aksel-icons`).
 
 For å gjøre det enklere å bytte ikonbibliotek og holde imports konsistente, skal ikoner importeres fra den felles ikon-modulen:
 
 ```tsx
-import { PlusIcon, SearchIcon } from '../components/icons';
+import { PlusIcon } from '../components/icons';
 ```
 
 og ikke direkte fra:
 
 ```tsx
 import { PlusIcon } from '@navikt/aksel-icons';
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 ```
 
 Det er satt opp ESLint-regler som skal bidra til å håndheve dette.
