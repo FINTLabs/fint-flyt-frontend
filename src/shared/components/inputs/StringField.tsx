@@ -54,6 +54,7 @@ const StringField: React.FunctionComponent<Props> = forwardRef<
             {props.multiline ? (
                 <Textarea
                     {...sharedProps}
+                    minRows={1}
                     maxRows={4}
                     ref={ref as React.Ref<HTMLTextAreaElement>}
                 />
