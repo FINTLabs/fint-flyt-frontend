@@ -1,5 +1,6 @@
 import {
-    mockGenericAuthorizationRepository, mockGenericResourceRepository,
+    mockGenericAuthorizationRepository,
+    mockGenericResourceRepository,
     mockGenericValueConvertingRepository,
 } from '../utils/interceptions.js';
 
@@ -31,9 +32,39 @@ describe('Testing value converting page', () => {
 
     it('should navigate to page 2 on more than 8 value convertings', () => {
         prep();
-        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'dokumenttype til dokumenttype v1');
+        cy.get('#table-row-0 > :nth-child(3)').should(
+            'contain.text',
+            'dokumenttype til dokumenttype v1'
+        );
         cy.get(':nth-child(3) > .navds-pagination__item').click();
-        cy.get('#table-row-0 > :nth-child(3)').should('contain.text', 'journalposttype til dokumenttype v1');
+        cy.get('#table-row-0 > :nth-child(3)').should(
+            'contain.text',
+            'journalposttype til dokumenttype v1'
+        );
+    });
+
+    it('should keep converting map disabled until from and to fields are filled', () => {
+        prep();
+        cy.get('#new-button').click();
+        cy.get('#add-icon').should('be.disabled');
+
+        cy.get('#fromApplicationId').select('1');
+        cy.get('#add-icon').should('be.disabled');
+        cy.get('#fromTypeId').select('mediatype');
+        cy.get('#add-icon').should('be.disabled');
+        cy.get('#toApplicationId').select('fylkesrad');
+        cy.get('#add-icon').should('be.disabled');
+
+        cy.get('#toTypeId').select('filformat');
+        cy.get('#add-icon').should('not.be.disabled');
+    });
+
+    it('Empty select option should be disabled before and after a value is chosen', () => {
+        prep();
+        cy.get('#new-button').click();
+        cy.get('#fromApplicationId option[value=""]').should('be.disabled');
+        cy.get('#fromApplicationId').select('1');
+        cy.get('#fromApplicationId option[value=""]').should('be.disabled');
     });
 
     it('should open and fill new converting form', () => {
@@ -47,11 +78,7 @@ describe('Testing value converting page', () => {
         cy.get('#add-icon').click();
         cy.get('#convertingArray\\.0\\.from').type('test');
 
-        cy.get('#convertingArray\\.0\\.to')
-            .click()
-            .type('doc')
-            .type('{downArrow}')
-            .type('{enter}');
+        cy.get('#convertingArray\\.0\\.to').click().type('doc').type('{downArrow}').type('{enter}');
 
         cy.get('#submit-button').click();
         cy.wait('@postValueconverting')
@@ -70,21 +97,16 @@ describe('Testing value converting page', () => {
         prep();
         cy.get('#new-button').click();
         cy.get('#displayName').type('testkonvertering', { delay: 0 });
-        cy.get('#fromApplicationId').select('1');
-        cy.get('#fromTypeId').select('mediatype');
-        cy.get('#toApplicationId').select('fylkesrad');
-        cy.get('#add-icon').click();
         cy.get('#submit-button').click();
-        cy.get('#value-convertings-container').should('contain.text', 'Påkrevd felt');
+        cy.get('#from-to-container').should('contain.text', 'Påkrevd felt');
+        cy.get('#add-icon').should('be.disabled');
     });
 
     it('should open and fill converting form based on existing', () => {
         prep();
-        cy.get('#table-row-0')
+        cy.get('#table-row-0');
         cy.get('#table-row-0 #value-converting-1-action-toggle > button').click();
-        cy.get('[data-testid="action-menu-content"]')
-            .contains('Lag ny basert på denne')
-            .click();
+        cy.get('[data-testid="action-menu-content"]').contains('Lag ny basert på denne').click();
         cy.wait('@getValueconverting');
         cy.get('#add-icon').click();
         cy.get('#convertingArray\\.1\\.from').type('test2');

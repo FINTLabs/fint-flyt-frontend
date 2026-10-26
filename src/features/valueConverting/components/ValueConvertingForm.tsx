@@ -1,11 +1,17 @@
-import { Button, Fieldset, Heading, HelpText, HGrid, HStack, VStack, Box } from '@navikt/ds-react';
+import { Box,Button, Fieldset, Heading, HGrid, HStack, VStack } from '@navikt/ds-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router';
 
-import useResourceRepository from '../../../shared/api/useResourceRepository';
 import useIntegrationConfigurationRepository from '../../../shared/api/useIntegrationConfigurationRepository';
+import useResourceRepository from '../../../shared/api/useResourceRepository';
+import DisplayNameWithHelpText from '../../../shared/components/inputs/DisplayNameWithHelpText';
+import FieldArray from '../../../shared/components/inputs/FieldArray';
+import styles from '../../../shared/components/inputs/formStyles.module.css';
+import SearchField from '../../../shared/components/inputs/SearchField';
+import SelectField from '../../../shared/components/inputs/SelectField';
+import StringField from '../../../shared/components/inputs/StringField';
 import FormPageWrapper from '../../../shared/components/layout/FormPageWrapper';
 import { AuthorizationContext } from '../../../shared/context/AuthorizationContext';
 import {
@@ -17,14 +23,8 @@ import { IAlertContent } from '../../../shared/types/AlertContent';
 import { ISelect } from '../../../shared/types/Select';
 import { sourceApplicationsToSelectable } from '../../../shared/util/formUtil';
 import { sortSelectables } from '../../../shared/util/selectableUtils';
-import { IValueConverting } from '../types/ValueConverting';
 import { ISelectable } from '../types/Selectable';
-import StringField from '../../../shared/components/inputs/StringField';
-import SelectField from '../../../shared/components/inputs/SelectField';
-import styles from '../../../shared/components/inputs/formStyles.module.css';
-import DisplayNameWithHelpText from '../../../shared/components/inputs/DisplayNameWithHelpText';
-import SearchField from '../../../shared/components/inputs/SearchField';
-import FieldArray from '../../../shared/components/inputs/FieldArray';
+import { IValueConverting } from '../types/ValueConverting';
 
 type Props = {
     existingValueConverting: IValueConverting | undefined;
@@ -111,10 +111,19 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
             : {},
     });
 
-    const toTypeIdWatch = useWatch({
-        control: methods.control,
-        name: 'toTypeId',
-    });
+    const [fromApplicationIdWatch, fromTypeIdWatch, toApplicationIdWatch, toTypeIdWatch] = useWatch(
+        {
+            control: methods.control,
+            name: ['fromApplicationId', 'fromTypeId', 'toApplicationId', 'toTypeId'],
+        }
+    );
+
+    const isConvertingArrayDisabled = [
+        fromApplicationIdWatch,
+        fromTypeIdWatch,
+        toApplicationIdWatch,
+        toTypeIdWatch,
+    ].some((value) => value === '' || value === null || value === undefined);
 
     function toFormData(valueConverting: IValueConverting): IValueConvertingFormData {
         // eslint-disable-next-line
@@ -255,6 +264,9 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                             {...field}
                                             fieldState={fieldState}
                                             displayName={t('fromApplicationId')}
+                                            emptyOptionLabel={t('selectOption', {
+                                                field: t('fromApplicationId'),
+                                            })}
                                             selectables={selectableSourceApplications.map(
                                                 (fromApplicationId) => {
                                                     return {
@@ -277,6 +289,9 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                             {...field}
                                             fieldState={fieldState}
                                             displayName={t('fromTypeId')}
+                                            emptyOptionLabel={t('selectOption', {
+                                                field: t('fromTypeId'),
+                                            })}
                                             selectables={fromTypeIds.map((fromTypeId) => {
                                                 return {
                                                     displayName: fromTypeId.label,
@@ -326,6 +341,9 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                                             {...field}
                                             fieldState={fieldState}
                                             displayName={t('toTypeId')}
+                                            emptyOptionLabel={t('selectOption', {
+                                                field: t('toTypeId'),
+                                            })}
                                             selectables={toTypeIds.map((toTypeId) => {
                                                 return {
                                                     displayName: toTypeId.label,
@@ -348,6 +366,12 @@ export const ValueConvertingForm: React.FunctionComponent<Props> = (props: Props
                         >
                             <FieldArray
                                 absoluteKey={'convertingArray'}
+                                disabled={isConvertingArrayDisabled}
+                                disabledReason={
+                                    isConvertingArrayDisabled
+                                        ? t('help.convertingMapDisabled')
+                                        : undefined
+                                }
                                 fieldComponentCreator={(index: number, absoluteKey: string) => (
                                     <HGrid columns={2} gap="5" key={index}>
                                         <Controller

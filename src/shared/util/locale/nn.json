@@ -628,6 +628,7 @@
             "updateError": "Feila under oppdatering, feilmelding: ",
             "genericError": "Det har oppstått ein feil",
             "requiredField": "Påkrevd felt",
+            "selectOption": "- Vel {{field}} -",
             "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
             "uniqueField": "Namn må være unikt",
             "column": {
@@ -650,6 +651,7 @@
                 "from": "Velg applikasjonen hvor verdien som skal konverteres kommer fra, og hvilken type data det er som skal konverteres fra",
                 "to": "Vel applikasjonen kvar verdien som skal konverterast kjem frå, og kva type data det er som skal konverterast frå.",
                 "convertingMap": "Her legger du til konverteringer, trykk + for å leggja til fleire og - for å fjerna",
+                "convertingMapDisabled": "Fyll ut Frå og Til (applikasjon og type) før du kan leggja til konverteringar",
                 "new": "Her kan du oppretta ei ny verdikonvertering. Ønskjer du å laga ny basert på ein tidlegare versjon finn du det under handlingar i tabellen"
             }
         },

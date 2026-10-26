@@ -1,4 +1,4 @@
-import { Box, HStack } from '@navikt/ds-react';
+import { Box, HStack, Tooltip } from '@navikt/ds-react';
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -11,6 +11,7 @@ interface Props {
     defaultValueCreator: () => any;
     onFieldClose?: (index: number) => void;
     disabled?: boolean;
+    disabledReason?: string;
     fromCollection?: boolean;
 }
 
@@ -20,6 +21,31 @@ const FieldArray: React.FunctionComponent<Props> = (props: Props) => {
         control,
         name: props.absoluteKey,
     });
+
+    const buttons = (
+        <HStack gap={'2'}>
+            <RoundedAddOrRemoveButton
+                isAdd={true}
+                onClick={() => {
+                    append(props.defaultValueCreator());
+                }}
+                disabled={props.disabled}
+            />
+            {fields.length > 0 && (
+                <RoundedAddOrRemoveButton
+                    isAdd={false}
+                    onClick={() => {
+                        const index = fields.length - 1;
+                        remove(fields.length - 1);
+                        if (props.onFieldClose) {
+                            props.onFieldClose(index);
+                        }
+                    }}
+                    disabled={props.disabled}
+                />
+            )}
+        </HStack>
+    );
 
     return (
         <ul
@@ -54,28 +80,13 @@ const FieldArray: React.FunctionComponent<Props> = (props: Props) => {
                     </li>
                 )
             )}
-            <HStack gap={'2'}>
-                <RoundedAddOrRemoveButton
-                    isAdd={true}
-                    onClick={() => {
-                        append(props.defaultValueCreator());
-                    }}
-                    disabled={props.disabled}
-                />
-                {fields.length > 0 && (
-                    <RoundedAddOrRemoveButton
-                        isAdd={false}
-                        onClick={() => {
-                            const index = fields.length - 1;
-                            remove(fields.length - 1);
-                            if (props.onFieldClose) {
-                                props.onFieldClose(index);
-                            }
-                        }}
-                        disabled={props.disabled}
-                    />
-                )}
-            </HStack>
+            {props.disabled && props.disabledReason ? (
+                <Tooltip content={props.disabledReason} placement="right">
+                    <span style={{ display: 'inline-flex' }}>{buttons}</span>
+                </Tooltip>
+            ) : (
+                buttons
+            )}
         </ul>
     );
 };
