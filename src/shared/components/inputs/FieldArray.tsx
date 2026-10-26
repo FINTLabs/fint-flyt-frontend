@@ -1,25 +1,51 @@
-import { Box, HStack } from '@navikt/ds-react';
+import { Box, HStack, Tooltip } from '@navikt/ds-react';
 import * as React from 'react';
 import { ReactElement } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { RoundedAddOrRemoveButton } from '../buttons/RoundedAddOrRemoveButton';
+import { RoundedAddOrRemoveButton } from './RoundedAddOrRemoveButton';
 
 interface Props {
     absoluteKey: string;
     fieldComponentCreator: (index: number, absoluteKey: string) => ReactElement;
-    defaultValueCreator: () => any; // eslint-disable-line
+    defaultValueCreator: () => any;
     onFieldClose?: (index: number) => void;
     disabled?: boolean;
+    disabledReason?: string;
     fromCollection?: boolean;
 }
 
-const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
+const FieldArray: React.FunctionComponent<Props> = (props: Props) => {
     const { control } = useFormContext();
     const { fields, append, remove } = useFieldArray({
         control,
         name: props.absoluteKey,
     });
+
+    const buttons = (
+        <HStack gap={'2'}>
+            <RoundedAddOrRemoveButton
+                isAdd={true}
+                onClick={() => {
+                    append(props.defaultValueCreator());
+                }}
+                disabled={props.disabled}
+            />
+            {fields.length > 0 && (
+                <RoundedAddOrRemoveButton
+                    isAdd={false}
+                    onClick={() => {
+                        const index = fields.length - 1;
+                        remove(fields.length - 1);
+                        if (props.onFieldClose) {
+                            props.onFieldClose(index);
+                        }
+                    }}
+                    disabled={props.disabled}
+                />
+            )}
+        </HStack>
+    );
 
     return (
         <ul
@@ -54,29 +80,14 @@ const ArrayComponent: React.FunctionComponent<Props> = (props: Props) => {
                     </li>
                 )
             )}
-            <HStack gap={'2'}>
-                <RoundedAddOrRemoveButton
-                    isAdd={true}
-                    onClick={() => {
-                        append(props.defaultValueCreator());
-                    }}
-                    disabled={props.disabled}
-                />
-                {fields.length > 0 && (
-                    <RoundedAddOrRemoveButton
-                        isAdd={false}
-                        onClick={() => {
-                            const index = fields.length - 1;
-                            remove(fields.length - 1);
-                            if (props.onFieldClose) {
-                                props.onFieldClose(index);
-                            }
-                        }}
-                        disabled={props.disabled}
-                    />
-                )}
-            </HStack>
+            {props.disabled && props.disabledReason ? (
+                <Tooltip content={props.disabledReason} placement="right">
+                    <span style={{ display: 'inline-flex' }}>{buttons}</span>
+                </Tooltip>
+            ) : (
+                buttons
+            )}
         </ul>
     );
 };
-export default ArrayComponent;
+export default FieldArray;

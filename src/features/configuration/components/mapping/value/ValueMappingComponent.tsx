@@ -13,10 +13,10 @@ import { isOutsideCollectionEditContext } from '../../../util/keyUtils';
 import { Search, SourceStatefulValue } from '../../../util/urlUtils';
 import { hasValidFormat } from '../../../util/validationUtil';
 import CheckboxValueComponent from '../../CheckboxValueComponent';
-import configurationStyles from '../../styles/configuration.module.css';
+import formStyles from '../../../../../shared/components/inputs/formStyles.module.css';
 import DynamicChipComponent from './string/DynamicChipComponent';
 import DynamicStringValueComponent from './string/DynamicStringValueComponent';
-import StringValueComponent from './string/StringValueComponent';
+import StringField from '../../../../../shared/components/inputs/StringField';
 
 interface Props {
     order: number;
@@ -82,7 +82,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
                 );
             case TemplateValueType.STRING:
                 setTypeIfUndefined(ConfigurationValueType.STRING);
-                return <StringValueComponent {...renderProps} fullWidth />;
+                return <StringField {...renderProps} fullWidth />;
             case TemplateValueType.DYNAMIC_STRING:
                 setTypeIfUndefined(ConfigurationValueType.DYNAMIC_STRING);
                 return (
@@ -113,7 +113,7 @@ const ValueMappingComponent: React.FunctionComponent<Props> = (props: Props) => 
             render={({ field, fieldState }) => (
                 <HStack
                     id={'value-mapping-wrapper-' + props.absoluteKey}
-                    className={configurationStyles.inputContainer}
+                    className={formStyles.inputContainer}
                 >
                     {createComponent({
                         ...field,

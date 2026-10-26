@@ -15,8 +15,8 @@ import {
     mappingStringToValueArray,
     valueArrayToMappingString,
 } from '../../../../util/valueFieldUtils';
-import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
-import configurationStyles from '../../../styles/configuration.module.css';
+import DisplayNameWithHelpText from '../../../../../../shared/components/inputs/DisplayNameWithHelpText';
+import formStyles from '../../../../../../shared/components/inputs/formStyles.module.css';
 
 export interface Props {
     displayName?: string;
@@ -311,9 +311,9 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
 
         let dropClassName = '';
         if (canDrop && isOver && !props.disabled) {
-            dropClassName = configurationStyles.chipInputActive;
+            dropClassName = formStyles.chipInputActive;
         } else if (canDrop && !props.disabled) {
-            dropClassName = configurationStyles.chipInputCanDrop;
+            dropClassName = formStyles.chipInputCanDrop;
         }
 
         const hasError = Boolean(props.fieldState?.error);
@@ -324,7 +324,7 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                 id={'dnd-value-component-' + absoluteKey}
                 key={absoluteKey}
                 ref={dropRef as unknown as React.Ref<HTMLDivElement>}
-                className={`${configurationStyles.inputFullWidth} ${configurationStyles.input}`}
+                className={`${formStyles.inputFullWidth} ${formStyles.input}`}
             >
                 <div
                     className={`navds-form-field navds-form-field--small${hasError ? ' navds-form-field--error' : ''}`}
@@ -337,15 +337,15 @@ const DynamicChipComponent: React.FunctionComponent<Props> = forwardRef<HTMLDivE
                             />
                         </Label>
                     ) : null}
-                    <div className={configurationStyles.chipInputShell}>
+                    <div className={formStyles.chipInputShell}>
                         <div
                             id={absoluteKey}
                             ref={setEditorRef}
                             className={[
-                                configurationStyles.chipInputBox,
+                                formStyles.chipInputBox,
                                 dropClassName,
-                                hasError ? configurationStyles.chipInputError : '',
-                                isEmpty ? configurationStyles.chipInputEmpty : '',
+                                hasError ? formStyles.chipInputError : '',
+                                isEmpty ? formStyles.chipInputEmpty : '',
                             ]
                                 .filter(Boolean)
                                 .join(' ')}

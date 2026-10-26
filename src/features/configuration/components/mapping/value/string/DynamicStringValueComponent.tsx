@@ -11,8 +11,8 @@ import { ValueType } from '../../../../types/Metadata/IntegrationMetadata';
 import { ITag } from '../../../../types/Metadata/Tag';
 import { Search } from '../../../../util/urlUtils';
 import { SearchButton } from '../../../buttons/SearchButton';
-import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
-import configurationStyles from '../../../styles/configuration.module.css';
+import DisplayNameWithHelpText from '../../../../../../shared/components/inputs/DisplayNameWithHelpText';
+import formStyles from '../../../../../../shared/components/inputs/formStyles.module.css';
 
 interface Props {
     displayName?: string;
@@ -59,11 +59,11 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
         setSearchResult(undefined);
     }, [props.search]);
 
-    let dropClassName = configurationStyles.dynamicInput;
+    let dropClassName = formStyles.dynamicInput;
     if (canDrop && isOver && !props.disabled) {
-        dropClassName = `${configurationStyles.dynamicInput} ${configurationStyles.dynamicInputActive}`;
+        dropClassName = `${formStyles.dynamicInput} ${formStyles.dynamicInputActive}`;
     } else if (canDrop && !props.disabled) {
-        dropClassName = `${configurationStyles.dynamicInput} ${configurationStyles.dynamicInputCanDrop}`;
+        dropClassName = `${formStyles.dynamicInput} ${formStyles.dynamicInputCanDrop}`;
     }
 
     return (
@@ -71,12 +71,12 @@ const DynamicStringValueComponent: React.FunctionComponent<Props> = forwardRef<
             id={'dnd-value-component-' + absoluteKey}
             ref={dropRef as unknown as React.Ref<HTMLDivElement>}
             key={absoluteKey}
-            className={configurationStyles.inputFullWidth}
+            className={formStyles.inputFullWidth}
         >
             <HStack gap="2" align="end" wrap={false} width="100%">
                 <Textarea
                     id={absoluteKey}
-                    className={`${configurationStyles.input} ${configurationStyles.inputFullWidth} ${dropClassName}`}
+                    className={`${formStyles.input} ${formStyles.inputFullWidth} ${dropClassName}`}
                     autoComplete="off"
                     size="small"
                     minRows={1}

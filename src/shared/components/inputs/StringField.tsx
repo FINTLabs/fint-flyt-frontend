@@ -4,8 +4,8 @@ import { forwardRef } from 'react';
 import { ControllerFieldState } from 'react-hook-form';
 import { Noop } from 'react-hook-form/dist/types';
 
-import DisplayNameWithHelpText from '../../../inputs/DisplayNameWithHelpText';
-import configurationStyles from '../../../styles/configuration.module.css';
+import DisplayNameWithHelpText from './DisplayNameWithHelpText';
+import formStyles from './formStyles.module.css';
 
 interface Props {
     displayName: string;
@@ -21,14 +21,14 @@ interface Props {
     fullWidth?: boolean;
 }
 
-const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
+const StringField: React.FunctionComponent<Props> = forwardRef<
     HTMLInputElement | HTMLTextAreaElement,
     Props
 >((props: Props, ref) => {
     const absoluteKey: string = props.name;
     const sharedProps = {
         id: absoluteKey,
-        className: configurationStyles.input,
+        className: formStyles.input,
         size: 'small' as const,
         label: (
             <DisplayNameWithHelpText
@@ -48,12 +48,13 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
 
     return (
         <div
-            id={'string-value-component-' + absoluteKey}
-            className={props.fullWidth ? configurationStyles.inputFullWidth : undefined}
+            id={'string-field-' + absoluteKey}
+            className={props.fullWidth ? formStyles.inputFullWidth : formStyles.inputDefault}
         >
             {props.multiline ? (
                 <Textarea
                     {...sharedProps}
+                    minRows={1}
                     maxRows={4}
                     ref={ref as React.Ref<HTMLTextAreaElement>}
                 />
@@ -64,5 +65,5 @@ const StringValueComponent: React.FunctionComponent<Props> = forwardRef<
     );
 });
 
-StringValueComponent.displayName = 'StringValueComponent';
-export default StringValueComponent;
+StringField.displayName = 'StringField';
+export default StringField;

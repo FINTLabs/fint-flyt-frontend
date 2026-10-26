@@ -39,12 +39,6 @@ export default [
                             message: 'Importer ikoner fra src/shared/components/icons.',
                         },
                     ],
-                    patterns: [
-                        {
-                            group: ['@mui/icons-material/*'],
-                            message: 'Importer ikoner fra src/shared/components/icons.',
-                        },
-                    ],
                 },
             ],
             'simple-import-sort/imports': 'warn',

@@ -40,21 +40,6 @@ updates:
           - "@navikt/*"
         update-types:
           - "major"
-      mui-minor-patch:
-        patterns:
-          - "@mui/*"
-          - "@types/mui"
-          - "@emotion/*"
-        update-types:
-          - "minor"
-          - "patch"
-      mui-major:
-        patterns:
-          - "@mui/*"
-          - "@types/mui"
-          - "@emotion/*"
-        update-types:
-          - "major"
       react-minor-patch:
         patterns:
           - "react"

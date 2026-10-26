@@ -613,7 +613,8 @@
             "newHeader": "New value conversion",
             "fromApplicationId": "Application",
             "displayName": "Name",
-            "valueConvertingName": "Value conversion name",
+            "createValueConverting": "Create new value conversion",
+            "editValueConverting": "Edit value conversion",
             "fromTypeId": "Type",
             "toApplicationId": "Application",
             "toTypeId": "Type",
@@ -633,6 +634,7 @@
             "updateError": "Failed updating, error message: ",
             "genericError": "An error has occured",
             "requiredField": "Required field",
+            "selectOption": "- Select {{field}} -",
             "requiredConverting": "Creating a new value converting requires at least one conversion",
             "uniqueField": "Name must be unique",
             "column": {
@@ -655,6 +657,7 @@
                 "from": "Select the application where the value to be converted comes from, and what type of data it is to be converted from",
                 "to": "Select the application the values that need conversion are to and the type they are to be converted to",
                 "convertingMap": "Here you add conversions, press + to add more and - to remove",
+                "convertingMapDisabled": "Fill in From and To (application and type) before you can add conversions",
                 "new": "Here you can create a new value conversion. If you want to create a new one based on an earlier version, you can find it under actions in the table"
             }
         },

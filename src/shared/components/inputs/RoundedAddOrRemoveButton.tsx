@@ -1,7 +1,7 @@
 import { Button } from '@navikt/ds-react';
 import * as React from 'react';
 
-import { MinusIcon, PlusIcon } from '../../../../shared/components/icons';
+import { MinusIcon, PlusIcon } from '../icons';
 
 export const RoundedAddOrRemoveButton: React.FunctionComponent<{
     isAdd: boolean;

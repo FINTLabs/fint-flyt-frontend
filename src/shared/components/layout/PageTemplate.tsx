@@ -66,7 +66,9 @@ const PageTemplate = ({
     return (
         <Box
             paddingInline={wide ? '8' : '32'}
-            maxWidth="var(--a-breakpoint-lx)"
+            maxWidth="100%"
+            width="100%"
+            height="100%"
             marginInline="auto"
             marginBlock={noScroll ? '0' : '0 8'}
             paddingBlock="8"
