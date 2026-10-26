@@ -74,7 +74,7 @@ describe('Testing instance list', () => {
         cy.get('#instance-panel-0 tbody tr')
             .first()
             .find('a')
-            .should('contain.text', 'vis feilmelding');
+            .should('contain.text', 'Vis feilmelding');
     });
 
     it('should not show createdBy column when no events are triggered by a user', () => {
@@ -103,13 +103,47 @@ describe('Testing instance list', () => {
         cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
         cy.get('#instance-panel-0 tbody tr')
             .first()
-            .should('contain.text', 'Ingrid Myrann');
-        // SYSTEM actor row: column is shown, but cell is empty
+            .should('contain.text', 'Test Testesen');
         cy.get('#instance-panel-0 tbody tr')
             .eq(1)
             .find('td')
             .eq(2)
             .should('have.text', '');
+    });
+
+    it('should show name and comment link when present, and hide them when absent', () => {
+        cy.intercept(
+            'GET',
+            '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
+            { fixture: 'hendelserWithUserAndComment.json' }
+        ).as('getHendelserWithUserAndComment');
+
+        prep();
+        cy.viewport(3000, 2000);
+
+        cy.get('#instance-row-0').click();
+        cy.wait('@getHendelserWithUserAndComment');
+        cy.get('#instance-panel-0').should('be.visible');
+        cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
+
+        cy.get('#instance-panel-0 tbody tr')
+            .first()
+            .find('td')
+            .eq(2)
+            .as('userCell');
+        cy.get('@userCell').should('contain.text', 'Test Testesen');
+        cy.get('@userCell').find('a').should('contain.text', 'Vis kommentar').click();
+        cy.contains('Manuelt overført etter feil i mapping').should('be.visible');
+        cy.get('.navds-modal__footer').contains('button', 'Lukk').click();
+
+        cy.get('#instance-panel-0 tbody tr')
+            .eq(1)
+            .find('td')
+            .eq(2)
+            .as('systemCell');
+        cy.get('@systemCell').should('not.contain.text', 'Test Testesen');
+        cy.get('@systemCell').should('not.contain.text', 'Vis kommentar');
+        cy.get('@systemCell').find('a').should('not.exist');
     });
 
     it('it should post correct id for retry', () => {

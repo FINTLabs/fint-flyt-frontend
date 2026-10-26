@@ -150,6 +150,8 @@ const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Prop
                         label={t('dialog.comment')}
                         description={t('dialog.commentDesc')}
                         onChange={(e) => setComment(e.target.value)}
+                        maxLength={250}
+                        error={comment && comment.length > 250}
                     />
                 </VStack>
             </Modal.Body>

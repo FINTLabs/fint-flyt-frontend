@@ -1,0 +1,75 @@
+{
+  "content": [
+    {
+      "instanceFlowHeaders": {
+        "sourceApplicationId": 2,
+        "sourceApplicationIntegrationId": "1",
+        "sourceApplicationInstanceId": "142312",
+        "correlationId": "b905277b-7e62-497d-a1af-d84843579fe5",
+        "integrationId": 1,
+        "instanceId": 44,
+        "configurationId": null,
+        "archiveInstanceId": null
+      },
+      "category": "instance-manually-processed",
+      "name": "instance-manually-processed",
+      "timestamp": "2023-06-06T15:16:33+02:00",
+      "type": "INFO",
+      "applicationId": "fint-flyt-instance-service",
+      "errors": [],
+      "createdBy": "Test Testesen",
+      "createdByActor": {
+        "type": "USER",
+        "oid": "97a29830-d899-4a08-9f9e-a39ee9b1dfc2"
+      },
+      "comment": "Manuelt overført etter feil i mapping"
+    },
+    {
+      "instanceFlowHeaders": {
+        "sourceApplicationId": 2,
+        "sourceApplicationIntegrationId": "TEST163",
+        "sourceApplicationInstanceId": "1515557",
+        "correlationId": "09883c3c-76e4-47fc-8e0b-633aab07b275",
+        "integrationId": 2,
+        "instanceId": 35,
+        "configurationId": 6,
+        "archiveInstanceId": "2023/132"
+      },
+      "category": "instance-dispatched",
+      "name": "instance-dispatched",
+      "timestamp": "2023-06-02T13:40:48.589",
+      "type": "INFO",
+      "applicationId": "fint-flyt-dispatch-service",
+      "errors": [],
+      "createdBy": "system",
+      "createdByActor": {
+        "type": "SYSTEM"
+      }
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": false,
+      "sorted": true,
+      "unsorted": false
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 1000,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 2,
+  "first": true,
+  "size": 1000,
+  "number": 0,
+  "sort": {
+    "empty": false,
+    "sorted": true,
+    "unsorted": false
+  },
+  "numberOfElements": 2,
+  "empty": false
+}

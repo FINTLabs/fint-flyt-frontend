@@ -195,7 +195,8 @@
         },
         "instances": {
             "header": "Instansar",
-            "showError": "vis feilmelding",
+            "showError": "Vis feilmelding",
+            "showComment": "Vis kommentar",
             "errors": "Feilmeldingar",
             "oneError": "Feilelding",
             "errorMessage": "Det oppstod ein feil under henting av data, prøv igjen seinare.",

@@ -195,7 +195,8 @@
         },
         "instances": {
             "header": "Instances",
-            "showError": "show error message",
+            "showError": "Show error message",
+            "showComment": "Show comment",
             "errors": "Errors",
             "oneError": "Error",
             "errorMessage": "There was an error fetching data, try again later.",
