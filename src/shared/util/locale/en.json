@@ -208,10 +208,12 @@
                 "cancel": "Cancel",
                 "confirm": "Save",
                 "destinationId": "Destination ID",
-                "destinationIdDesc": "Required on instances manually created in destination",
+                "comment": "Comment",
+                "commentDesc": "Optional comment for this action.",
+                "destinationIdDesc": "Required on instances manually created in destination.",
                 "status": "Status",
                 "reqFieldMsg": "Required field",
-                "warning": "Adds a manual status and replaces the system generated status. The action can not be undone"
+                "warning": "Adds a manual status and replaces the system generated status. The action can not be undone."
             },
             "button": {
                 "close": "Close",

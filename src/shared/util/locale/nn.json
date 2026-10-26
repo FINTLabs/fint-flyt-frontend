@@ -208,10 +208,12 @@
                 "cancel": "Avbryt",
                 "confirm": "Lagre",
                 "destinationId": "Destinasjon ID",
-                "destinationIdDesc": "Trengast på instansar manuelt oppretta i destinasjon",
+                "destinationIdDesc": "Trengast på instansar manuelt oppretta i destinasjon.",
+                "comment": "Kommentar",
+                "commentDesc": "Valgfri kommentar til handlinga.",
                 "status": "Status",
                 "reqFieldMsg": "Påkrevd felt",
-                "warning": "Legg til ein manuell status, og erstattar systemgenerert status, ver sikker før du endrar, handlinga kan ikkje angrast"
+                "warning": "Legg til ein manuell status og erstattar systemgenerert status. Handlinga kan ikkje angrast."
             },
             "button": {
                 "close": "Lukk",
