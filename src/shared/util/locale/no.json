@@ -637,6 +637,9 @@
             "selectOption": "- Velg {{field}} -",
             "requiredConverting": "Det kreves minst én konvertering for lagring av ny verdikonvertering",
             "uniqueField": "Navn må være unikt",
+            "unknown": "Ukjent",
+            "system": "System",
+            "unknownUser": "Ukjent bruker",
             "column": {
                 "id": "Id",
                 "noValueConvertings": "Ingen verdikonverteringer funnet",
