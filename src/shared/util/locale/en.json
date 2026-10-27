@@ -76,7 +76,8 @@
                 "checkLabel": "Completed",
                 "activeLabel": "Set as active",
                 "placeholder": "Write or drag and drop from metadata",
-                "formatError": "Value does not have required format"
+                "formatError": "Value does not have required format",
+                "resetValue": "Reset value"
             },
             "button": {
                 "submit": "Save",
