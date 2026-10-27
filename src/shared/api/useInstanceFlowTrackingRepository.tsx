@@ -95,7 +95,8 @@ export default function useInstanceFlowTrackingRepository() {
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
         archiveInstanceId: string,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
         return post(
             API_URL,
@@ -105,13 +106,15 @@ export default function useInstanceFlowTrackingRepository() {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };
     const manualRejectEvent = (
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
         return post(
             API_URL,
@@ -120,6 +123,7 @@ export default function useInstanceFlowTrackingRepository() {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };
@@ -127,7 +131,8 @@ export default function useInstanceFlowTrackingRepository() {
     const manualTransferEvent = (
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
         return post(
             API_URL,
@@ -136,6 +141,7 @@ export default function useInstanceFlowTrackingRepository() {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };

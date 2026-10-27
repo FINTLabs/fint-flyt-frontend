@@ -127,7 +127,8 @@ export interface IInstanceEvents {
     isScrubbed: boolean;
     createdAt: string;
     createdBy: string;
-    createdByActor: ICreatedByActor
+    createdByActor: ICreatedByActor;
+    comment?: string;
 }
 
 export interface IInstanceEventHeaders {
