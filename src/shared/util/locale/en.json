@@ -637,6 +637,9 @@
             "selectOption": "- Select {{field}} -",
             "requiredConverting": "Creating a new value converting requires at least one conversion",
             "uniqueField": "Name must be unique",
+            "unknown": "Unknown",
+            "system": "System",
+            "unknownUser": "Unknown user",
             "column": {
                 "id": "Id",
                 "noValueConvertings": "No value conversions found",

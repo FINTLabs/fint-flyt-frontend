@@ -20,6 +20,14 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
 }: Props) => {
     const { t, i18n } = useTranslation('translations', { keyPrefix: 'pages.valueConverting' });
 
+    const formatUserName = (type?: string, name?: string | null) => {
+        if (type === 'USER' && name) return name;
+        if (type === 'USER' && !name) return t('unknownUser');
+        if (type === 'UNKNOWN') return t('unknown');
+        if (type === 'SYSTEM') return t('system');
+        return '-';
+    };
+
     return (
         <Box
             id={'value-converting-panel-' + id}
@@ -58,6 +66,15 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
                         </BodyShort>
                     </VStack>
                     <VStack>
+                        <Label textColor="subtle">{t('column.createdBy')}</Label>
+                        <BodyShort>
+                            {formatUserName(
+                                existingValueConverting?.createdByActor?.type,
+                                existingValueConverting?.createdBy
+                            )}
+                        </BodyShort>
+                    </VStack>
+                    <VStack>
                         <Label textColor="subtle">{t('column.modifiedAt')}</Label>
                         <BodyShort>
                             {existingValueConverting?.lastModifiedAt
@@ -68,6 +85,15 @@ export const ValueConvertingPanel: React.FunctionComponent<Props> = ({
                                       'numeric'
                                   )
                                 : '-'}
+                        </BodyShort>
+                    </VStack>
+                    <VStack>
+                        <Label textColor="subtle">{t('column.modifiedBy')}</Label>
+                        <BodyShort>
+                            {formatUserName(
+                                existingValueConverting?.lastModifiedByActor?.type,
+                                existingValueConverting?.lastModifiedBy
+                            )}
                         </BodyShort>
                     </VStack>
                 </HStack>
