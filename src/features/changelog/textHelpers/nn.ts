@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS_NN =
 
 export const VERSION_DATA_NN: VersionEntry[] = [
     {
+        heading: 'November 2026',
+        updates: [
+            {
+                title: 'Nytt felt for avskrivingsmåte:',
+                text: 'Du kan no velje avskrivingsmåte i konfigurasjonsskjemaet.',
+            },
+        ],
+    },
+    {
         heading: 'Oktober 2026',
         updates: [
             {
