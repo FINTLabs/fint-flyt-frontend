@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: 'November 2026',
+        updates: [
+            {
+                title: 'Nytt felt for avskrivningsmåte:',
+                text: 'Du kan nå velge avskrivningsmåte i konfigurasjonsskjemaet.',
+            },
+        ],
+    },
+    {
         heading: 'Oktober 2026',
         updates: [
             {

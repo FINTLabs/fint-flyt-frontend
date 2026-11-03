@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS_EN =
 
 export const VERSION_DATA_EN: VersionEntry[] = [
     {
+        heading: 'November 2026',
+        updates: [
+            {
+                title: 'New field for closure method:',
+                text: 'You can now select a closure method in the configuration form.',
+            },
+        ],
+    },
+    {
         heading: 'October 2026',
         updates: [
             {
