@@ -5,6 +5,15 @@ export const ABOUT_VERSIONS =
 
 export const VERSION_DATA: VersionEntry[] = [
     {
+        heading: 'November 2026',
+        updates: [
+            {
+                title: 'Kommentar ved manuell statussetting.',
+                text: 'Du kan nå legge til en valgfri kommentar når du setter status manuelt på en instans. Velg «Vis kommentar» ved statusen i instansoversikten eller i kolonnen «Kommentar» i historikken.',
+            },
+        ],
+    },
+    {
         heading: 'Oktober 2026',
         updates: [
             {
