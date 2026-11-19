@@ -1,7 +1,7 @@
-import { BodyShort, Box, Button, HStack, Link, Loader, Table, Tooltip } from '@navikt/ds-react';
+import { Box, Button, HStack, Loader, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
@@ -28,13 +28,10 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const [selectedInstances, setSelectedInstances] = useState<IInstanceEventsResponse>();
     const [rowCount, setRowCount] = useState<string>('10');
 
-    const showCreatedByColumn = useMemo(
-        () =>
-            selectedInstances?.content.some(
-                (event) => event.createdByActor?.type === 'USER' || Boolean(event.comment)
-            ) ?? false,
-        [selectedInstances?.content]
+    const showCreatedByColumn = selectedInstances?.content.some(
+        (event) => event.createdByActor?.type === 'USER'
     );
+    const showCommentColumn = selectedInstances?.content.some((event) => Boolean(event.comment));
 
     useEffect(() => {
         getSelectedInstances(
@@ -109,6 +106,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                             {t('table.column.createdBy')}
                                         </Table.HeaderCell>
                                     )}
+                                    {showCommentColumn && (
+                                        <Table.HeaderCell scope="col">
+                                            {t('table.column.comment')}
+                                        </Table.HeaderCell>
+                                    )}
                                     <Tooltip content={t('table.column.archiveInstanceId')}>
                                         <Table.HeaderCell scope="col">
                                             {t('table.column.archiveInstanceIdShort')}
@@ -146,26 +148,25 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                             </Table.DataCell>
                                             {showCreatedByColumn && (
                                                 <Table.DataCell>
-                                                    <BodyShort>
-                                                        {instanceEvent.createdByActor?.type ===
-                                                            'USER' && instanceEvent.createdBy}
-                                                        {instanceEvent.comment && (
-                                                            <>
-                                                                {` `}
-                                                                <Link
-                                                                    style={{ cursor: 'pointer' }}
-                                                                    onClick={() => {
-                                                                        setSelectedRow(
-                                                                            instanceEvent
-                                                                        );
-                                                                        setOpenCommentDialog(true);
-                                                                    }}
-                                                                >
-                                                                    {t('showComment')}
-                                                                </Link>
-                                                            </>
-                                                        )}
-                                                    </BodyShort>
+                                                    {instanceEvent.createdByActor?.type ===
+                                                        'USER' && instanceEvent.createdBy}
+                                                </Table.DataCell>
+                                            )}
+                                            {showCommentColumn && (
+                                                <Table.DataCell>
+                                                    {instanceEvent.comment && (
+                                                        <Button
+                                                            type="button"
+                                                            size="xsmall"
+                                                            variant="tertiary"
+                                                            onClick={() => {
+                                                                setSelectedRow(instanceEvent);
+                                                                setOpenCommentDialog(true);
+                                                            }}
+                                                        >
+                                                            {t('showComment')}
+                                                        </Button>
+                                                    )}
                                                 </Table.DataCell>
                                             )}
                                             <Table.DataCell>

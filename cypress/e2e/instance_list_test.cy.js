@@ -27,18 +27,8 @@ describe('Testing instance list', () => {
         cy.get('#instance-table thead tr th').should('have.length', 10);
         cy.get('#instance-table > tbody > tr').should('have.length', 20); // 20 because it is an expandable table
 
-        // Status icon should have aria-label
-        cy.get('#instance-table > tbody > :first-child > :nth-child(8) > div').should(
-            'have.attr',
-            'aria-label',
-            'Overført'
-        );
-
-        cy.get('#instance-table > tbody > :nth-child(7) > :nth-child(8) > div').should(
-            'have.attr',
-            'aria-label',
-            'Feilet'
-        );
+        cy.get('#instance-row-0 [aria-label="Overført"]').should('be.visible');
+        cy.get('#instance-row-3 [aria-label="Feilet"]').should('be.visible');
     });
 
     it('instance table should contain correct headers', () => {
@@ -84,7 +74,9 @@ describe('Testing instance list', () => {
         cy.get('#instance-row-0').click();
         cy.wait('@getHendelser');
         cy.get('#instance-panel-0').should('be.visible');
-        cy.get('#instance-panel-0 thead').should('not.contain.text', 'Utført av');
+        cy.get('#instance-panel-0 thead')
+            .should('not.contain.text', 'Utført av')
+            .and('not.contain.text', 'Kommentar');
     });
 
     it('should show createdBy column and user name when an event is triggered by a user', () => {
@@ -100,7 +92,9 @@ describe('Testing instance list', () => {
         cy.get('#instance-row-0').click();
         cy.wait('@getHendelserWithUser');
         cy.get('#instance-panel-0').should('be.visible');
-        cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
+        cy.get('#instance-panel-0 thead')
+            .should('contain.text', 'Utført av')
+            .and('not.contain.text', 'Kommentar');
         cy.get('#instance-panel-0 tbody tr')
             .first()
             .should('contain.text', 'Test Testesen');
@@ -111,7 +105,7 @@ describe('Testing instance list', () => {
             .should('have.text', '');
     });
 
-    it('should show name and comment link when present, and hide them when absent', () => {
+    it('shows the author and comment action in separate history columns', () => {
         cy.intercept(
             'GET',
             '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
@@ -124,27 +118,23 @@ describe('Testing instance list', () => {
         cy.get('#instance-row-0').click();
         cy.wait('@getHendelserWithUserAndComment');
         cy.get('#instance-panel-0').should('be.visible');
-        cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
+        cy.get('#instance-panel-0 thead th').eq(2).should('have.text', 'Utført av');
+        cy.get('#instance-panel-0 thead th').eq(3).should('have.text', 'Kommentar');
 
         cy.get('#instance-panel-0 tbody tr')
             .first()
-            .find('td')
-            .eq(2)
-            .as('userCell');
-        cy.get('#instance-panel-0 tbody tr').first().should('contain.text', 'Manuelt behandlet');
-        cy.get('@userCell').should('contain.text', 'Test Testesen');
-        cy.get('@userCell').find('a').should('contain.text', 'Vis kommentar').click();
+            .should('contain.text', 'Manuelt behandlet')
+            .within(() => {
+                cy.get('td').eq(2).should('have.text', 'Test Testesen');
+                cy.get('td').eq(3).contains('button', 'Vis kommentar').click();
+            });
         cy.contains('Manuelt overført etter feil i mapping').should('be.visible');
-        cy.get('.navds-modal__footer').contains('button', 'Lukk').click();
+        cy.contains('dialog[open] button', 'Lukk').click();
 
-        cy.get('#instance-panel-0 tbody tr')
-            .eq(1)
-            .find('td')
-            .eq(2)
-            .as('systemCell');
-        cy.get('@systemCell').should('not.contain.text', 'Test Testesen');
-        cy.get('@systemCell').should('not.contain.text', 'Vis kommentar');
-        cy.get('@systemCell').find('a').should('not.exist');
+        cy.get('#instance-panel-0 tbody tr').eq(1).within(() => {
+            cy.get('td').eq(2).should('have.text', '');
+            cy.get('td').eq(3).should('have.text', '');
+        });
     });
 
     it('saves a long comment, shows it with the new status and clears the next dialog', () => {
@@ -194,7 +184,22 @@ describe('Testing instance list', () => {
         });
         cy.wait('@manualSummaries');
 
-        cy.contains('#instance-row-0 button', 'Vis kommentar').click();
+        cy.get('#instance-row-0 [aria-label="Avbrutt"]').then(([$status]) => {
+            const status = $status.getBoundingClientRect();
+            cy.get('#instance-row-1 [aria-label="Feilet"]').should(([$otherStatus]) => {
+                expect($otherStatus.getBoundingClientRect().left).to.be.closeTo(status.left, 1);
+            });
+            cy.contains('#instance-row-0 button', 'Vis kommentar')
+                .should(([$button]) => {
+                    const button = $button.getBoundingClientRect();
+                    expect(button.left).to.be.greaterThan(status.right);
+                    expect(button.top + button.height / 2).to.be.closeTo(
+                        status.top + status.height / 2,
+                        1
+                    );
+                })
+                .click();
+        });
         cy.get('dialog[open]').should('contain.text', comment);
         cy.contains('dialog[open] button', 'Lukk').click();
 

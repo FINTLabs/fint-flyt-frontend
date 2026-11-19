@@ -461,7 +461,8 @@
                     "archiveInstanceId": "Destination instance ID",
                     "archiveInstanceIdShort": "Dest. instance ID",
                     "timestamp": "Timestamp",
-                    "createdBy": "Triggered by"
+                    "createdBy": "Triggered by",
+                    "comment": "Comment"
                 }
             },
             "help": {

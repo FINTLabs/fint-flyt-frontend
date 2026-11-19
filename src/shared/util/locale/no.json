@@ -477,7 +477,8 @@
                     "archiveInstanceId": "Destinasjons instans-id",
                     "archiveInstanceIdShort": "Dest. instans-id",
                     "timestamp": "Tidspunkt",
-                    "createdBy": "Utført av"
+                    "createdBy": "Utført av",
+                    "comment": "Kommentar"
                 }
             },
             "help": {

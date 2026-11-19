@@ -1,4 +1,4 @@
-import { ActionMenu, Alert, Box, Button, Checkbox, Table, Tooltip } from '@navikt/ds-react';
+import { ActionMenu, Alert, Box, Button, Checkbox, HStack, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
@@ -261,9 +261,7 @@ const InstanceTable: React.FunctionComponent = () => {
                             </Table.ColumnHeader>
                         </Tooltip>
                         <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                        <Table.ColumnHeader align={'center'}>
-                            {t('table.column.status')}
-                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                         <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                         <Table.ColumnHeader>
                             {t('table.column.archiveInstanceId')}
@@ -329,20 +327,22 @@ const InstanceTable: React.FunctionComponent = () => {
                                         {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        <InstanceStatusWithTooltip status={value.status} />
-                                        {value.comment && (
-                                            <Button
-                                                type="button"
-                                                size="small"
-                                                variant="tertiary"
-                                                onClick={(event) => {
-                                                    event.stopPropagation();
-                                                    setSelectedComment(value.comment ?? undefined);
-                                                }}
-                                            >
-                                                {t('showComment')}
-                                            </Button>
-                                        )}
+                                        <HStack align="center" gap="1" wrap={false}>
+                                            <InstanceStatusWithTooltip status={value.status} />
+                                            {value.comment && (
+                                                <Button
+                                                    type="button"
+                                                    size="small"
+                                                    variant="tertiary"
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        setSelectedComment(value.comment ?? undefined);
+                                                    }}
+                                                >
+                                                    {t('showComment')}
+                                                </Button>
+                                            )}
+                                        </HStack>
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus
