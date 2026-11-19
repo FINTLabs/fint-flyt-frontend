@@ -1,5 +1,4 @@
-import { BodyShort, HStack, Tooltip, VStack } from '@navikt/ds-react';
-import * as React from 'react';
+import { BodyShort, HStack, Link, Tooltip, VStack } from '@navikt/ds-react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +12,7 @@ import {
 
 type InstanceEventStatusWithTextProps = {
     event: string;
-    errorLink: React.ReactNode | undefined;
+    onShowError?: () => void;
 };
 
 type InstanceStatusWithTextProps = {
@@ -85,7 +84,7 @@ const InstanceStatusWithTooltip = ({ status }: InstanceStatusWithTextProps) => {
     );
 };
 
-const InstanceEventStatusWithText = ({ event, errorLink }: InstanceEventStatusWithTextProps) => {
+const InstanceEventStatusWithText = ({ event, onShowError }: InstanceEventStatusWithTextProps) => {
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
     const eventText = useMemo(() => t(`filter.associatedEventNames.${event}`), [event]);
 
@@ -103,7 +102,15 @@ const InstanceEventStatusWithText = ({ event, errorLink }: InstanceEventStatusWi
         <HStack align={'center'} gap={'2'} wrap={false}>
             <StatusIcon status={eventIconType} text={eventText} />
             <BodyShort>
-                {eventText} {errorLink}
+                {eventText}.
+                {onShowError && (
+                    <>
+                        {` `}
+                        <Link style={{ cursor: 'pointer' }} onClick={onShowError}>
+                            {t('showError')}
+                        </Link>
+                    </>
+                )}
             </BodyShort>
         </HStack>
     );

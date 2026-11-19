@@ -11,6 +11,10 @@ export const VERSION_DATA_NN: VersionEntry[] = [
                 title: 'Nytt felt for avskrivingsmåte:',
                 text: 'Du kan no velje avskrivingsmåte i konfigurasjonsskjemaet.',
             },
+            {
+                title: 'Kommentar ved manuell statussetjing.',
+                text: 'Du kan no leggje til ein valfri kommentar når du set status manuelt på ein instans. Vel «Vis kommentar» ved statusen i instansoversikta eller i kolonnen «Kommentar» i historikken.',
+            },
         ],
     },
     {

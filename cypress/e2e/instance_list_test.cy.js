@@ -27,18 +27,8 @@ describe('Testing instance list', () => {
         cy.get('#instance-table thead tr th').should('have.length', 10);
         cy.get('#instance-table > tbody > tr').should('have.length', 20); // 20 because it is an expandable table
 
-        // Status icon should have aria-label
-        cy.get('#instance-table > tbody > :first-child > :nth-child(8) > div').should(
-            'have.attr',
-            'aria-label',
-            'Overført'
-        );
-
-        cy.get('#instance-table > tbody > :nth-child(7) > :nth-child(8) > div').should(
-            'have.attr',
-            'aria-label',
-            'Feilet'
-        );
+        cy.get('#instance-row-0 [aria-label="Overført"]').should('be.visible');
+        cy.get('#instance-row-3 [aria-label="Feilet"]').should('be.visible');
     });
 
     it('instance table should contain correct headers', () => {
@@ -74,7 +64,7 @@ describe('Testing instance list', () => {
         cy.get('#instance-panel-0 tbody tr')
             .first()
             .find('a')
-            .should('contain.text', 'vis feilmelding');
+            .should('contain.text', 'Vis feilmelding');
     });
 
     it('should not show createdBy column when no events are triggered by a user', () => {
@@ -84,7 +74,9 @@ describe('Testing instance list', () => {
         cy.get('#instance-row-0').click();
         cy.wait('@getHendelser');
         cy.get('#instance-panel-0').should('be.visible');
-        cy.get('#instance-panel-0 thead').should('not.contain.text', 'Utført av');
+        cy.get('#instance-panel-0 thead')
+            .should('not.contain.text', 'Utført av')
+            .and('not.contain.text', 'Kommentar');
     });
 
     it('should show createdBy column and user name when an event is triggered by a user', () => {
@@ -100,16 +92,128 @@ describe('Testing instance list', () => {
         cy.get('#instance-row-0').click();
         cy.wait('@getHendelserWithUser');
         cy.get('#instance-panel-0').should('be.visible');
-        cy.get('#instance-panel-0 thead').should('contain.text', 'Utført av');
+        cy.get('#instance-panel-0 thead')
+            .should('contain.text', 'Utført av')
+            .and('not.contain.text', 'Kommentar');
         cy.get('#instance-panel-0 tbody tr')
             .first()
-            .should('contain.text', 'Ingrid Myrann');
-        // SYSTEM actor row: column is shown, but cell is empty
+            .should('contain.text', 'Test Testesen');
         cy.get('#instance-panel-0 tbody tr')
             .eq(1)
             .find('td')
             .eq(2)
             .should('have.text', '');
+    });
+
+    it('shows the author and comment action in separate history columns', () => {
+        cy.intercept(
+            'GET',
+            '**/instance-flow-tracking/events?size=10&sort=timestamp%2Cdesc&sourceApplicationId=2&sourceApplicationInstanceId=*&sourceApplicationIntegrationId=journalpost',
+            { fixture: 'hendelserWithUserAndComment.json' }
+        ).as('getHendelserWithUserAndComment');
+
+        prep();
+        cy.viewport(3000, 2000);
+
+        cy.get('#instance-row-0').click();
+        cy.wait('@getHendelserWithUserAndComment');
+        cy.get('#instance-panel-0').should('be.visible');
+        cy.get('#instance-panel-0 thead th').eq(2).should('have.text', 'Utført av');
+        cy.get('#instance-panel-0 thead th').eq(3).should('have.text', 'Kommentar');
+
+        cy.get('#instance-panel-0 tbody tr')
+            .first()
+            .should('contain.text', 'Manuelt behandlet')
+            .within(() => {
+                cy.get('td').eq(2).should('have.text', 'Test Testesen');
+                cy.get('td').eq(3).contains('button', 'Vis kommentar').click();
+            });
+        cy.contains('Manuelt overført etter feil i mapping').should('be.visible');
+        cy.contains('dialog[open] button', 'Lukk').click();
+
+        cy.get('#instance-panel-0 tbody tr').eq(1).within(() => {
+            cy.get('td').eq(2).should('have.text', '');
+            cy.get('td').eq(3).should('have.text', '');
+        });
+    });
+
+    it('saves a long comment, shows it with the new status and clears the next dialog', () => {
+        // Aksel's autosizing textarea can report a deferred resize in the browser.
+        cy.on('uncaught:exception', (error) => {
+            if (error.message.includes('ResizeObserver loop completed with undelivered notifications')) {
+                return false;
+            }
+        });
+
+        const comment = 'Vurdert av saksbehandler. '.repeat(12).trim();
+        let summaries;
+        cy.fixture('filter/instanser.json').then((instances) => {
+            const failed = instances.find((instance) => instance.status === 'FAILED');
+            summaries = [
+                { ...failed, sourceApplicationInstanceId: 'first-instance', comment: null },
+                { ...failed, sourceApplicationInstanceId: 'next-instance', comment: null },
+            ];
+        });
+        cy.intercept('GET', '**/instance-flow-tracking/summaries?size=10', (request) => {
+            request.reply({ body: summaries });
+        }).as('manualSummaries');
+        cy.intercept(
+            'POST',
+            '**/instance-flow-tracking/events/instance-manually-rejected',
+            (request) => {
+                const summary = summaries.find(
+                    (instance) =>
+                        instance.sourceApplicationInstanceId === request.body.sourceApplicationInstanceId
+                );
+                summary.status = 'ABORTED';
+                summary.comment = request.body.comment ?? null;
+                request.reply({ statusCode: 200, body: { comment: summary.comment } });
+            }
+        ).as('manualStatus');
+
+        prep();
+        cy.wait('@manualSummaries');
+        cy.get('#0-action-toggle > button').click();
+        cy.get('#statusButton').click();
+        cy.get('dialog[open] select').select('instance-manually-rejected');
+        cy.get('dialog[open] textarea:not([aria-hidden=true])').type(comment, { delay: 0 });
+        cy.contains('dialog[open] button', 'Lagre').click();
+        cy.wait('@manualStatus').its('request.body').should('deep.include', {
+            sourceApplicationInstanceId: 'first-instance',
+            comment,
+        });
+        cy.wait('@manualSummaries');
+
+        cy.get('#instance-row-0 [aria-label="Avbrutt"]').then(([$status]) => {
+            const status = $status.getBoundingClientRect();
+            cy.get('#instance-row-1 [aria-label="Feilet"]').should(([$otherStatus]) => {
+                expect($otherStatus.getBoundingClientRect().left).to.be.closeTo(status.left, 1);
+            });
+            cy.contains('#instance-row-0 button', 'Vis kommentar')
+                .should(([$button]) => {
+                    const button = $button.getBoundingClientRect();
+                    expect(button.left).to.be.greaterThan(status.right);
+                    expect(button.top + button.height / 2).to.be.closeTo(
+                        status.top + status.height / 2,
+                        1
+                    );
+                })
+                .click();
+        });
+        cy.get('dialog[open]').should('contain.text', comment);
+        cy.contains('dialog[open] button', 'Lukk').click();
+
+        cy.get('#instance-row-1').should('not.contain.text', 'Vis kommentar');
+        cy.get('#1-action-toggle > button').click();
+        cy.get('#statusButton').click();
+        cy.get('dialog[open] textarea:not([aria-hidden=true])').should('have.value', '');
+        cy.get('dialog[open] select').should('have.value', '');
+        cy.get('dialog[open] select').select('instance-manually-rejected');
+        cy.contains('dialog[open] button', 'Lagre').click();
+        cy.wait('@manualStatus').then(({ request }) => {
+            expect(request.body.sourceApplicationInstanceId).to.equal('next-instance');
+            expect(request.body).not.to.have.property('comment');
+        });
     });
 
     it('it should post correct id for retry', () => {

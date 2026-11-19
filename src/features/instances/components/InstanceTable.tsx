@@ -1,4 +1,4 @@
-import { ActionMenu, Alert, Box, Checkbox, Table, Tooltip } from '@navikt/ds-react';
+import { ActionMenu, Alert, Box, Button, Checkbox, HStack, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { ReactElement, useContext, useEffect, useState } from 'react';
@@ -22,6 +22,7 @@ import { useTableSelect } from '../batchProcess/TableSelectContext';
 import { useInstanceFilters } from '../filter/FilterContext';
 import { IEventNew, ISummary } from '../types/Event';
 import CustomStatusDialogComponent from './CustomStatusDialogComponent';
+import InstanceEventCommentDialog from './InstanceEventCommentDialog';
 import { InstanceStatusWithTooltip } from './InstanceEventStatusWithText';
 import InstancePanel from './InstancePanel';
 
@@ -41,7 +42,7 @@ const InstanceTable: React.FunctionComponent = () => {
     const [selectedRowByActionMenu, setSelectedRowByActionMenu] = useState<IEventNew>();
     const [expandedRows, setExpandedRows] = useState<number[]>([]);
 
-    const [openCustomDialog, setOpenCustomDialog] = React.useState(false);
+    const [selectedComment, setSelectedComment] = useState<string>();
     const errorsNotForRetry: string[] = ['instance-receival-error', 'instance-registration-error'];
     const [summaryList, setSummaryList] = useState<ISummary[]>();
 
@@ -81,6 +82,10 @@ const InstanceTable: React.FunctionComponent = () => {
     }, [summaryList?.length, setSize, setPaginationMeta]);
 
     useEffect(() => {
+        refreshInstances();
+    }, [size, refreshKey, latestMetadata?.length]);
+
+    const refreshInstances = () => {
         if (!latestMetadata?.length) {
             return;
         }
@@ -88,8 +93,8 @@ const InstanceTable: React.FunctionComponent = () => {
         setLoading(true);
         setExpandedRows([]);
         removeAllEvents();
-        getLatestInstances(String(size));
-    }, [size, refreshKey, latestMetadata?.length]);
+        void getLatestInstances(String(size));
+    };
 
     const handleRetryButtonClick = (index: number) => {
         const newDisabledButtons = [...disabledRetryButtons];
@@ -170,10 +175,7 @@ const InstanceTable: React.FunctionComponent = () => {
             <TableRowActionsMenu id={id}>
                 <ActionMenu.Item
                     id="statusButton"
-                    onClick={() => {
-                        setSelectedRowByActionMenu(event);
-                        setOpenCustomDialog(true);
-                    }}
+                    onClick={() => setSelectedRowByActionMenu(event)}
                     icon={<DocPencilIcon />}
                 >
                     {t('customStatus')}
@@ -204,11 +206,20 @@ const InstanceTable: React.FunctionComponent = () => {
         <Box>
             {selectedRowByActionMenu && (
                 <CustomStatusDialogComponent
-                    open={openCustomDialog}
                     row={selectedRowByActionMenu}
-                    setOpenCustomDialog={setOpenCustomDialog}
+                    onClose={() => setSelectedRowByActionMenu(undefined)}
+                    onSaved={() => {
+                        setSelectedRowByActionMenu(undefined);
+                        refreshInstances();
+                    }}
                 />
             )}
+
+            <InstanceEventCommentDialog
+                comment={selectedComment}
+                open={Boolean(selectedComment)}
+                onClose={() => setSelectedComment(undefined)}
+            />
 
             <Table id={'instance-table'}>
                 <Table.Header>
@@ -250,9 +261,7 @@ const InstanceTable: React.FunctionComponent = () => {
                             </Table.ColumnHeader>
                         </Tooltip>
                         <Table.ColumnHeader>{t('table.column.timestamp')}</Table.ColumnHeader>
-                        <Table.ColumnHeader align={'center'}>
-                            {t('table.column.status')}
-                        </Table.ColumnHeader>
+                        <Table.ColumnHeader>{t('table.column.status')}</Table.ColumnHeader>
                         <Table.ColumnHeader>{t('table.column.storage')}</Table.ColumnHeader>
                         <Table.ColumnHeader>
                             {t('table.column.archiveInstanceId')}
@@ -264,7 +273,7 @@ const InstanceTable: React.FunctionComponent = () => {
                     {loading ? (
                         <TableLoader columnLength={10} />
                     ) : (
-                        summaryList?.map((value: IEventNew, i: number) => {
+                        summaryList?.map((value, i) => {
                             return (
                                 <Table.ExpandableRow
                                     key={i}
@@ -318,7 +327,22 @@ const InstanceTable: React.FunctionComponent = () => {
                                         {format(value.latestUpdate, 'dd/MM/yy HH:mm')}
                                     </Table.DataCell>
                                     <Table.DataCell>
-                                        <InstanceStatusWithTooltip status={value.status} />
+                                        <HStack align="center" gap="1" wrap={false}>
+                                            <InstanceStatusWithTooltip status={value.status} />
+                                            {value.comment && (
+                                                <Button
+                                                    type="button"
+                                                    size="small"
+                                                    variant="tertiary"
+                                                    onClick={(event) => {
+                                                        event.stopPropagation();
+                                                        setSelectedComment(value.comment ?? undefined);
+                                                    }}
+                                                >
+                                                    {t('showComment')}
+                                                </Button>
+                                            )}
+                                        </HStack>
                                     </Table.DataCell>
                                     <Table.DataCell>
                                         {value.intermediateStorageStatus

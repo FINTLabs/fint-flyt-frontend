@@ -1,145 +1,158 @@
-import { Alert, Button, Modal, Select, TextField, VStack } from '@navikt/ds-react';
-import * as React from 'react';
-import { useRef, useState } from 'react';
+import {
+    Button,
+    InlineMessage,
+    Modal,
+    Select,
+    Textarea,
+    TextField,
+    VStack,
+} from '@navikt/ds-react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
-import { ISelectable } from '../../configuration/types/Selectable';
 import { IEventNew } from '../types/Event';
 
 type Props = {
     row: IEventNew;
-    setOpenCustomDialog: React.Dispatch<React.SetStateAction<boolean>>;
-    open: boolean;
+    onClose: () => void;
+    onSaved: () => void;
 };
 
-const CustomStatusDialogComponent: React.FunctionComponent<Props> = (props: Props) => {
-    const ref = useRef<HTMLDialogElement>(null);
-    const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository()
+const manualStatuses = [
+    'instance-manually-processed',
+    'instance-manually-rejected',
+    'instance-status-overridden-as-transferred',
+];
+
+const CustomStatusDialogComponent = ({ row, onClose, onSaved }: Props) => {
+    const { manualDispatchEvent, manualRejectEvent, manualTransferEvent } =
+        useInstanceFlowTrackingRepository();
     const { t } = useTranslation('translations', { keyPrefix: 'pages.instances' });
-    const [status, setStatus] = useState<string>(props.row.status);
-    const [destinationId, setDestinationId] = useState<string | undefined>(undefined);
-    const [error, setError] = useState<boolean>(false);
+    const [status, setStatus] = useState('');
+    const [destinationId, setDestinationId] = useState('');
+    const [comment, setComment] = useState<string>();
+    const [destinationIdMissing, setDestinationIdMissing] = useState(false);
+    const [saveError, setSaveError] = useState(false);
+    const [saving, setSaving] = useState(false);
 
-    const createDispatchEvent = (instance: IEventNew, archiveInstanceId: string) => {
-        InstanceFlowTrackingRepository.manualDispatchEvent(
-            instance.sourceApplicationInstanceId,
-            instance.sourceApplicationId,
-            archiveInstanceId,
-            instance.sourceApplicationIntegrationId
-        )
-            .then((response) => {
-                console.log('created event', response);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
-    const createRejectEvent = (instance: IEventNew) => {
-        InstanceFlowTrackingRepository.manualRejectEvent(
-            instance.sourceApplicationInstanceId,
-            instance.sourceApplicationId,
-            instance.sourceApplicationIntegrationId
-        )
-            .then((response) => {
-                console.log('created event', response);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
-    const createTransferredEvent = (instance: IEventNew) => {
-        InstanceFlowTrackingRepository.manualTransferEvent(
-            instance.sourceApplicationInstanceId,
-            instance.sourceApplicationId,
-            instance.sourceApplicationIntegrationId
-        )
-            .then((response) => {
-                console.log('created event', response);
-            })
-            .catch((e) => {
-                console.error(e);
-            });
-    };
-
-    const updateStatus = (instance: IEventNew, status: string, destinationId?: string) => {
-        // instance.name = status;
-        // instance.type = 'INFO';
-        // instance.timestamp = new Date().toISOString();
-
+    const saveStatus = async () => {
+        if (!manualStatuses.includes(status) || saving) {
+            return;
+        }
         if (status === 'instance-manually-processed' && !destinationId) {
-            setError(true);
-        } else if (status === 'instance-manually-processed' && destinationId) {
-            createDispatchEvent(instance, destinationId);
-            props.setOpenCustomDialog(false);
-        } else if (status === 'instance-status-overridden-as-transferred') {
-            createTransferredEvent(instance);
-            props.setOpenCustomDialog(false);
+            setDestinationIdMissing(true);
+            return;
         }
-        if (instance && status === 'instance-manually-rejected') {
-            createRejectEvent(instance);
-            props.setOpenCustomDialog(false);
-        } else {
-            setError(true);
+
+        const { sourceApplicationInstanceId, sourceApplicationId, sourceApplicationIntegrationId } =
+            row;
+        setSaving(true);
+        setSaveError(false);
+        try {
+            switch (status) {
+                case 'instance-manually-processed':
+                    await manualDispatchEvent(
+                        sourceApplicationInstanceId,
+                        sourceApplicationId,
+                        destinationId,
+                        sourceApplicationIntegrationId,
+                        comment
+                    );
+                    break;
+                case 'instance-manually-rejected':
+                    await manualRejectEvent(
+                        sourceApplicationInstanceId,
+                        sourceApplicationId,
+                        sourceApplicationIntegrationId,
+                        comment
+                    );
+                    break;
+                case 'instance-status-overridden-as-transferred':
+                    await manualTransferEvent(
+                        sourceApplicationInstanceId,
+                        sourceApplicationId,
+                        sourceApplicationIntegrationId,
+                        comment
+                    );
+                    break;
+            }
+            onSaved();
+        } catch {
+            setSaveError(true);
+        } finally {
+            setSaving(false);
         }
     };
-
-    const instanceStatuses: ISelectable[] = [
-        { displayName: t(props.row.status), value: props.row.displayName || 'Feilet' },
-        { displayName: t('instance-manually-processed'), value: 'instance-manually-processed' },
-        { displayName: t('instance-manually-rejected'), value: 'instance-manually-rejected' },
-        {
-            displayName: t('instance-status-overridden-as-transferred'),
-            value: 'instance-status-overridden-as-transferred',
-        },
-    ];
 
     return (
         <Modal
-            open={props.open}
-            ref={ref}
+            open
             header={{ heading: t('customStatus'), closeButton: false }}
             style={{ maxWidth: '500px' }}
-            onClose={() => props.setOpenCustomDialog(false)}>
+            onBeforeClose={() => !saving}
+            onClose={onClose}
+        >
             <Modal.Body>
-                <VStack gap={'4'}>
+                <VStack gap="4">
+                    <InlineMessage status="warning">{t('dialog.warning')}</InlineMessage>
+
                     <Select
                         label={t('dialog.status')}
                         value={status}
-                        onChange={(e) => setStatus(e.target.value)}>
-                        {instanceStatuses.map((status, i) => {
-                            return (
-                                <option key={i} value={status.value}>
-                                    {status.displayName}
-                                </option>
-                            );
-                        })}
+                        disabled={saving}
+                        onChange={(e) => setStatus(e.target.value)}
+                    >
+                        <option value="">{t(row.status)}</option>
+                        {manualStatuses.map((statusValue) => (
+                            <option key={statusValue} value={statusValue}>
+                                {t(statusValue)}
+                            </option>
+                        ))}
                     </Select>
-                    <TextField
-                        label={t('dialog.destinationId')}
-                        error={error && !destinationId && t('dialog.reqFieldMsg')}
-                        disabled={status !== 'instance-manually-processed'}
-                        description={t('dialog.destinationIdDesc')}
-                        onChange={(e) => setDestinationId(e.target.value)}
+                    {status === 'instance-manually-processed' && (
+                        <TextField
+                            label={t('dialog.destinationId')}
+                            error={
+                                destinationIdMissing && !destinationId && t('dialog.reqFieldMsg')
+                            }
+                            description={t('dialog.destinationIdDesc')}
+                            value={destinationId}
+                            disabled={saving}
+                            onChange={(e) => setDestinationId(e.target.value)}
+                        />
+                    )}
+
+                    <Textarea
+                        label={t('dialog.comment')}
+                        description={t('dialog.commentDesc')}
+                        value={comment ?? ''}
+                        disabled={saving}
+                        onChange={(e) => setComment(e.target.value)}
                     />
-                    <Alert variant="warning">{t('dialog.warning')}</Alert>
+                    {saveError && (
+                        <InlineMessage status="error">{t('dialog.saveError')}</InlineMessage>
+                    )}
                 </VStack>
             </Modal.Body>
             <Modal.Footer>
                 <Button
                     type="button"
+                    size="small"
                     variant="danger"
-                    onClick={() => {
-                        updateStatus(props.row, status, destinationId);
-                    }}>
+                    loading={saving}
+                    disabled={saving || !manualStatuses.includes(status)}
+                    onClick={saveStatus}
+                >
                     {t('dialog.confirm')}
                 </Button>
                 <Button
                     type="button"
+                    size="small"
                     variant="secondary"
-                    onClick={() => props.setOpenCustomDialog(false)}>
+                    disabled={saving}
+                    onClick={onClose}
+                >
                     {t('dialog.cancel')}
                 </Button>
             </Modal.Footer>

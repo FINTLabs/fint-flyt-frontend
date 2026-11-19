@@ -86,6 +86,7 @@ export interface ISummary {
     intermediateStorageStatus: string;
     destinationInstanceIds: string;
     displayName?: string;
+    comment?: string | null;
     // errors: IError[];
 }
 
@@ -127,7 +128,8 @@ export interface IInstanceEvents {
     isScrubbed: boolean;
     createdAt: string;
     createdBy: string;
-    createdByActor: ICreatedByActor
+    createdByActor: ICreatedByActor;
+    comment?: string | null;
 }
 
 export interface IInstanceEventHeaders {

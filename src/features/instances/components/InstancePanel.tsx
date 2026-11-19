@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Link, Loader, Table, Tooltip } from '@navikt/ds-react';
+import { Box, Button, HStack, Loader, Table, Tooltip } from '@navikt/ds-react';
 import { format } from 'date-fns';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import useInstanceFlowTrackingRepository from '../../../shared/api/useInstanceFlowTrackingRepository';
 import { IAlertMessage } from '../../../shared/types/TableTypes';
 import { IInstanceEvents, IInstanceEventsResponse } from '../types/Event';
+import InstanceEventCommentDialog from './InstanceEventCommentDialog';
 import InstanceEventErrorDialog from './InstanceEventErrorDialog';
 import { InstanceEventStatusWithText } from './InstanceEventStatusWithText';
 
@@ -23,10 +24,14 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
     const InstanceFlowTrackingRepository = useInstanceFlowTrackingRepository();
     const [selectedRow, setSelectedRow] = useState<IInstanceEvents>();
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const [openCommentDialog, setOpenCommentDialog] = React.useState(false);
     const [selectedInstances, setSelectedInstances] = useState<IInstanceEventsResponse>();
     const [rowCount, setRowCount] = useState<string>('10');
 
-    const [showCreatedByColumn, setShowCreatedByColumn] = useState(false);
+    const showCreatedByColumn = selectedInstances?.content.some(
+        (event) => event.createdByActor?.type === 'USER'
+    );
+    const showCommentColumn = selectedInstances?.content.some((event) => Boolean(event.comment));
 
     useEffect(() => {
         getSelectedInstances(
@@ -62,11 +67,6 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
                 );
                 setSelectedInstances(events);
-                setShowCreatedByColumn(
-                    events.content.some(
-                        (value: IInstanceEvents) => value.createdByActor?.type === 'USER'
-                    )
-                );
             } else {
                 props.onError({ message: t('errorMessage') });
             }
@@ -87,6 +87,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                             setOpen={setOpenErrorDialog}
                             isScrubbed={selectedRow?.isScrubbed}
                         />
+                        <InstanceEventCommentDialog
+                            comment={selectedRow?.comment}
+                            open={openCommentDialog}
+                            onClose={() => setOpenCommentDialog(false)}
+                        />
                         <Table size={'small'}>
                             <Table.Header>
                                 <Table.Row>
@@ -99,6 +104,11 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                     {showCreatedByColumn && (
                                         <Table.HeaderCell scope="col">
                                             {t('table.column.createdBy')}
+                                        </Table.HeaderCell>
+                                    )}
+                                    {showCommentColumn && (
+                                        <Table.HeaderCell scope="col">
+                                            {t('table.column.comment')}
                                         </Table.HeaderCell>
                                     )}
                                     <Tooltip content={t('table.column.archiveInstanceId')}>
@@ -117,44 +127,59 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {selectedInstances?.content.map((value, i) => {
+                                {selectedInstances?.content.map((instanceEvent, i) => {
                                     return (
                                         <Table.Row key={i}>
                                             <Table.DataCell>
-                                                {format(value.timestamp, 'dd/MM/yy HH:mm')}
+                                                {format(instanceEvent.timestamp, 'dd/MM/yy HH:mm')}
                                             </Table.DataCell>
                                             <Table.DataCell>
                                                 <InstanceEventStatusWithText
-                                                    event={value.category}
-                                                    errorLink={
-                                                        value.type === 'ERROR' && (
-                                                            <Link
-                                                                style={{ cursor: 'pointer' }}
-                                                                onClick={() => {
-                                                                    setSelectedRow(value);
-                                                                    setOpenErrorDialog(true);
-                                                                }}
-                                                            >
-                                                                {t('showError')}
-                                                            </Link>
-                                                        )
+                                                    event={instanceEvent.category}
+                                                    onShowError={
+                                                        instanceEvent.type === 'ERROR'
+                                                            ? () => {
+                                                                  setSelectedRow(instanceEvent);
+                                                                  setOpenErrorDialog(true);
+                                                              }
+                                                            : undefined
                                                     }
                                                 />
                                             </Table.DataCell>
                                             {showCreatedByColumn && (
                                                 <Table.DataCell>
-                                                    {value.createdByActor?.type === 'USER' &&
-                                                        value.createdBy}
+                                                    {instanceEvent.createdByActor?.type ===
+                                                        'USER' && instanceEvent.createdBy}
+                                                </Table.DataCell>
+                                            )}
+                                            {showCommentColumn && (
+                                                <Table.DataCell>
+                                                    {instanceEvent.comment && (
+                                                        <Button
+                                                            type="button"
+                                                            size="xsmall"
+                                                            variant="tertiary"
+                                                            onClick={() => {
+                                                                setSelectedRow(instanceEvent);
+                                                                setOpenCommentDialog(true);
+                                                            }}
+                                                        >
+                                                            {t('showComment')}
+                                                        </Button>
+                                                    )}
                                                 </Table.DataCell>
                                             )}
                                             <Table.DataCell>
-                                                {value.instanceFlowHeaders.archiveInstanceId}
+                                                {
+                                                    instanceEvent.instanceFlowHeaders
+                                                        .archiveInstanceId
+                                                }
                                             </Table.DataCell>
                                             <Table.DataCell>
-                                                {value.instanceFlowHeaders.configurationId}
+                                                {instanceEvent.instanceFlowHeaders.configurationId}
                                             </Table.DataCell>
                                             <Table.DataCell>
-                                                {value.instanceFlowHeaders.correlationId}
+                                                {instanceEvent.instanceFlowHeaders.correlationId}
                                             </Table.DataCell>
                                         </Table.Row>
                                     );

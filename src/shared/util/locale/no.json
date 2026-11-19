@@ -198,7 +198,8 @@
         },
         "instances": {
             "header": "Instanser",
-            "showError": "vis feilmelding",
+            "showError": "Vis feilmelding",
+            "showComment": "Vis kommentar",
             "errors": "Feilmeldinger",
             "oneError": "Feilmelding",
             "errorMessage": "Det oppsto en feil under henting av data, prøv igjen senere.",
@@ -211,10 +212,13 @@
                 "cancel": "Avbryt",
                 "confirm": "Lagre",
                 "destinationId": "Destinasjon ID",
-                "destinationIdDesc": "Kreves på instanser manuelt opprettet i destinasjon",
+                "destinationIdDesc": "Kreves på instanser manuelt opprettet i destinasjon.",
+                "comment": "Kommentar",
+                "saveError": "Kunne ikke lagre status. Prøv igjen.",
+                "commentDesc": "Valgfri kommentar til handlingen.",
                 "status": "Status",
                 "reqFieldMsg": "Påkrevd felt",
-                "warning": "Legger til en manuell status, og erstatter systemgenerert status, vær sikker før du endrer, handlingen kan ikke angres"
+                "warning": "Legger til en manuell status og erstatter systemgenerert status. Handlingen kan ikke angres."
             },
             "STORED": "Lagret",
             "IN_PROGRESS": "Pågår",
@@ -474,7 +478,8 @@
                     "archiveInstanceId": "Destinasjons instans-id",
                     "archiveInstanceIdShort": "Dest. instans-id",
                     "timestamp": "Tidspunkt",
-                    "createdBy": "Utført av"
+                    "createdBy": "Utført av",
+                    "comment": "Kommentar"
                 }
             },
             "help": {

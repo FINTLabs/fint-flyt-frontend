@@ -11,6 +11,10 @@ export const VERSION_DATA_EN: VersionEntry[] = [
                 title: 'New field for closure method:',
                 text: 'You can now select a closure method in the configuration form.',
             },
+            {
+                title: 'Comments when setting a status manually.',
+                text: 'You can now add an optional comment when you set an instance’s status manually. Select “Show comment” next to the status in the instance overview or in the “Comment” column in the history.',
+            },
         ],
     },
     {

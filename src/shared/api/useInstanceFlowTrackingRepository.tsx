@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { Filters } from '../../features/instances/filter/types';
 import {
+    IInstanceEvents,
     IInstanceEventsResponse,
     IIntegrationDetailedStatistics,
     ISummary,
@@ -95,9 +96,10 @@ export default function useInstanceFlowTrackingRepository() {
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
         archiveInstanceId: string,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-manually-processed`,
             {
@@ -105,21 +107,24 @@ export default function useInstanceFlowTrackingRepository() {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };
     const manualRejectEvent = (
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-manually-rejected`,
             {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };
@@ -127,15 +132,17 @@ export default function useInstanceFlowTrackingRepository() {
     const manualTransferEvent = (
         sourceApplicationInstanceId: string,
         sourceApplicationId: number,
-        sourceApplicationIntegrationId: string
+        sourceApplicationIntegrationId: string,
+        comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`,
             {
                 sourceApplicationId,
                 sourceApplicationInstanceId,
                 sourceApplicationIntegrationId,
+                comment,
             }
         );
     };

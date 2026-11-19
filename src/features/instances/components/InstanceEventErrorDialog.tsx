@@ -61,7 +61,7 @@ const InstanceEventErrorDialog: React.FunctionComponent<Props> = ({
                     onClose={() => setOpen(false)}
                     header={{
                         heading: headerTitle,
-                        closeButton: false,
+                        closeButton: true,
                     }}
                     width="medium"
                 >
@@ -87,7 +87,7 @@ const InstanceEventErrorDialog: React.FunctionComponent<Props> = ({
                         </Box>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" onClick={() => setOpen(false)}>
+                        <Button type="button" onClick={() => setOpen(false)} size="small">
                             {t('button.close')}
                         </Button>
                     </Modal.Footer>
