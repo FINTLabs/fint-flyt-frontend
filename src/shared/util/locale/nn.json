@@ -211,6 +211,7 @@
                 "destinationId": "Destinasjon ID",
                 "destinationIdDesc": "Trengast på instansar manuelt oppretta i destinasjon.",
                 "comment": "Kommentar",
+                "saveError": "Kunne ikkje lagre status. Prøv igjen.",
                 "commentDesc": "Valgfri kommentar til handlinga.",
                 "status": "Status",
                 "reqFieldMsg": "Påkrevd felt",

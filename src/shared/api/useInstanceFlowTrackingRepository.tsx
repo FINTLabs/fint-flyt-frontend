@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { Filters } from '../../features/instances/filter/types';
 import {
+    IInstanceEvents,
     IInstanceEventsResponse,
     IIntegrationDetailedStatistics,
     ISummary,
@@ -98,7 +99,7 @@ export default function useInstanceFlowTrackingRepository() {
         sourceApplicationIntegrationId: string,
         comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-manually-processed`,
             {
@@ -116,7 +117,7 @@ export default function useInstanceFlowTrackingRepository() {
         sourceApplicationIntegrationId: string,
         comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-manually-rejected`,
             {
@@ -134,7 +135,7 @@ export default function useInstanceFlowTrackingRepository() {
         sourceApplicationIntegrationId: string,
         comment?: string
     ) => {
-        return post(
+        return post<IInstanceEvents>(
             API_URL,
             `/api/intern/instance-flow-tracking/events/instance-status-overridden-as-transferred`,
             {

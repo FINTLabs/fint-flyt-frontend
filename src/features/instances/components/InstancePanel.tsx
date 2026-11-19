@@ -93,7 +93,7 @@ const InstancePanel: React.FunctionComponent<Props> = (props: Props) => {
                         <InstanceEventCommentDialog
                             comment={selectedRow?.comment}
                             open={openCommentDialog}
-                            setOpen={setOpenCommentDialog}
+                            onClose={() => setOpenCommentDialog(false)}
                         />
                         <Table size={'small'}>
                             <Table.Header>

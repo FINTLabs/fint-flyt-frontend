@@ -131,6 +131,7 @@ describe('Testing instance list', () => {
             .find('td')
             .eq(2)
             .as('userCell');
+        cy.get('#instance-panel-0 tbody tr').first().should('contain.text', 'Manuelt behandlet');
         cy.get('@userCell').should('contain.text', 'Test Testesen');
         cy.get('@userCell').find('a').should('contain.text', 'Vis kommentar').click();
         cy.contains('Manuelt overført etter feil i mapping').should('be.visible');
@@ -144,6 +145,70 @@ describe('Testing instance list', () => {
         cy.get('@systemCell').should('not.contain.text', 'Test Testesen');
         cy.get('@systemCell').should('not.contain.text', 'Vis kommentar');
         cy.get('@systemCell').find('a').should('not.exist');
+    });
+
+    it('saves a long comment, shows it with the new status and clears the next dialog', () => {
+        // Aksel's autosizing textarea can report a deferred resize in the browser.
+        cy.on('uncaught:exception', (error) => {
+            if (error.message.includes('ResizeObserver loop completed with undelivered notifications')) {
+                return false;
+            }
+        });
+
+        const comment = 'Vurdert av saksbehandler. '.repeat(12).trim();
+        let summaries;
+        cy.fixture('filter/instanser.json').then((instances) => {
+            const failed = instances.find((instance) => instance.status === 'FAILED');
+            summaries = [
+                { ...failed, sourceApplicationInstanceId: 'first-instance', comment: null },
+                { ...failed, sourceApplicationInstanceId: 'next-instance', comment: null },
+            ];
+        });
+        cy.intercept('GET', '**/instance-flow-tracking/summaries?size=10', (request) => {
+            request.reply({ body: summaries });
+        }).as('manualSummaries');
+        cy.intercept(
+            'POST',
+            '**/instance-flow-tracking/events/instance-manually-rejected',
+            (request) => {
+                const summary = summaries.find(
+                    (instance) =>
+                        instance.sourceApplicationInstanceId === request.body.sourceApplicationInstanceId
+                );
+                summary.status = 'ABORTED';
+                summary.comment = request.body.comment ?? null;
+                request.reply({ statusCode: 200, body: { comment: summary.comment } });
+            }
+        ).as('manualStatus');
+
+        prep();
+        cy.wait('@manualSummaries');
+        cy.get('#0-action-toggle > button').click();
+        cy.get('#statusButton').click();
+        cy.get('dialog[open] select').select('instance-manually-rejected');
+        cy.get('dialog[open] textarea:not([aria-hidden=true])').type(comment, { delay: 0 });
+        cy.contains('dialog[open] button', 'Lagre').click();
+        cy.wait('@manualStatus').its('request.body').should('deep.include', {
+            sourceApplicationInstanceId: 'first-instance',
+            comment,
+        });
+        cy.wait('@manualSummaries');
+
+        cy.contains('#instance-row-0 button', 'Vis kommentar').click();
+        cy.get('dialog[open]').should('contain.text', comment);
+        cy.contains('dialog[open] button', 'Lukk').click();
+
+        cy.get('#instance-row-1').should('not.contain.text', 'Vis kommentar');
+        cy.get('#1-action-toggle > button').click();
+        cy.get('#statusButton').click();
+        cy.get('dialog[open] textarea:not([aria-hidden=true])').should('have.value', '');
+        cy.get('dialog[open] select').should('have.value', '');
+        cy.get('dialog[open] select').select('instance-manually-rejected');
+        cy.contains('dialog[open] button', 'Lagre').click();
+        cy.wait('@manualStatus').then(({ request }) => {
+            expect(request.body.sourceApplicationInstanceId).to.equal('next-instance');
+            expect(request.body).not.to.have.property('comment');
+        });
     });
 
     it('it should post correct id for retry', () => {

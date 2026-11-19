@@ -11,8 +11,7 @@
         "configurationId": null,
         "archiveInstanceId": null
       },
-      "category": "instance-manually-processed",
-      "name": "instance-manually-processed",
+      "category": "INSTANCE_MANUALLY_PROCESSED",
       "timestamp": "2023-06-06T15:16:33+02:00",
       "type": "INFO",
       "applicationId": "fint-flyt-instance-service",
@@ -35,8 +34,7 @@
         "configurationId": 6,
         "archiveInstanceId": "2023/132"
       },
-      "category": "instance-dispatched",
-      "name": "instance-dispatched",
+      "category": "INSTANCE_DISPATCHED",
       "timestamp": "2023-06-02T13:40:48.589",
       "type": "INFO",
       "applicationId": "fint-flyt-dispatch-service",
@@ -44,7 +42,8 @@
       "createdBy": "system",
       "createdByActor": {
         "type": "SYSTEM"
-      }
+      },
+      "comment": null
     }
   ],
   "pageable": {

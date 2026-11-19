@@ -210,6 +210,7 @@
                 "confirm": "Save",
                 "destinationId": "Destination ID",
                 "comment": "Comment",
+                "saveError": "Could not save the status. Try again.",
                 "commentDesc": "Optional comment for this action.",
                 "destinationIdDesc": "Required on instances manually created in destination.",
                 "status": "Status",
