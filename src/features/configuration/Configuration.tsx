@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router';
 import useIntegrationConfigurationRepository from '../../shared/api/useIntegrationConfigurationRepository';
 import { ProblemDetail } from '../../shared/api/utils/apiErrorUtils';
 import AlertMessage from '../../shared/components/AlertMessage';
+import formStyles from '../../shared/components/inputs/formStyles.module.css';
+import StringField from '../../shared/components/inputs/StringField';
 import scrollStyles from '../../shared/components/layout/scrollLayout.module.css';
 import { AuthorizationContext } from '../../shared/context/AuthorizationContext';
 import { IntegrationContext } from '../../shared/context/IntegrationContext';
@@ -26,12 +28,10 @@ import { pruneObjectMapping } from '../../shared/util/mapping/helpers/pruning';
 import { IIntegrationPatch, IntegrationState } from '../newIntegration/types/Integration';
 import CheckboxValueComponent from './components/CheckboxValueComponent';
 import IncomingData from './components/IncomingData';
-import StringField from '../../shared/components/inputs/StringField';
 import OutgoingDataComponent from './components/OutgoingDataComponent';
 import { ConfigurationContext } from './context/ConfigurationContext';
 import EditingProvider, { EditingContext } from './context/EditingContext';
 import { IConfiguration, IConfigurationPatch, IObjectMapping } from './types/Configuration';
-import formStyles from '../../shared/components/inputs/formStyles.module.css';
 
 const Configuration: React.FC = () => {
     const IntegrationConfigurationRepository = useIntegrationConfigurationRepository();

@@ -74,6 +74,10 @@ const DynamicStringOrSearchSelectValueComponent: React.FunctionComponent<Props> 
                 description={props.description}
                 selectables={[
                     {
+                        displayName: `- ${t('label.resetValue')} -`,
+                        value: '',
+                    },
+                    {
                         displayName: t('label.customValue'),
                         value: '$dynamic',
                     },

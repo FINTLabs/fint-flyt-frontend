@@ -76,7 +76,8 @@
                 "checkLabel": "Ferdigstilt",
                 "activeLabel": "Sett som aktiv",
                 "placeholder": "Skriv eller trekk inn frå metadata",
-                "formatError": "Feltet oppfyller ikkje påkrevd format"
+                "formatError": "Feltet oppfyller ikkje påkrevd format",
+                "resetValue": "Nullstill feltet"
             },
             "button": {
                 "submit": "Lagra",
